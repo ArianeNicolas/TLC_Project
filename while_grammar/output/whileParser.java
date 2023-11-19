@@ -1,4 +1,4 @@
-// $ANTLR 3.5.1 C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammar\\while.g 2023-11-14 16:49:48
+// $ANTLR 3.5.1 C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammar\\while.g 2023-11-19 21:56:19
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -60,9 +60,9 @@ public class whileParser extends DebugParser {
 
 
 	public static final String[] ruleNames = new String[] {
-		"invalidRule", "lExpr", "input", "command", "expression", "vars", "exprBase", 
-		"commands", "output", "function", "startProgram", "definition", "program", 
-		"exprs", "inputSub"
+		"invalidRule", "exprs", "commands", "program", "inputSub", "lExpr", "expression", 
+		"startProgram", "input", "command", "definition", "output", "function", 
+		"vars", "exprBase"
 	};
 
 	public static final boolean[] decisionCanBacktrack = new boolean[] {

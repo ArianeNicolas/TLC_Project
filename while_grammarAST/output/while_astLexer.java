@@ -1,4 +1,4 @@
-// $ANTLR 3.5.1 C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g 2023-11-14 18:01:28
+// $ANTLR 3.5.1 C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g 2023-11-19 22:06:27
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -8,8 +8,6 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class while_astLexer extends Lexer {
 	public static final int EOF=-1;
-	public static final int T__19=19;
-	public static final int T__20=20;
 	public static final int T__21=21;
 	public static final int T__22=22;
 	public static final int T__23=23;
@@ -35,21 +33,25 @@ public class while_astLexer extends Lexer {
 	public static final int T__43=43;
 	public static final int T__44=44;
 	public static final int T__45=45;
-	public static final int Dec=4;
-	public static final int EXPR=5;
-	public static final int FOR=6;
-	public static final int FOREACH=7;
-	public static final int FUNCDEF=8;
-	public static final int IF=9;
-	public static final int IN=10;
-	public static final int Maj=11;
-	public static final int Min=12;
-	public static final int Symbol=13;
-	public static final int VARDEF=14;
-	public static final int VARIABLES=15;
-	public static final int Variable=16;
-	public static final int WHILE=17;
-	public static final int WS=18;
+	public static final int T__46=46;
+	public static final int T__47=47;
+	public static final int DEF=4;
+	public static final int Dec=5;
+	public static final int EXPR=6;
+	public static final int EXPRBASE=7;
+	public static final int FOR=8;
+	public static final int FOREACH=9;
+	public static final int FUNCDEF=10;
+	public static final int IF=11;
+	public static final int IN=12;
+	public static final int Maj=13;
+	public static final int Min=14;
+	public static final int Symbol=15;
+	public static final int VARDEF=16;
+	public static final int VARIABLES=17;
+	public static final int Variable=18;
+	public static final int WHILE=19;
+	public static final int WS=20;
 
 	// delegates
 	// delegators
@@ -66,55 +68,15 @@ public class while_astLexer extends Lexer {
 	}
 	@Override public String getGrammarFileName() { return "C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g"; }
 
-	// $ANTLR start "T__19"
-	public final void mT__19() throws RecognitionException {
-		try {
-			int _type = T__19;
-			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:2:7: ( '%' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:2:9: '%'
-			{
-			match('%'); 
-			}
-
-			state.type = _type;
-			state.channel = _channel;
-		}
-		finally {
-			// do for sure before leaving
-		}
-	}
-	// $ANTLR end "T__19"
-
-	// $ANTLR start "T__20"
-	public final void mT__20() throws RecognitionException {
-		try {
-			int _type = T__20;
-			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:3:7: ( '(' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:3:9: '('
-			{
-			match('('); 
-			}
-
-			state.type = _type;
-			state.channel = _channel;
-		}
-		finally {
-			// do for sure before leaving
-		}
-	}
-	// $ANTLR end "T__20"
-
 	// $ANTLR start "T__21"
 	public final void mT__21() throws RecognitionException {
 		try {
 			int _type = T__21;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:4:7: ( ')' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:4:9: ')'
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:2:7: ( '%' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:2:9: '%'
 			{
-			match(')'); 
+			match('%'); 
 			}
 
 			state.type = _type;
@@ -131,10 +93,10 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__22;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:5:7: ( ',' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:5:9: ','
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:3:7: ( '(' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:3:9: '('
 			{
-			match(','); 
+			match('('); 
 			}
 
 			state.type = _type;
@@ -151,10 +113,10 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__23;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:6:7: ( ':' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:6:9: ':'
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:4:7: ( ')' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:4:9: ')'
 			{
-			match(':'); 
+			match(')'); 
 			}
 
 			state.type = _type;
@@ -171,11 +133,10 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__24;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:7:7: ( ':=' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:7:9: ':='
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:5:7: ( ',' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:5:9: ','
 			{
-			match(":="); 
-
+			match(','); 
 			}
 
 			state.type = _type;
@@ -192,10 +153,10 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__25;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:8:7: ( ';' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:8:9: ';'
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:6:7: ( ':' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:6:9: ':'
 			{
-			match(';'); 
+			match(':'); 
 			}
 
 			state.type = _type;
@@ -212,10 +173,10 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__26;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:9:7: ( '=?' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:9:9: '=?'
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:7:7: ( ':=' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:7:9: ':='
 			{
-			match("=?"); 
+			match(":="); 
 
 			}
 
@@ -233,11 +194,10 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__27;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:10:7: ( 'cons ' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:10:9: 'cons '
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:8:7: ( ';' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:8:9: ';'
 			{
-			match("cons "); 
-
+			match(';'); 
 			}
 
 			state.type = _type;
@@ -254,10 +214,10 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__28;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:11:7: ( 'do' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:11:9: 'do'
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:9:7: ( '=?' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:9:9: '=?'
 			{
-			match("do"); 
+			match("=?"); 
 
 			}
 
@@ -275,10 +235,10 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__29;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:12:7: ( 'else' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:12:9: 'else'
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:10:7: ( 'cons ' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:10:9: 'cons '
 			{
-			match("else"); 
+			match("cons "); 
 
 			}
 
@@ -296,10 +256,10 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__30;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:13:7: ( 'fi' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:13:9: 'fi'
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:11:7: ( 'do' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:11:9: 'do'
 			{
-			match("fi"); 
+			match("do"); 
 
 			}
 
@@ -317,10 +277,10 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__31;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:14:7: ( 'for' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:14:9: 'for'
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:12:7: ( 'else' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:12:9: 'else'
 			{
-			match("for"); 
+			match("else"); 
 
 			}
 
@@ -338,10 +298,10 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__32;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:15:7: ( 'foreach' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:15:9: 'foreach'
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:13:7: ( 'fi' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:13:9: 'fi'
 			{
-			match("foreach"); 
+			match("fi"); 
 
 			}
 
@@ -359,10 +319,10 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__33;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:16:7: ( 'function ' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:16:9: 'function '
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:14:7: ( 'for' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:14:9: 'for'
 			{
-			match("function "); 
+			match("for"); 
 
 			}
 
@@ -380,10 +340,10 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__34;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:17:7: ( 'hd ' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:17:9: 'hd '
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:15:7: ( 'foreach' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:15:9: 'foreach'
 			{
-			match("hd "); 
+			match("foreach"); 
 
 			}
 
@@ -401,10 +361,10 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__35;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:18:7: ( 'if' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:18:9: 'if'
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:16:7: ( 'function ' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:16:9: 'function '
 			{
-			match("if"); 
+			match("function "); 
 
 			}
 
@@ -422,10 +382,10 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__36;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:19:7: ( 'in' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:19:9: 'in'
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:17:7: ( 'hd ' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:17:9: 'hd '
 			{
-			match("in"); 
+			match("hd "); 
 
 			}
 
@@ -443,10 +403,10 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__37;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:20:7: ( 'list ' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:20:9: 'list '
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:18:7: ( 'if' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:18:9: 'if'
 			{
-			match("list "); 
+			match("if"); 
 
 			}
 
@@ -464,10 +424,10 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__38;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:21:7: ( 'nil' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:21:9: 'nil'
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:19:7: ( 'in' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:19:9: 'in'
 			{
-			match("nil"); 
+			match("in"); 
 
 			}
 
@@ -485,10 +445,10 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__39;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:22:7: ( 'nop' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:22:9: 'nop'
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:20:7: ( 'list ' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:20:9: 'list '
 			{
-			match("nop"); 
+			match("list "); 
 
 			}
 
@@ -506,10 +466,10 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__40;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:23:7: ( 'od' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:23:9: 'od'
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:21:7: ( 'nil' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:21:9: 'nil'
 			{
-			match("od"); 
+			match("nil"); 
 
 			}
 
@@ -527,10 +487,10 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__41;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:24:7: ( 'read' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:24:9: 'read'
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:22:7: ( 'nop' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:22:9: 'nop'
 			{
-			match("read"); 
+			match("nop"); 
 
 			}
 
@@ -548,10 +508,10 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__42;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:25:7: ( 'then' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:25:9: 'then'
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:23:7: ( 'od' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:23:9: 'od'
 			{
-			match("then"); 
+			match("od"); 
 
 			}
 
@@ -569,10 +529,10 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__43;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:26:7: ( 'tl ' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:26:9: 'tl '
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:24:7: ( 'read' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:24:9: 'read'
 			{
-			match("tl "); 
+			match("read"); 
 
 			}
 
@@ -590,10 +550,10 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__44;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:27:7: ( 'while' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:27:9: 'while'
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:25:7: ( 'then' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:25:9: 'then'
 			{
-			match("while"); 
+			match("then"); 
 
 			}
 
@@ -611,6 +571,48 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = T__45;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:26:7: ( 'tl ' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:26:9: 'tl '
+			{
+			match("tl "); 
+
+			}
+
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "T__45"
+
+	// $ANTLR start "T__46"
+	public final void mT__46() throws RecognitionException {
+		try {
+			int _type = T__46;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:27:7: ( 'while' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:27:9: 'while'
+			{
+			match("while"); 
+
+			}
+
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "T__46"
+
+	// $ANTLR start "T__47"
+	public final void mT__47() throws RecognitionException {
+		try {
+			int _type = T__47;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:28:7: ( 'write ' )
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:28:9: 'write '
 			{
@@ -625,14 +627,14 @@ public class while_astLexer extends Lexer {
 			// do for sure before leaving
 		}
 	}
-	// $ANTLR end "T__45"
+	// $ANTLR end "T__47"
 
 	// $ANTLR start "Maj"
 	public final void mMaj() throws RecognitionException {
 		try {
 			int _type = Maj;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:19:5: ( ( 'A' .. 'Z' ) )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:22:9: ( ( 'A' .. 'Z' ) )
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z') ) {
@@ -659,7 +661,7 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = Min;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:20:5: ( ( 'a' .. 'z' ) )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:23:9: ( ( 'a' .. 'z' ) )
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:
 			{
 			if ( (input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
@@ -686,7 +688,7 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = Dec;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:21:5: ( ( '0' .. '9' ) )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:24:9: ( ( '0' .. '9' ) )
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:
 			{
 			if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
@@ -713,8 +715,8 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = WS;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:22:4: ( ' ' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:22:6: ' '
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:25:9: ( ' ' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:25:11: ' '
 			{
 			match(' '); 
 			}
@@ -733,12 +735,12 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = Variable;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:24:9: ( Maj ( Maj | Min | Dec )* ( '!' | '?' )? )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:24:12: Maj ( Maj | Min | Dec )* ( '!' | '?' )?
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:27:13: ( Maj ( Maj | Min | Dec )* ( '!' | '?' )? )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:27:15: Maj ( Maj | Min | Dec )* ( '!' | '?' )?
 			{
 			mMaj(); 
 
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:24:16: ( Maj | Min | Dec )*
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:27:19: ( Maj | Min | Dec )*
 			loop1:
 			while (true) {
 				int alt1=2;
@@ -767,7 +769,7 @@ public class while_astLexer extends Lexer {
 				}
 			}
 
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:24:30: ( '!' | '?' )?
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:27:38: ( '!' | '?' )?
 			int alt2=2;
 			int LA2_0 = input.LA(1);
 			if ( (LA2_0=='!'||LA2_0=='?') ) {
@@ -806,12 +808,12 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = Symbol;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:25:8: ( Min ( Maj | Min | Dec )* ( '!' | '?' )? )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:25:11: Min ( Maj | Min | Dec )* ( '!' | '?' )?
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:28:13: ( Min ( Maj | Min | Dec )* ( '!' | '?' )? )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:28:15: Min ( Maj | Min | Dec )* ( '!' | '?' )?
 			{
 			mMin(); 
 
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:25:15: ( Maj | Min | Dec )*
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:28:19: ( Maj | Min | Dec )*
 			loop3:
 			while (true) {
 				int alt3=2;
@@ -840,7 +842,7 @@ public class while_astLexer extends Lexer {
 				}
 			}
 
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:25:29: ( '!' | '?' )?
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:28:38: ( '!' | '?' )?
 			int alt4=2;
 			int LA4_0 = input.LA(1);
 			if ( (LA4_0=='!'||LA4_0=='?') ) {
@@ -876,196 +878,196 @@ public class while_astLexer extends Lexer {
 
 	@Override
 	public void mTokens() throws RecognitionException {
-		// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:8: ( T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | Maj | Min | Dec | WS | Variable | Symbol )
+		// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:8: ( T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | Maj | Min | Dec | WS | Variable | Symbol )
 		int alt5=33;
 		alt5 = dfa5.predict(input);
 		switch (alt5) {
 			case 1 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:10: T__19
-				{
-				mT__19(); 
-
-				}
-				break;
-			case 2 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:16: T__20
-				{
-				mT__20(); 
-
-				}
-				break;
-			case 3 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:22: T__21
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:10: T__21
 				{
 				mT__21(); 
 
 				}
 				break;
-			case 4 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:28: T__22
+			case 2 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:16: T__22
 				{
 				mT__22(); 
 
 				}
 				break;
-			case 5 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:34: T__23
+			case 3 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:22: T__23
 				{
 				mT__23(); 
 
 				}
 				break;
-			case 6 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:40: T__24
+			case 4 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:28: T__24
 				{
 				mT__24(); 
 
 				}
 				break;
-			case 7 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:46: T__25
+			case 5 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:34: T__25
 				{
 				mT__25(); 
 
 				}
 				break;
-			case 8 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:52: T__26
+			case 6 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:40: T__26
 				{
 				mT__26(); 
 
 				}
 				break;
-			case 9 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:58: T__27
+			case 7 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:46: T__27
 				{
 				mT__27(); 
 
 				}
 				break;
-			case 10 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:64: T__28
+			case 8 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:52: T__28
 				{
 				mT__28(); 
 
 				}
 				break;
-			case 11 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:70: T__29
+			case 9 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:58: T__29
 				{
 				mT__29(); 
 
 				}
 				break;
-			case 12 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:76: T__30
+			case 10 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:64: T__30
 				{
 				mT__30(); 
 
 				}
 				break;
-			case 13 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:82: T__31
+			case 11 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:70: T__31
 				{
 				mT__31(); 
 
 				}
 				break;
-			case 14 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:88: T__32
+			case 12 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:76: T__32
 				{
 				mT__32(); 
 
 				}
 				break;
-			case 15 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:94: T__33
+			case 13 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:82: T__33
 				{
 				mT__33(); 
 
 				}
 				break;
-			case 16 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:100: T__34
+			case 14 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:88: T__34
 				{
 				mT__34(); 
 
 				}
 				break;
-			case 17 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:106: T__35
+			case 15 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:94: T__35
 				{
 				mT__35(); 
 
 				}
 				break;
-			case 18 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:112: T__36
+			case 16 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:100: T__36
 				{
 				mT__36(); 
 
 				}
 				break;
-			case 19 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:118: T__37
+			case 17 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:106: T__37
 				{
 				mT__37(); 
 
 				}
 				break;
-			case 20 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:124: T__38
+			case 18 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:112: T__38
 				{
 				mT__38(); 
 
 				}
 				break;
-			case 21 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:130: T__39
+			case 19 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:118: T__39
 				{
 				mT__39(); 
 
 				}
 				break;
-			case 22 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:136: T__40
+			case 20 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:124: T__40
 				{
 				mT__40(); 
 
 				}
 				break;
-			case 23 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:142: T__41
+			case 21 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:130: T__41
 				{
 				mT__41(); 
 
 				}
 				break;
-			case 24 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:148: T__42
+			case 22 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:136: T__42
 				{
 				mT__42(); 
 
 				}
 				break;
-			case 25 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:154: T__43
+			case 23 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:142: T__43
 				{
 				mT__43(); 
 
 				}
 				break;
-			case 26 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:160: T__44
+			case 24 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:148: T__44
 				{
 				mT__44(); 
 
 				}
 				break;
-			case 27 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:166: T__45
+			case 25 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:154: T__45
 				{
 				mT__45(); 
+
+				}
+				break;
+			case 26 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:160: T__46
+				{
+				mT__46(); 
+
+				}
+				break;
+			case 27 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:166: T__47
+				{
+				mT__47(); 
 
 				}
 				break;
@@ -1292,7 +1294,7 @@ public class while_astLexer extends Lexer {
 		}
 		@Override
 		public String getDescription() {
-			return "1:1: Tokens : ( T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | Maj | Min | Dec | WS | Variable | Symbol );";
+			return "1:1: Tokens : ( T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | Maj | Min | Dec | WS | Variable | Symbol );";
 		}
 	}
 

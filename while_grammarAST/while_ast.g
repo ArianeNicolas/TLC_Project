@@ -1,62 +1,140 @@
 grammar while_ast;
-options
-{
-	output=AST;
-}
-tokens
-{
-	FUNCDEF;
-	VARDEF;
-	VARIABLES;
-	EXPR;
-	IF;
-	WHILE;
-	FOR;
-	FOREACH;
-	IN;
+
+options {
+    output=AST;
 }
 
-Maj	:	('A'..'Z');
-Min	:	('a'..'z');
-Dec	:	('0'..'9');
-WS	:	' ';
+tokens {
+    START;
+    FUNCTION;
+    FUNCDEF;
+    VARDEF;
+    VARIABLES;
+    EXPR;
+    IF;
+    WHILE;
+    FOR;
+    FOREACH;
+    IN;
+    EXPR;
+    EXPRBASE;
+    CONS;
+    LIST;
+    HD;
+    TL;
+    PROGRAM;
+    OUTPUT;
+    THEN;
+    ELSE;
+    DO;
+    INPUTS;
+}
 
-Variable:	 Maj (Maj|Min|Dec)*('!'|'?')?;
-Symbol	:	 Min (Maj|Min|Dec)*('!'|'?')?;
+Maj     : ('A'..'Z');
+Min     : ('a'..'z');
+Dec     : ('0'..'9');
+WS      : ' ';
 
-program	:	function program?;
-function:	 'function ' Symbol WS?':' definition -> ^(FUNCDEF Symbol definition);
-definition:	 'read'  WS? input '%' commands '%' 'write ' output -> WS;
-input	:	 inputSub?;
-inputSub 
-	:	Variable WS? (','WS? inputSub)?;
-output 	:	Variable (',' output)?;
-commands:	command (';' commands)?;
-command :	 'nop'|decl|if|while|foreach;
-		
-decl	:	(vars WS?':='WS? exprs) -> ^(VARDEF vars exprs) ;
-if	:	('if' WS?  expression  WS? 'then' WS? commands  WS? ('else' WS? commands)?  WS? 'fi') -> ^(IF expression commands);
-while	:	('while' WS? expression  WS? 'do' WS? commands  WS? 'od')-> ^(WHILE expression commands);
-for	:	('for' WS?  expression WS? 'do' WS? commands  WS? 'od')-> ^(FOR expression commands);
-foreach	:	('foreach' WS? Variable WS? 'in' WS? expression WS? 'do' WS? commands WS? 'od')-> ^(FOREACH ^(IN Variable expression) commands);
-		
-vars 	:	Variable (',' vars)? -> ^(VARIABLES Variable vars*);
+Variable    : Maj (Maj | Min | Dec)* ('!' | '?')?;
+Symbol      : Min (Maj | Min | Dec)* ('!' | '?')?;
 
-exprs	:	expression (',' exprs)? -> ^(EXPR expression exprs*);
+program
+    : function program? -> ^(PROGRAM function program?)
+    ;
 
-exprBase:	 'nil'WS? | 
-		Variable| 
-		Symbol|
-		('(' 'cons ' lExpr ')') | ('(' 'list ' lExpr ')')|
-		('(' 'hd ' exprBase ')') | ('(' 'tl ' exprBase ')')|
-		('(' Symbol WS? lExpr ')');
+function
+    : 'function ' Symbol WS* ':' definition -> ^(FUNCDEF Symbol definition)
+    ;
 
-expression 
-	:	exprBase WS?('=?' WS? exprBase)?;
+definition
+    : 'read' WS* input '%' WS* commands WS*'%' WS* 'write ' output -> ^(FUNCTION input commands output)
+    ;
 
-lExpr	:	exprBase  WS? lExpr?;
+input
+    : inputSub? ->  ^(INPUTS inputSub?)
+    ;
+
+inputSub
+    : Variable WS* (',' WS* inputSub)? -> Variable inputSub?
+    ;
+
+output
+    : Variable (',' output)? -> ^(OUTPUT Variable output?)
+    ;
+
+commands
+    : command ( WS* ';' WS* commands)? -> command commands? 
+    ;
+
+command
+    : 'nop' | decl | if_ | for_ | while_ | foreach_ ;
+
+decl
+    : (vars WS* ':=' WS* exprs) -> ^(VARDEF vars exprs)
+    ;
+
+if_
+    : ('if' WS* expression WS* then_  WS* else_ 'fi') -> ^(IF expression then_ else_?)
+    ;
+    
+then_	:	'then' WS* commands WS* -> ^(THEN commands);
+
+else_	:	('else' WS* commands)? -> ^(ELSE commands);
+
+while_
+    : ('while' WS* expression WS* do_) -> ^(WHILE expression do_)
+    ;
+    
+do_ 	: 'do' WS* commands WS* 'od' -> ^(DO commands);
+
+for_
+    : ('for' WS* expression WS* do_) -> ^(FOR expression do_)
+    ;
+
+foreach_
+    : ('foreach' WS* Variable WS* 'in' WS* expression WS* do_) -> ^(FOREACH ^(IN Variable expression) do_)
+    ;
+
+vars
+    : Variable (',' vars)? -> ^(VARIABLES Variable vars*)
+    ;
+
+exprs
+    : expression (',' exprs)? -> expression exprs*
+    ;
+
+exprBase   :  nil_
+    | variable
+    | cons | list
+    | hd | tl
+    | symbolExpr 
+    ;
+    
+nil_	:	('nil'WS*) -> 'nil';
+    
+variable:	Variable -> Variable;
+
+cons	:	'(' WS* 'cons ' lExpr WS* ')' -> ^(CONS lExpr);
+
+list	:	'('WS* 'list ' lExpr WS* ')' -> ^(LIST lExpr);
+
+hd	:	'('WS* 'hd ' exprBase WS*')' -> ^(HD exprBase);
+
+tl	:	'(' WS*'tl ' exprBase WS*')' -> ^(TL exprBase);
+
+symbolExpr
+	:	'(' Symbol WS* lExpr? ')' -> Symbol lExpr?;
+
+expression
+    : exprBase WS*('=?' WS* exprBase)? -> ^(EXPR exprBase exprBase?)
+    ;
+   
+
+lExpr
+    : exprBase WS* lExpr? -> exprBase lExpr?
+    ;
 
 startProgram
-	:	program;
-
-
+    : program -> ^(START program)
+   +
+    ;

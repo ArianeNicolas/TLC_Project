@@ -38,6 +38,10 @@ WS      : ' ';
 Variable    : Maj (Maj | Min | Dec)* ('!' | '?')?;
 Symbol      : Min (Maj | Min | Dec)* ('!' | '?')?;
 
+startProgram
+    : program -> ^(START program)
+    ;
+
 program
     : function program? -> ^(PROGRAM function program?)
     ;
@@ -132,9 +136,4 @@ expression
 
 lExpr
     : exprBase WS* lExpr? -> exprBase lExpr?
-    ;
-
-startProgram
-    : program -> ^(START program)
-   +
     ;

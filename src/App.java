@@ -14,23 +14,10 @@ public class App {
         String src = "function true : read % Result := (cons nil nil) % write Result";
         while_astLexer lexer = new while_astLexer(new ANTLRStringStream(src));
         while_astParser parser = new while_astParser(new CommonTokenStream(lexer));
-        TokenRewriteStream tokens = new TokenRewriteStream(lexer);
-        //HTMLdoc grammar = new HtmlDoc(tokens);
         
-        final TreeAdaptor adaptor = new CommonTreeAdaptor() {
-            public Object create(Token payload) {
-                return new CommonTree(payload);
-            }
-        };
+        while_astParser.startProgram_return startProgram = parser.startProgram();
+        CommonTree tree = (CommonTree) startProgram.getTree();
 
-        adaptor.create(tokens.get(0));
-        parser.setTreeAdaptor(adaptor);
-        while_astParser.while__return ret = parser.while_();
-        CommonTree tree = (CommonTree)ret.getTree();
         
-
-        System.out.println(tree.getText());
-    }
-
-    
+    }   
 }

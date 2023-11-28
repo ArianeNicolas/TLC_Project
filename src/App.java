@@ -14,18 +14,21 @@ public class App {
             //System.exit(1); 
         }
 
+        String src = "";
         // Read the file // todo put it in src
         try {
             Path path = Path.of(args[0]);
-            String src = Files.readString(path);
-            System.out.println(src);
+            src = Files.readString(path); 
         } catch (Exception e) {
             System.out.println("Error while reading file");
             //System.exit(1);
         }
 
         // temp test
-        String src = "function sub : read Op1, Op2 % Result := Op1; foreach Op in Op2 do  Result := (tl Result) od % write Result ";
+        if(src == null || src.isEmpty()) {
+            src = "function sub : read Op1, Op2 % Result := Op1; foreach Op in Op2 do  Result := (tl Result) od % write Result ";
+        }
+        System.out.println("Source code: " + src); 
 
         // Parse the file content
         while_astLexer lexer = new while_astLexer(new ANTLRStringStream(src));

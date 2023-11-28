@@ -11,7 +11,7 @@ public class App {
         // Check if a file name is provided as argument
         if(args == null || args.length != 1) {
             System.out.println("Please provide a file name as argument");
-            System.exit(1); 
+            //System.exit(1); 
         }
 
         // Read the file // todo put it in src
@@ -21,7 +21,7 @@ public class App {
             System.out.println(src);
         } catch (Exception e) {
             System.out.println("Error while reading file");
-            System.exit(1);
+            //System.exit(1);
         }
 
         // temp test
@@ -41,6 +41,8 @@ public class App {
         final CommonTree treeRoot = (CommonTree) startProgram.getTree();
 
         CommonTree currentNode = (CommonTree) treeRoot;
+
+        System.out.println("Tree: " + treeRoot.toStringTree());
 
         
     }   

@@ -30,6 +30,10 @@ tokens {
     INPUTS;
 }
 
+startProgram
+    : program -> ^(START program)
+    ;
+
 Maj     : ('A'..'Z');
 Min     : ('a'..'z');
 Dec     : ('0'..'9');
@@ -38,16 +42,12 @@ WS      : ' ';
 Variable    : Maj (Maj | Min | Dec)* ('!' | '?')?;
 Symbol      : Min (Maj | Min | Dec)* ('!' | '?')?;
 
-startProgram
-    : program -> ^(START program)
-    ;
-
 program
     : function program? -> ^(PROGRAM function program?)
     ;
 
 function
-    : 'function ' Symbol WS* ':' definition -> ^(FUNCDEF Symbol definition)
+    : 'function ' Symbol WS* ':' WS* definition -> ^(FUNCDEF Symbol definition)
     ;
 
 definition

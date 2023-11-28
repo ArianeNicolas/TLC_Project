@@ -1,4 +1,4 @@
-// $ANTLR 3.5.1 C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g 2023-11-20 18:04:01
+// $ANTLR 3.5.1 C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g 2023-11-28 10:29:01
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -645,7 +645,7 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = Maj;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:33:9: ( ( 'A' .. 'Z' ) )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:37:9: ( ( 'A' .. 'Z' ) )
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z') ) {
@@ -672,7 +672,7 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = Min;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:34:9: ( ( 'a' .. 'z' ) )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:38:9: ( ( 'a' .. 'z' ) )
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:
 			{
 			if ( (input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
@@ -699,7 +699,7 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = Dec;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:35:9: ( ( '0' .. '9' ) )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:39:9: ( ( '0' .. '9' ) )
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:
 			{
 			if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
@@ -726,8 +726,8 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = WS;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:36:9: ( ' ' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:36:11: ' '
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:40:9: ( ' ' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:40:11: ' '
 			{
 			match(' '); 
 			}
@@ -746,12 +746,12 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = Variable;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:38:13: ( Maj ( Maj | Min | Dec )* ( '!' | '?' )? )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:38:15: Maj ( Maj | Min | Dec )* ( '!' | '?' )?
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:42:13: ( Maj ( Maj | Min | Dec )* ( '!' | '?' )? )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:42:15: Maj ( Maj | Min | Dec )* ( '!' | '?' )?
 			{
 			mMaj(); 
 
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:38:19: ( Maj | Min | Dec )*
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:42:19: ( Maj | Min | Dec )*
 			loop1:
 			while (true) {
 				int alt1=2;
@@ -780,7 +780,7 @@ public class while_astLexer extends Lexer {
 				}
 			}
 
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:38:38: ( '!' | '?' )?
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:42:38: ( '!' | '?' )?
 			int alt2=2;
 			int LA2_0 = input.LA(1);
 			if ( (LA2_0=='!'||LA2_0=='?') ) {
@@ -819,12 +819,12 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = Symbol;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:39:13: ( Min ( Maj | Min | Dec )* ( '!' | '?' )? )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:39:15: Min ( Maj | Min | Dec )* ( '!' | '?' )?
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:43:13: ( Min ( Maj | Min | Dec )* ( '!' | '?' )? )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:43:15: Min ( Maj | Min | Dec )* ( '!' | '?' )?
 			{
 			mMin(); 
 
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:39:19: ( Maj | Min | Dec )*
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:43:19: ( Maj | Min | Dec )*
 			loop3:
 			while (true) {
 				int alt3=2;
@@ -853,7 +853,7 @@ public class while_astLexer extends Lexer {
 				}
 			}
 
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:39:38: ( '!' | '?' )?
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:43:38: ( '!' | '?' )?
 			int alt4=2;
 			int LA4_0 = input.LA(1);
 			if ( (LA4_0=='!'||LA4_0=='?') ) {

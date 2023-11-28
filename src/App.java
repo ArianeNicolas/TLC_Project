@@ -11,8 +11,9 @@ public class App {
         while_astParser parser = new while_astParser(tokens);
 
         while_astParser.startProgram_return startProgram = parser.startProgram();
-        CommonTree tree = (CommonTree) startProgram.getTree();
-        System.out.println(tree.toStringTree());
+        final CommonTree treeRoot = (CommonTree) startProgram.getTree();
+        CommonTree currentNode = (CommonTree) treeRoot.getChild(0);
+
         
     }   
 }

@@ -28,6 +28,7 @@ tokens {
     ELSE;
     DO;
     INPUTS;
+    END;
 }
 
 startProgram
@@ -47,7 +48,7 @@ program
     ;
 
 function
-    : 'function ' Symbol WS* ':' WS* definition -> ^(FUNCDEF Symbol definition)
+    : 'function ' Symbol WS* ':' WS* definition -> ^(FUNCDEF Symbol definition END)
     ;
 
 definition
@@ -78,7 +79,7 @@ decl
     ;
 
 if_
-    : ('if' WS* expression WS* then_  WS* else_ 'fi') -> ^(IF expression then_ else_?)
+    : ('if' WS* expression WS* then_  WS* else_ 'fi') -> ^(IF expression then_ else_? END)
     ;
     
 then_	:	'then' WS* commands WS* -> ^(THEN commands);
@@ -86,17 +87,17 @@ then_	:	'then' WS* commands WS* -> ^(THEN commands);
 else_	:	('else' WS* commands)? -> ^(ELSE commands);
 
 while_
-    : ('while' WS* expression WS* do_) -> ^(WHILE expression do_)
+    : ('while' WS* expression WS* do_) -> ^(WHILE expression do_ END)
     ;
     
 do_ 	: 'do' WS* commands WS* 'od' -> ^(DO commands);
 
 for_
-    : ('for' WS* expression WS* do_) -> ^(FOR expression do_)
+    : ('for' WS* expression WS* do_) -> ^(FOR expression do_ END)
     ;
 
 foreach_
-    : ('foreach' WS* Variable WS* 'in' WS* expression WS* do_) -> ^(FOREACH ^(IN Variable expression) do_)
+    : ('foreach' WS* Variable WS* 'in' WS* expression WS* do_) -> ^(FOREACH ^(IN Variable expression) do_ END)
     ;
 
 vars

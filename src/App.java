@@ -25,12 +25,13 @@ public class App {
         }
 
         // temp test
-        String src = "function true : read % Result := (cons nil nil) % write Result";
+        String src = "function sub : read Op1, Op2 % Result := Op1; foreach Op in Op2 do  Result := (tl Result) od % write Result ";
 
         // Parse the file content
         while_astLexer lexer = new while_astLexer(new ANTLRStringStream(src));
         // Get the token stream from the lexer
         CommonTokenStream tokens = new CommonTokenStream(lexer);
+
         // Create the parser
         while_astParser parser = new while_astParser(tokens);
 
@@ -44,6 +45,8 @@ public class App {
 
         System.out.println("Tree: " + treeRoot.toStringTree());
 
+        VisitorSymbolsTable visitor = new VisitorSymbolsTable();
+        visitor.visit(treeRoot);
         
     }   
 }

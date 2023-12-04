@@ -50,6 +50,8 @@ public class App {
 
         VisitorSymbolsTable visitor = new VisitorSymbolsTable();
         visitor.visit(treeRoot);
+        System.out.println("visite");
+        System.out.println(visitor.getSymbolsTable());
         
     }   
 }

@@ -1,37 +1,54 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
 import org.antlr.runtime.tree.CommonTree;
 
-public class VisitorSymbolsTable extends Visitor {
-    private Stack<HashMap<String, String>> symbolsTable;
+//???
+//liste fonctions et parametres
+//localement à chaque fonction connecter toutes les variables
 
-    public Stack<HashMap<String, String>> getSymbolsTable() {
+//NIVE GLOAB SYMBOLS SONT fonction;
+//NIV LOCAL PARAM? SéPARéS DES VAR LOCALES
+//affectations typées
+//types de retour
+
+public class VisitorSymbolsTable extends Visitor {
+    private ArrayList<WhileContext> symbolsTable;
+
+    private int currentContextIndex;
+
+    /**
+     * Each in the Stack is a context
+     * @return the symbolsTable
+     */
+    public ArrayList<WhileContext> getSymbolsTable() {
         return symbolsTable;
     }
 
+    public int currentContextIndex() {
+        return currentContextIndex;
+    }
+
     public VisitorSymbolsTable(){
-        symbolsTable = new Stack<HashMap<String, String>>();
-        symbolsTable.push(new HashMap<String, String>());
+        symbolsTable = new ArrayList<WhileContext>();
+        currentContextIndex = -1;
     }
     
+    /**
+     * Add the node to the symbols table
+     * @param node  
+     */
     //@Override
     public void process(CommonTree node){
         String token=node.getText();
         switch (token) {
-            case "FUNCDEF":
-                symbolsTable.peek().put(node.getChild(0).getText(), "function");
-                System.out.println("Add function " + node.getChild(0).getText());
-                symbolsTable.push(new HashMap<String, String>());
-                System.out.println("Push table");
-                break;
-
             case "INPUTS":
                 List<CommonTree> inputs = (List<CommonTree>) node.getChildren();
                 if(inputs == null) break;
                 for (CommonTree input : inputs) {
-                    symbolsTable.peek().put(input.getText(), "input");
-                    System.out.println("Add input " + input.getText());
+                    // add a parameter to the last function
+                    symbolsTable.get(currentContextIndex).addParameter(input.getText());
                 }
                 break;
 
@@ -39,40 +56,46 @@ public class VisitorSymbolsTable extends Visitor {
                 List<CommonTree> variables = (List<CommonTree>) node.getChildren();
                 if(variables == null) break;
                 for (CommonTree variable : variables) {
-                    symbolsTable.peek().put(variable.getText(), "variable");
-                    System.out.println("Add variable " + variable.getText());
+                    // add a variable to the last function
+                    //symbolsTable.get(symbolsTable.size()-1).addVariable(variable.getText());
+                    symbolsTable.get(currentContextIndex).addVariable(variable.getText());
                 }
                 break;
 
-            case "FOREACH":
-                symbolsTable.push(new HashMap<String, String>());
-                System.out.println("Push table");
+            case "FUNCDEF":
+                WhileContext newContext;
+                if(currentContextIndex < 0){
+                    newContext = new WhileContext(node.getChild(0).getText(), null);
+                } else {
+                    newContext = new WhileContext(node.getChild(0).getText(), symbolsTable.get(currentContextIndex));
+                }
+                symbolsTable.add(newContext);
+                currentContextIndex = symbolsTable.indexOf(newContext); // TODO optimize when working
                 break;
-
-            case "IN":
-                symbolsTable.peek().put(node.getChild(0).getText(), "variable");
-                System.out.println("Add variable " + node.getChild(0).getText());
-                break;
-
+           
             case "END":
-                symbolsTable.pop();
-                System.out.println("Pop table");
+                if(currentContextIndex > -1){
+                    WhileContext currentContext = symbolsTable.get(currentContextIndex).getParentContext();
+                    currentContextIndex = symbolsTable.indexOf(currentContext);
+                }
                 break;
-            
+
+                 /*
+            case "IN":
+            case "FOREACH":
             case "WHILE":
-                
-                break;
-
             case "IF":
-                    
-                break;
-
             case "FOR":
-                
+                System.out.println(token);
                 break;
-             
+            */
+
             default:
                 break;
         }
+    }
+    @Override
+    public String toString() {
+        return symbolsTable.toString();
     }
 }

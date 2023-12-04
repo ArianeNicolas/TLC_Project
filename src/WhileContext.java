@@ -4,13 +4,16 @@ public class WhileContext {
     private String name;
     private ArrayList<String> parameters;
     private ArrayList<String> variables;
+    private ArrayList<String> outputs;
     private WhileContext parentContext;
 
     public WhileContext(String name, WhileContext parentContext) {
         this.name = name;
-        this.parentContext = parentContext;
         this.parameters = new ArrayList<String>();
         this.variables = new ArrayList<String>();
+        this.outputs = new ArrayList<String>();
+
+        this.parentContext = parentContext;
     }
     
 
@@ -32,6 +35,10 @@ public class WhileContext {
         return variables;
     }
 
+    public ArrayList<String> getOutputs() {
+        return outputs;
+    }
+
 
     //SETTERS
 
@@ -45,8 +52,14 @@ public class WhileContext {
         return this.variables;
     }
 
+    public ArrayList<String> addOutput(String output) {
+        this.outputs.add(output);
+        return this.outputs;
+    }
+
     @Override
     public String toString() {
-        return "Name " + this.name + ", parameters : " + this.parameters + ", variables : " + this.variables;
+        return "Name " + this.name + ", parameters : " + this.parameters + ", variables : " 
+        + this.variables + ", outputs : " + this.outputs;
     }
 }

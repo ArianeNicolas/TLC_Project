@@ -47,8 +47,18 @@ public class VisitorSymbolsTable extends Visitor {
                 List<CommonTree> inputs = (List<CommonTree>) node.getChildren();
                 if(inputs == null) break;
                 for (CommonTree input : inputs) {
-                    // add a parameter to the last function
+                    // add a parameter to the current function
                     symbolsTable.get(currentContextIndex).addParameter(input.getText());
+                }
+                break;
+
+            //todo patch OSKOUR C APRES LE END
+            case "OUTPUT":
+                List<CommonTree> outputs = (List<CommonTree>) node.getChildren();
+                if(outputs == null) break;
+                for (CommonTree output : outputs) {
+                    // add an output to the current function
+                    symbolsTable.get(currentContextIndex).addOutput(output.getText());
                 }
                 break;
 
@@ -56,8 +66,7 @@ public class VisitorSymbolsTable extends Visitor {
                 List<CommonTree> variables = (List<CommonTree>) node.getChildren();
                 if(variables == null) break;
                 for (CommonTree variable : variables) {
-                    // add a variable to the last function
-                    //symbolsTable.get(symbolsTable.size()-1).addVariable(variable.getText());
+                    // add a variable to the current function
                     symbolsTable.get(currentContextIndex).addVariable(variable.getText());
                 }
                 break;

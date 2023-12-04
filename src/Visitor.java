@@ -21,16 +21,21 @@ public abstract class Visitor {
      */
     private void visitRecursif(CommonTree tree, HashSet<CommonTree>  visitedNodes) {
         visitedNodes.add(tree);
-        process(tree);
+
+        entry(tree);
         if (tree.getChildren() == null) return;
         
         for (Object nextTree : tree.getChildren()) {
+            
             if (nextTree != null && !visitedNodes.contains((CommonTree) nextTree)) {
                 visitRecursif((CommonTree) nextTree, visitedNodes);
+                exit((CommonTree)nextTree);
             }
         }
     }
 
-    protected abstract void process(CommonTree node);
+    protected abstract void entry(CommonTree node);
+    
+    protected abstract void exit(CommonTree node);
 
 }

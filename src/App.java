@@ -1,5 +1,6 @@
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Stack;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -48,8 +49,13 @@ public class App {
 
         System.out.println("Tree: " + treeRoot.toStringTree());
 
-        VisitorSymbolsTable visitor = new VisitorSymbolsTable();
+        VisitorThreeAdresses visitor = new VisitorThreeAdresses();
         visitor.visit(treeRoot);
+
+        Stack<VisitorThreeAdresses.ThreeAdresses> code3A = visitor.getCode3AStack();
+        for(VisitorThreeAdresses.ThreeAdresses threeAdresses : code3A) {
+            System.out.println(threeAdresses.op + " " + threeAdresses.arg1 + " " + threeAdresses.arg2 + " " + threeAdresses.var);
+        }
         
     }   
 }

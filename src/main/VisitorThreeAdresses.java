@@ -1,3 +1,4 @@
+package main;
 import org.antlr.runtime.tree.CommonTree;
 
 public class VisitorThreeAdresses extends Visitor {

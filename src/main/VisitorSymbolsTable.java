@@ -1,3 +1,4 @@
+package main;
 import java.util.ArrayList;
 import java.util.List;
 import org.antlr.runtime.tree.CommonTree;
@@ -7,6 +8,7 @@ public class VisitorSymbolsTable extends Visitor {
 
     private int currentContextIndex;
     private int lastContextIndex;
+    private final static int INVALID_CONTEXT_INDEX = -1;
 
     /**
      * Each WhileContext (=functions) in the Stack is a context 
@@ -29,8 +31,8 @@ public class VisitorSymbolsTable extends Visitor {
      */
     public VisitorSymbolsTable(){
         symbolsTable = new ArrayList<WhileContext>();
-        currentContextIndex = -1;
-        lastContextIndex = -1;
+        currentContextIndex = INVALID_CONTEXT_INDEX;
+        lastContextIndex = INVALID_CONTEXT_INDEX;
     }
     
     /**
@@ -98,7 +100,7 @@ public class VisitorSymbolsTable extends Visitor {
                 break;
            
             case "END":
-                if(currentContextIndex > -1){
+                if(currentContextIndex > INVALID_CONTEXT_INDEX){
                     WhileContext currentContext = symbolsTable.get(currentContextIndex).getParentContext();
                     lastContextIndex = currentContextIndex;
                     currentContextIndex = symbolsTable.indexOf(currentContext);

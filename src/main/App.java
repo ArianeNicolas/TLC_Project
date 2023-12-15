@@ -1,3 +1,8 @@
+package main;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -5,9 +10,11 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.tree.CommonTree;
 
+import classes.while_astLexer;
+import classes.while_astParser;
+
 public class App {
     public static void main(String[] args) throws Exception {
-
         // Check if a file name is provided as argument
         if(args == null || args.length != 1) {
             System.out.println("Please provide a file name as argument");
@@ -43,23 +50,15 @@ public class App {
 
         // The root of the AST
         final CommonTree treeRoot = (CommonTree) startProgram.getTree();
-
-        CommonTree currentNode = (CommonTree) treeRoot;
-
         System.out.println("Tree: " + treeRoot.toStringTree());
-
     
         //construct the symbol table
         VisitorSymbolsTable visitor = new VisitorSymbolsTable();
         visitor.visit(treeRoot);
-  
-
 
         //check the types
         VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitor.getSymbolsTable());
         visitorTypesChecker.visit(treeRoot);
-
-
         
     }   
 }

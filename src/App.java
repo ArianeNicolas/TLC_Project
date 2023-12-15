@@ -26,7 +26,7 @@ public class App {
 
         // temp test
         if(src == null || src.isEmpty()) {
-            src = "function sub : read Op1, Op2 % Result := Op1; foreach Op in Op2 do  Result := (tl Result) od % write Result ";
+            src = "function sub : read Op1, Op2 % Result := Op1; foreach Op in Op2 do  Result := (tl Result) od % write Result; ";
         }
         System.out.println("Source code: " + src); 
 
@@ -48,10 +48,18 @@ public class App {
 
         System.out.println("Tree: " + treeRoot.toStringTree());
 
+    
+        //construct the symbol table
         VisitorSymbolsTable visitor = new VisitorSymbolsTable();
         visitor.visit(treeRoot);
-        System.out.println("visite");
-        System.out.println(visitor.getSymbolsTable());
+  
+
+
+        //check the types
+       // VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitor.getSymbolsTable());
+        //visitorTypesChecker.visit(treeRoot);
+
+
         
     }   
 }

@@ -1,7 +1,5 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Stack;
 import org.antlr.runtime.tree.CommonTree;
 
 //???
@@ -16,7 +14,10 @@ import org.antlr.runtime.tree.CommonTree;
 public class VisitorSymbolsTable extends Visitor {
     private ArrayList<WhileContext> symbolsTable;
 
+    
+
     private int currentContextIndex;
+    private int lastContextIndex;
 
     /**
      * Each in the Stack is a context
@@ -33,6 +34,7 @@ public class VisitorSymbolsTable extends Visitor {
     public VisitorSymbolsTable(){
         symbolsTable = new ArrayList<WhileContext>();
         currentContextIndex = -1;
+        lastContextIndex = -1;
     }
     
     /**
@@ -51,14 +53,14 @@ public class VisitorSymbolsTable extends Visitor {
                     symbolsTable.get(currentContextIndex).addParameter(input.getText());
                 }
                 break;
-
+                
             //todo patch OSKOUR C APRES LE END
             case "OUTPUT":
                 List<CommonTree> outputs = (List<CommonTree>) node.getChildren();
                 if(outputs == null) break;
                 for (CommonTree output : outputs) {
-                    // add an output to the current function
-                    symbolsTable.get(currentContextIndex).addOutput(output.getText());
+                    // add an output to the last function (because it's after the end)
+                    symbolsTable.get(lastContextIndex).addOutput(output.getText());
                 }
                 break;
 
@@ -85,6 +87,7 @@ public class VisitorSymbolsTable extends Visitor {
             case "END":
                 if(currentContextIndex > -1){
                     WhileContext currentContext = symbolsTable.get(currentContextIndex).getParentContext();
+                    lastContextIndex = currentContextIndex;
                     currentContextIndex = symbolsTable.indexOf(currentContext);
                 }
                 break;

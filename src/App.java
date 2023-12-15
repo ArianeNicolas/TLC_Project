@@ -56,8 +56,8 @@ public class App {
 
 
         //check the types
-       // VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitor.getSymbolsTable());
-        //visitorTypesChecker.visit(treeRoot);
+        VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitor.getSymbolsTable());
+        visitorTypesChecker.visit(treeRoot);
 
 
         

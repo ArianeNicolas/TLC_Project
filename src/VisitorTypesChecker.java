@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import org.antlr.runtime.tree.CommonTree;
 
@@ -22,7 +23,7 @@ public class VisitorTypesChecker extends Visitor {
 
 
     @Override
-    protected void process(CommonTree node) {
+    protected void process(CommonTree node) throws WhileException {
         String token=node.getText();
         switch (token) {
             //tester qu'une fonction est definie avant d'etre utilisée
@@ -36,20 +37,54 @@ public class VisitorTypesChecker extends Visitor {
 
                 break;
 
-            case "VARDEF":
-                //soit 
+            case "VARDEF": //:=
+                //children
+                List<CommonTree> children = (List<CommonTree>) node.getChildren();
+                System.out.println("children" +children);
 
+                //gauche égalité
+                CommonTree vars = children.get(0);
                 
-                break;
-            
+                //droite égalité 
+                CommonTree exprs = children.get(1);
+
+                if(getType(vars) != getType(exprs)){
+                    throw new WhileException("Type mismatch", node.getLine());
+                }
+
 
             default:
                 break;
-        }
+        } 
+    }
 
+    
+    /**
+     * Return the number of values in the node
+     * @param node
+     * @return
+     */
+    private int getType(CommonTree node){
+
+        //todo
+        //get context -> si dans contexte -> on peut definir le type
+            //on utilise le nom du contexte ???
+            //OU -> dans cette classe qud fonction currentOCntext+1 et quand END -> currentContext-1
+        //sinon -> nil
+
+        String token=node.getText();
+        switch (token) {
+            case "nil":
+                return 0;
+
+            default:
+                return 1;
+        }
+    }
+
+}
         
 
-    }
 
     // gerer erreur table des symboles à sa construction
 
@@ -58,4 +93,4 @@ public class VisitorTypesChecker extends Visitor {
     //a chaque noeudde l'ast (presque) -> associer l'exposant en tant que type
     //fonctions a3 -> vers a2 
     //x,y,...=a   -> affectation si type gauche= type droit
-}
+

@@ -1,5 +1,6 @@
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Stack;
 
 import org.antlr.runtime.ANTLRStringStream;
@@ -52,9 +53,11 @@ public class App {
         VisitorThreeAdresses visitor = new VisitorThreeAdresses();
         visitor.visit(treeRoot);
 
-        Stack<VisitorThreeAdresses.ThreeAdresses> code3A = visitor.getCode3AStack();
-        for(VisitorThreeAdresses.ThreeAdresses threeAdresses : code3A) {
-            System.out.println(threeAdresses.op + " " + threeAdresses.arg1 + " " + threeAdresses.arg2 + " " + threeAdresses.var);
+        ArrayList<ArrayList<VisitorThreeAdresses.ThreeAdresses>> code3A = visitor.getCode3AStack();
+        for(ArrayList<VisitorThreeAdresses.ThreeAdresses> threeAdresses : code3A) {
+            for(VisitorThreeAdresses.ThreeAdresses threeAdress : threeAdresses) {
+                System.out.println(threeAdress.op + " " + threeAdress.arg1 + " " + threeAdress.arg2 + " " + threeAdress.var);
+            }
         }
         
     }   

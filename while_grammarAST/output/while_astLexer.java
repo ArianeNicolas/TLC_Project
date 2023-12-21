@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 // $ANTLR 3.5.1 C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g 2023-11-19 22:06:27
+=======
+// $ANTLR 3.5.1 C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g 2023-12-21 10:49:59
+>>>>>>> Stashed changes
 
 import org.antlr.runtime.*;
 import java.util.Stack;

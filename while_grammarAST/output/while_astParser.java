@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 // $ANTLR 3.5.1 C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g 2023-11-19 22:06:27
+=======
+// $ANTLR 3.5.1 C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g 2023-12-21 10:49:59
+>>>>>>> Stashed changes
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -1380,7 +1384,11 @@ public class while_astParser extends DebugParser {
 
 
 	// $ANTLR start "if_"
+<<<<<<< Updated upstream
 	// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:66:1: if_ : ( 'if' ( WS )? expression ( WS )? 'then' ( WS )? commands ( WS )? ( 'else' ( WS )? commands )? ( WS )? 'fi' ) -> ^( IF expression commands ) ;
+=======
+	// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:81:1: if_ : ( 'if' ( WS )* expression ( WS )* then_ ( WS )* else_ ( WS )* 'fi' ) -> ^( IF expression then_ ( else_ )? END ) ;
+>>>>>>> Stashed changes
 	public final while_astParser.if__return if_() throws RecognitionException {
 		while_astParser.if__return retval = new while_astParser.if__return();
 		retval.start = input.LT(1);
@@ -1396,10 +1404,19 @@ public class while_astParser extends DebugParser {
 		Token string_literal46=null;
 		Token WS47=null;
 		Token WS49=null;
+<<<<<<< Updated upstream
 		Token string_literal50=null;
 		ParserRuleReturnScope expression40 =null;
 		ParserRuleReturnScope commands44 =null;
 		ParserRuleReturnScope commands48 =null;
+=======
+		Token WS51=null;
+		Token WS53=null;
+		Token string_literal54=null;
+		ParserRuleReturnScope expression48 =null;
+		ParserRuleReturnScope then_50 =null;
+		ParserRuleReturnScope else_52 =null;
+>>>>>>> Stashed changes
 
 		Object string_literal38_tree=null;
 		Object WS39_tree=null;
@@ -1410,7 +1427,13 @@ public class while_astParser extends DebugParser {
 		Object string_literal46_tree=null;
 		Object WS47_tree=null;
 		Object WS49_tree=null;
+<<<<<<< Updated upstream
 		Object string_literal50_tree=null;
+=======
+		Object WS51_tree=null;
+		Object WS53_tree=null;
+		Object string_literal54_tree=null;
+>>>>>>> Stashed changes
 		RewriteRuleTokenStream stream_44=new RewriteRuleTokenStream(adaptor,"token 44");
 		RewriteRuleTokenStream stream_37=new RewriteRuleTokenStream(adaptor,"token 37");
 		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
@@ -1425,8 +1448,19 @@ public class while_astParser extends DebugParser {
 		dbg.location(66, 0);
 
 		try {
+<<<<<<< Updated upstream
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:5: ( ( 'if' ( WS )? expression ( WS )? 'then' ( WS )? commands ( WS )? ( 'else' ( WS )? commands )? ( WS )? 'fi' ) -> ^( IF expression commands ) )
 			dbg.enterAlt(1);
+=======
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:82:5: ( ( 'if' ( WS )* expression ( WS )* then_ ( WS )* else_ ( WS )* 'fi' ) -> ^( IF expression then_ ( else_ )? END ) )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:82:7: ( 'if' ( WS )* expression ( WS )* then_ ( WS )* else_ ( WS )* 'fi' )
+			{
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:82:7: ( 'if' ( WS )* expression ( WS )* then_ ( WS )* else_ ( WS )* 'fi' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:82:8: 'if' ( WS )* expression ( WS )* then_ ( WS )* else_ ( WS )* 'fi'
+			{
+			string_literal46=(Token)match(input,49,FOLLOW_49_in_if_691);  
+			stream_49.add(string_literal46);
+>>>>>>> Stashed changes
 
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:7: ( 'if' ( WS )? expression ( WS )? 'then' ( WS )? commands ( WS )? ( 'else' ( WS )? commands )? ( WS )? 'fi' )
 			{
@@ -1645,15 +1679,83 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
+<<<<<<< Updated upstream
 			} finally {dbg.exitSubRule(19);}
 			dbg.location(67,83);
 			string_literal50=(Token)match(input,32,FOLLOW_32_in_if_544);  
 			stream_32.add(string_literal50);
+=======
+
+			pushFollow(FOLLOW_then__in_if_701);
+			then_50=then_();
+			state._fsp--;
+
+			stream_then_.add(then_50.getTree());
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:82:39: ( WS )*
+			loop21:
+			while (true) {
+				int alt21=2;
+				int LA21_0 = input.LA(1);
+				if ( (LA21_0==WS) ) {
+					alt21=1;
+				}
+
+				switch (alt21) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:82:39: WS
+					{
+					WS51=(Token)match(input,WS,FOLLOW_WS_in_if_704);  
+					stream_WS.add(WS51);
+
+					}
+					break;
+
+				default :
+					break loop21;
+				}
+			}
+
+			pushFollow(FOLLOW_else__in_if_707);
+			else_52=else_();
+			state._fsp--;
+
+			stream_else_.add(else_52.getTree());
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:82:49: ( WS )*
+			loop22:
+			while (true) {
+				int alt22=2;
+				int LA22_0 = input.LA(1);
+				if ( (LA22_0==WS) ) {
+					alt22=1;
+				}
+
+				switch (alt22) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:82:49: WS
+					{
+					WS53=(Token)match(input,WS,FOLLOW_WS_in_if_709);  
+					stream_WS.add(WS53);
+
+					}
+					break;
+
+				default :
+					break loop22;
+				}
+			}
+
+			string_literal54=(Token)match(input,44,FOLLOW_44_in_if_712);  
+			stream_44.add(string_literal54);
+>>>>>>> Stashed changes
 
 			}
 
 			// AST REWRITE
+<<<<<<< Updated upstream
 			// elements: expression, commands
+=======
+			// elements: expression, else_, then_
+>>>>>>> Stashed changes
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -1663,17 +1765,35 @@ public class while_astParser extends DebugParser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
+<<<<<<< Updated upstream
 			// 67:89: -> ^( IF expression commands )
 			{
 				dbg.location(67,92);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:92: ^( IF expression commands )
+=======
+			// 82:59: -> ^( IF expression then_ ( else_ )? END )
+			{
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:82:62: ^( IF expression then_ ( else_ )? END )
+>>>>>>> Stashed changes
 				{
 				Object root_1 = (Object)adaptor.nil();
 				dbg.location(67,94);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(IF, "IF"), root_1);
+<<<<<<< Updated upstream
 				dbg.location(67,97);
 				adaptor.addChild(root_1, stream_expression.nextTree());dbg.location(67,108);
 				adaptor.addChild(root_1, stream_commands.nextTree());
+=======
+				adaptor.addChild(root_1, stream_expression.nextTree());
+				adaptor.addChild(root_1, stream_then_.nextTree());
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:82:84: ( else_ )?
+				if ( stream_else_.hasNext() ) {
+					adaptor.addChild(root_1, stream_else_.nextTree());
+				}
+				stream_else_.reset();
+
+				adaptor.addChild(root_1, (Object)adaptor.create(END, "END"));
+>>>>>>> Stashed changes
 				adaptor.addChild(root_0, root_1);
 				}
 
@@ -1712,6 +1832,266 @@ public class while_astParser extends DebugParser {
 	// $ANTLR end "if_"
 
 
+<<<<<<< Updated upstream
+=======
+	public static class then__return extends ParserRuleReturnScope {
+		Object tree;
+		@Override
+		public Object getTree() { return tree; }
+	};
+
+
+	// $ANTLR start "then_"
+	// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:85:1: then_ : 'then' ( WS )* commands ( WS )* -> ^( THEN commands ) ;
+	public final while_astParser.then__return then_() throws RecognitionException {
+		while_astParser.then__return retval = new while_astParser.then__return();
+		retval.start = input.LT(1);
+
+		Object root_0 = null;
+
+		Token string_literal55=null;
+		Token WS56=null;
+		Token WS58=null;
+		ParserRuleReturnScope commands57 =null;
+
+		Object string_literal55_tree=null;
+		Object WS56_tree=null;
+		Object WS58_tree=null;
+		RewriteRuleTokenStream stream_56=new RewriteRuleTokenStream(adaptor,"token 56");
+		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
+		RewriteRuleSubtreeStream stream_commands=new RewriteRuleSubtreeStream(adaptor,"rule commands");
+
+		try {
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:85:7: ( 'then' ( WS )* commands ( WS )* -> ^( THEN commands ) )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:85:9: 'then' ( WS )* commands ( WS )*
+			{
+			string_literal55=(Token)match(input,56,FOLLOW_56_in_then_745);  
+			stream_56.add(string_literal55);
+
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:85:16: ( WS )*
+			loop23:
+			while (true) {
+				int alt23=2;
+				int LA23_0 = input.LA(1);
+				if ( (LA23_0==WS) ) {
+					alt23=1;
+				}
+
+				switch (alt23) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:85:16: WS
+					{
+					WS56=(Token)match(input,WS,FOLLOW_WS_in_then_747);  
+					stream_WS.add(WS56);
+
+					}
+					break;
+
+				default :
+					break loop23;
+				}
+			}
+
+			pushFollow(FOLLOW_commands_in_then_750);
+			commands57=commands();
+			state._fsp--;
+
+			stream_commands.add(commands57.getTree());
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:85:29: ( WS )*
+			loop24:
+			while (true) {
+				int alt24=2;
+				int LA24_0 = input.LA(1);
+				if ( (LA24_0==WS) ) {
+					alt24=1;
+				}
+
+				switch (alt24) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:85:29: WS
+					{
+					WS58=(Token)match(input,WS,FOLLOW_WS_in_then_752);  
+					stream_WS.add(WS58);
+
+					}
+					break;
+
+				default :
+					break loop24;
+				}
+			}
+
+			// AST REWRITE
+			// elements: commands
+			// token labels: 
+			// rule labels: retval
+			// token list labels: 
+			// rule list labels: 
+			// wildcard labels: 
+			retval.tree = root_0;
+			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
+
+			root_0 = (Object)adaptor.nil();
+			// 85:33: -> ^( THEN commands )
+			{
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:85:36: ^( THEN commands )
+				{
+				Object root_1 = (Object)adaptor.nil();
+				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(THEN, "THEN"), root_1);
+				adaptor.addChild(root_1, stream_commands.nextTree());
+				adaptor.addChild(root_0, root_1);
+				}
+
+			}
+
+
+			retval.tree = root_0;
+
+			}
+
+			retval.stop = input.LT(-1);
+
+			retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+			adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+			retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+		}
+		finally {
+			// do for sure before leaving
+		}
+		return retval;
+	}
+	// $ANTLR end "then_"
+
+
+	public static class else__return extends ParserRuleReturnScope {
+		Object tree;
+		@Override
+		public Object getTree() { return tree; }
+	};
+
+
+	// $ANTLR start "else_"
+	// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:87:1: else_ : ( 'else' ( WS )* commands )? -> ^( ELSE commands ) ;
+	public final while_astParser.else__return else_() throws RecognitionException {
+		while_astParser.else__return retval = new while_astParser.else__return();
+		retval.start = input.LT(1);
+
+		Object root_0 = null;
+
+		Token string_literal59=null;
+		Token WS60=null;
+		ParserRuleReturnScope commands61 =null;
+
+		Object string_literal59_tree=null;
+		Object WS60_tree=null;
+		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
+		RewriteRuleTokenStream stream_43=new RewriteRuleTokenStream(adaptor,"token 43");
+		RewriteRuleSubtreeStream stream_commands=new RewriteRuleSubtreeStream(adaptor,"rule commands");
+
+		try {
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:87:7: ( ( 'else' ( WS )* commands )? -> ^( ELSE commands ) )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:87:9: ( 'else' ( WS )* commands )?
+			{
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:87:9: ( 'else' ( WS )* commands )?
+			int alt26=2;
+			int LA26_0 = input.LA(1);
+			if ( (LA26_0==43) ) {
+				alt26=1;
+			}
+			switch (alt26) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:87:10: 'else' ( WS )* commands
+					{
+					string_literal59=(Token)match(input,43,FOLLOW_43_in_else_770);  
+					stream_43.add(string_literal59);
+
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:87:17: ( WS )*
+					loop25:
+					while (true) {
+						int alt25=2;
+						int LA25_0 = input.LA(1);
+						if ( (LA25_0==WS) ) {
+							alt25=1;
+						}
+
+						switch (alt25) {
+						case 1 :
+							// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:87:17: WS
+							{
+							WS60=(Token)match(input,WS,FOLLOW_WS_in_else_772);  
+							stream_WS.add(WS60);
+
+							}
+							break;
+
+						default :
+							break loop25;
+						}
+					}
+
+					pushFollow(FOLLOW_commands_in_else_775);
+					commands61=commands();
+					state._fsp--;
+
+					stream_commands.add(commands61.getTree());
+					}
+					break;
+
+			}
+
+			// AST REWRITE
+			// elements: commands
+			// token labels: 
+			// rule labels: retval
+			// token list labels: 
+			// rule list labels: 
+			// wildcard labels: 
+			retval.tree = root_0;
+			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
+
+			root_0 = (Object)adaptor.nil();
+			// 87:32: -> ^( ELSE commands )
+			{
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:87:35: ^( ELSE commands )
+				{
+				Object root_1 = (Object)adaptor.nil();
+				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ELSE, "ELSE"), root_1);
+				adaptor.addChild(root_1, stream_commands.nextTree());
+				adaptor.addChild(root_0, root_1);
+				}
+
+			}
+
+
+			retval.tree = root_0;
+
+			}
+
+			retval.stop = input.LT(-1);
+
+			retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+			adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+			retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+		}
+		finally {
+			// do for sure before leaving
+		}
+		return retval;
+	}
+	// $ANTLR end "else_"
+
+
+>>>>>>> Stashed changes
 	public static class while__return extends ParserRuleReturnScope {
 		Object tree;
 		@Override
@@ -1727,6 +2107,7 @@ public class while_astParser extends DebugParser {
 
 		Object root_0 = null;
 
+<<<<<<< Updated upstream
 		Token string_literal51=null;
 		Token WS52=null;
 		Token WS54=null;
@@ -1745,6 +2126,166 @@ public class while_astParser extends DebugParser {
 		Object WS58_tree=null;
 		Object string_literal59_tree=null;
 		RewriteRuleTokenStream stream_46=new RewriteRuleTokenStream(adaptor,"token 46");
+=======
+		Token string_literal62=null;
+		Token WS63=null;
+		Token WS65=null;
+		ParserRuleReturnScope expression64 =null;
+		ParserRuleReturnScope do_66 =null;
+
+		Object string_literal62_tree=null;
+		Object WS63_tree=null;
+		Object WS65_tree=null;
+		RewriteRuleTokenStream stream_58=new RewriteRuleTokenStream(adaptor,"token 58");
+		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
+		RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
+		RewriteRuleSubtreeStream stream_do_=new RewriteRuleSubtreeStream(adaptor,"rule do_");
+
+		try {
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:5: ( ( 'while' ( WS )* expression ( WS )* do_ ) -> ^( WHILE expression do_ END ) )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:7: ( 'while' ( WS )* expression ( WS )* do_ )
+			{
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:7: ( 'while' ( WS )* expression ( WS )* do_ )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:8: 'while' ( WS )* expression ( WS )* do_
+			{
+			string_literal62=(Token)match(input,58,FOLLOW_58_in_while_798);  
+			stream_58.add(string_literal62);
+
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:16: ( WS )*
+			loop27:
+			while (true) {
+				int alt27=2;
+				int LA27_0 = input.LA(1);
+				if ( (LA27_0==WS) ) {
+					alt27=1;
+				}
+
+				switch (alt27) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:16: WS
+					{
+					WS63=(Token)match(input,WS,FOLLOW_WS_in_while_800);  
+					stream_WS.add(WS63);
+
+					}
+					break;
+
+				default :
+					break loop27;
+				}
+			}
+
+			pushFollow(FOLLOW_expression_in_while_803);
+			expression64=expression();
+			state._fsp--;
+
+			stream_expression.add(expression64.getTree());
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:31: ( WS )*
+			loop28:
+			while (true) {
+				int alt28=2;
+				int LA28_0 = input.LA(1);
+				if ( (LA28_0==WS) ) {
+					alt28=1;
+				}
+
+				switch (alt28) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:31: WS
+					{
+					WS65=(Token)match(input,WS,FOLLOW_WS_in_while_805);  
+					stream_WS.add(WS65);
+
+					}
+					break;
+
+				default :
+					break loop28;
+				}
+			}
+
+			pushFollow(FOLLOW_do__in_while_808);
+			do_66=do_();
+			state._fsp--;
+
+			stream_do_.add(do_66.getTree());
+			}
+
+			// AST REWRITE
+			// elements: expression, do_
+			// token labels: 
+			// rule labels: retval
+			// token list labels: 
+			// rule list labels: 
+			// wildcard labels: 
+			retval.tree = root_0;
+			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
+
+			root_0 = (Object)adaptor.nil();
+			// 90:40: -> ^( WHILE expression do_ END )
+			{
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:43: ^( WHILE expression do_ END )
+				{
+				Object root_1 = (Object)adaptor.nil();
+				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(WHILE, "WHILE"), root_1);
+				adaptor.addChild(root_1, stream_expression.nextTree());
+				adaptor.addChild(root_1, stream_do_.nextTree());
+				adaptor.addChild(root_1, (Object)adaptor.create(END, "END"));
+				adaptor.addChild(root_0, root_1);
+				}
+
+			}
+
+
+			retval.tree = root_0;
+
+			}
+
+			retval.stop = input.LT(-1);
+
+			retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+			adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+			retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+		}
+		finally {
+			// do for sure before leaving
+		}
+		return retval;
+	}
+	// $ANTLR end "while_"
+
+
+	public static class do__return extends ParserRuleReturnScope {
+		Object tree;
+		@Override
+		public Object getTree() { return tree; }
+	};
+
+
+	// $ANTLR start "do_"
+	// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:93:1: do_ : 'do' ( WS )* commands ( WS )* 'od' -> ^( DO commands ) ;
+	public final while_astParser.do__return do_() throws RecognitionException {
+		while_astParser.do__return retval = new while_astParser.do__return();
+		retval.start = input.LT(1);
+
+		Object root_0 = null;
+
+		Token string_literal67=null;
+		Token WS68=null;
+		Token WS70=null;
+		Token string_literal71=null;
+		ParserRuleReturnScope commands69 =null;
+
+		Object string_literal67_tree=null;
+		Object WS68_tree=null;
+		Object WS70_tree=null;
+		Object string_literal71_tree=null;
+>>>>>>> Stashed changes
 		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
 		RewriteRuleTokenStream stream_30=new RewriteRuleTokenStream(adaptor,"token 30");
 		RewriteRuleTokenStream stream_42=new RewriteRuleTokenStream(adaptor,"token 42");
@@ -1762,6 +2303,7 @@ public class while_astParser extends DebugParser {
 
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:71:7: ( 'while' ( WS )? expression ( WS )? 'do' ( WS )? commands ( WS )? 'od' )
 			{
+<<<<<<< Updated upstream
 			dbg.location(71,7);
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:71:7: ( 'while' ( WS )? expression ( WS )? 'do' ( WS )? commands ( WS )? 'od' )
 			dbg.enterAlt(1);
@@ -1808,6 +2350,19 @@ public class while_astParser extends DebugParser {
 			int alt21=2;
 			try { dbg.enterSubRule(21);
 			try { dbg.enterDecision(21, decisionCanBacktrack[21]);
+=======
+			string_literal67=(Token)match(input,42,FOLLOW_42_in_do_839);  
+			stream_42.add(string_literal67);
+
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:93:13: ( WS )*
+			loop29:
+			while (true) {
+				int alt29=2;
+				int LA29_0 = input.LA(1);
+				if ( (LA29_0==WS) ) {
+					alt29=1;
+				}
+>>>>>>> Stashed changes
 
 			int LA21_0 = input.LA(1);
 			if ( (LA21_0==WS) ) {
@@ -1817,6 +2372,7 @@ public class while_astParser extends DebugParser {
 
 			switch (alt21) {
 				case 1 :
+<<<<<<< Updated upstream
 					dbg.enterAlt(1);
 
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:71:31: WS
@@ -1824,6 +2380,12 @@ public class while_astParser extends DebugParser {
 					dbg.location(71,31);
 					WS54=(Token)match(input,WS,FOLLOW_WS_in_while_580);  
 					stream_WS.add(WS54);
+=======
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:93:13: WS
+					{
+					WS68=(Token)match(input,WS,FOLLOW_WS_in_do_841);  
+					stream_WS.add(WS68);
+>>>>>>> Stashed changes
 
 					}
 					break;
@@ -1898,6 +2460,41 @@ public class while_astParser extends DebugParser {
 
 			}
 
+<<<<<<< Updated upstream
+=======
+			pushFollow(FOLLOW_commands_in_do_844);
+			commands69=commands();
+			state._fsp--;
+
+			stream_commands.add(commands69.getTree());
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:93:26: ( WS )*
+			loop30:
+			while (true) {
+				int alt30=2;
+				int LA30_0 = input.LA(1);
+				if ( (LA30_0==WS) ) {
+					alt30=1;
+				}
+
+				switch (alt30) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:93:26: WS
+					{
+					WS70=(Token)match(input,WS,FOLLOW_WS_in_do_846);  
+					stream_WS.add(WS70);
+
+					}
+					break;
+
+				default :
+					break loop30;
+				}
+			}
+
+			string_literal71=(Token)match(input,54,FOLLOW_54_in_do_849);  
+			stream_54.add(string_literal71);
+
+>>>>>>> Stashed changes
 			// AST REWRITE
 			// elements: commands, expression
 			// token labels: 
@@ -1973,6 +2570,7 @@ public class while_astParser extends DebugParser {
 
 		Object root_0 = null;
 
+<<<<<<< Updated upstream
 		Token string_literal60=null;
 		Token WS61=null;
 		Token WS63=null;
@@ -1991,6 +2589,18 @@ public class while_astParser extends DebugParser {
 		Object WS67_tree=null;
 		Object string_literal68_tree=null;
 		RewriteRuleTokenStream stream_33=new RewriteRuleTokenStream(adaptor,"token 33");
+=======
+		Token string_literal72=null;
+		Token WS73=null;
+		Token WS75=null;
+		ParserRuleReturnScope expression74 =null;
+		ParserRuleReturnScope do_76 =null;
+
+		Object string_literal72_tree=null;
+		Object WS73_tree=null;
+		Object WS75_tree=null;
+		RewriteRuleTokenStream stream_45=new RewriteRuleTokenStream(adaptor,"token 45");
+>>>>>>> Stashed changes
 		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
 		RewriteRuleTokenStream stream_30=new RewriteRuleTokenStream(adaptor,"token 30");
 		RewriteRuleTokenStream stream_42=new RewriteRuleTokenStream(adaptor,"token 42");
@@ -2003,6 +2613,7 @@ public class while_astParser extends DebugParser {
 		dbg.location(74, 0);
 
 		try {
+<<<<<<< Updated upstream
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:75:5: ( ( 'for' ( WS )? expression ( WS )? 'do' ( WS )? commands ( WS )? 'od' ) -> ^( FOR expression commands ) )
 			dbg.enterAlt(1);
 
@@ -2054,6 +2665,25 @@ public class while_astParser extends DebugParser {
 			int alt25=2;
 			try { dbg.enterSubRule(25);
 			try { dbg.enterDecision(25, decisionCanBacktrack[25]);
+=======
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:96:5: ( ( 'for' ( WS )* expression ( WS )* do_ ) -> ^( FOR expression do_ END ) )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:96:7: ( 'for' ( WS )* expression ( WS )* do_ )
+			{
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:96:7: ( 'for' ( WS )* expression ( WS )* do_ )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:96:8: 'for' ( WS )* expression ( WS )* do_
+			{
+			string_literal72=(Token)match(input,45,FOLLOW_45_in_for_870);  
+			stream_45.add(string_literal72);
+
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:96:14: ( WS )*
+			loop31:
+			while (true) {
+				int alt31=2;
+				int LA31_0 = input.LA(1);
+				if ( (LA31_0==WS) ) {
+					alt31=1;
+				}
+>>>>>>> Stashed changes
 
 			int LA25_0 = input.LA(1);
 			if ( (LA25_0==WS) ) {
@@ -2063,6 +2693,7 @@ public class while_astParser extends DebugParser {
 
 			switch (alt25) {
 				case 1 :
+<<<<<<< Updated upstream
 					dbg.enterAlt(1);
 
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:75:29: WS
@@ -2070,6 +2701,12 @@ public class while_astParser extends DebugParser {
 					dbg.location(75,29);
 					WS63=(Token)match(input,WS,FOLLOW_WS_in_for_629);  
 					stream_WS.add(WS63);
+=======
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:96:14: WS
+					{
+					WS73=(Token)match(input,WS,FOLLOW_WS_in_for_872);  
+					stream_WS.add(WS73);
+>>>>>>> Stashed changes
 
 					}
 					break;
@@ -2085,6 +2722,7 @@ public class while_astParser extends DebugParser {
 			try { dbg.enterSubRule(26);
 			try { dbg.enterDecision(26, decisionCanBacktrack[26]);
 
+<<<<<<< Updated upstream
 			int LA26_0 = input.LA(1);
 			if ( (LA26_0==WS) ) {
 				alt26=1;
@@ -2132,16 +2770,51 @@ public class while_astParser extends DebugParser {
 					dbg.location(75,51);
 					WS67=(Token)match(input,WS,FOLLOW_WS_in_for_639);  
 					stream_WS.add(WS67);
+=======
+			pushFollow(FOLLOW_expression_in_for_875);
+			expression74=expression();
+			state._fsp--;
+
+			stream_expression.add(expression74.getTree());
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:96:29: ( WS )*
+			loop32:
+			while (true) {
+				int alt32=2;
+				int LA32_0 = input.LA(1);
+				if ( (LA32_0==WS) ) {
+					alt32=1;
+				}
+
+				switch (alt32) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:96:29: WS
+					{
+					WS75=(Token)match(input,WS,FOLLOW_WS_in_for_877);  
+					stream_WS.add(WS75);
+>>>>>>> Stashed changes
 
 					}
 					break;
 
+<<<<<<< Updated upstream
 			}
 			} finally {dbg.exitSubRule(27);}
 			dbg.location(75,55);
 			string_literal68=(Token)match(input,42,FOLLOW_42_in_for_642);  
 			stream_42.add(string_literal68);
 
+=======
+				default :
+					break loop32;
+				}
+			}
+
+			pushFollow(FOLLOW_do__in_for_880);
+			do_76=do_();
+			state._fsp--;
+
+			stream_do_.add(do_76.getTree());
+>>>>>>> Stashed changes
 			}
 
 			// AST REWRITE
@@ -2219,6 +2892,7 @@ public class while_astParser extends DebugParser {
 
 		Object root_0 = null;
 
+<<<<<<< Updated upstream
 		Token string_literal69=null;
 		Token WS70=null;
 		Token Variable71=null;
@@ -2245,6 +2919,26 @@ public class while_astParser extends DebugParser {
 		Object WS80_tree=null;
 		Object string_literal81_tree=null;
 		RewriteRuleTokenStream stream_34=new RewriteRuleTokenStream(adaptor,"token 34");
+=======
+		Token string_literal77=null;
+		Token WS78=null;
+		Token Variable79=null;
+		Token WS80=null;
+		Token string_literal81=null;
+		Token WS82=null;
+		Token WS84=null;
+		ParserRuleReturnScope expression83 =null;
+		ParserRuleReturnScope do_85 =null;
+
+		Object string_literal77_tree=null;
+		Object WS78_tree=null;
+		Object Variable79_tree=null;
+		Object WS80_tree=null;
+		Object string_literal81_tree=null;
+		Object WS82_tree=null;
+		Object WS84_tree=null;
+		RewriteRuleTokenStream stream_46=new RewriteRuleTokenStream(adaptor,"token 46");
+>>>>>>> Stashed changes
 		RewriteRuleTokenStream stream_Variable=new RewriteRuleTokenStream(adaptor,"token Variable");
 		RewriteRuleTokenStream stream_38=new RewriteRuleTokenStream(adaptor,"token 38");
 		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
@@ -2270,6 +2964,7 @@ public class while_astParser extends DebugParser {
 
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:79:8: 'foreach' ( WS )? Variable ( WS )? 'in' ( WS )? expression ( WS )? 'do' ( WS )? commands ( WS )? 'od'
 			{
+<<<<<<< Updated upstream
 			dbg.location(79,8);
 			string_literal69=(Token)match(input,34,FOLLOW_34_in_foreach_671);  
 			stream_34.add(string_literal69);
@@ -2324,6 +3019,26 @@ public class while_astParser extends DebugParser {
 					dbg.location(79,31);
 					WS72=(Token)match(input,WS,FOLLOW_WS_in_foreach_678);  
 					stream_WS.add(WS72);
+=======
+			string_literal77=(Token)match(input,46,FOLLOW_46_in_foreach_911);  
+			stream_46.add(string_literal77);
+
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:100:18: ( WS )*
+			loop33:
+			while (true) {
+				int alt33=2;
+				int LA33_0 = input.LA(1);
+				if ( (LA33_0==WS) ) {
+					alt33=1;
+				}
+
+				switch (alt33) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:100:18: WS
+					{
+					WS78=(Token)match(input,WS,FOLLOW_WS_in_foreach_913);  
+					stream_WS.add(WS78);
+>>>>>>> Stashed changes
 
 					}
 					break;
@@ -2339,6 +3054,7 @@ public class while_astParser extends DebugParser {
 			try { dbg.enterSubRule(30);
 			try { dbg.enterDecision(30, decisionCanBacktrack[30]);
 
+<<<<<<< Updated upstream
 			int LA30_0 = input.LA(1);
 			if ( (LA30_0==WS) ) {
 				alt30=1;
@@ -2354,11 +3070,32 @@ public class while_astParser extends DebugParser {
 					dbg.location(79,40);
 					WS74=(Token)match(input,WS,FOLLOW_WS_in_foreach_683);  
 					stream_WS.add(WS74);
+=======
+			Variable79=(Token)match(input,Variable,FOLLOW_Variable_in_foreach_916);  
+			stream_Variable.add(Variable79);
+
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:100:31: ( WS )*
+			loop34:
+			while (true) {
+				int alt34=2;
+				int LA34_0 = input.LA(1);
+				if ( (LA34_0==WS) ) {
+					alt34=1;
+				}
+
+				switch (alt34) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:100:31: WS
+					{
+					WS80=(Token)match(input,WS,FOLLOW_WS_in_foreach_918);  
+					stream_WS.add(WS80);
+>>>>>>> Stashed changes
 
 					}
 					break;
 
 			}
+<<<<<<< Updated upstream
 			} finally {dbg.exitSubRule(30);}
 			dbg.location(79,44);
 			pushFollow(FOLLOW_expression_in_foreach_686);
@@ -2370,6 +3107,20 @@ public class while_astParser extends DebugParser {
 			int alt31=2;
 			try { dbg.enterSubRule(31);
 			try { dbg.enterDecision(31, decisionCanBacktrack[31]);
+=======
+
+			string_literal81=(Token)match(input,50,FOLLOW_50_in_foreach_921);  
+			stream_50.add(string_literal81);
+
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:100:40: ( WS )*
+			loop35:
+			while (true) {
+				int alt35=2;
+				int LA35_0 = input.LA(1);
+				if ( (LA35_0==WS) ) {
+					alt35=1;
+				}
+>>>>>>> Stashed changes
 
 			int LA31_0 = input.LA(1);
 			if ( (LA31_0==WS) ) {
@@ -2379,6 +3130,7 @@ public class while_astParser extends DebugParser {
 
 			switch (alt31) {
 				case 1 :
+<<<<<<< Updated upstream
 					dbg.enterAlt(1);
 
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:79:55: WS
@@ -2386,6 +3138,12 @@ public class while_astParser extends DebugParser {
 					dbg.location(79,55);
 					WS76=(Token)match(input,WS,FOLLOW_WS_in_foreach_688);  
 					stream_WS.add(WS76);
+=======
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:100:40: WS
+					{
+					WS82=(Token)match(input,WS,FOLLOW_WS_in_foreach_923);  
+					stream_WS.add(WS82);
+>>>>>>> Stashed changes
 
 					}
 					break;
@@ -2401,6 +3159,7 @@ public class while_astParser extends DebugParser {
 			try { dbg.enterSubRule(32);
 			try { dbg.enterDecision(32, decisionCanBacktrack[32]);
 
+<<<<<<< Updated upstream
 			int LA32_0 = input.LA(1);
 			if ( (LA32_0==WS) ) {
 				alt32=1;
@@ -2448,10 +3207,33 @@ public class while_astParser extends DebugParser {
 					dbg.location(79,77);
 					WS80=(Token)match(input,WS,FOLLOW_WS_in_foreach_698);  
 					stream_WS.add(WS80);
+=======
+			pushFollow(FOLLOW_expression_in_foreach_926);
+			expression83=expression();
+			state._fsp--;
+
+			stream_expression.add(expression83.getTree());
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:100:55: ( WS )*
+			loop36:
+			while (true) {
+				int alt36=2;
+				int LA36_0 = input.LA(1);
+				if ( (LA36_0==WS) ) {
+					alt36=1;
+				}
+
+				switch (alt36) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:100:55: WS
+					{
+					WS84=(Token)match(input,WS,FOLLOW_WS_in_foreach_928);  
+					stream_WS.add(WS84);
+>>>>>>> Stashed changes
 
 					}
 					break;
 
+<<<<<<< Updated upstream
 			}
 			} finally {dbg.exitSubRule(33);}
 			dbg.location(79,81);
@@ -2462,6 +3244,22 @@ public class while_astParser extends DebugParser {
 
 			// AST REWRITE
 			// elements: Variable, expression, commands
+=======
+				default :
+					break loop36;
+				}
+			}
+
+			pushFollow(FOLLOW_do__in_foreach_931);
+			do_85=do_();
+			state._fsp--;
+
+			stream_do_.add(do_85.getTree());
+			}
+
+			// AST REWRITE
+			// elements: do_, Variable, expression
+>>>>>>> Stashed changes
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -2545,6 +3343,7 @@ public class while_astParser extends DebugParser {
 
 		Object root_0 = null;
 
+<<<<<<< Updated upstream
 		Token Variable82=null;
 		Token char_literal83=null;
 		ParserRuleReturnScope vars84 =null;
@@ -2552,6 +3351,17 @@ public class while_astParser extends DebugParser {
 		Object Variable82_tree=null;
 		Object char_literal83_tree=null;
 		RewriteRuleTokenStream stream_24=new RewriteRuleTokenStream(adaptor,"token 24");
+=======
+		Token Variable86=null;
+		Token char_literal87=null;
+		Token WS88=null;
+		ParserRuleReturnScope vars89 =null;
+
+		Object Variable86_tree=null;
+		Object char_literal87_tree=null;
+		Object WS88_tree=null;
+		RewriteRuleTokenStream stream_36=new RewriteRuleTokenStream(adaptor,"token 36");
+>>>>>>> Stashed changes
 		RewriteRuleTokenStream stream_Variable=new RewriteRuleTokenStream(adaptor,"token Variable");
 		RewriteRuleSubtreeStream stream_vars=new RewriteRuleSubtreeStream(adaptor,"rule vars");
 
@@ -2566,6 +3376,7 @@ public class while_astParser extends DebugParser {
 
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:83:7: Variable ( ',' vars )?
 			{
+<<<<<<< Updated upstream
 			dbg.location(83,7);
 			Variable82=(Token)match(input,Variable,FOLLOW_Variable_in_vars735);  
 			stream_Variable.add(Variable82);
@@ -2582,11 +3393,24 @@ public class while_astParser extends DebugParser {
 			} finally {dbg.exitDecision(34);}
 
 			switch (alt34) {
+=======
+			Variable86=(Token)match(input,Variable,FOLLOW_Variable_in_vars967);  
+			stream_Variable.add(Variable86);
+
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:104:16: ( ',' ( WS )* vars )?
+			int alt38=2;
+			int LA38_0 = input.LA(1);
+			if ( (LA38_0==36) ) {
+				alt38=1;
+			}
+			switch (alt38) {
+>>>>>>> Stashed changes
 				case 1 :
 					dbg.enterAlt(1);
 
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:83:17: ',' vars
 					{
+<<<<<<< Updated upstream
 					dbg.location(83,17);
 					char_literal83=(Token)match(input,24,FOLLOW_24_in_vars738);  
 					stream_24.add(char_literal83);
@@ -2596,6 +3420,40 @@ public class while_astParser extends DebugParser {
 					state._fsp--;
 
 					stream_vars.add(vars84.getTree());
+=======
+					char_literal87=(Token)match(input,36,FOLLOW_36_in_vars970);  
+					stream_36.add(char_literal87);
+
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:104:20: ( WS )*
+					loop37:
+					while (true) {
+						int alt37=2;
+						int LA37_0 = input.LA(1);
+						if ( (LA37_0==WS) ) {
+							alt37=1;
+						}
+
+						switch (alt37) {
+						case 1 :
+							// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:104:20: WS
+							{
+							WS88=(Token)match(input,WS,FOLLOW_WS_in_vars971);  
+							stream_WS.add(WS88);
+
+							}
+							break;
+
+						default :
+							break loop37;
+						}
+					}
+
+					pushFollow(FOLLOW_vars_in_vars974);
+					vars89=vars();
+					state._fsp--;
+
+					stream_vars.add(vars89.getTree());
+>>>>>>> Stashed changes
 					}
 					break;
 
@@ -2683,12 +3541,24 @@ public class while_astParser extends DebugParser {
 
 		Object root_0 = null;
 
+<<<<<<< Updated upstream
 		Token char_literal86=null;
 		ParserRuleReturnScope expression85 =null;
 		ParserRuleReturnScope exprs87 =null;
 
 		Object char_literal86_tree=null;
 		RewriteRuleTokenStream stream_24=new RewriteRuleTokenStream(adaptor,"token 24");
+=======
+		Token char_literal91=null;
+		Token WS92=null;
+		ParserRuleReturnScope expression90 =null;
+		ParserRuleReturnScope exprs93 =null;
+
+		Object char_literal91_tree=null;
+		Object WS92_tree=null;
+		RewriteRuleTokenStream stream_36=new RewriteRuleTokenStream(adaptor,"token 36");
+		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
+>>>>>>> Stashed changes
 		RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
 		RewriteRuleSubtreeStream stream_exprs=new RewriteRuleSubtreeStream(adaptor,"rule exprs");
 
@@ -2703,6 +3573,7 @@ public class while_astParser extends DebugParser {
 
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:87:7: expression ( ',' exprs )?
 			{
+<<<<<<< Updated upstream
 			dbg.location(87,7);
 			pushFollow(FOLLOW_expression_in_exprs770);
 			expression85=expression();
@@ -2721,11 +3592,26 @@ public class while_astParser extends DebugParser {
 			} finally {dbg.exitDecision(35);}
 
 			switch (alt35) {
+=======
+			pushFollow(FOLLOW_expression_in_exprs1000);
+			expression90=expression();
+			state._fsp--;
+
+			stream_expression.add(expression90.getTree());
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:108:18: ( ',' ( WS )* exprs )?
+			int alt40=2;
+			int LA40_0 = input.LA(1);
+			if ( (LA40_0==36) ) {
+				alt40=1;
+			}
+			switch (alt40) {
+>>>>>>> Stashed changes
 				case 1 :
 					dbg.enterAlt(1);
 
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:87:19: ',' exprs
 					{
+<<<<<<< Updated upstream
 					dbg.location(87,19);
 					char_literal86=(Token)match(input,24,FOLLOW_24_in_exprs773);  
 					stream_24.add(char_literal86);
@@ -2735,6 +3621,40 @@ public class while_astParser extends DebugParser {
 					state._fsp--;
 
 					stream_exprs.add(exprs87.getTree());
+=======
+					char_literal91=(Token)match(input,36,FOLLOW_36_in_exprs1003);  
+					stream_36.add(char_literal91);
+
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:108:22: ( WS )*
+					loop39:
+					while (true) {
+						int alt39=2;
+						int LA39_0 = input.LA(1);
+						if ( (LA39_0==WS) ) {
+							alt39=1;
+						}
+
+						switch (alt39) {
+						case 1 :
+							// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:108:22: WS
+							{
+							WS92=(Token)match(input,WS,FOLLOW_WS_in_exprs1004);  
+							stream_WS.add(WS92);
+
+							}
+							break;
+
+						default :
+							break loop39;
+						}
+					}
+
+					pushFollow(FOLLOW_exprs_in_exprs1007);
+					exprs93=exprs();
+					state._fsp--;
+
+					stream_exprs.add(exprs93.getTree());
+>>>>>>> Stashed changes
 					}
 					break;
 
@@ -2822,6 +3742,7 @@ public class while_astParser extends DebugParser {
 
 		Object root_0 = null;
 
+<<<<<<< Updated upstream
 		Token string_literal88=null;
 		Token WS89=null;
 		Token Variable90=null;
@@ -2870,6 +3791,918 @@ public class while_astParser extends DebugParser {
 		Object char_literal112_tree=null;
 		RewriteRuleTokenStream stream_22=new RewriteRuleTokenStream(adaptor,"token 22");
 		RewriteRuleTokenStream stream_23=new RewriteRuleTokenStream(adaptor,"token 23");
+=======
+		ParserRuleReturnScope nil_94 =null;
+		ParserRuleReturnScope variable95 =null;
+		ParserRuleReturnScope cons96 =null;
+		ParserRuleReturnScope list97 =null;
+		ParserRuleReturnScope hd98 =null;
+		ParserRuleReturnScope tl99 =null;
+		ParserRuleReturnScope symbolExpr100 =null;
+
+
+		try {
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:111:12: ( nil_ | variable | cons | list | hd | tl | symbolExpr )
+			int alt41=7;
+			alt41 = dfa41.predict(input);
+			switch (alt41) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:111:15: nil_
+					{
+					root_0 = (Object)adaptor.nil();
+
+
+					pushFollow(FOLLOW_nil__in_exprBase1032);
+					nil_94=nil_();
+					state._fsp--;
+
+					adaptor.addChild(root_0, nil_94.getTree());
+
+					}
+					break;
+				case 2 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:112:7: variable
+					{
+					root_0 = (Object)adaptor.nil();
+
+
+					pushFollow(FOLLOW_variable_in_exprBase1040);
+					variable95=variable();
+					state._fsp--;
+
+					adaptor.addChild(root_0, variable95.getTree());
+
+					}
+					break;
+				case 3 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:113:7: cons
+					{
+					root_0 = (Object)adaptor.nil();
+
+
+					pushFollow(FOLLOW_cons_in_exprBase1048);
+					cons96=cons();
+					state._fsp--;
+
+					adaptor.addChild(root_0, cons96.getTree());
+
+					}
+					break;
+				case 4 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:113:14: list
+					{
+					root_0 = (Object)adaptor.nil();
+
+
+					pushFollow(FOLLOW_list_in_exprBase1052);
+					list97=list();
+					state._fsp--;
+
+					adaptor.addChild(root_0, list97.getTree());
+
+					}
+					break;
+				case 5 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:114:7: hd
+					{
+					root_0 = (Object)adaptor.nil();
+
+
+					pushFollow(FOLLOW_hd_in_exprBase1060);
+					hd98=hd();
+					state._fsp--;
+
+					adaptor.addChild(root_0, hd98.getTree());
+
+					}
+					break;
+				case 6 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:114:12: tl
+					{
+					root_0 = (Object)adaptor.nil();
+
+
+					pushFollow(FOLLOW_tl_in_exprBase1064);
+					tl99=tl();
+					state._fsp--;
+
+					adaptor.addChild(root_0, tl99.getTree());
+
+					}
+					break;
+				case 7 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:115:7: symbolExpr
+					{
+					root_0 = (Object)adaptor.nil();
+
+
+					pushFollow(FOLLOW_symbolExpr_in_exprBase1072);
+					symbolExpr100=symbolExpr();
+					state._fsp--;
+
+					adaptor.addChild(root_0, symbolExpr100.getTree());
+
+					}
+					break;
+
+			}
+			retval.stop = input.LT(-1);
+
+			retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+			adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+			retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+		}
+		finally {
+			// do for sure before leaving
+		}
+		return retval;
+	}
+	// $ANTLR end "exprBase"
+
+
+	public static class nil__return extends ParserRuleReturnScope {
+		Object tree;
+		@Override
+		public Object getTree() { return tree; }
+	};
+
+
+	// $ANTLR start "nil_"
+	// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:118:1: nil_ : ( 'nil' ( WS )* ) -> 'nil' ;
+	public final while_astParser.nil__return nil_() throws RecognitionException {
+		while_astParser.nil__return retval = new while_astParser.nil__return();
+		retval.start = input.LT(1);
+
+		Object root_0 = null;
+
+		Token string_literal101=null;
+		Token WS102=null;
+
+		Object string_literal101_tree=null;
+		Object WS102_tree=null;
+		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
+		RewriteRuleTokenStream stream_52=new RewriteRuleTokenStream(adaptor,"token 52");
+
+		try {
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:118:6: ( ( 'nil' ( WS )* ) -> 'nil' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:118:8: ( 'nil' ( WS )* )
+			{
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:118:8: ( 'nil' ( WS )* )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:118:9: 'nil' ( WS )*
+			{
+			string_literal101=(Token)match(input,52,FOLLOW_52_in_nil_1091);  
+			stream_52.add(string_literal101);
+
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:118:14: ( WS )*
+			loop42:
+			while (true) {
+				int alt42=2;
+				int LA42_0 = input.LA(1);
+				if ( (LA42_0==WS) ) {
+					alt42=1;
+				}
+
+				switch (alt42) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:118:14: WS
+					{
+					WS102=(Token)match(input,WS,FOLLOW_WS_in_nil_1092);  
+					stream_WS.add(WS102);
+
+					}
+					break;
+
+				default :
+					break loop42;
+				}
+			}
+
+			}
+
+			// AST REWRITE
+			// elements: 52
+			// token labels: 
+			// rule labels: retval
+			// token list labels: 
+			// rule list labels: 
+			// wildcard labels: 
+			retval.tree = root_0;
+			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
+
+			root_0 = (Object)adaptor.nil();
+			// 118:19: -> 'nil'
+			{
+				adaptor.addChild(root_0, stream_52.nextNode());
+			}
+
+
+			retval.tree = root_0;
+
+			}
+
+			retval.stop = input.LT(-1);
+
+			retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+			adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+			retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+		}
+		finally {
+			// do for sure before leaving
+		}
+		return retval;
+	}
+	// $ANTLR end "nil_"
+
+
+	public static class variable_return extends ParserRuleReturnScope {
+		Object tree;
+		@Override
+		public Object getTree() { return tree; }
+	};
+
+
+	// $ANTLR start "variable"
+	// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:120:1: variable : Variable -> Variable ;
+	public final while_astParser.variable_return variable() throws RecognitionException {
+		while_astParser.variable_return retval = new while_astParser.variable_return();
+		retval.start = input.LT(1);
+
+		Object root_0 = null;
+
+		Token Variable103=null;
+
+		Object Variable103_tree=null;
+		RewriteRuleTokenStream stream_Variable=new RewriteRuleTokenStream(adaptor,"token Variable");
+
+		try {
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:120:9: ( Variable -> Variable )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:120:11: Variable
+			{
+			Variable103=(Token)match(input,Variable,FOLLOW_Variable_in_variable1109);  
+			stream_Variable.add(Variable103);
+
+			// AST REWRITE
+			// elements: Variable
+			// token labels: 
+			// rule labels: retval
+			// token list labels: 
+			// rule list labels: 
+			// wildcard labels: 
+			retval.tree = root_0;
+			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
+
+			root_0 = (Object)adaptor.nil();
+			// 120:20: -> Variable
+			{
+				adaptor.addChild(root_0, stream_Variable.nextNode());
+			}
+
+
+			retval.tree = root_0;
+
+			}
+
+			retval.stop = input.LT(-1);
+
+			retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+			adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+			retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+		}
+		finally {
+			// do for sure before leaving
+		}
+		return retval;
+	}
+	// $ANTLR end "variable"
+
+
+	public static class cons_return extends ParserRuleReturnScope {
+		Object tree;
+		@Override
+		public Object getTree() { return tree; }
+	};
+
+
+	// $ANTLR start "cons"
+	// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:122:1: cons : '(' ( WS )* 'cons ' lExpr ( WS )* ')' -> ^( CONS lExpr ) ;
+	public final while_astParser.cons_return cons() throws RecognitionException {
+		while_astParser.cons_return retval = new while_astParser.cons_return();
+		retval.start = input.LT(1);
+
+		Object root_0 = null;
+
+		Token char_literal104=null;
+		Token WS105=null;
+		Token string_literal106=null;
+		Token WS108=null;
+		Token char_literal109=null;
+		ParserRuleReturnScope lExpr107 =null;
+
+		Object char_literal104_tree=null;
+		Object WS105_tree=null;
+		Object string_literal106_tree=null;
+		Object WS108_tree=null;
+		Object char_literal109_tree=null;
+		RewriteRuleTokenStream stream_34=new RewriteRuleTokenStream(adaptor,"token 34");
+		RewriteRuleTokenStream stream_35=new RewriteRuleTokenStream(adaptor,"token 35");
+		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
+		RewriteRuleTokenStream stream_41=new RewriteRuleTokenStream(adaptor,"token 41");
+		RewriteRuleSubtreeStream stream_lExpr=new RewriteRuleSubtreeStream(adaptor,"rule lExpr");
+
+		try {
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:122:6: ( '(' ( WS )* 'cons ' lExpr ( WS )* ')' -> ^( CONS lExpr ) )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:122:8: '(' ( WS )* 'cons ' lExpr ( WS )* ')'
+			{
+			char_literal104=(Token)match(input,34,FOLLOW_34_in_cons1121);  
+			stream_34.add(char_literal104);
+
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:122:12: ( WS )*
+			loop43:
+			while (true) {
+				int alt43=2;
+				int LA43_0 = input.LA(1);
+				if ( (LA43_0==WS) ) {
+					alt43=1;
+				}
+
+				switch (alt43) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:122:12: WS
+					{
+					WS105=(Token)match(input,WS,FOLLOW_WS_in_cons1123);  
+					stream_WS.add(WS105);
+
+					}
+					break;
+
+				default :
+					break loop43;
+				}
+			}
+
+			string_literal106=(Token)match(input,41,FOLLOW_41_in_cons1126);  
+			stream_41.add(string_literal106);
+
+			pushFollow(FOLLOW_lExpr_in_cons1128);
+			lExpr107=lExpr();
+			state._fsp--;
+
+			stream_lExpr.add(lExpr107.getTree());
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:122:30: ( WS )*
+			loop44:
+			while (true) {
+				int alt44=2;
+				int LA44_0 = input.LA(1);
+				if ( (LA44_0==WS) ) {
+					alt44=1;
+				}
+
+				switch (alt44) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:122:30: WS
+					{
+					WS108=(Token)match(input,WS,FOLLOW_WS_in_cons1130);  
+					stream_WS.add(WS108);
+
+					}
+					break;
+
+				default :
+					break loop44;
+				}
+			}
+
+			char_literal109=(Token)match(input,35,FOLLOW_35_in_cons1133);  
+			stream_35.add(char_literal109);
+
+			// AST REWRITE
+			// elements: lExpr
+			// token labels: 
+			// rule labels: retval
+			// token list labels: 
+			// rule list labels: 
+			// wildcard labels: 
+			retval.tree = root_0;
+			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
+
+			root_0 = (Object)adaptor.nil();
+			// 122:38: -> ^( CONS lExpr )
+			{
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:122:41: ^( CONS lExpr )
+				{
+				Object root_1 = (Object)adaptor.nil();
+				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(CONS, "CONS"), root_1);
+				adaptor.addChild(root_1, stream_lExpr.nextTree());
+				adaptor.addChild(root_0, root_1);
+				}
+
+			}
+
+
+			retval.tree = root_0;
+
+			}
+
+			retval.stop = input.LT(-1);
+
+			retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+			adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+			retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+		}
+		finally {
+			// do for sure before leaving
+		}
+		return retval;
+	}
+	// $ANTLR end "cons"
+
+
+	public static class list_return extends ParserRuleReturnScope {
+		Object tree;
+		@Override
+		public Object getTree() { return tree; }
+	};
+
+
+	// $ANTLR start "list"
+	// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:124:1: list : '(' ( WS )* 'list ' lExpr ( WS )* ')' -> ^( LIST lExpr ) ;
+	public final while_astParser.list_return list() throws RecognitionException {
+		while_astParser.list_return retval = new while_astParser.list_return();
+		retval.start = input.LT(1);
+
+		Object root_0 = null;
+
+		Token char_literal110=null;
+		Token WS111=null;
+		Token string_literal112=null;
+		Token WS114=null;
+		Token char_literal115=null;
+		ParserRuleReturnScope lExpr113 =null;
+
+		Object char_literal110_tree=null;
+		Object WS111_tree=null;
+		Object string_literal112_tree=null;
+		Object WS114_tree=null;
+		Object char_literal115_tree=null;
+		RewriteRuleTokenStream stream_34=new RewriteRuleTokenStream(adaptor,"token 34");
+		RewriteRuleTokenStream stream_35=new RewriteRuleTokenStream(adaptor,"token 35");
+		RewriteRuleTokenStream stream_51=new RewriteRuleTokenStream(adaptor,"token 51");
+		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
+		RewriteRuleSubtreeStream stream_lExpr=new RewriteRuleSubtreeStream(adaptor,"rule lExpr");
+
+		try {
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:124:6: ( '(' ( WS )* 'list ' lExpr ( WS )* ')' -> ^( LIST lExpr ) )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:124:8: '(' ( WS )* 'list ' lExpr ( WS )* ')'
+			{
+			char_literal110=(Token)match(input,34,FOLLOW_34_in_list1149);  
+			stream_34.add(char_literal110);
+
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:124:11: ( WS )*
+			loop45:
+			while (true) {
+				int alt45=2;
+				int LA45_0 = input.LA(1);
+				if ( (LA45_0==WS) ) {
+					alt45=1;
+				}
+
+				switch (alt45) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:124:11: WS
+					{
+					WS111=(Token)match(input,WS,FOLLOW_WS_in_list1150);  
+					stream_WS.add(WS111);
+
+					}
+					break;
+
+				default :
+					break loop45;
+				}
+			}
+
+			string_literal112=(Token)match(input,51,FOLLOW_51_in_list1153);  
+			stream_51.add(string_literal112);
+
+			pushFollow(FOLLOW_lExpr_in_list1155);
+			lExpr113=lExpr();
+			state._fsp--;
+
+			stream_lExpr.add(lExpr113.getTree());
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:124:29: ( WS )*
+			loop46:
+			while (true) {
+				int alt46=2;
+				int LA46_0 = input.LA(1);
+				if ( (LA46_0==WS) ) {
+					alt46=1;
+				}
+
+				switch (alt46) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:124:29: WS
+					{
+					WS114=(Token)match(input,WS,FOLLOW_WS_in_list1157);  
+					stream_WS.add(WS114);
+
+					}
+					break;
+
+				default :
+					break loop46;
+				}
+			}
+
+			char_literal115=(Token)match(input,35,FOLLOW_35_in_list1160);  
+			stream_35.add(char_literal115);
+
+			// AST REWRITE
+			// elements: lExpr
+			// token labels: 
+			// rule labels: retval
+			// token list labels: 
+			// rule list labels: 
+			// wildcard labels: 
+			retval.tree = root_0;
+			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
+
+			root_0 = (Object)adaptor.nil();
+			// 124:37: -> ^( LIST lExpr )
+			{
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:124:40: ^( LIST lExpr )
+				{
+				Object root_1 = (Object)adaptor.nil();
+				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(LIST, "LIST"), root_1);
+				adaptor.addChild(root_1, stream_lExpr.nextTree());
+				adaptor.addChild(root_0, root_1);
+				}
+
+			}
+
+
+			retval.tree = root_0;
+
+			}
+
+			retval.stop = input.LT(-1);
+
+			retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+			adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+			retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+		}
+		finally {
+			// do for sure before leaving
+		}
+		return retval;
+	}
+	// $ANTLR end "list"
+
+
+	public static class hd_return extends ParserRuleReturnScope {
+		Object tree;
+		@Override
+		public Object getTree() { return tree; }
+	};
+
+
+	// $ANTLR start "hd"
+	// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:126:1: hd : '(' ( WS )* 'hd ' exprBase ( WS )* ')' -> ^( HD exprBase ) ;
+	public final while_astParser.hd_return hd() throws RecognitionException {
+		while_astParser.hd_return retval = new while_astParser.hd_return();
+		retval.start = input.LT(1);
+
+		Object root_0 = null;
+
+		Token char_literal116=null;
+		Token WS117=null;
+		Token string_literal118=null;
+		Token WS120=null;
+		Token char_literal121=null;
+		ParserRuleReturnScope exprBase119 =null;
+
+		Object char_literal116_tree=null;
+		Object WS117_tree=null;
+		Object string_literal118_tree=null;
+		Object WS120_tree=null;
+		Object char_literal121_tree=null;
+		RewriteRuleTokenStream stream_34=new RewriteRuleTokenStream(adaptor,"token 34");
+		RewriteRuleTokenStream stream_35=new RewriteRuleTokenStream(adaptor,"token 35");
+		RewriteRuleTokenStream stream_48=new RewriteRuleTokenStream(adaptor,"token 48");
+		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
+		RewriteRuleSubtreeStream stream_exprBase=new RewriteRuleSubtreeStream(adaptor,"rule exprBase");
+
+		try {
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:126:4: ( '(' ( WS )* 'hd ' exprBase ( WS )* ')' -> ^( HD exprBase ) )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:126:6: '(' ( WS )* 'hd ' exprBase ( WS )* ')'
+			{
+			char_literal116=(Token)match(input,34,FOLLOW_34_in_hd1176);  
+			stream_34.add(char_literal116);
+
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:126:9: ( WS )*
+			loop47:
+			while (true) {
+				int alt47=2;
+				int LA47_0 = input.LA(1);
+				if ( (LA47_0==WS) ) {
+					alt47=1;
+				}
+
+				switch (alt47) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:126:9: WS
+					{
+					WS117=(Token)match(input,WS,FOLLOW_WS_in_hd1177);  
+					stream_WS.add(WS117);
+
+					}
+					break;
+
+				default :
+					break loop47;
+				}
+			}
+
+			string_literal118=(Token)match(input,48,FOLLOW_48_in_hd1180);  
+			stream_48.add(string_literal118);
+
+			pushFollow(FOLLOW_exprBase_in_hd1182);
+			exprBase119=exprBase();
+			state._fsp--;
+
+			stream_exprBase.add(exprBase119.getTree());
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:126:28: ( WS )*
+			loop48:
+			while (true) {
+				int alt48=2;
+				int LA48_0 = input.LA(1);
+				if ( (LA48_0==WS) ) {
+					alt48=1;
+				}
+
+				switch (alt48) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:126:28: WS
+					{
+					WS120=(Token)match(input,WS,FOLLOW_WS_in_hd1184);  
+					stream_WS.add(WS120);
+
+					}
+					break;
+
+				default :
+					break loop48;
+				}
+			}
+
+			char_literal121=(Token)match(input,35,FOLLOW_35_in_hd1186);  
+			stream_35.add(char_literal121);
+
+			// AST REWRITE
+			// elements: exprBase
+			// token labels: 
+			// rule labels: retval
+			// token list labels: 
+			// rule list labels: 
+			// wildcard labels: 
+			retval.tree = root_0;
+			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
+
+			root_0 = (Object)adaptor.nil();
+			// 126:35: -> ^( HD exprBase )
+			{
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:126:38: ^( HD exprBase )
+				{
+				Object root_1 = (Object)adaptor.nil();
+				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(HD, "HD"), root_1);
+				adaptor.addChild(root_1, stream_exprBase.nextTree());
+				adaptor.addChild(root_0, root_1);
+				}
+
+			}
+
+
+			retval.tree = root_0;
+
+			}
+
+			retval.stop = input.LT(-1);
+
+			retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+			adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+			retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+		}
+		finally {
+			// do for sure before leaving
+		}
+		return retval;
+	}
+	// $ANTLR end "hd"
+
+
+	public static class tl_return extends ParserRuleReturnScope {
+		Object tree;
+		@Override
+		public Object getTree() { return tree; }
+	};
+
+
+	// $ANTLR start "tl"
+	// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:128:1: tl : '(' ( WS )* 'tl ' exprBase ( WS )* ')' -> ^( TL exprBase ) ;
+	public final while_astParser.tl_return tl() throws RecognitionException {
+		while_astParser.tl_return retval = new while_astParser.tl_return();
+		retval.start = input.LT(1);
+
+		Object root_0 = null;
+
+		Token char_literal122=null;
+		Token WS123=null;
+		Token string_literal124=null;
+		Token WS126=null;
+		Token char_literal127=null;
+		ParserRuleReturnScope exprBase125 =null;
+
+		Object char_literal122_tree=null;
+		Object WS123_tree=null;
+		Object string_literal124_tree=null;
+		Object WS126_tree=null;
+		Object char_literal127_tree=null;
+		RewriteRuleTokenStream stream_34=new RewriteRuleTokenStream(adaptor,"token 34");
+		RewriteRuleTokenStream stream_35=new RewriteRuleTokenStream(adaptor,"token 35");
+		RewriteRuleTokenStream stream_57=new RewriteRuleTokenStream(adaptor,"token 57");
+		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
+		RewriteRuleSubtreeStream stream_exprBase=new RewriteRuleSubtreeStream(adaptor,"rule exprBase");
+
+		try {
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:128:4: ( '(' ( WS )* 'tl ' exprBase ( WS )* ')' -> ^( TL exprBase ) )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:128:6: '(' ( WS )* 'tl ' exprBase ( WS )* ')'
+			{
+			char_literal122=(Token)match(input,34,FOLLOW_34_in_tl1202);  
+			stream_34.add(char_literal122);
+
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:128:10: ( WS )*
+			loop49:
+			while (true) {
+				int alt49=2;
+				int LA49_0 = input.LA(1);
+				if ( (LA49_0==WS) ) {
+					alt49=1;
+				}
+
+				switch (alt49) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:128:10: WS
+					{
+					WS123=(Token)match(input,WS,FOLLOW_WS_in_tl1204);  
+					stream_WS.add(WS123);
+
+					}
+					break;
+
+				default :
+					break loop49;
+				}
+			}
+
+			string_literal124=(Token)match(input,57,FOLLOW_57_in_tl1206);  
+			stream_57.add(string_literal124);
+
+			pushFollow(FOLLOW_exprBase_in_tl1208);
+			exprBase125=exprBase();
+			state._fsp--;
+
+			stream_exprBase.add(exprBase125.getTree());
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:128:28: ( WS )*
+			loop50:
+			while (true) {
+				int alt50=2;
+				int LA50_0 = input.LA(1);
+				if ( (LA50_0==WS) ) {
+					alt50=1;
+				}
+
+				switch (alt50) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:128:28: WS
+					{
+					WS126=(Token)match(input,WS,FOLLOW_WS_in_tl1210);  
+					stream_WS.add(WS126);
+
+					}
+					break;
+
+				default :
+					break loop50;
+				}
+			}
+
+			char_literal127=(Token)match(input,35,FOLLOW_35_in_tl1212);  
+			stream_35.add(char_literal127);
+
+			// AST REWRITE
+			// elements: exprBase
+			// token labels: 
+			// rule labels: retval
+			// token list labels: 
+			// rule list labels: 
+			// wildcard labels: 
+			retval.tree = root_0;
+			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
+
+			root_0 = (Object)adaptor.nil();
+			// 128:35: -> ^( TL exprBase )
+			{
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:128:38: ^( TL exprBase )
+				{
+				Object root_1 = (Object)adaptor.nil();
+				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(TL, "TL"), root_1);
+				adaptor.addChild(root_1, stream_exprBase.nextTree());
+				adaptor.addChild(root_0, root_1);
+				}
+
+			}
+
+
+			retval.tree = root_0;
+
+			}
+
+			retval.stop = input.LT(-1);
+
+			retval.tree = (Object)adaptor.rulePostProcessing(root_0);
+			adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+			retval.tree = (Object)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+		}
+		finally {
+			// do for sure before leaving
+		}
+		return retval;
+	}
+	// $ANTLR end "tl"
+
+
+	public static class symbolExpr_return extends ParserRuleReturnScope {
+		Object tree;
+		@Override
+		public Object getTree() { return tree; }
+	};
+
+
+	// $ANTLR start "symbolExpr"
+	// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:130:1: symbolExpr : '(' Symbol ( WS )* ( lExpr )? ')' -> Symbol ( lExpr )? ;
+	public final while_astParser.symbolExpr_return symbolExpr() throws RecognitionException {
+		while_astParser.symbolExpr_return retval = new while_astParser.symbolExpr_return();
+		retval.start = input.LT(1);
+
+		Object root_0 = null;
+
+		Token char_literal128=null;
+		Token Symbol129=null;
+		Token WS130=null;
+		Token char_literal132=null;
+		ParserRuleReturnScope lExpr131 =null;
+
+		Object char_literal128_tree=null;
+		Object Symbol129_tree=null;
+		Object WS130_tree=null;
+		Object char_literal132_tree=null;
+		RewriteRuleTokenStream stream_34=new RewriteRuleTokenStream(adaptor,"token 34");
+		RewriteRuleTokenStream stream_35=new RewriteRuleTokenStream(adaptor,"token 35");
+>>>>>>> Stashed changes
 		RewriteRuleTokenStream stream_Symbol=new RewriteRuleTokenStream(adaptor,"token Symbol");
 		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
 		RewriteRuleSubtreeStream stream_lExpr=new RewriteRuleSubtreeStream(adaptor,"rule lExpr");
@@ -2880,6 +4713,7 @@ public class while_astParser extends DebugParser {
 		dbg.location(90, 0);
 
 		try {
+<<<<<<< Updated upstream
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:91:5: ( 'nil' ( WS )? | Variable | Symbol | ( '(' 'cons ' lExpr ')' ) | ( '(' 'list ' lExpr ')' ) | ( '(' 'hd ' exprBase ')' ) | ( '(' 'tl ' exprBase ')' ) | ( '(' Symbol ( WS )? lExpr ')' ) -> ^( EXPRBASE Variable Symbol lExpr ) )
 			int alt38=8;
 			try { dbg.enterDecision(38, decisionCanBacktrack[38]);
@@ -2991,12 +4825,39 @@ public class while_astParser extends DebugParser {
 
 					}
 					} finally {dbg.exitSubRule(36);}
+=======
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:131:2: ( '(' Symbol ( WS )* ( lExpr )? ')' -> Symbol ( lExpr )? )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:131:4: '(' Symbol ( WS )* ( lExpr )? ')'
+			{
+			char_literal128=(Token)match(input,34,FOLLOW_34_in_symbolExpr1229);  
+			stream_34.add(char_literal128);
+
+			Symbol129=(Token)match(input,Symbol,FOLLOW_Symbol_in_symbolExpr1231);  
+			stream_Symbol.add(Symbol129);
+
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:131:15: ( WS )*
+			loop51:
+			while (true) {
+				int alt51=2;
+				int LA51_0 = input.LA(1);
+				if ( (LA51_0==WS) ) {
+					alt51=1;
+				}
+
+				switch (alt51) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:131:15: WS
+					{
+					WS130=(Token)match(input,WS,FOLLOW_WS_in_symbolExpr1233);  
+					stream_WS.add(WS130);
+>>>>>>> Stashed changes
 
 					}
 					break;
 				case 2 :
 					dbg.enterAlt(2);
 
+<<<<<<< Updated upstream
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:92:7: Variable
 					{
 					root_0 = (Object)adaptor.nil();
@@ -3258,10 +5119,66 @@ public class while_astParser extends DebugParser {
 
 					retval.tree = root_0;
 
+=======
+				default :
+					break loop51;
+				}
+			}
+
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:131:19: ( lExpr )?
+			int alt52=2;
+			int LA52_0 = input.LA(1);
+			if ( (LA52_0==Variable||LA52_0==34||LA52_0==52) ) {
+				alt52=1;
+			}
+			switch (alt52) {
+				case 1 :
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:131:19: lExpr
+					{
+					pushFollow(FOLLOW_lExpr_in_symbolExpr1236);
+					lExpr131=lExpr();
+					state._fsp--;
+
+					stream_lExpr.add(lExpr131.getTree());
+>>>>>>> Stashed changes
 					}
 					break;
 
 			}
+<<<<<<< Updated upstream
+=======
+
+			char_literal132=(Token)match(input,35,FOLLOW_35_in_symbolExpr1239);  
+			stream_35.add(char_literal132);
+
+			// AST REWRITE
+			// elements: lExpr, Symbol
+			// token labels: 
+			// rule labels: retval
+			// token list labels: 
+			// rule list labels: 
+			// wildcard labels: 
+			retval.tree = root_0;
+			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
+
+			root_0 = (Object)adaptor.nil();
+			// 131:30: -> Symbol ( lExpr )?
+			{
+				adaptor.addChild(root_0, stream_Symbol.nextNode());
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:131:40: ( lExpr )?
+				if ( stream_lExpr.hasNext() ) {
+					adaptor.addChild(root_0, stream_lExpr.nextTree());
+				}
+				stream_lExpr.reset();
+
+			}
+
+
+			retval.tree = root_0;
+
+			}
+
+>>>>>>> Stashed changes
 			retval.stop = input.LT(-1);
 
 			retval.tree = (Object)adaptor.rulePostProcessing(root_0);
@@ -3305,6 +5222,7 @@ public class while_astParser extends DebugParser {
 
 		Object root_0 = null;
 
+<<<<<<< Updated upstream
 		Token WS114=null;
 		Token string_literal115=null;
 		Token WS116=null;
@@ -3315,6 +5233,17 @@ public class while_astParser extends DebugParser {
 		Object string_literal115_tree=null;
 		Object WS116_tree=null;
 		RewriteRuleTokenStream stream_28=new RewriteRuleTokenStream(adaptor,"token 28");
+=======
+		Token WS134=null;
+		Token string_literal135=null;
+		Token WS136=null;
+		ParserRuleReturnScope lExpr133 =null;
+		ParserRuleReturnScope lExpr137 =null;
+
+		Object WS134_tree=null;
+		Object string_literal135_tree=null;
+		Object WS136_tree=null;
+>>>>>>> Stashed changes
 		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
 		RewriteRuleSubtreeStream stream_exprBase=new RewriteRuleSubtreeStream(adaptor,"rule exprBase");
 
@@ -3329,6 +5258,7 @@ public class while_astParser extends DebugParser {
 
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:100:7: exprBase ( WS )? ( '=?' ( WS )? exprBase )?
 			{
+<<<<<<< Updated upstream
 			dbg.location(100,7);
 			pushFollow(FOLLOW_exprBase_in_expression928);
 			exprBase113=exprBase();
@@ -3347,18 +5277,46 @@ public class while_astParser extends DebugParser {
 			} finally {dbg.exitDecision(39);}
 
 			switch (alt39) {
+=======
+			pushFollow(FOLLOW_lExpr_in_expression1258);
+			lExpr133=lExpr();
+			state._fsp--;
+
+			stream_lExpr.add(lExpr133.getTree());
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:134:13: ( WS )*
+			loop53:
+			while (true) {
+				int alt53=2;
+				int LA53_0 = input.LA(1);
+				if ( (LA53_0==WS) ) {
+					alt53=1;
+				}
+
+				switch (alt53) {
+>>>>>>> Stashed changes
 				case 1 :
 					dbg.enterAlt(1);
 
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:100:16: WS
 					{
+<<<<<<< Updated upstream
 					dbg.location(100,16);
 					WS114=(Token)match(input,WS,FOLLOW_WS_in_expression930);  
 					stream_WS.add(WS114);
+=======
+					WS134=(Token)match(input,WS,FOLLOW_WS_in_expression1260);  
+					stream_WS.add(WS134);
+>>>>>>> Stashed changes
 
 					}
 					break;
 
+<<<<<<< Updated upstream
+=======
+				default :
+					break loop53;
+				}
+>>>>>>> Stashed changes
 			}
 			} finally {dbg.exitSubRule(39);}
 			dbg.location(100,19);
@@ -3367,6 +5325,7 @@ public class while_astParser extends DebugParser {
 			try { dbg.enterSubRule(41);
 			try { dbg.enterDecision(41, decisionCanBacktrack[41]);
 
+<<<<<<< Updated upstream
 			int LA41_0 = input.LA(1);
 			if ( (LA41_0==28) ) {
 				alt41=1;
@@ -3374,11 +5333,21 @@ public class while_astParser extends DebugParser {
 			} finally {dbg.exitDecision(41);}
 
 			switch (alt41) {
+=======
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:134:16: ( '=?' ( WS )* lExpr )?
+			int alt55=2;
+			int LA55_0 = input.LA(1);
+			if ( (LA55_0==40) ) {
+				alt55=1;
+			}
+			switch (alt55) {
+>>>>>>> Stashed changes
 				case 1 :
 					dbg.enterAlt(1);
 
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:100:20: '=?' ( WS )? exprBase
 					{
+<<<<<<< Updated upstream
 					dbg.location(100,20);
 					string_literal115=(Token)match(input,28,FOLLOW_28_in_expression933);  
 					stream_28.add(string_literal115);
@@ -3395,18 +5364,39 @@ public class while_astParser extends DebugParser {
 					} finally {dbg.exitDecision(40);}
 
 					switch (alt40) {
+=======
+					string_literal135=(Token)match(input,40,FOLLOW_40_in_expression1263);  
+					stream_40.add(string_literal135);
+
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:134:22: ( WS )*
+					loop54:
+					while (true) {
+						int alt54=2;
+						int LA54_0 = input.LA(1);
+						if ( (LA54_0==WS) ) {
+							alt54=1;
+						}
+
+						switch (alt54) {
+>>>>>>> Stashed changes
 						case 1 :
 							dbg.enterAlt(1);
 
 							// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:100:25: WS
 							{
+<<<<<<< Updated upstream
 							dbg.location(100,25);
 							WS116=(Token)match(input,WS,FOLLOW_WS_in_expression935);  
 							stream_WS.add(WS116);
+=======
+							WS136=(Token)match(input,WS,FOLLOW_WS_in_expression1265);  
+							stream_WS.add(WS136);
+>>>>>>> Stashed changes
 
 							}
 							break;
 
+<<<<<<< Updated upstream
 					}
 					} finally {dbg.exitSubRule(40);}
 					dbg.location(100,29);
@@ -3415,6 +5405,18 @@ public class while_astParser extends DebugParser {
 					state._fsp--;
 
 					stream_exprBase.add(exprBase117.getTree());
+=======
+						default :
+							break loop54;
+						}
+					}
+
+					pushFollow(FOLLOW_lExpr_in_expression1268);
+					lExpr137=lExpr();
+					state._fsp--;
+
+					stream_lExpr.add(lExpr137.getTree());
+>>>>>>> Stashed changes
 					}
 					break;
 
@@ -3495,6 +5497,7 @@ public class while_astParser extends DebugParser {
 
 		Object root_0 = null;
 
+<<<<<<< Updated upstream
 		Token WS119=null;
 		ParserRuleReturnScope exprBase118 =null;
 		ParserRuleReturnScope lExpr120 =null;
@@ -3505,6 +5508,16 @@ public class while_astParser extends DebugParser {
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
 		dbg.location(104, 0);
+=======
+		Token WS139=null;
+		ParserRuleReturnScope exprBase138 =null;
+		ParserRuleReturnScope lExpr140 =null;
+
+		Object WS139_tree=null;
+		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
+		RewriteRuleSubtreeStream stream_exprBase=new RewriteRuleSubtreeStream(adaptor,"rule exprBase");
+		RewriteRuleSubtreeStream stream_lExpr=new RewriteRuleSubtreeStream(adaptor,"rule lExpr");
+>>>>>>> Stashed changes
 
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:105:5: ( exprBase ( WS )? ( lExpr )? )
@@ -3512,6 +5525,7 @@ public class while_astParser extends DebugParser {
 
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:105:7: exprBase ( WS )? ( lExpr )?
 			{
+<<<<<<< Updated upstream
 			root_0 = (Object)adaptor.nil();
 
 
@@ -3534,19 +5548,47 @@ public class while_astParser extends DebugParser {
 			} finally {dbg.exitDecision(42);}
 
 			switch (alt42) {
+=======
+			pushFollow(FOLLOW_exprBase_in_lExpr1302);
+			exprBase138=exprBase();
+			state._fsp--;
+
+			stream_exprBase.add(exprBase138.getTree());
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:139:16: ( WS )*
+			loop56:
+			while (true) {
+				int alt56=2;
+				int LA56_0 = input.LA(1);
+				if ( (LA56_0==WS) ) {
+					alt56=1;
+				}
+
+				switch (alt56) {
+>>>>>>> Stashed changes
 				case 1 :
 					dbg.enterAlt(1);
 
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:105:16: WS
 					{
+<<<<<<< Updated upstream
 					dbg.location(105,16);
 					WS119=(Token)match(input,WS,FOLLOW_WS_in_lExpr971); 
 					WS119_tree = (Object)adaptor.create(WS119);
 					adaptor.addChild(root_0, WS119_tree);
+=======
+					WS139=(Token)match(input,WS,FOLLOW_WS_in_lExpr1304);  
+					stream_WS.add(WS139);
+>>>>>>> Stashed changes
 
 					}
 					break;
 
+<<<<<<< Updated upstream
+=======
+				default :
+					break loop56;
+				}
+>>>>>>> Stashed changes
 			}
 			} finally {dbg.exitSubRule(42);}
 			dbg.location(105,20);
@@ -3555,6 +5597,7 @@ public class while_astParser extends DebugParser {
 			try { dbg.enterSubRule(43);
 			try { dbg.enterDecision(43, decisionCanBacktrack[43]);
 
+<<<<<<< Updated upstream
 			int LA43_0 = input.LA(1);
 			if ( (LA43_0==Symbol||LA43_0==Variable||LA43_0==22||LA43_0==40) ) {
 				alt43=1;
@@ -3562,11 +5605,21 @@ public class while_astParser extends DebugParser {
 			} finally {dbg.exitDecision(43);}
 
 			switch (alt43) {
+=======
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:139:20: ( lExpr )?
+			int alt57=2;
+			int LA57_0 = input.LA(1);
+			if ( (LA57_0==Variable||LA57_0==34||LA57_0==52) ) {
+				alt57=1;
+			}
+			switch (alt57) {
+>>>>>>> Stashed changes
 				case 1 :
 					dbg.enterAlt(1);
 
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:105:20: lExpr
 					{
+<<<<<<< Updated upstream
 					dbg.location(105,20);
 					pushFollow(FOLLOW_lExpr_in_lExpr974);
 					lExpr120=lExpr();
@@ -3574,6 +5627,13 @@ public class while_astParser extends DebugParser {
 
 					adaptor.addChild(root_0, lExpr120.getTree());
 
+=======
+					pushFollow(FOLLOW_lExpr_in_lExpr1307);
+					lExpr140=lExpr();
+					state._fsp--;
+
+					stream_lExpr.add(lExpr140.getTree());
+>>>>>>> Stashed changes
 					}
 					break;
 
@@ -3681,6 +5741,7 @@ public class while_astParser extends DebugParser {
 	// Delegated rules
 
 
+<<<<<<< Updated upstream
 
 	public static final BitSet FOLLOW_function_in_program242 = new BitSet(new long[]{0x0000000800000002L});
 	public static final BitSet FOLLOW_program_in_program244 = new BitSet(new long[]{0x0000000000000002L});
@@ -3803,4 +5864,262 @@ public class while_astParser extends DebugParser {
 	public static final BitSet FOLLOW_WS_in_lExpr971 = new BitSet(new long[]{0x0000010000448002L});
 	public static final BitSet FOLLOW_lExpr_in_lExpr974 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_program_in_startProgram992 = new BitSet(new long[]{0x0000000000000002L});
+=======
+	protected DFA15 dfa15 = new DFA15(this);
+	protected DFA41 dfa41 = new DFA41(this);
+	static final String DFA15_eotS =
+		"\4\uffff";
+	static final String DFA15_eofS =
+		"\4\uffff";
+	static final String DFA15_minS =
+		"\2\40\2\uffff";
+	static final String DFA15_maxS =
+		"\2\66\2\uffff";
+	static final String DFA15_acceptS =
+		"\2\uffff\1\1\1\2";
+	static final String DFA15_specialS =
+		"\4\uffff}>";
+	static final String[] DFA15_transitionS = {
+			"\1\1\1\3\5\uffff\1\2\3\uffff\2\3\11\uffff\1\3",
+			"\1\1\1\3\5\uffff\1\2\3\uffff\2\3\11\uffff\1\3",
+			"",
+			""
+	};
+
+	static final short[] DFA15_eot = DFA.unpackEncodedString(DFA15_eotS);
+	static final short[] DFA15_eof = DFA.unpackEncodedString(DFA15_eofS);
+	static final char[] DFA15_min = DFA.unpackEncodedStringToUnsignedChars(DFA15_minS);
+	static final char[] DFA15_max = DFA.unpackEncodedStringToUnsignedChars(DFA15_maxS);
+	static final short[] DFA15_accept = DFA.unpackEncodedString(DFA15_acceptS);
+	static final short[] DFA15_special = DFA.unpackEncodedString(DFA15_specialS);
+	static final short[][] DFA15_transition;
+
+	static {
+		int numStates = DFA15_transitionS.length;
+		DFA15_transition = new short[numStates][];
+		for (int i=0; i<numStates; i++) {
+			DFA15_transition[i] = DFA.unpackEncodedString(DFA15_transitionS[i]);
+		}
+	}
+
+	protected class DFA15 extends DFA {
+
+		public DFA15(BaseRecognizer recognizer) {
+			this.recognizer = recognizer;
+			this.decisionNumber = 15;
+			this.eot = DFA15_eot;
+			this.eof = DFA15_eof;
+			this.min = DFA15_min;
+			this.max = DFA15_max;
+			this.accept = DFA15_accept;
+			this.special = DFA15_special;
+			this.transition = DFA15_transition;
+		}
+		@Override
+		public String getDescription() {
+			return "71:15: ( ( WS )* ';' ( WS )* commands )?";
+		}
+	}
+
+	static final String DFA41_eotS =
+		"\12\uffff";
+	static final String DFA41_eofS =
+		"\12\uffff";
+	static final String DFA41_minS =
+		"\1\36\2\uffff\1\31\1\uffff\1\40\4\uffff";
+	static final String DFA41_maxS =
+		"\1\64\2\uffff\1\71\1\uffff\1\71\4\uffff";
+	static final String DFA41_acceptS =
+		"\1\uffff\1\1\1\2\1\uffff\1\7\1\uffff\1\3\1\4\1\5\1\6";
+	static final String DFA41_specialS =
+		"\12\uffff}>";
+	static final String[] DFA41_transitionS = {
+			"\1\2\3\uffff\1\3\21\uffff\1\1",
+			"",
+			"",
+			"\1\4\6\uffff\1\5\10\uffff\1\6\6\uffff\1\10\2\uffff\1\7\5\uffff\1\11",
+			"",
+			"\1\5\10\uffff\1\6\6\uffff\1\10\2\uffff\1\7\5\uffff\1\11",
+			"",
+			"",
+			"",
+			""
+	};
+
+	static final short[] DFA41_eot = DFA.unpackEncodedString(DFA41_eotS);
+	static final short[] DFA41_eof = DFA.unpackEncodedString(DFA41_eofS);
+	static final char[] DFA41_min = DFA.unpackEncodedStringToUnsignedChars(DFA41_minS);
+	static final char[] DFA41_max = DFA.unpackEncodedStringToUnsignedChars(DFA41_maxS);
+	static final short[] DFA41_accept = DFA.unpackEncodedString(DFA41_acceptS);
+	static final short[] DFA41_special = DFA.unpackEncodedString(DFA41_specialS);
+	static final short[][] DFA41_transition;
+
+	static {
+		int numStates = DFA41_transitionS.length;
+		DFA41_transition = new short[numStates][];
+		for (int i=0; i<numStates; i++) {
+			DFA41_transition[i] = DFA.unpackEncodedString(DFA41_transitionS[i]);
+		}
+	}
+
+	protected class DFA41 extends DFA {
+
+		public DFA41(BaseRecognizer recognizer) {
+			this.recognizer = recognizer;
+			this.decisionNumber = 41;
+			this.eot = DFA41_eot;
+			this.eof = DFA41_eof;
+			this.min = DFA41_min;
+			this.max = DFA41_max;
+			this.accept = DFA41_accept;
+			this.special = DFA41_special;
+			this.transition = DFA41_transition;
+		}
+		@Override
+		public String getDescription() {
+			return "111:1: exprBase : ( nil_ | variable | cons | list | hd | tl | symbolExpr );";
+		}
+	}
+
+	public static final BitSet FOLLOW_program_in_startProgram201 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_function_in_program355 = new BitSet(new long[]{0x0000800000000002L});
+	public static final BitSet FOLLOW_program_in_program357 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_47_in_function386 = new BitSet(new long[]{0x0000000002000000L});
+	public static final BitSet FOLLOW_Symbol_in_function388 = new BitSet(new long[]{0x0000002100000000L});
+	public static final BitSet FOLLOW_WS_in_function390 = new BitSet(new long[]{0x0000002100000000L});
+	public static final BitSet FOLLOW_37_in_function393 = new BitSet(new long[]{0x0080000100000000L});
+	public static final BitSet FOLLOW_WS_in_function395 = new BitSet(new long[]{0x0080000100000000L});
+	public static final BitSet FOLLOW_definition_in_function398 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_55_in_definition427 = new BitSet(new long[]{0x0000000340000000L});
+	public static final BitSet FOLLOW_WS_in_definition429 = new BitSet(new long[]{0x0000000340000000L});
+	public static final BitSet FOLLOW_input_in_definition432 = new BitSet(new long[]{0x0000000200000000L});
+	public static final BitSet FOLLOW_33_in_definition434 = new BitSet(new long[]{0x0422600140000000L});
+	public static final BitSet FOLLOW_WS_in_definition436 = new BitSet(new long[]{0x0422600140000000L});
+	public static final BitSet FOLLOW_commands_in_definition439 = new BitSet(new long[]{0x0000000300000000L});
+	public static final BitSet FOLLOW_WS_in_definition441 = new BitSet(new long[]{0x0000000300000000L});
+	public static final BitSet FOLLOW_33_in_definition443 = new BitSet(new long[]{0x0800000100000000L});
+	public static final BitSet FOLLOW_WS_in_definition445 = new BitSet(new long[]{0x0800000100000000L});
+	public static final BitSet FOLLOW_59_in_definition448 = new BitSet(new long[]{0x0000000040000000L});
+	public static final BitSet FOLLOW_output_in_definition450 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_inputSub_in_input479 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Variable_in_inputSub507 = new BitSet(new long[]{0x0000001100000002L});
+	public static final BitSet FOLLOW_WS_in_inputSub509 = new BitSet(new long[]{0x0000001100000002L});
+	public static final BitSet FOLLOW_36_in_inputSub513 = new BitSet(new long[]{0x0000000140000000L});
+	public static final BitSet FOLLOW_WS_in_inputSub515 = new BitSet(new long[]{0x0000000140000000L});
+	public static final BitSet FOLLOW_inputSub_in_inputSub518 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Variable_in_output544 = new BitSet(new long[]{0x0000001000000002L});
+	public static final BitSet FOLLOW_36_in_output547 = new BitSet(new long[]{0x0000000040000000L});
+	public static final BitSet FOLLOW_output_in_output549 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_command_in_commands579 = new BitSet(new long[]{0x0000008100000002L});
+	public static final BitSet FOLLOW_WS_in_commands583 = new BitSet(new long[]{0x0000008100000000L});
+	public static final BitSet FOLLOW_39_in_commands586 = new BitSet(new long[]{0x0422600140000000L});
+	public static final BitSet FOLLOW_WS_in_commands588 = new BitSet(new long[]{0x0422600140000000L});
+	public static final BitSet FOLLOW_commands_in_commands591 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_53_in_command618 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_decl_in_command622 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_if__in_command626 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_for__in_command630 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_while__in_command634 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_foreach__in_command638 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_vars_in_decl652 = new BitSet(new long[]{0x0000004100000000L});
+	public static final BitSet FOLLOW_WS_in_decl654 = new BitSet(new long[]{0x0000004100000000L});
+	public static final BitSet FOLLOW_38_in_decl657 = new BitSet(new long[]{0x0010000540000000L});
+	public static final BitSet FOLLOW_WS_in_decl659 = new BitSet(new long[]{0x0010000540000000L});
+	public static final BitSet FOLLOW_exprs_in_decl662 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_49_in_if_691 = new BitSet(new long[]{0x0010000540000000L});
+	public static final BitSet FOLLOW_WS_in_if_693 = new BitSet(new long[]{0x0010000540000000L});
+	public static final BitSet FOLLOW_expression_in_if_696 = new BitSet(new long[]{0x0100000100000000L});
+	public static final BitSet FOLLOW_WS_in_if_698 = new BitSet(new long[]{0x0100000100000000L});
+	public static final BitSet FOLLOW_then__in_if_701 = new BitSet(new long[]{0x0000180100000000L});
+	public static final BitSet FOLLOW_WS_in_if_704 = new BitSet(new long[]{0x0000180100000000L});
+	public static final BitSet FOLLOW_else__in_if_707 = new BitSet(new long[]{0x0000100100000000L});
+	public static final BitSet FOLLOW_WS_in_if_709 = new BitSet(new long[]{0x0000100100000000L});
+	public static final BitSet FOLLOW_44_in_if_712 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_56_in_then_745 = new BitSet(new long[]{0x0422600140000000L});
+	public static final BitSet FOLLOW_WS_in_then_747 = new BitSet(new long[]{0x0422600140000000L});
+	public static final BitSet FOLLOW_commands_in_then_750 = new BitSet(new long[]{0x0000000100000002L});
+	public static final BitSet FOLLOW_WS_in_then_752 = new BitSet(new long[]{0x0000000100000002L});
+	public static final BitSet FOLLOW_43_in_else_770 = new BitSet(new long[]{0x0422600140000000L});
+	public static final BitSet FOLLOW_WS_in_else_772 = new BitSet(new long[]{0x0422600140000000L});
+	public static final BitSet FOLLOW_commands_in_else_775 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_58_in_while_798 = new BitSet(new long[]{0x0010000540000000L});
+	public static final BitSet FOLLOW_WS_in_while_800 = new BitSet(new long[]{0x0010000540000000L});
+	public static final BitSet FOLLOW_expression_in_while_803 = new BitSet(new long[]{0x0000040100000000L});
+	public static final BitSet FOLLOW_WS_in_while_805 = new BitSet(new long[]{0x0000040100000000L});
+	public static final BitSet FOLLOW_do__in_while_808 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_42_in_do_839 = new BitSet(new long[]{0x0422600140000000L});
+	public static final BitSet FOLLOW_WS_in_do_841 = new BitSet(new long[]{0x0422600140000000L});
+	public static final BitSet FOLLOW_commands_in_do_844 = new BitSet(new long[]{0x0040000100000000L});
+	public static final BitSet FOLLOW_WS_in_do_846 = new BitSet(new long[]{0x0040000100000000L});
+	public static final BitSet FOLLOW_54_in_do_849 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_45_in_for_870 = new BitSet(new long[]{0x0010000540000000L});
+	public static final BitSet FOLLOW_WS_in_for_872 = new BitSet(new long[]{0x0010000540000000L});
+	public static final BitSet FOLLOW_expression_in_for_875 = new BitSet(new long[]{0x0000040100000000L});
+	public static final BitSet FOLLOW_WS_in_for_877 = new BitSet(new long[]{0x0000040100000000L});
+	public static final BitSet FOLLOW_do__in_for_880 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_46_in_foreach_911 = new BitSet(new long[]{0x0000000140000000L});
+	public static final BitSet FOLLOW_WS_in_foreach_913 = new BitSet(new long[]{0x0000000140000000L});
+	public static final BitSet FOLLOW_Variable_in_foreach_916 = new BitSet(new long[]{0x0004000100000000L});
+	public static final BitSet FOLLOW_WS_in_foreach_918 = new BitSet(new long[]{0x0004000100000000L});
+	public static final BitSet FOLLOW_50_in_foreach_921 = new BitSet(new long[]{0x0010000540000000L});
+	public static final BitSet FOLLOW_WS_in_foreach_923 = new BitSet(new long[]{0x0010000540000000L});
+	public static final BitSet FOLLOW_expression_in_foreach_926 = new BitSet(new long[]{0x0000040100000000L});
+	public static final BitSet FOLLOW_WS_in_foreach_928 = new BitSet(new long[]{0x0000040100000000L});
+	public static final BitSet FOLLOW_do__in_foreach_931 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Variable_in_vars967 = new BitSet(new long[]{0x0000001000000002L});
+	public static final BitSet FOLLOW_36_in_vars970 = new BitSet(new long[]{0x0000000140000000L});
+	public static final BitSet FOLLOW_WS_in_vars971 = new BitSet(new long[]{0x0000000140000000L});
+	public static final BitSet FOLLOW_vars_in_vars974 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_expression_in_exprs1000 = new BitSet(new long[]{0x0000001000000002L});
+	public static final BitSet FOLLOW_36_in_exprs1003 = new BitSet(new long[]{0x0010000540000000L});
+	public static final BitSet FOLLOW_WS_in_exprs1004 = new BitSet(new long[]{0x0010000540000000L});
+	public static final BitSet FOLLOW_exprs_in_exprs1007 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_nil__in_exprBase1032 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_variable_in_exprBase1040 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_cons_in_exprBase1048 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_list_in_exprBase1052 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_hd_in_exprBase1060 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_tl_in_exprBase1064 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_symbolExpr_in_exprBase1072 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_52_in_nil_1091 = new BitSet(new long[]{0x0000000100000002L});
+	public static final BitSet FOLLOW_WS_in_nil_1092 = new BitSet(new long[]{0x0000000100000002L});
+	public static final BitSet FOLLOW_Variable_in_variable1109 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_34_in_cons1121 = new BitSet(new long[]{0x0000020100000000L});
+	public static final BitSet FOLLOW_WS_in_cons1123 = new BitSet(new long[]{0x0000020100000000L});
+	public static final BitSet FOLLOW_41_in_cons1126 = new BitSet(new long[]{0x0010000440000000L});
+	public static final BitSet FOLLOW_lExpr_in_cons1128 = new BitSet(new long[]{0x0000000900000000L});
+	public static final BitSet FOLLOW_WS_in_cons1130 = new BitSet(new long[]{0x0000000900000000L});
+	public static final BitSet FOLLOW_35_in_cons1133 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_34_in_list1149 = new BitSet(new long[]{0x0008000100000000L});
+	public static final BitSet FOLLOW_WS_in_list1150 = new BitSet(new long[]{0x0008000100000000L});
+	public static final BitSet FOLLOW_51_in_list1153 = new BitSet(new long[]{0x0010000440000000L});
+	public static final BitSet FOLLOW_lExpr_in_list1155 = new BitSet(new long[]{0x0000000900000000L});
+	public static final BitSet FOLLOW_WS_in_list1157 = new BitSet(new long[]{0x0000000900000000L});
+	public static final BitSet FOLLOW_35_in_list1160 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_34_in_hd1176 = new BitSet(new long[]{0x0001000100000000L});
+	public static final BitSet FOLLOW_WS_in_hd1177 = new BitSet(new long[]{0x0001000100000000L});
+	public static final BitSet FOLLOW_48_in_hd1180 = new BitSet(new long[]{0x0010000440000000L});
+	public static final BitSet FOLLOW_exprBase_in_hd1182 = new BitSet(new long[]{0x0000000900000000L});
+	public static final BitSet FOLLOW_WS_in_hd1184 = new BitSet(new long[]{0x0000000900000000L});
+	public static final BitSet FOLLOW_35_in_hd1186 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_34_in_tl1202 = new BitSet(new long[]{0x0200000100000000L});
+	public static final BitSet FOLLOW_WS_in_tl1204 = new BitSet(new long[]{0x0200000100000000L});
+	public static final BitSet FOLLOW_57_in_tl1206 = new BitSet(new long[]{0x0010000440000000L});
+	public static final BitSet FOLLOW_exprBase_in_tl1208 = new BitSet(new long[]{0x0000000900000000L});
+	public static final BitSet FOLLOW_WS_in_tl1210 = new BitSet(new long[]{0x0000000900000000L});
+	public static final BitSet FOLLOW_35_in_tl1212 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_34_in_symbolExpr1229 = new BitSet(new long[]{0x0000000002000000L});
+	public static final BitSet FOLLOW_Symbol_in_symbolExpr1231 = new BitSet(new long[]{0x0010000D40000000L});
+	public static final BitSet FOLLOW_WS_in_symbolExpr1233 = new BitSet(new long[]{0x0010000D40000000L});
+	public static final BitSet FOLLOW_lExpr_in_symbolExpr1236 = new BitSet(new long[]{0x0000000800000000L});
+	public static final BitSet FOLLOW_35_in_symbolExpr1239 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_lExpr_in_expression1258 = new BitSet(new long[]{0x0000010100000002L});
+	public static final BitSet FOLLOW_WS_in_expression1260 = new BitSet(new long[]{0x0000010100000002L});
+	public static final BitSet FOLLOW_40_in_expression1263 = new BitSet(new long[]{0x0010000540000000L});
+	public static final BitSet FOLLOW_WS_in_expression1265 = new BitSet(new long[]{0x0010000540000000L});
+	public static final BitSet FOLLOW_lExpr_in_expression1268 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_exprBase_in_lExpr1302 = new BitSet(new long[]{0x0010000540000002L});
+	public static final BitSet FOLLOW_WS_in_lExpr1304 = new BitSet(new long[]{0x0010000540000002L});
+	public static final BitSet FOLLOW_lExpr_in_lExpr1307 = new BitSet(new long[]{0x0000000000000002L});
+>>>>>>> Stashed changes
 }

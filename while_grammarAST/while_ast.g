@@ -64,7 +64,11 @@ decl
     ;
 
 if_
+<<<<<<< Updated upstream
     : ('if' WS? expression WS? 'then' WS? commands WS? ('else' WS? commands)? WS? 'fi') -> ^(IF expression commands)
+=======
+    : ('if' WS* expression WS* then_  WS* else_ WS* 'fi') -> ^(IF expression then_ else_? END)
+>>>>>>> Stashed changes
     ;
 
 while_

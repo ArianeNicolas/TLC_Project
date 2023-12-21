@@ -38,7 +38,7 @@ startProgram
 Maj     : ('A'..'Z');
 Min     : ('a'..'z');
 Dec     : ('0'..'9');
-WS      : ' ';
+WS      : ' '|'\n'|'\r';
 
 Variable    : Maj (Maj | Min | Dec)* ('!' | '?')?;
 Symbol      : Min (Maj | Min | Dec)* ('!' | '?')?;
@@ -101,11 +101,11 @@ foreach_
     ;
 
 vars
-    : Variable (',' vars)? -> ^(VARIABLES Variable vars*)
+    : Variable (','WS* vars)? -> Variable vars*
     ;
 
 exprs
-    : expression (',' exprs)? -> expression exprs*
+    : expression (','WS* exprs)? -> expression exprs*
     ;
 
 exprBase   :  nil_
@@ -131,7 +131,7 @@ symbolExpr
 	:	'(' Symbol WS* lExpr? ')' -> Symbol lExpr?;
 
 expression
-    : exprBase WS*('=?' WS* exprBase)? -> ^(EXPR exprBase exprBase?)
+    : lExpr WS*('=?' WS* lExpr)? -> ^(EXPR lExpr lExpr?)
     ;
    
 

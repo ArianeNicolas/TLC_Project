@@ -1,4 +1,4 @@
-// $ANTLR 3.5.1 C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g 2023-12-15 15:51:00
+// $ANTLR 3.5.1 C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g 2023-12-21 09:42:57
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -727,10 +727,17 @@ public class while_astLexer extends Lexer {
 		try {
 			int _type = WS;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:41:9: ( ' ' )
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:41:11: ' '
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:41:9: ( ' ' | '\\n' | '\\r' )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:
 			{
-			match(' '); 
+			if ( input.LA(1)=='\n'||input.LA(1)=='\r'||input.LA(1)==' ' ) {
+				input.consume();
+			}
+			else {
+				MismatchedSetException mse = new MismatchedSetException(null,input);
+				recover(mse);
+				throw mse;
+			}
 			}
 
 			state.type = _type;
@@ -1140,7 +1147,7 @@ public class while_astLexer extends Lexer {
 	static final String DFA5_eofS =
 		"\140\uffff";
 	static final String DFA5_minS =
-		"\1\40\4\uffff\1\75\2\uffff\16\41\4\uffff\1\156\2\uffff\1\41\1\163\1\41"+
+		"\1\12\4\uffff\1\75\2\uffff\16\41\4\uffff\1\156\2\uffff\1\41\1\163\1\41"+
 		"\1\162\1\156\1\40\2\41\1\163\1\154\1\160\1\41\1\141\1\145\1\40\2\151\2"+
 		"\uffff\1\163\1\uffff\1\145\1\uffff\1\41\1\143\3\uffff\1\164\2\41\1\uffff"+
 		"\1\144\1\156\1\uffff\1\154\1\164\1\40\1\41\1\141\1\uffff\1\164\1\40\2"+
@@ -1162,9 +1169,10 @@ public class while_astLexer extends Lexer {
 	static final String DFA5_specialS =
 		"\140\uffff}>";
 	static final String[] DFA5_transitionS = {
-			"\1\27\4\uffff\1\1\2\uffff\1\2\1\3\2\uffff\1\4\3\uffff\12\26\1\5\1\6\1"+
-			"\uffff\1\7\3\uffff\32\24\6\uffff\2\25\1\10\1\11\1\12\1\13\1\25\1\14\1"+
-			"\15\2\25\1\16\1\25\1\17\1\20\2\25\1\21\1\25\1\22\2\25\1\23\3\25",
+			"\1\27\2\uffff\1\27\22\uffff\1\27\4\uffff\1\1\2\uffff\1\2\1\3\2\uffff"+
+			"\1\4\3\uffff\12\26\1\5\1\6\1\uffff\1\7\3\uffff\32\24\6\uffff\2\25\1\10"+
+			"\1\11\1\12\1\13\1\25\1\14\1\15\2\25\1\16\1\25\1\17\1\20\2\25\1\21\1\25"+
+			"\1\22\2\25\1\23\3\25",
 			"",
 			"",
 			"",

@@ -1,7 +1,7 @@
 function sub : 
-read Op1, Op2 
+read Op1, Op2, Op3 
 % 
-Result := Op1; 
+Result, Op2 := Op1, Op3; 
 	foreach Op in Op2 do 
  		Result := (tl Result) 
 	od 

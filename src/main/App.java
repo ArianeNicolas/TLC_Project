@@ -21,6 +21,7 @@ public class App {
             //System.exit(1); 
         }
 
+         //todo concatener si plusieurs arguments
         String src = "";
         // Read the file // todo put it in src
         try {

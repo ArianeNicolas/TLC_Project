@@ -1,4 +1,3 @@
-// Addition of two numbers
 function add :
 read Op1, Op2
 %
@@ -6,5 +5,15 @@ read Op1, Op2
 for Op2 do
  Result := ( cons nil Result )
 od
+%
+write Result
+
+
+function mul :
+read Op1
+%
+    for Op2 do
+        Result :=  (add Op1, Op1 )
+    od
 %
 write Result

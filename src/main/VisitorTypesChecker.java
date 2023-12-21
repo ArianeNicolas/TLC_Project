@@ -38,22 +38,38 @@ public class VisitorTypesChecker extends Visitor {
 
                 break;
 
+
             case "VARDEF": //:=
+                //System.out.println("NODE" +node);
                 //children
                 List<CommonTree> children = (List<CommonTree>) node.getChildren();
-                System.out.println("children" +children);
+                //System.out.println("children" +children);
 
                 //gauche égalité
-                CommonTree vars = children.get(0);
+                List<CommonTree> vars =  (List<CommonTree>) children.get(0).getChildren();
+                //foreahc children in vars -> get type
+                int varType = 0;
+                for (CommonTree var : vars) {
+                    varType += getType(var);
+                    //System.out.println("var gauche " +var);
+                }
+                //System.out.println("varType input" +varType);
                 
                 //droite égalité 
-                CommonTree exprs = children.get(1);
-
-                if(getType(vars) != getType(exprs)){
-                    throw new WhileException("Type mismatch", node.getLine());
+                List<CommonTree>  exprs = (List<CommonTree>) children.get(1).getChildren();
+                
+                //foreahc children in exprs -> get type
+                int exprType = 0;
+                for (CommonTree expr : exprs) {
+                    exprType += getType(expr);
+                    //System.out.println("expr droite " +expr);
                 }
 
+                System.out.println("exprType output" +exprType);
 
+
+                
+                break;
             default:
                 break;
         } 
@@ -67,18 +83,52 @@ public class VisitorTypesChecker extends Visitor {
      */
     private int getType(CommonTree node){
 
+        // variable = 1
+        // function -> input ou output
         //todo
         //get context -> si dans contexte -> on peut definir le type
             //on utilise le nom du contexte ???
             //OU -> dans cette classe qud fonction currentOCntext+1 et quand END -> currentContext-1
         //sinon -> nil
 
+        //fonciton -> nbre outpus  ou input
+
         String token=node.getText();
         switch (token) {
-            case "nil":
-                return 0;
+            //condition arbre 1
+            // if arbre 0
 
+            // si if
+                //0
+            //si condition -> jsp comment on fait
+            //si arbre 
+                //1
+            //parcours table de symboles
+            // si fonction 
+                // on retourne le nombre d'output de la fonction
+                // mais il d'abord vérifier que la fonction recoit le bon nombre d'input
+    
+
+            case "nil":
+                return 1;
             default:
+                //si nom de fonction dans la table des symboles, retourner le nombre d'output
+                for (WhileContext context : symbolsTable) {
+                    System.out.println("context.getName() " +context.getName());
+                    System.out.println("TOOOOOOOKEEEEEEEEE " +token);
+                    if(context.getName().equals(token)){
+                        //check if we are in the inputs 
+                        //todo
+                        
+                        //print children
+                        List<CommonTree> children = (List<CommonTree>) node.getChildren();
+                        //System.out.println("childrenAAAAAAAAAAAAA" +children);
+
+                        //EXPR add Op1 add Op1 Op1
+
+                        return context.getOutputs().size();
+                    }
+                }
                 return 1;
         }
     }

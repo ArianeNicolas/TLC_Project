@@ -114,17 +114,15 @@ public class VisitorTypesChecker extends Visitor {
             default:
                 //si nom de fonction dans la table des symboles, retourner le nombre d'output
                 for (WhileContext context : symbolsTable) {
-                    System.out.println("context.getName() " +context.getName());
-                    System.out.println("TOOOOOOOKEEEEEEEEE " +token);
                     if(context.getName().equals(token)){
                         //check if we are in the inputs 
                         //todo
-                        
-                        //print children
-                        List<CommonTree> children = (List<CommonTree>) node.getChildren();
-                        //System.out.println("childrenAAAAAAAAAAAAA" +children);
 
-                        //EXPR add Op1 add Op1 Op1
+                        ///get the parent children
+                        CommonTree parent = (CommonTree) node.getParent();
+                        List<CommonTree> children = (List<CommonTree>) parent.getChildren();
+
+                        //TODOOOOOOOO CHECK IF INPUT IS RIGHT
 
                         return context.getOutputs().size();
                     }

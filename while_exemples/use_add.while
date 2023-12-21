@@ -10,10 +10,10 @@ write Result
 
 
 function mul :
-read Op1
+read Op1, Op2
 %
-    for Op2 do
-        Result :=  (add Op1, Op1 )
-    od
+for Op1 do
+ Result := (add Result Op2)
+od
 %
 write Result

@@ -3,8 +3,10 @@ package main;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -14,19 +16,22 @@ import classes.while_astLexer;
 import classes.while_astParser;
 
 public class App {
+    public static String[] files;
     public static void main(String[] args) throws Exception {
+        App.files = args;
         // Check if a file name is provided as argument
-        if(args == null || args.length != 1) {
-            System.out.println("Please provide a file name as argument");
+        if(args == null || args.length < 1) {
+            System.out.println("Please provide at least a file name as argument");
             //System.exit(1); 
         }
 
-         //todo concatener si plusieurs arguments
+        //todo concatener si plusieurs arguments
         String src = "";
         // Read the file // todo put it in src
         try {
-            Path path = Path.of(args[0]);
-            src = Files.readString(path); 
+            for (String arg : args) {
+                src += '\n' + Files.readString(Path.of(arg));
+            }
         } catch (Exception e) {
             System.out.println("Error while reading file");
             //System.exit(1);
@@ -66,6 +71,34 @@ public class App {
         //check the types
         VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitor.getSymbolsTable());
         visitorTypesChecker.visit(treeRoot);
-        
     }   
+
+    //TODO : l'utiliser pour les erreurs
+    //get file name and line number
+    public static String getFileNameAndLineNumber(CommonTree node) {
+        //get the line count of each file
+        ArrayList<Integer> lineCounts = new ArrayList<Integer>();
+        for (String arg : files) {
+            try {
+                lineCounts.add(Files.readAllLines(Path.of(arg)).size());
+            } catch (IOException e) {
+                System.out.println("Error while reading file");
+                //System.exit(1);
+            }
+        }
+        //get real file and line number
+        int fileIndex = 0;
+        int line = node.getLine();
+        for (int i = 0; i < lineCounts.size(); i++) {
+            if(line > lineCounts.get(i)) {
+                line -= lineCounts.get(i);
+                // handle the add of a \n between files
+                line--;
+                fileIndex++;
+            } else {
+                break;
+            }
+        }
+        return "File: " + files[fileIndex] + " Line: " + line;
+    } 
 }

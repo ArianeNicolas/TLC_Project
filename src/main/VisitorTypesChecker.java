@@ -123,6 +123,9 @@ public class VisitorTypesChecker extends Visitor {
                         CommonTree parent = (CommonTree) node.getParent();
                         List<CommonTree> children = (List<CommonTree>) parent.getChildren();
 
+                        System.out.println(App.getFileNameAndLineNumber(node));
+
+
                         //TODOOOOOOOO CHECK IF INPUT IS RIGHT
                         //children count
                         //(add Result (add Result Op2)) donne

@@ -57,7 +57,7 @@ public class App {
         // Check if there is no syntax error and raise an exception if needed
         int nbErrors = parser.getNumberOfSyntaxErrors();
         if(nbErrors > 0) {
-            throw new WhileException(nbErrors + " syntax error" + (nbErrors > 1 ? "s" : ""), null);
+            throw new WhileException(nbErrors + " syntax error" + (nbErrors > 1 ? "s" : ""));
         }
 
         // The root of the AST
@@ -99,6 +99,6 @@ public class App {
                 break;
             }
         }
-        return "File: " + files[fileIndex] + " Line: " + line;
+        return "File: " + files[fileIndex] + " at Line: " + line;
     } 
 }

@@ -52,7 +52,7 @@ public class VisitorSymbolsTable extends Visitor {
                 for (CommonTree input : inputs) {
                     //test if the input is already declared in the current context
                     if(currentContextIndex >=0 && inputNames.contains(input.getText())) {
-                        throw new WhileException("Input already declared : "+input.getText(), node.getLine());
+                        throw new WhileException("Input already declared : "+App.getFileNameAndLineNumber(node));
                     }
                     // add a parameter to the current function
                     symbolsTable.get(currentContextIndex).addParameter(input.getText());
@@ -68,7 +68,7 @@ public class VisitorSymbolsTable extends Visitor {
                     //test if the output is already declared in the current context 
                     if(currentContextIndex >=0 && outputNames.contains(output.getText())) {
                         //todo to test
-                        throw new WhileException("Output already declared : "+output.getText(), node.getLine());
+                        throw new WhileException("Output already declared : "+App.getFileNameAndLineNumber(node));
                     }
                     // add an output to the last function (because it's after the end)
                     symbolsTable.get(lastContextIndex).addOutput(output.getText());
@@ -116,7 +116,7 @@ public class VisitorSymbolsTable extends Visitor {
         //if two function have the same name -> error
         for (WhileContext ctx : symbolsTable) {
             if(currrentContext.getName().equals(ctx.getName()) && currrentContext != ctx) { // currrentContext != ctx if currrentContext is already add in symbolsTable 
-                throw new WhileException("Same declaration", node.getLine());
+                throw new WhileException("Same declaration of function : "+App.getFileNameAndLineNumber(node));
             }
         }
     }

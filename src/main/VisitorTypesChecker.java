@@ -80,8 +80,9 @@ public class VisitorTypesChecker extends Visitor {
      * Return the number of values in the node
      * @param node
      * @return
+     * @throws WhileException
      */
-    private int getType(CommonTree node){
+    private int getType(CommonTree node) throws WhileException{
 
         // variable = 1
         // function -> input ou output
@@ -114,16 +115,22 @@ public class VisitorTypesChecker extends Visitor {
             default:
                 //si nom de fonction dans la table des symboles, retourner le nombre d'output
                 for (WhileContext context : symbolsTable) {
+                    
                     if(context.getName().equals(token)){
                         //check if we are in the inputs 
                         //todo
-
                         ///get the parent children
                         CommonTree parent = (CommonTree) node.getParent();
                         List<CommonTree> children = (List<CommonTree>) parent.getChildren();
 
                         //TODOOOOOOOO CHECK IF INPUT IS RIGHT
+                        //children count
+                        //(add Result (add Result Op2)) donne
+                        //(EXPR add Result add Result Op2) 
+                        // à voir si normal
 
+
+                       
                         return context.getOutputs().size();
                     }
                 }

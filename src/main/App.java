@@ -49,6 +49,12 @@ public class App {
         // Call the start rule, which is the entry point of the grammar
         while_astParser.startProgram_return startProgram = parser.startProgram();
 
+        // Check if there is no syntax error and raise an exception if needed
+        int nbErrors = parser.getNumberOfSyntaxErrors();
+        if(nbErrors > 0) {
+            throw new WhileException(nbErrors + " syntax error" + (nbErrors > 1 ? "s" : ""), null);
+        }
+
         // The root of the AST
         final CommonTree treeRoot = (CommonTree) startProgram.getTree();
         System.out.println("Tree: " + treeRoot.toStringTree());

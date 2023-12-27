@@ -19,5 +19,8 @@ void test(void)
     displayString(sum);
     printf("\n");
     printf("int : %d \n", intTree(sum));
+    Tree subt = sub(sum, node(node(NULL, 'L', NULL), 'K', node(NULL, 'M', NULL)));
+    printf("int sub : %d \n", intTree(subt));
+
     deleteTree(t);
 }

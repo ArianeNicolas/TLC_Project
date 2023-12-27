@@ -5,8 +5,8 @@
 
 Tree node(Tree l, char v, Tree r) 
 {
-	LinkTree *m;
-	m = malloc(sizeof(LinkTree));
+	Node *m;
+	m = malloc(sizeof(Node));
 
 	m->l= l;
 	m->v = v;
@@ -60,7 +60,7 @@ Tree copy(Tree t)
 	return node(copy(t->l), t->v, copy(t->r));
 }
 
-Tree add(Tree t1, Tree t2)
+Tree concatenate(Tree t1, Tree t2)
 {
 	Tree ct1 = copy(t1);
 	Tree ct2 = copy(t2);
@@ -70,5 +70,55 @@ Tree add(Tree t1, Tree t2)
 	
 	ct1->r = ct2;
 
+	return root;
+}
+
+Tree add(Tree t1, Tree t2)
+{
+	Tree ct1 = copy(t1);
+	Tree ct2 = copy(t2);
+	Tree root = ct1;
+
+	while (!isEmpty(ct1->r)) ct1 = ct1->r;
+	
+	ct1->l = ct2->l;
+	ct1->r = ct2->r;
+
+	return root;
+}
+
+Tree sub(Tree t1, Tree t2)
+{
+	Tree root = NULL;
+	int intT1 = intTree(t1);
+	int intT2 = intTree(t2);
+	if(intT1 < intT2) {
+		int h = intT2-intT1;
+		Tree ct2 = copy(t2);
+		root = ct2;
+		for (int i = 0; i < h; i++)
+		{
+			ct2 = ct2->r;
+		}
+		deleteTree(ct2->r);
+		deleteTree(ct2->l);
+		ct2->r = NULL;
+		ct2->l = NULL;
+		
+	} else {
+		
+		int h = intT1-intT2;
+		Tree ct1 = copy(t1);
+		root = ct1;
+		for (int i = 0; i < h; i++)
+		{
+			ct1 = ct1->r;
+			
+		}
+		deleteTree(ct1->r);
+		deleteTree(ct1->l);
+		ct1->r = NULL;
+		ct1->l = NULL;
+	}
 	return root;
 }

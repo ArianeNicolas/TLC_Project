@@ -8,6 +8,8 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.tree.CommonTree;
 
+import main.VisitorThreeAdresses;
+
 public class App {
     public static void main(String[] args) throws Exception {
 

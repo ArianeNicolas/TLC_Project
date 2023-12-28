@@ -463,8 +463,4 @@ public class VisitorThreeAdresses extends Visitor {
     
 }
 
-//todo
-//ajouter tableau avec les ligne
-//une ligne par process
-//mouais pas sur
 

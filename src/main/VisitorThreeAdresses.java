@@ -1,3 +1,5 @@
+package main;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,11 +11,11 @@ public class VisitorThreeAdresses extends Visitor {
 
     int indice = 0;
 
-    class ThreeAdresses {
-        String op;
-        String arg1;
-        String arg2;
-        String var;
+    public class ThreeAdresses {
+        public String op;
+        public String arg1;
+        public String arg2;
+        public String var;
     };
 
     private HashMap<CommonTree,ArrayList<ThreeAdresses>> stock = new HashMap<CommonTree,ArrayList<ThreeAdresses>>(); 
@@ -457,5 +459,12 @@ public class VisitorThreeAdresses extends Visitor {
             }
         }
     }
+
     
 }
+
+//todo
+//ajouter tableau avec les ligne
+//une ligne par process
+//mouais pas sur
+

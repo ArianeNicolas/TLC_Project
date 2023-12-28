@@ -1,4 +1,3 @@
-// Addition of two numbers
 function add :
 read Op1, Op2
 %
@@ -8,13 +7,3 @@ for Op2 do
 od
 %
 write Result
-// Soustraction of two numbers (there is no negative number…)
-function sub :
-read Op1, Op2
-%
- Result := Op1;
-for Op2 do
- Result := (tl Result)
-od
-%
-write Result 

@@ -1,3 +1,4 @@
+package main;
 import java.util.HashSet;
 
 import org.antlr.runtime.tree.CommonTree;
@@ -7,8 +8,9 @@ public abstract class Visitor {
     /**
      * Call the visit method on the tree
      * @param tree
+     * @throws Exception
      */
-    public void visit(CommonTree tree) {
+    public void visit(CommonTree tree) throws Exception {
         HashSet<CommonTree> visitedNodes = new HashSet<CommonTree>();
         if (tree != null)
             visitRecursif(tree, visitedNodes);
@@ -18,8 +20,9 @@ public abstract class Visitor {
      * Visit the tree recursively
      * @param tree
      * @param visitedNodes
+     * @throws Exception
      */
-    private void visitRecursif(CommonTree tree, HashSet<CommonTree>  visitedNodes) {
+    private void visitRecursif(CommonTree tree, HashSet<CommonTree>  visitedNodes) throws Exception {
         visitedNodes.add(tree);
 
         entry(tree);

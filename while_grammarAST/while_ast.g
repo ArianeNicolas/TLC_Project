@@ -79,7 +79,7 @@ decl
     ;
 
 if_
-    : ('if' WS* expression WS* then_  WS* else_ 'fi') -> ^(IF expression then_ else_? END)
+    : ('if' WS* expression WS* then_  WS* else_ 'fi' WS*) -> ^(IF expression then_ else_? END)
     ;
     
 then_	:	'then' WS* commands WS* -> ^(THEN commands);

@@ -1,9 +1,14 @@
-function sub : 
-read Op1, Op2, Op3 
+function and : 
+read Op1, Op2 
 % 
-Result, Op2 := Op1, Op3; 
-	foreach Op in Op2 do 
- 		Result := (tl Result) 
-	od 
+if (not Op1) then 
+ Result := (false) 
+else 
+ if (not Op2) then
+ Result := (false) 
+ else 
+ Result := (true) 
+ fi 
+fi 
 % 
-write Result 
+write Result

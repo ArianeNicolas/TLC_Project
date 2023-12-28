@@ -1,6 +1,7 @@
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Stack;
 
 import org.antlr.runtime.ANTLRStringStream;
@@ -28,7 +29,7 @@ public class App {
 
         // temp test
         if(src == null || src.isEmpty()) {
-            src = "function sub : read Op1, Op2 % Result := Op1; foreach Op in Op2 do  Result := (tl Result) od % write Result ";
+            src = "function mul : read Op1, Op2 % for Op1 do Result := (add Result Op2) od % write Result";
         }
         System.out.println("Source code: " + src); 
 
@@ -53,11 +54,10 @@ public class App {
         VisitorThreeAdresses visitor = new VisitorThreeAdresses();
         visitor.visit(treeRoot);
 
-        ArrayList<ArrayList<VisitorThreeAdresses.ThreeAdresses>> code3A = visitor.getCode3AStack();
-        for(ArrayList<VisitorThreeAdresses.ThreeAdresses> threeAdresses : code3A) {
-            for(VisitorThreeAdresses.ThreeAdresses threeAdress : threeAdresses) {
-                System.out.println(threeAdress.op + " " + threeAdress.arg1 + " " + threeAdress.arg2 + " " + threeAdress.var);
-            }
+        HashMap<CommonTree,ArrayList<VisitorThreeAdresses.ThreeAdresses>> code3A = visitor.getCode3A();
+        ArrayList<VisitorThreeAdresses.ThreeAdresses> lastCode3A = code3A.get(treeRoot.getChild(0).getChild(0));
+        for(VisitorThreeAdresses.ThreeAdresses c3A : lastCode3A){
+            System.out.println(c3A.op + " " + c3A.arg1 + " " + c3A.arg2 + " " + c3A.var);
         }
         
     }   

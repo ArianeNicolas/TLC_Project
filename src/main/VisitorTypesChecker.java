@@ -18,7 +18,6 @@ public class VisitorTypesChecker extends VisitorOld {
      * @param symbolsTable Symbols table used to check the AST (need to be already filled)
      */
     public VisitorTypesChecker(ArrayList<WhileContext> symbolsTable) {
-        System.out.println(symbolsTable);
         this.symbolsTable = symbolsTable;
     }
 
@@ -46,28 +45,33 @@ public class VisitorTypesChecker extends VisitorOld {
                 //System.out.println("children" +children);
 
                 //gauche égalité
-                List<CommonTree> vars =  (List<CommonTree>) children.get(0).getChildren();
-                //foreahc children in vars -> get type
-                int varType = 0;
-                System.out.println("vars" +children);
-               /*  for (CommonTree var : vars) {
-                    varType += getType(var);
-                    //System.out.println("var gauche " +var);
-                }*/ //todo patch
-                //System.out.println("varType input" +varType);
-                
+                List<CommonTree> vars_left = new ArrayList<>();
+                int vars_left_type = 0;
                 //droite égalité 
-                List<CommonTree>  exprs = (List<CommonTree>) children.get(1).getChildren();
+                List<CommonTree>  exprs_right = new ArrayList<>();
+                int exprs_right_type = 0;
+
+                for (CommonTree child : children) {
+                    if(child.getText().equals("EXPR")){ 
+                        exprs_right.add((CommonTree)child.getChild(0));
+                    } else {
+                        vars_left.add(child);
+                    }
+                }
+                
+                for (CommonTree var_left : vars_left) {
+                    vars_left_type += getType(var_left);
+                }
+                for (CommonTree expr_right : exprs_right) {
+                    exprs_right_type += getType(expr_right);
+                }
+                System.out.println("vars_left " + vars_left);
+                System.out.println("vars_left_type " + vars_left_type);
+                System.out.println("exprs_right " + exprs_right);
+                System.out.println("exprs_right_type " + exprs_right_type);
+
                 
                 //foreahc children in exprs -> get type
-                int exprType = 0;
-                for (CommonTree expr : exprs) {
-                    exprType += getType(expr);
-                    //System.out.println("expr droite " +expr);
-                }
-
-                System.out.println("exprType output" +exprType);
-
 
                 
                 break;
@@ -93,7 +97,7 @@ public class VisitorTypesChecker extends VisitorOld {
             //OU -> dans cette classe qud fonction currentOCntext+1 et quand END -> currentContext-1
         //sinon -> nil
 
-        //fonciton -> nbre outpus  ou input
+        //fonction -> nbre outpus  ou input
 
         String token=node.getText();
         switch (token) {

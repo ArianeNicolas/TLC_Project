@@ -76,12 +76,17 @@ public class VisitorSymbolsTable extends VisitorOld {
                 }
                 break;
 
-            case "VARIABLES":
+            case "VARDEF":
                 List<CommonTree> variables = (List<CommonTree>) node.getChildren();
                 if(variables == null) break;
                 for (CommonTree variable : variables) {
-                    // add a variable to the current function
-                    symbolsTable.get(currentContextIndex).addVariable(variable.getText());
+                    String var_text = variable.getText();
+                    //only add left part of the affectation
+                    if(!var_text.equals("EXPR"))
+                    {
+                        // add a variable to the current function
+                        symbolsTable.get(currentContextIndex).addVariable(var_text);
+                    }
                 }
                 break;
 

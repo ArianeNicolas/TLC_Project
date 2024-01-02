@@ -1,9 +1,6 @@
 package main;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -70,6 +67,7 @@ public class App {
         System.out.println("===========Constructing symbol table===========");
         VisitorSymbolsTable visitorSymbolsTable = new VisitorSymbolsTable();
         visitorSymbolsTable.visit(treeRoot);
+        System.out.println(visitorSymbolsTable.getSymbolsTable());
 
         //check the types
         System.out.println("===========Checking types===========");

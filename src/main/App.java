@@ -13,8 +13,8 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.tree.CommonTree;
 
-import classes.while_astLexer;
-import classes.while_astParser;
+import antlrworks.while_astLexer;
+import antlrworks.while_astParser;
 
 public class App {
     public static String[] files;
@@ -88,7 +88,6 @@ public class App {
         }
     }   
 
-    //TODO : l'utiliser pour les erreurs
     //get file name and line number
     public static String getFileNameAndLineNumber(CommonTree node) {
         //get the line count of each file

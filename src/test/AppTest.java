@@ -11,9 +11,8 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
 
-import classes.while_astLexer;
-import classes.while_astParser;
-
+import antlrworks.while_astLexer;
+import antlrworks.while_astParser;
 
 
 

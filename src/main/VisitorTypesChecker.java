@@ -9,7 +9,7 @@ import org.antlr.runtime.tree.CommonTree;
 
 //ex f1,f2 = f3,f4,f5 -> on choisit si on gere ou pas
 //x1,x2=x2,x1
-public class VisitorTypesChecker extends Visitor {
+public class VisitorTypesChecker extends VisitorOld {
 
     private ArrayList<WhileContext> symbolsTable;
     private String currentContextName;
@@ -49,10 +49,11 @@ public class VisitorTypesChecker extends Visitor {
                 List<CommonTree> vars =  (List<CommonTree>) children.get(0).getChildren();
                 //foreahc children in vars -> get type
                 int varType = 0;
-                for (CommonTree var : vars) {
+                System.out.println("vars" +children);
+               /*  for (CommonTree var : vars) {
                     varType += getType(var);
                     //System.out.println("var gauche " +var);
-                }
+                }*/ //todo patch
                 //System.out.println("varType input" +varType);
                 
                 //droite égalité 

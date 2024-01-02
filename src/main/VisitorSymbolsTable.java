@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.antlr.runtime.tree.CommonTree;
 
-public class VisitorSymbolsTable extends Visitor {
+public class VisitorSymbolsTable extends VisitorOld {
     private ArrayList<WhileContext> symbolsTable = null;
 
     private int currentContextIndex;

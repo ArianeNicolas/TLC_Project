@@ -1,14 +1,10 @@
-function and : 
-read Op1, Op2 
+// Add function
+function add : 
+read Op1, Op2 //Two inputs
 % 
-if (not Op1) then 
- Result := (false) 
-else 
- if (not Op2) then
- Result := (false) 
- else 
- Result := (true) 
- fi 
-fi 
+ Result := Op1 ; 
+for Op2 do //For loop
+ Result := ( cons nil Result ) 
+od //Out of the do
 % 
-write Result
+write Result //Write output

@@ -28,39 +28,45 @@ tokens {
     ELSE;
     DO;
     INPUTS;
+    COMMENT;
     END;
 }
 
 startProgram
-    : program -> ^(START program)
+    : program -> ^(START program) 
     ;
 
 Maj     : ('A'..'Z');
 Min     : ('a'..'z');
 Dec     : ('0'..'9');
-WS      : ' '|'\n'|'\r';
+WS      : ' '|'\n'|'\r'; 
 
 Variable    : Maj (Maj | Min | Dec)* ('!' | '?')?;
 Symbol      : Min (Maj | Min | Dec)* ('!' | '?')?;
 
+Comment	:	' '* '/''/' ~('\n'|'\r')* '\r'? '\n'; 
+
+getComment
+	:	Comment -> ^(COMMENT Comment);
+
 program
     : function program? -> ^(PROGRAM function program?)
-    ;
+    ; 
 
 function
-    : 'function ' Symbol WS* ':' WS* definition -> ^(FUNCDEF Symbol definition END)
+    : getComment? 'function ' Symbol WS* ':' getComment? WS* definition -> ^(FUNCDEF Symbol definition getComment? END) 
     ;
 
 definition
-    : 'read' WS* input '%' WS* commands WS*'%' WS* 'write ' output -> ^(FUNCTION input commands output)
+    : 'read' WS* input '%' getComment? WS* commands WS* '%' getComment? WS* 'write ' output getComment?-> ^(FUNCTION input commands output getComment?)
     ;
 
 input
-    : inputSub? ->  ^(INPUTS inputSub?)
+    : inputSub? getComment? ->  ^(INPUTS inputSub? getComment?)
     ;
 
 inputSub
-    : Variable WS* (',' WS* inputSub)? -> Variable inputSub?
+    : Variable WS* (',' WS* inputSub)? -> Variable inputSub? 
     ;
 
 output
@@ -75,29 +81,29 @@ command
     : 'nop' | decl | if_ | for_ | while_ | foreach_ ;
 
 decl
-    : (vars WS* ':=' WS* exprs) -> ^(VARDEF vars exprs)
+    : (vars WS* ':=' WS* exprs) getComment? -> ^(VARDEF vars exprs getComment?) 
     ;
 
-if_
-    : ('if' WS* expression WS* then_  WS* else_ 'fi' WS*) -> ^(IF expression then_ else_? END)
+if_ 
+    : ('if' WS* expression WS* then_ WS* (else_ WS*)? 'fi' getComment?) -> ^(IF expression then_ else_? getComment? END) 
     ;
     
-then_	:	'then' WS* commands WS* -> ^(THEN commands);
+then_	:	'then' getComment? WS* commands -> ^(THEN commands getComment?); 
 
-else_	:	('else' WS* commands)? -> ^(ELSE commands);
+else_	:	'else' getComment? WS* commands -> ^(ELSE commands getComment?);  
 
 while_
-    : ('while' WS* expression WS* do_) -> ^(WHILE expression do_ END)
+    : ('while' WS* expression getComment? WS* do_) -> ^(WHILE expression getComment? do_ END)
     ;
     
-do_ 	: 'do' WS* commands WS* 'od' -> ^(DO commands);
+do_ 	: 'do' getComment? WS* commands WS* 'od' getComment? -> ^(DO commands  getComment?);
 
 for_
-    : ('for' WS* expression WS* do_) -> ^(FOR expression do_ END)
+    : ('for' WS* expression getComment? WS* do_) -> ^(FOR expression do_ END)
     ;
 
 foreach_
-    : ('foreach' WS* Variable WS* 'in' WS* expression WS* do_) -> ^(FOREACH ^(IN Variable expression) do_ END)
+    : ('foreach' WS* Variable WS* 'in' WS* expression getComment? WS* do_) -> ^(FOREACH ^(IN Variable expression) getComment? do_ END)
     ;
 
 vars
@@ -115,12 +121,11 @@ exprBase   :  nil_
     | symbolExpr 
     ;
     
-nil_	:	('nil'WS*) -> 'nil';
+nil_	:	('nil') -> 'nil'; 
     
 variable:	Variable -> Variable;
 
-cons	:	'(' WS* 'cons ' lExpr WS* ')' -> ^(CONS lExpr);
-
+cons	:	'(' WS* 'cons ' lExpr WS* ')' -> ^(CONS lExpr); 
 list	:	'('WS* 'list ' lExpr WS* ')' -> ^(LIST lExpr);
 
 hd	:	'('WS* 'hd ' exprBase WS*')' -> ^(HD exprBase);
@@ -128,13 +133,13 @@ hd	:	'('WS* 'hd ' exprBase WS*')' -> ^(HD exprBase);
 tl	:	'(' WS*'tl ' exprBase WS*')' -> ^(TL exprBase);
 
 symbolExpr
-	:	'(' Symbol WS* lExpr? ')' -> Symbol lExpr?;
+	:	'(' Symbol WS* lExpr? ')' -> Symbol lExpr?; 
 
 expression
-    : lExpr WS*('=?' WS* lExpr)? -> ^(EXPR lExpr lExpr?)
+    : lExpr (WS* '=?' WS* lExpr)? -> ^(EXPR lExpr lExpr?) 
     ;
    
 
 lExpr
-    : exprBase WS* lExpr? -> exprBase lExpr?
+    : exprBase (WS* lExpr)? -> exprBase lExpr?
     ;

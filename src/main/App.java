@@ -1,19 +1,17 @@
 package main;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.tree.CommonTree;
 
-import classes.while_astLexer;
-import classes.while_astParser;
+import antlrworks.while_astLexer;
+import antlrworks.while_astParser;
 
 public class App {
     public static String[] files;
@@ -22,7 +20,7 @@ public class App {
         // Check if a file name is provided as argument
         if(args == null || args.length < 1) {
             System.out.println("Please provide at least a file name as argument");
-            //System.exit(1); 
+            System.exit(1); 
         }
 
         //todo concatener si plusieurs arguments
@@ -30,11 +28,11 @@ public class App {
         // Read the file // todo put it in src
         try {
             for (String arg : args) {
-                src += '\n' + Files.readString(Path.of(arg));
+                src += Files.readString(Path.of(arg)) + "\n";
             }
         } catch (Exception e) {
             System.out.println("Error while reading file");
-            //System.exit(1);
+            System.exit(1);
         }
 
         // temp test
@@ -55,6 +53,7 @@ public class App {
         while_astParser.startProgram_return startProgram = parser.startProgram();
 
         // Check if there is no syntax error and raise an exception if needed
+        System.out.println("===========Checking syntax errors===========");
         int nbErrors = parser.getNumberOfSyntaxErrors();
         if(nbErrors > 0) {
             throw new WhileException(nbErrors + " syntax error" + (nbErrors > 1 ? "s" : ""));
@@ -65,15 +64,28 @@ public class App {
         System.out.println("Tree: " + treeRoot.toStringTree());
     
         //construct the symbol table
-        VisitorSymbolsTable visitor = new VisitorSymbolsTable();
-        visitor.visit(treeRoot);
+        System.out.println("===========Constructing symbol table===========");
+        VisitorSymbolsTable visitorSymbolsTable = new VisitorSymbolsTable();
+        visitorSymbolsTable.visit(treeRoot);
+        System.out.println(visitorSymbolsTable.getSymbolsTable());
 
         //check the types
-        VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitor.getSymbolsTable());
+        System.out.println("===========Checking types===========");
+        VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitorSymbolsTable.getSymbolsTable());
         visitorTypesChecker.visit(treeRoot);
+
+        //generate the 3A code
+        System.out.println("===========Generating 3A code===========");
+        VisitorThreeAdresses visitorThreeAdresses = new VisitorThreeAdresses();
+        visitorThreeAdresses.visit(treeRoot);
+
+        HashMap<CommonTree,ArrayList<VisitorThreeAdresses.ThreeAdresses>> code3A = visitorThreeAdresses.getCode3A();
+        ArrayList<VisitorThreeAdresses.ThreeAdresses> lastCode3A = code3A.get(treeRoot.getChild(0).getChild(0));
+        for(VisitorThreeAdresses.ThreeAdresses c3A : lastCode3A){
+            System.out.println(c3A.op + " " + c3A.arg1 + " " + c3A.arg2 + " " + c3A.var);
+        }
     }   
 
-    //TODO : l'utiliser pour les erreurs
     //get file name and line number
     public static String getFileNameAndLineNumber(CommonTree node) {
         //get the line count of each file

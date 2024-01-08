@@ -30,6 +30,7 @@ tokens {
     INPUTS;
     COMMENT;
     END;
+    CALL;
 }
 
 startProgram
@@ -50,7 +51,7 @@ getComment
 	:	Comment -> ^(COMMENT Comment);
 
 program
-    : function program? -> ^(PROGRAM function program?)
+    : function WS* program? -> ^(PROGRAM function program?)
     ; 
 
 function
@@ -133,7 +134,7 @@ hd	:	'('WS* 'hd ' exprBase WS*')' -> ^(HD exprBase);
 tl	:	'(' WS*'tl ' exprBase WS*')' -> ^(TL exprBase);
 
 symbolExpr
-	:	'(' Symbol WS* lExpr? ')' -> Symbol lExpr?; 
+	:	'(' Symbol WS* lExpr? ')' -> ^(CALL Symbol lExpr?); 
 
 expression
     : lExpr (WS* '=?' WS* lExpr)? -> ^(EXPR lExpr lExpr?) 

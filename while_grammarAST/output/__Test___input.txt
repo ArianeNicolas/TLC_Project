@@ -4,6 +4,17 @@ read Op1, Op2 //Two inputs
 % 
  Result := Op1 ; 
 for Op2 do //For loop
+ Result := (add Op1 (add Op1 Op2)) 
+od //Out of the do
+% 
+write Result //Write output
+
+
+function add : 
+read Op1, Op2 //Two inputs
+% 
+ Result := Op1 ; 
+for Op2 do //For loop
  Result := ( cons nil Result ) 
 od //Out of the do
 % 

@@ -24,7 +24,7 @@ import main.VisitorTypesChecker;
 public class AppTest {
 
     @Test
-    public void testInlinedWorkingExample() {
+    public void testInlinedCodeWorkingAST() {
         String src = "function add : read Op1, Op2 % Result := Op1; foreach Op in Op2 do Result := (tl Result) od % write Result;";
 
         // Parse the function content
@@ -49,7 +49,7 @@ public class AppTest {
     }
 
     @Test
-    public void testInlinedInvalidAST() {
+    public void testInlinedCodeInvalidAST() {
         String src = "function sub do  Result := (tl Result) od % write Result;";
 
         // Parse the function content
@@ -74,8 +74,9 @@ public class AppTest {
     }
 
     @Test
-    public void testAddFunction() {
+    public void testAddFunctionWithComments() {
         String src = """
+            // Add function
             function add :
             read Op1, Op2
             %
@@ -108,7 +109,7 @@ public class AppTest {
     }
 
     @Test
-    public void testFromFile()
+    public void testTypeCheckingFromFile()
     {
         String arg = "src/test/whileTestFiles/add.while";
         App.files = new String[]{arg};
@@ -167,7 +168,7 @@ public class AppTest {
     }
 
    @Test
-    public void testFromTwoFiles()
+    public void testTypeCheckingFromTwoFile()
     {
         String arg1 = "src/test/whileTestFiles/add.while";
         String arg2 = "src/test/whileTestFiles/use_add.while";
@@ -227,7 +228,7 @@ public class AppTest {
     }
     
     @Test
-    public void testLackFunctionDeclaration()
+    public void testTypeCheckingWithoutFunctionDeclaration()
     {
         String src = """
                 function useAdd :
@@ -287,5 +288,6 @@ public class AppTest {
     }
 
     //todo tester code 3 adresses et traduction en c
+    //todo tester pour toutes les fonctions exemples
     
 }

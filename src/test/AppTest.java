@@ -2,7 +2,8 @@ package test;
 
 import org.junit.Test;
 
-import java.io.PrintStream;
+import static org.junit.Assert.fail;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -13,18 +14,20 @@ import org.antlr.runtime.tree.CommonTree;
 
 import antlrworks.while_astLexer;
 import antlrworks.while_astParser;
+import main.App;
+import main.VisitorSymbolsTable;
+import main.VisitorTypesChecker;
 
 
 
 
 public class AppTest {
 
-
     @Test
-    public void testInlinedWorkingExample() throws RecognitionException {
-        String src = "function sub : read Op1, Op2 % Result := Op1; foreach Op in Op2 do  Result := (tl Result) od % write Result;";
+    public void testInlinedWorkingExample() {
+        String src = "function add : read Op1, Op2 % Result := Op1; foreach Op in Op2 do Result := (tl Result) od % write Result;";
 
-        // Parse the file content
+        // Parse the function content
         while_astLexer lexer = new while_astLexer(new ANTLRStringStream(src));
         // Get the token stream from the lexer
         CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -33,7 +36,11 @@ public class AppTest {
         while_astParser parser = new while_astParser(tokens);
 
         // Call the start rule, which is the entry point of the grammar
-        while_astParser.startProgram_return startProgram = parser.startProgram();
+        try {
+            while_astParser.startProgram_return startProgram = parser.startProgram();
+        } catch (RecognitionException e) {
+            fail("Error while parsing");
+        }
 
         // count the number of errors
         int nbErrors = parser.getNumberOfSyntaxErrors();
@@ -42,10 +49,10 @@ public class AppTest {
     }
 
     @Test
-    public void testInlinedInvalidExample() throws RecognitionException {
+    public void testInlinedInvalidAST() {
         String src = "function sub do  Result := (tl Result) od % write Result;";
 
-        // Parse the file content
+        // Parse the function content
         while_astLexer lexer = new while_astLexer(new ANTLRStringStream(src));
         // Get the token stream from the lexer
         CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -54,7 +61,11 @@ public class AppTest {
         while_astParser parser = new while_astParser(tokens);
 
         // Call the start rule, which is the entry point of the grammar
-        while_astParser.startProgram_return startProgram = parser.startProgram();
+        try {
+            while_astParser.startProgram_return startProgram = parser.startProgram();
+        } catch (RecognitionException e) {
+            fail("Error while parsing");
+        }
 
         // count the number of errors
         int nbErrors = parser.getNumberOfSyntaxErrors();
@@ -63,17 +74,19 @@ public class AppTest {
     }
 
     @Test
-    public void testAddFunction() throws RecognitionException {
-        String src = "AAAAAAAA";
-        // Read the file // todo put it in src
-        try {
-            Path path = Path.of("while_exemples/add.while"); 
-            src = Files.readString(path); 
-        } catch (Exception e) {
-            System.out.println("Error while reading file");
-        }
+    public void testAddFunction() {
+        String src = """
+            function add :
+            read Op1, Op2
+            %
+             Result := Op1 ;
+            for Op2 do
+             Result := ( cons nil Result )
+            od
+            %
+            write Result""";
 
-        // Parse the file content
+        // Parse the function content
         while_astLexer lexer = new while_astLexer(new ANTLRStringStream(src));
         // Get the token stream from the lexer
         CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -82,12 +95,197 @@ public class AppTest {
         while_astParser parser = new while_astParser(tokens);
 
         // Call the start rule, which is the entry point of the grammar
-        while_astParser.startProgram_return startProgram = parser.startProgram();
+        try {
+            while_astParser.startProgram_return startProgram = parser.startProgram();
+        } catch (RecognitionException e) {
+            fail("Error while parsing");
+        }
 
         // count the number of errors
         int nbErrors = parser.getNumberOfSyntaxErrors();
 
         assert(nbErrors == 0);
     }
+
+    @Test
+    public void testFromFile()
+    {
+        String arg = "src/test/whileTestFiles/add.while";
+        App.files = new String[]{arg};
+        String src = "";
+        // Read the file // todo put it in src
+        try {
+            for (String file : App.files) {
+                src += Files.readString(Path.of(file)) + "\n";
+            }
+        } catch (Exception e) {
+            fail("Error while reading file");
+        }
+
+        // Parse the function content
+        while_astLexer lexer = new while_astLexer(new ANTLRStringStream(src));
+        // Get the token stream from the lexer
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+        // Create the parser
+        while_astParser parser = new while_astParser(tokens);
+
+        // Call the start rule, which is the entry point of the grammar
+        while_astParser.startProgram_return startProgram = null;
+        try {
+            startProgram = parser.startProgram();
+        } catch (RecognitionException e) {
+            fail("Error while parsing");
+        }
+
+        // The root of the AST
+        final CommonTree treeRoot = (CommonTree) startProgram.getTree();
+        System.out.println("Tree: " + treeRoot.toStringTree());
+    
+        //construct the symbol table
+        System.out.println("===========Constructing symbol table===========");
+        VisitorSymbolsTable visitorSymbolsTable = new VisitorSymbolsTable();
+        try {
+            visitorSymbolsTable.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while constructing symbol table");
+        }
+        //check the types
+        System.out.println("===========Checking types===========");
+        VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitorSymbolsTable.getSymbolsTable());
+        try {
+            visitorTypesChecker.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while checking types");
+        }
+
+        // count the number of errors
+        int nbErrors = parser.getNumberOfSyntaxErrors();
+        assert(nbErrors == 0);
+
+        assert(src.length() > 0);
+    }
+
+   @Test
+    public void testFromTwoFiles()
+    {
+        String arg1 = "src/test/whileTestFiles/add.while";
+        String arg2 = "src/test/whileTestFiles/use_add.while";
+        App.files = new String[]{arg1,arg2};
+        String src = "";
+        // Read the file // todo put it in src
+        try {
+            for (String file : App.files) {
+                src += Files.readString(Path.of(file)) + "\n";
+            }
+        } catch (Exception e) {
+            fail("Error while reading file");
+        }
+
+        // Parse the function content
+        while_astLexer lexer = new while_astLexer(new ANTLRStringStream(src));
+        // Get the token stream from the lexer
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+        // Create the parser
+        while_astParser parser = new while_astParser(tokens);
+
+        // Call the start rule, which is the entry point of the grammar
+        while_astParser.startProgram_return startProgram = null;
+        try {
+            startProgram = parser.startProgram();
+        } catch (RecognitionException e) {
+            fail("Error while parsing");
+        }
+
+        // The root of the AST
+        final CommonTree treeRoot = (CommonTree) startProgram.getTree();
+        System.out.println("Tree: " + treeRoot.toStringTree());
+    
+        //construct the symbol table
+        System.out.println("===========Constructing symbol table===========");
+        VisitorSymbolsTable visitorSymbolsTable = new VisitorSymbolsTable();
+        try {
+            visitorSymbolsTable.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while constructing symbol table");
+        }
+        //check the types
+        System.out.println("===========Checking types===========");
+        VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitorSymbolsTable.getSymbolsTable());
+        try {
+            visitorTypesChecker.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while checking types");
+        }
+
+        // count the number of errors
+        int nbErrors = parser.getNumberOfSyntaxErrors();
+        assert(nbErrors == 0);
+
+        assert(src.length() > 0);
+    }
+    
+    @Test
+    public void testLackFunctionDeclaration()
+    {
+        String src = """
+                function useAdd :
+                read Op1, Op2
+                %
+                for Op1 do
+                Result := (add Result (add Result Op2))
+                od
+                %
+                write Result
+                """;
+                
+        // Parse the function content
+        while_astLexer lexer = new while_astLexer(new ANTLRStringStream(src));
+        // Get the token stream from the lexer
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+        // Create the parser
+        while_astParser parser = new while_astParser(tokens);
+
+        // Call the start rule, which is the entry point of the grammar
+        while_astParser.startProgram_return startProgram = null;
+        try {
+            startProgram = parser.startProgram();
+        } catch (RecognitionException e) {
+            fail("Error while parsing");
+        }
+
+        // count the number of errors
+        int nbErrors = parser.getNumberOfSyntaxErrors();
+
+        // The root of the AST
+        final CommonTree treeRoot = (CommonTree) startProgram.getTree();
+        System.out.println("Tree: " + treeRoot.toStringTree());
+    
+        //construct the symbol table
+        System.out.println("===========Constructing symbol table===========");
+        VisitorSymbolsTable visitorSymbolsTable = new VisitorSymbolsTable();
+        try {
+            visitorSymbolsTable.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while constructing symbol table");
+        }
+        //check the types
+        System.out.println("===========Checking types===========");
+        VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitorSymbolsTable.getSymbolsTable());
+        boolean failed = false;
+        try {
+            visitorTypesChecker.visit(treeRoot);
+        } catch (Exception e) {
+            failed = true;
+        }
+
+        assert(src.length() > 0);
+        assert(nbErrors == 0);
+        assert(failed);
+    }
+
+    //todo tester code 3 adresses et traduction en c
     
 }

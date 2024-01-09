@@ -37,7 +37,6 @@ public class VisitorTypesChecker extends VisitorOld {
 
                 break;
 
-
             case "VARDEF": //:=
                 //System.out.println("NODE" +node);
                 //children
@@ -71,7 +70,9 @@ public class VisitorTypesChecker extends VisitorOld {
                 System.out.println("exprs_right_type " + exprs_right_type);
 
                 
-                //foreahc children in exprs -> get type
+                if(vars_left_type != exprs_right_type) {
+                    throw new WhileException("Mismatched inputs("+vars_left_type+") and outputs("+exprs_right_type+") : "+App.getFileNameAndLineNumber(node));
+                }
 
                 
                 break;
@@ -113,35 +114,24 @@ public class VisitorTypesChecker extends VisitorOld {
             // si fonction 
                 // on retourne le nombre d'output de la fonction
                 // mais il d'abord vérifier que la fonction recoit le bon nombre d'input
-    
-
+            //no output
+            case "IF":
+            case "ELSE":
+            case "THEN":
+                return 0;
             case "nil":
                 return 1;
-            default:
-                //si nom de fonction dans la table des symboles, retourner le nombre d'output
-                for (WhileContext context : symbolsTable) {
-                    
-                    if(context.getName().equals(token)){
-                        //check if we are in the inputs 
-                        //todo
-                        ///get the parent children
-                        CommonTree parent = (CommonTree) node.getParent();
-                        List<CommonTree> children = (List<CommonTree>) parent.getChildren();
-
-                        //System.out.println(App.getFileNameAndLineNumber(node));
-
-
-                        //TODOOOOOOOO CHECK IF INPUT IS RIGHT
-                        //children count
-                        //(add Result (add Result Op2)) donne
-                        //(EXPR add Result add Result Op2) 
-                        // à voir si normal
-
-
-                       
-                        return context.getOutputs().size();
+            case "CALL":
+                String functionName = node.getChild(0).getText();
+                int i = 0;
+                while (i < symbolsTable.size() && !symbolsTable.get(i).getName().equals(functionName)) {
+                    i++;
+                    if(i == symbolsTable.size()) {
+                        throw new WhileException("Function "+functionName+" not found : "+App.getFileNameAndLineNumber(node));
                     }
                 }
+                return symbolsTable.get(i).getOutputs().size();
+            default:
                 return 1;
         }
     }

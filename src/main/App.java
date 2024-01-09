@@ -23,7 +23,6 @@ public class App {
             System.exit(1); 
         }
 
-        //todo concatener si plusieurs arguments
         String src = "";
         // Read the file // todo put it in src
         try {
@@ -39,7 +38,7 @@ public class App {
         if(src == null || src.isEmpty()) {
             src = "function sub : read Op1, Op2 % Result := Op1; foreach Op in Op2 do  Result := (tl Result) od % write Result; ";
         }
-        System.out.println("Source code: " + src); 
+        System.out.println("Source code: \n" + src); 
 
         // Parse the file content
         while_astLexer lexer = new while_astLexer(new ANTLRStringStream(src));

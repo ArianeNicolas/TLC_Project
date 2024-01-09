@@ -31,6 +31,7 @@ tokens {
     COMMENT;
     END;
     CALL;
+    NOT;
 }
 
 startProgram
@@ -119,7 +120,8 @@ exprBase   :  nil_
     | variable
     | cons | list
     | hd | tl
-    | symbolExpr 
+    | symbolExpr
+    | notVar
     ;
     
 nil_	:	('nil') -> 'nil'; 
@@ -134,7 +136,9 @@ hd	:	'('WS* 'hd ' exprBase WS*')' -> ^(HD exprBase);
 tl	:	'(' WS*'tl ' exprBase WS*')' -> ^(TL exprBase);
 
 symbolExpr
-	:	'(' Symbol WS* lExpr? ')' -> ^(CALL Symbol lExpr?); 
+	:	'(' WS* Symbol WS* lExpr? WS*')' -> ^(CALL Symbol lExpr?);
+	
+notVar	:	'('WS*'not' WS* Variable WS*')' -> ^(NOT Variable); 
 
 expression
     : lExpr (WS* '=?' WS* lExpr)? -> ^(EXPR lExpr lExpr?) 

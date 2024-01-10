@@ -84,10 +84,15 @@ public class App {
         }
     }   
 
-    //get file name and line number
+    /**
+     * Get the file name and line number of a node in the corresponding file (useful for error messages)
+     * @param node
+     * @return
+     */
     public static String getFileNameAndLineNumber(CommonTree node) {
         //get the line count of each file
         ArrayList<Integer> lineCounts = new ArrayList<Integer>();
+        //files correspond to the arguments of the program
         for (String arg : files) {
             try {
                 lineCounts.add(Files.readAllLines(Path.of(arg)).size());

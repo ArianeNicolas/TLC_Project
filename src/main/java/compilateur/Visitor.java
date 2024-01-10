@@ -37,8 +37,16 @@ public abstract class Visitor {
         }
     }
 
-    protected abstract void entry(CommonTree node);
+    /**
+     * Called when entering a node
+     * @param node
+     */
+    protected abstract void entry(CommonTree node) throws Exception;
     
-    protected abstract void exit(CommonTree node);
+    /**
+     * Called when exiting a node
+     * @param node
+     */
+    protected abstract void exit(CommonTree node) throws Exception;
 
 }

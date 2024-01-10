@@ -9,7 +9,7 @@ import org.antlr.runtime.tree.CommonTree;
 
 //ex f1,f2 = f3,f4,f5 -> on choisit si on gere ou pas
 //x1,x2=x2,x1
-public class VisitorTypesChecker extends VisitorOld {
+public class VisitorTypesChecker extends Visitor {
 
     private ArrayList<WhileContext> symbolsTable;
     private String currentContextName;
@@ -23,7 +23,7 @@ public class VisitorTypesChecker extends VisitorOld {
 
 
     @Override
-    protected void process(CommonTree node) throws WhileException {
+    protected void entry(CommonTree node) throws WhileException {
         String token=node.getText();
         switch (token) {
             //tester qu'une fonction est definie avant d'etre utilisée
@@ -79,6 +79,14 @@ public class VisitorTypesChecker extends VisitorOld {
             default:
                 break;
         } 
+    }
+
+    /**
+     * Called when exiting a node, does nothing
+     */
+    @Override
+    protected void exit(CommonTree node) throws Exception {
+        // nothing to do
     }
 
     

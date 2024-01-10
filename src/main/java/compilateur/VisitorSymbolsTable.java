@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.antlr.runtime.tree.CommonTree;
 
-public class VisitorSymbolsTable extends VisitorOld {
+public class VisitorSymbolsTable extends Visitor {
     private ArrayList<WhileContext> symbolsTable = null;
 
     private int currentContextIndex;
@@ -42,7 +42,7 @@ public class VisitorSymbolsTable extends VisitorOld {
      * @throws Exception
      */
     @Override
-    public void process(CommonTree node) throws WhileException {
+    public void entry(CommonTree node) throws WhileException {
         String token=node.getText();
         switch (token) {
             case "INPUTS":
@@ -123,10 +123,14 @@ public class VisitorSymbolsTable extends VisitorOld {
                 break;
         }
     }
+
+    
+
+
     private void checkMultipleFunctionsDeclaration(WhileContext currrentContext, CommonTree node) throws WhileException {
         //if two function have the same name -> error
         for (WhileContext ctx : symbolsTable) {
-            if(currrentContext.getName().equals(ctx.getName()) && currrentContext != ctx) { // currrentContext != ctx if currrentContext is already add in symbolsTable 
+            if(currrentContext.getName().equals(ctx.getName()) && currrentContext != ctx) { // currrentContext != ctx if currrentContext is already added in symbolsTable 
                 throw new WhileException("Same declaration of function : "+App.getFileNameAndLineNumber(node));
             }
         }
@@ -153,4 +157,14 @@ public class VisitorSymbolsTable extends VisitorOld {
     }
         throw new WhileException("Function not found : "+App.getFileNameAndLineNumber(node));
     }
+
+    /**
+     * Called when exiting a node, does nothing
+     */
+    @Override
+    protected void exit(CommonTree node) throws Exception {
+        // nothing to do
+    }
+
+
 }

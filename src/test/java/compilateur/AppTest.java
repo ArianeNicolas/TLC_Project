@@ -14,8 +14,9 @@ import org.junit.jupiter.api.Test;
 import antlrworks.while_astLexer;
 import antlrworks.while_astParser;
 
-
-
+/**
+ * Not really unit testing, but it's a good way to check if the grammar is working
+ */
 
 public class AppTest {
 

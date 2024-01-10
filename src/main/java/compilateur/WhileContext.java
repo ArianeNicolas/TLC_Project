@@ -9,6 +9,7 @@ public class WhileContext {
     private WhileContext parentContext;
 
     public WhileContext(String name, WhileContext parentContext) {
+        assert(name != null);
         this.name = name;
         this.parameters = new ArrayList<String>();
         this.variables = new ArrayList<String>();

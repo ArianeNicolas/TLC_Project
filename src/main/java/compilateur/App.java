@@ -33,10 +33,8 @@ public class App {
             System.exit(1);
         }
 
-        // temp test
-        if(src == null || src.isEmpty()) {
-            src = "function sub : read Op1, Op2 % Result := Op1; foreach Op in Op2 do  Result := (tl Result) od % write Result; ";
-        }
+        // Display the source code
+        System.out.println("===========Source code===========");
         System.out.println("Source code: \n" + src); 
 
         // Parse the file content

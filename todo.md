@@ -1,2 +1,2 @@
-- gerer le mauvais nombre de param dans la construction d'un arbre (revoir le type checker)
-- variables table des symboles n'ont plus l'air de marcher
+- la doc
+- le readme

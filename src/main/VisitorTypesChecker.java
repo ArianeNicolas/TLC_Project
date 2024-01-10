@@ -118,6 +118,7 @@ public class VisitorTypesChecker extends VisitorOld {
             case "IF":
             case "ELSE":
             case "THEN":
+            case "COMMENT":
                 return 0;
             case "nil":
                 return 1;

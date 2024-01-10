@@ -55,8 +55,14 @@ public class VisitorSymbolsTable extends VisitorOld {
                         throw new WhileException("Input already declared : "+App.getFileNameAndLineNumber(node));
                     }
                     // add a parameter to the current function
-                    symbolsTable.get(currentContextIndex).addParameter(input.getText());
-                    inputNames.add(input.getText());
+                    String inputName = input.getText();
+                    //if it isn't a comment
+                    if(!inputName.equals("COMMENT"))
+                    {
+                        symbolsTable.get(currentContextIndex).addParameter(inputName);
+                        inputNames.add(inputName);
+                    }
+                    
                 }
                 break;
                 

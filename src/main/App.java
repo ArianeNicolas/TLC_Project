@@ -18,10 +18,10 @@ public class App {
     public static void main(String[] args) throws Exception {
         App.files = args;
         // Check if a file name is provided as argument
-        if(args == null || args.length < 1) {
+        /*if(args == null || args.length < 1) {
             System.out.println("Please provide at least a file name as argument");
             System.exit(1); 
-        }
+        }*/
 
         //todo concatener si plusieurs arguments
         String src = "";
@@ -37,7 +37,7 @@ public class App {
 
         // temp test
         if(src == null || src.isEmpty()) {
-            src = "function sub : read Op1, Op2 % Result := Op1; foreach Op in Op2 do  Result := (tl Result) od % write Result; ";
+            src = "function sub : read Op1, Op2 % Result := (tl Result); Result := (add Op1 Op2) % write Result; ";
         }
         System.out.println("Source code: " + src); 
 
@@ -64,7 +64,7 @@ public class App {
         System.out.println("Tree: " + treeRoot.toStringTree());
     
         //construct the symbol table
-        System.out.println("===========Constructing symbol table===========");
+        /*System.out.println("===========Constructing symbol table===========");
         VisitorSymbolsTable visitorSymbolsTable = new VisitorSymbolsTable();
         visitorSymbolsTable.visit(treeRoot);
         System.out.println(visitorSymbolsTable.getSymbolsTable());
@@ -72,7 +72,7 @@ public class App {
         //check the types
         System.out.println("===========Checking types===========");
         VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitorSymbolsTable.getSymbolsTable());
-        visitorTypesChecker.visit(treeRoot);
+        visitorTypesChecker.visit(treeRoot);*/
 
         //generate the 3A code
         System.out.println("===========Generating 3A code===========");
@@ -84,7 +84,14 @@ public class App {
         for(VisitorThreeAdresses.ThreeAdresses c3A : lastCode3A){
             System.out.println(c3A.op + " " + c3A.arg1 + " " + c3A.arg2 + " " + c3A.var);
         }
+
+
+        System.out.println("===========Generating C code===========");
+        code3AtoC ctoc = new code3AtoC(lastCode3A, null, src);
+        ctoc.startConversion();
     }   
+
+    
 
     //get file name and line number
     public static String getFileNameAndLineNumber(CommonTree node) {

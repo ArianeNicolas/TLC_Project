@@ -36,21 +36,28 @@ public class VisitorThreeAdresses extends Visitor {
     protected void exit(CommonTree node) {
         
         if(node.getChildren() == null&&!(node.getText().equals("END"))) {
-            ThreeAdresses temp = new ThreeAdresses();
-            temp.op = "STORE";
-            temp.arg1 = "R"+ indice;
-            temp.arg2 = node.getText();
-            indice++;
-            ArrayList<ThreeAdresses> list = new ArrayList<>();
-            list.add(temp);
-            stock.put(node,list);
+            if(Character.isUpperCase(node.getText().charAt(0))){
+                ThreeAdresses temp = new ThreeAdresses();
+                temp.op = "STORE";
+                temp.arg1 = "R"+ indice;
+                temp.arg2 = node.getText();
+                indice++;
+                ArrayList<ThreeAdresses> list = new ArrayList<>();
+                list.add(temp);
+                stock.put(node,list);
+            }
         }
         else{
             switch (node.getText()) {
                 case "FUNCDEF":
                     ArrayList<ThreeAdresses> code2 = new ArrayList<>();
+                    ThreeAdresses enterFunc = new ThreeAdresses();
+                    enterFunc.op = "ENTER";
+                    enterFunc.arg1 = node.getChild(0).getText();
+                    enterFunc.var = "FUNCTION";
+                    code2.add(enterFunc); 
                     for(CommonTree child : (List<CommonTree>) node.getChildren()) {
-                        if(!child.getText().equals("END")) {
+                        if(!child.getText().equals("END")&&Character.isUpperCase(child.getText().charAt(0))) {
                             code2.addAll(stock.get(child));
                         }
                     }
@@ -76,15 +83,39 @@ public class VisitorThreeAdresses extends Visitor {
                     break;
                 case "VARDEF":
                     ArrayList<ThreeAdresses> listVar = new ArrayList<>();
-                    for(int i = 0; i < node.getChildCount()/2; i++) {
-                            ThreeAdresses temp = new ThreeAdresses();
-                            temp.op = "ASSIGN";
-                            temp.arg1 = stock.get(node.getChild(i)).get(0).arg1;
-                            temp.arg2 = stock.get(node.getChild(i+node.getChildCount()/2)).get(0).arg1;
-                            listVar = stock.get(node.getChild(i));
-                            listVar.addAll(stock.get(node.getChild(i+node.getChildCount()/2)));
-                            listVar.add(temp); 
+                    //On récupère les codes 3 adresses de chacun des enfants
+                    for(int i = 0; i < node.getChildCount(); i++) {
+                        listVar.addAll(stock.get(node.getChild(i)));
                     }
+                    
+                    for(int i = 0; i < node.getChildCount(); i++) {//On parcourt tous les noeuds fils
+                        ThreeAdresses temp = new ThreeAdresses();
+                        if(node.getChild(i).getText().equals("EXPR")){//Si le noeud fils est une EXPR
+                            temp.op = "ASSIGN";
+                            CommonTree op = (CommonTree) node.getChild(i).getChild(0);
+                            System.out.println(op.getText());
+                            for(ThreeAdresses c3a : stock.get(node.getChild(i))){
+                                System.out.println("il y a des choses dans le stock");
+                                if(c3a.op.equals("CALL")){
+                                    System.out.println("nom de la fonction du stock : " + c3a.var);
+                                    System.out.println("op.getText() : "+op.getText());
+                                    if(op.getText().equals("CALL")&&c3a.var.equals(op.getChild(0).getText())){
+                                        temp.var = c3a.arg1;
+                                    }
+                                    else if(c3a.var.equals(op.getText().toLowerCase())){
+                                        temp.var = c3a.arg1;
+                                    }
+                                }
+                            }
+                        }
+                        else{
+                            temp.op = "ASSIGNED";
+                            temp.arg1 = stock.get(node.getChild(i)).get(0).arg1;
+                        }
+                        
+                        listVar.add(temp); 
+                    }
+                    
                     stock.put(node,listVar);
                     break;
                 case "VARIABLES":
@@ -105,7 +136,7 @@ public class VisitorThreeAdresses extends Visitor {
                                 ThreeAdresses callTL = new ThreeAdresses();
                                 callTL.op = "CALL";
                                 callTL.arg1 = "R"+ indice;
-                                callTL.var = "TL";
+                                callTL.var = "tl";
                                 indice++;
                                 list2.add(callTL);
                                 ThreeAdresses store = new ThreeAdresses();
@@ -123,7 +154,7 @@ public class VisitorThreeAdresses extends Visitor {
                                 list2.add(paramHD);
                                 ThreeAdresses callHD = new ThreeAdresses();
                                 callHD.op = "CALL";
-                                callHD.var = "HD";
+                                callHD.var = "hd";
                                 callHD.arg1 = "R"+ indice;
                                 indice++;
                                 list2.add(callHD);
@@ -142,7 +173,7 @@ public class VisitorThreeAdresses extends Visitor {
                                 list2.add(paramLIST);
                                 ThreeAdresses callLIST = new ThreeAdresses();
                                 callLIST.op = "CALL";
-                                callLIST.var = "LIST";
+                                callLIST.var = "list";
                                 callLIST.arg1 = "R"+ indice;
                                 indice++;
                                 list2.add(callLIST);
@@ -161,7 +192,7 @@ public class VisitorThreeAdresses extends Visitor {
                                 list2.add(paramCONS);
                                 ThreeAdresses callCONS = new ThreeAdresses();
                                 callCONS.op = "CALL";
-                                callCONS.var = "CONS";
+                                callCONS.var = "cons";
                                 callCONS.arg1 = "R"+ indice;
                                 indice++;
                                 list2.add(callCONS);
@@ -172,14 +203,31 @@ public class VisitorThreeAdresses extends Visitor {
                                 indice++;
                                 list2.add(store4);
                                 break;
-                            default:
-                                list2 = stock.get(node.getChild(0));
-                                ThreeAdresses store5 = new ThreeAdresses();
-                                store5.op = "STORE";
-                                store5.arg1 = "R"+ indice;
-                                store5.arg2 = stock.get(node.getChild(0)).get(0).arg1;
+                            case "CALL":
+                                list2 = new ArrayList<>();
+                                //System.out.println(node.getChild(0).getChild(0).getText());
+                                for(int i = 1; i<node.getChild(0).getChildCount();i++){
+                                    String text = node.getChild(0).getChild(i).getText();
+                                    if(Character.isUpperCase(text.charAt(0))){
+                                        //System.out.println(text);
+                                        list2.addAll(stock.get(node.getChild(0).getChild(i)));
+                                    }
+                                }
+                                for(int i = 1; i<node.getChild(0).getChildCount();i++){
+                                    //System.out.println("param");
+                                    ThreeAdresses param = new ThreeAdresses();
+                                    param.op = "PARAM";
+                                    param.arg1 = stock.get(node.getChild(0).getChild(i)).get(0).arg1;
+                                    list2.add(param);
+                                }
+                                ThreeAdresses call = new ThreeAdresses();
+                                call.op = "CALL";
+                                call.var = node.getChild(0).getChild(0).getText();
+                                call.arg1 = "R"+ indice;
                                 indice++;
-                                list2.add(store5);
+                                list2.add(call);
+                                break;
+                            default:
                                 break;
                         }                           
                     }

@@ -132,9 +132,25 @@ public class VisitorSymbolsTable extends VisitorOld {
         }
     }
 
-
     @Override
     public String toString() {
         return symbolsTable.toString();
+    }
+
+    /**
+     * Return a context in the symbols table corresponding to the node name
+     * @param node
+     * @param symbolsTable
+     * @return
+     * @throws WhileException
+     */
+    public static WhileContext getFunction(CommonTree node, ArrayList<WhileContext> symbolsTable) throws WhileException {
+    String nodeName = node.getText();
+    for (WhileContext ctx : symbolsTable) {
+        if(nodeName.equals(ctx.getName())) {
+            return ctx;
+        }
+    }
+        throw new WhileException("Function not found : "+App.getFileNameAndLineNumber(node));
     }
 }

@@ -123,15 +123,9 @@ public class VisitorTypesChecker extends VisitorOld {
             case "nil":
                 return 1;
             case "CALL":
-                String functionName = node.getChild(0).getText();
-                int i = 0;
-                while (i < symbolsTable.size() && !symbolsTable.get(i).getName().equals(functionName)) {
-                    i++;
-                    if(i == symbolsTable.size()) {
-                        throw new WhileException("Function "+functionName+" not found : "+App.getFileNameAndLineNumber(node));
-                    }
-                }
-                return symbolsTable.get(i).getOutputs().size();
+                CommonTree functionNode = (CommonTree) node.getChild(0);
+                WhileContext function = VisitorSymbolsTable.getFunction(functionNode, symbolsTable);
+                return function.getOutputs().size();
             default:
                 return 1;
         }

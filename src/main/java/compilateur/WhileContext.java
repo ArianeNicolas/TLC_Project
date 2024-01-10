@@ -6,16 +6,13 @@ public class WhileContext {
     private ArrayList<String> parameters;
     private ArrayList<String> variables;
     private ArrayList<String> outputs;
-    private WhileContext parentContext;
 
-    public WhileContext(String name, WhileContext parentContext) {
+    public WhileContext(String name) {
         assert(name != null);
         this.name = name;
         this.parameters = new ArrayList<String>();
         this.variables = new ArrayList<String>();
         this.outputs = new ArrayList<String>();
-
-        this.parentContext = parentContext;
     }
     
 
@@ -25,9 +22,6 @@ public class WhileContext {
         return name;
     }
 
-    public WhileContext getParentContext() {
-        return parentContext;
-    }
 
     public ArrayList<String> getParameters() {
         return parameters;

@@ -7,7 +7,6 @@ public class VisitorSymbolsTable extends Visitor {
     private ArrayList<WhileContext> symbolsTable = null;
 
     private int currentContextIndex;
-    private int lastContextIndex;
     private final static int INVALID_CONTEXT_INDEX = -1;
 
     /**
@@ -32,7 +31,6 @@ public class VisitorSymbolsTable extends Visitor {
     public VisitorSymbolsTable(){
         symbolsTable = new ArrayList<WhileContext>();
         currentContextIndex = INVALID_CONTEXT_INDEX;
-        lastContextIndex = INVALID_CONTEXT_INDEX;
     }
     
     /**
@@ -77,7 +75,7 @@ public class VisitorSymbolsTable extends Visitor {
                         throw new WhileException("Output already declared : "+App.getFileNameAndLineNumber(node));
                     }
                     // add an output to the last function (because it's after the end)
-                    symbolsTable.get(lastContextIndex).addOutput(output.getText());
+                    symbolsTable.get(currentContextIndex).addOutput(output.getText());
                     outputNames.add(output.getText());
                 }
                 break;
@@ -98,26 +96,11 @@ public class VisitorSymbolsTable extends Visitor {
 
             case "FUNCDEF":
                 WhileContext newContext;
-                if(currentContextIndex < 0){
-                    newContext = new WhileContext(node.getChild(0).getText(), null);
-                } else {
-                    newContext = new WhileContext(node.getChild(0).getText(), symbolsTable.get(currentContextIndex));
-                } 
+                newContext = new WhileContext(node.getChild(0).getText());
                 checkMultipleFunctionsDeclaration(newContext,node);
            
                 symbolsTable.add(newContext);
                 currentContextIndex = symbolsTable.indexOf(newContext); // TODO optimize when working
-
-                break;
-           
-            case "END":
-                if(currentContextIndex > INVALID_CONTEXT_INDEX){
-                    WhileContext currentContext = symbolsTable.get(currentContextIndex).getParentContext();
-                    lastContextIndex = currentContextIndex;
-                    currentContextIndex = symbolsTable.indexOf(currentContext);
-
-                }
-
                 break;
             default:
                 break;
@@ -163,7 +146,7 @@ public class VisitorSymbolsTable extends Visitor {
      */
     @Override
     protected void exit(CommonTree node) throws Exception {
-        // nothing to do
+        // do nothing
     }
 
 

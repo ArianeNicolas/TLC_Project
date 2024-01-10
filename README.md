@@ -4,4 +4,12 @@
 
 ## Installation
 
+
+
+
 ## Utilisation
+
+
+## Tests
+
+mvn clean install and mvn jacoco:report

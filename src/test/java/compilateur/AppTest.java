@@ -1,8 +1,6 @@
-package test;
+package compilateur;
 
-import org.junit.Test;
-
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -11,12 +9,10 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
+import org.junit.jupiter.api.Test;
 
 import antlrworks.while_astLexer;
 import antlrworks.while_astParser;
-import main.App;
-import main.VisitorSymbolsTable;
-import main.VisitorTypesChecker;
 
 
 

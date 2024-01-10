@@ -1,8 +1,9 @@
-package main;
+package compilateur;
 
 import java.util.ArrayList;
 
-import main.VisitorThreeAdresses.ThreeAdresses;
+import compilateur.VisitorThreeAdresses.ThreeAdresses;
+
 
 public class code3AtoC {
     private ArrayList<VisitorThreeAdresses.ThreeAdresses> code3A;

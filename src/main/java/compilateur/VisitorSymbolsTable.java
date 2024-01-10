@@ -1,4 +1,4 @@
-package main;
+package compilateur;
 import java.util.ArrayList;
 import java.util.List;
 import org.antlr.runtime.tree.CommonTree;

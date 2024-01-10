@@ -1,4 +1,4 @@
-package main;
+package compilateur;
 import java.util.ArrayList;
 
 public class WhileContext {

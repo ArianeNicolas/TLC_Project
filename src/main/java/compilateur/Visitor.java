@@ -1,4 +1,4 @@
-package main;
+package compilateur;
 import java.util.HashSet;
 
 import org.antlr.runtime.tree.CommonTree;

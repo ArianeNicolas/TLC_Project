@@ -1,5 +1,4 @@
-package main;
-
+package compilateur;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -22,7 +21,7 @@ public class App {
             System.out.println("Please provide at least a file name as argument");
             System.exit(1); 
         }
-
+        
         String src = "";
         // Read the file // todo put it in src
         try {

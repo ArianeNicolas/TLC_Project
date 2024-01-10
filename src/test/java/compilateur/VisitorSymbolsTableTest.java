@@ -57,7 +57,6 @@ public class VisitorSymbolsTableTest {
         visitorSymbolsTable.getSymbolsTable();
 
         assert(whileContexts.size() == 0);
-        assert(visitorSymbolsTable.currentContextIndex() == -1);
     }
 
     @Test
@@ -66,7 +65,6 @@ public class VisitorSymbolsTableTest {
         visitorSymbolsTable.visit(null);
         ArrayList<WhileContext> whileContexts = visitorSymbolsTable.getSymbolsTable();
         assert(whileContexts.size() == 0);
-        assert(visitorSymbolsTable.currentContextIndex() == -1);
     }
 
     @Test
@@ -76,7 +74,6 @@ public class VisitorSymbolsTableTest {
         ArrayList<WhileContext> whileContexts = visitorSymbolsTable.getSymbolsTable();
 
         assert(whileContexts.size() == 2);
-        assert(visitorSymbolsTable.currentContextIndex() == -1);
     }
 
     @Test
@@ -109,7 +106,6 @@ public class VisitorSymbolsTableTest {
         ArrayList<WhileContext> whileContexts = visitorSymbolsTable.getSymbolsTable();
 
         assert(whileContexts.size() == 1);
-        assert(visitorSymbolsTable.currentContextIndex() == -1);
     }
 
     

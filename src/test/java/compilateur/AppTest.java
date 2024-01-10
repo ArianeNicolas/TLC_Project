@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -109,7 +110,8 @@ public class AppTest {
     public void testTypeCheckingFromFile()
     {
         String arg = "src/test/whileTestFiles/add.while";
-        App.files = new String[]{arg};
+        App.files = new ArrayList<String>();
+        App.files.add(arg);
         String src = "";
         // Read the file // todo put it in src
         try {
@@ -169,7 +171,9 @@ public class AppTest {
     {
         String arg1 = "src/test/whileTestFiles/add.while";
         String arg2 = "src/test/whileTestFiles/use_add.while";
-        App.files = new String[]{arg1,arg2};
+        App.files = new ArrayList<String>();
+        App.files.add(arg1);
+        App.files.add(arg2);
         String src = "";
         // Read the file // todo put it in src
         try {

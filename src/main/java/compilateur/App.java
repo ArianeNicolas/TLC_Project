@@ -13,11 +13,17 @@ import antlrworks.while_astLexer;
 import antlrworks.while_astParser;
 
 public class App {
-    public static String[] files;
+    public static ArrayList<String> files = new ArrayList<String>();
     public static void main(String[] args) throws Exception {
-        App.files = args;
+        //files are parameter that don't start with -
+        for (String arg : args) {
+            if(!arg.startsWith("-")) {
+                files.add(arg);
+            }
+        }
+        
         // Check if a file name is provided as argument
-        if(args == null || args.length < 1) {
+        if(files == null || files.size() == 0) {
             System.out.println("Please provide at least a file name as argument");
             System.exit(1); 
         }
@@ -25,8 +31,8 @@ public class App {
         String src = "";
         // Read the file // todo put it in src
         try {
-            for (String arg : args) {
-                src += Files.readString(Path.of(arg)) + "\n";
+            for (String file : files) {
+                src += Files.readString(Path.of(file)) + "\n";
             }
         } catch (Exception e) {
             System.out.println("Error while reading file");
@@ -112,6 +118,6 @@ public class App {
                 break;
             }
         }
-        return "File: " + files[fileIndex] + " at Line: " + line;
+        return "File: " + files.get(fileIndex) + ", line: " + line;
     } 
 }

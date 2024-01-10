@@ -6,9 +6,6 @@ import org.antlr.runtime.tree.CommonTree;
 public class VisitorSymbolsTable extends Visitor {
     private ArrayList<WhileContext> symbolsTable = null;
 
-    private int currentContextIndex;
-    private final static int INVALID_CONTEXT_INDEX = -1;
-
     /**
      * Each WhileContext (=functions) in the Stack is a context 
      * @return the symbolsTable
@@ -19,18 +16,10 @@ public class VisitorSymbolsTable extends Visitor {
     }
 
     /**
-     * @return the currentContext
-     */
-    public int currentContextIndex() {
-        return currentContextIndex;
-    }
-
-    /**
      * Create an empty symbols table, to be filled by calling visit on the AST
      */
     public VisitorSymbolsTable(){
         symbolsTable = new ArrayList<WhileContext>();
-        currentContextIndex = INVALID_CONTEXT_INDEX;
     }
     
     /**
@@ -49,7 +38,7 @@ public class VisitorSymbolsTable extends Visitor {
                 if(inputs == null) break;
                 for (CommonTree input : inputs) {
                     //test if the input is already declared in the current context
-                    if(currentContextIndex >=0 && inputNames.contains(input.getText())) {
+                    if(symbolsTable.size() > 0 && inputNames.contains(input.getText())) {
                         throw new WhileException("Input already declared : "+App.getFileNameAndLineNumber(node));
                     }
                     // add a parameter to the current function
@@ -57,6 +46,7 @@ public class VisitorSymbolsTable extends Visitor {
                     //if it isn't a comment
                     if(!inputName.equals("COMMENT"))
                     {
+                        int currentContextIndex = symbolsTable.size()-1;
                         symbolsTable.get(currentContextIndex).addParameter(inputName);
                         inputNames.add(inputName);
                     }
@@ -70,11 +60,12 @@ public class VisitorSymbolsTable extends Visitor {
                 if(outputs == null) break;
                 for (CommonTree output : outputs) {
                     //test if the output is already declared in the current context 
-                    if(currentContextIndex >=0 && outputNames.contains(output.getText())) {
+                    if(symbolsTable.size() > 0 && outputNames.contains(output.getText())) {
                         //todo to test
                         throw new WhileException("Output already declared : "+App.getFileNameAndLineNumber(node));
                     }
                     // add an output to the last function (because it's after the end)
+                    int currentContextIndex = symbolsTable.size()-1;
                     symbolsTable.get(currentContextIndex).addOutput(output.getText());
                     outputNames.add(output.getText());
                 }
@@ -89,6 +80,7 @@ public class VisitorSymbolsTable extends Visitor {
                     if(!var_text.equals("EXPR"))
                     {
                         // add a variable to the current function
+                        int currentContextIndex = symbolsTable.size()-1;
                         symbolsTable.get(currentContextIndex).addVariable(var_text);
                     }
                 }
@@ -100,7 +92,6 @@ public class VisitorSymbolsTable extends Visitor {
                 checkMultipleFunctionsDeclaration(newContext,node);
            
                 symbolsTable.add(newContext);
-                currentContextIndex = symbolsTable.indexOf(newContext); // TODO optimize when working
                 break;
             default:
                 break;

@@ -1,5 +1,6 @@
 package compilateur;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -15,6 +16,24 @@ import antlrworks.while_astParser;
 public class App {
     public static ArrayList<String> files = new ArrayList<String>();
     public static void main(String[] args) throws Exception {
+        //test if the verbose option is activated
+        boolean verbose = false;
+        for (String arg : args) {
+            if(arg.equals("-v") || arg.equals("--verbose")) {
+                verbose = true;
+                break;
+            }
+        }
+        //if not verbose, redirect messages (not errors) to /dev/null
+        OutputStream consoleOutput = System.out;
+        if(!verbose) {
+            System.setOut(new java.io.PrintStream(new java.io.OutputStream() {
+                public void write(int b) {
+                }
+            }));
+        }
+
+
         //files are parameter that don't start with -
         for (String arg : args) {
             if(!arg.startsWith("-")) {
@@ -24,7 +43,7 @@ public class App {
         
         // Check if a file name is provided as argument
         if(files == null || files.size() == 0) {
-            System.out.println("Please provide at least a file name as argument");
+            System.err.println("Error: no file name provided");
             System.exit(1); 
         }
         
@@ -35,7 +54,7 @@ public class App {
                 src += Files.readString(Path.of(file)) + "\n";
             }
         } catch (Exception e) {
-            System.out.println("Error while reading file");
+            System.err.println("Error while reading file");
             System.exit(1);
         }
 
@@ -86,6 +105,11 @@ public class App {
         for(VisitorThreeAdresses.ThreeAdresses c3A : lastCode3A){
             System.out.println(c3A.op + " " + c3A.arg1 + " " + c3A.arg2 + " " + c3A.var);
         }
+
+
+        //reset system.out to be able to print the final result
+        System.setOut(new java.io.PrintStream(consoleOutput));
+        System.out.println("===========Done!==========="); //todo remplacer par le code c -> on pourra le rediriger dans un fichier
     }   
 
     /**
@@ -101,8 +125,8 @@ public class App {
             try {
                 lineCounts.add(Files.readAllLines(Path.of(arg)).size());
             } catch (IOException e) {
-                System.out.println("Error while reading file");
-                //System.exit(1);
+                System.err.println("Error while reading file");
+                System.exit(1);
             }
         }
         //get real file and line number

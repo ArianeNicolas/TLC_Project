@@ -19,8 +19,10 @@ public class code3AtoC {
     private ArrayList<String> assign = new ArrayList<>();
     private ArrayList<String> outputs = new ArrayList<>();
     private ArrayList<String> variables = new ArrayList<>();
-    private HashMap<String,ArrayList<String>> registres = new HashMap<>();
+    private HashMap<String,String[]> registres = new HashMap<>();
     private int indiceContext = 0;
+    private int indice = 0;
+
 
     /**
      * Convert code 3 adresses into C and write the result in a .c file
@@ -31,12 +33,12 @@ public class code3AtoC {
     code3AtoC(ArrayList<VisitorThreeAdresses.ThreeAdresses> code3A, ArrayList<WhileContext> symbolsTable, String outputDirectory) throws IOException {
         this.code3A = code3A;
         this.symbolsTable = symbolsTable;
-        fileWriter = new FileWriter("src/output.c");
+        fileWriter = new FileWriter("generated_code/output.c");
         printWriter = new PrintWriter(fileWriter);
     }
 
     public void startConversion() throws IOException {
-        printWriter.println("#include <while_tree.h>\n" + //
+        printWriter.println("#include \"while_tree.h\"\n" + //
                             "#include <stddef.h>\n" + //
                             "#include <stdio.h>\n" + //
                             "#include <stdlib.h>\n" + //
@@ -95,6 +97,9 @@ public class code3AtoC {
                         printWriter.println();
                     }
                     break;
+                case "END":
+                    printWriter.println("}");
+                break;
                 default:
                     //System.err.println("Unknown operation");
                     break;
@@ -103,30 +108,6 @@ public class code3AtoC {
         printWriter.close();
     }
 
-   /* public static void main(String[] args) throws IOException {
-        ArrayList<VisitorThreeAdresses.ThreeAdresses> code3A = new ArrayList<>();
-        VisitorThreeAdresses vta = new VisitorThreeAdresses();
-        ThreeAdresses la = vta.new ThreeAdresses();
-        la.op = "STORE";
-        la.arg1 = "R1";
-        la.arg2 = "Result";
-        ThreeAdresses ta = vta.new ThreeAdresses();
-        ta.op = "PARAM";
-        ta.arg1 = "Op1";
-        ThreeAdresses va = vta.new ThreeAdresses();
-        va.op = "PARAM";
-        va.arg1 = "R1";
-        ThreeAdresses fa = vta.new ThreeAdresses();
-        fa.op = "CALL";
-        fa.arg1 = "R2";
-        fa.var = "mirror";
-        code3A.add(la);
-        code3A.add(ta);
-        code3A.add(va);
-        code3A.add(fa);
-        code3AtoC ctoc = new code3AtoC(code3A, null, null);
-        ctoc.startConversion();
-    }*/
 
 
     private void returnOP(ThreeAdresses c3a) {
@@ -154,28 +135,42 @@ public class code3AtoC {
                 }
             }
             else{
-                int i = 0;
-                ArrayList<String> outputs_func = new ArrayList<>();
-                while (i < symbolsTable.size()){
-                    if(symbolsTable.get(i).getName().equals(value)) {
-                        outputs_func = symbolsTable.get(i).getOutputs();
+                switch(value){
+                    case "tl":
+                        break;
+                    case "cons":
+                        printWriter.println(assigned.get(0)+" = ");
+                        
+                        break;
+                    case "list":
+                        break;
+                    case "hd":
+                        break;
+                    default :
+                        int i = 0;
+                        ArrayList<String> outputs_func = new ArrayList<>();
+                        while (i < symbolsTable.size()){
+                            if(symbolsTable.get(i).getName().equals(value)) {
+                                outputs_func = symbolsTable.get(i).getOutputs();
+                            }
+                            i++;
+                        }
+                        for(int j=0; j<outputs_func.size(); j++){
+                            if(isVariable(assigned.get(0))){
+                                printWriter.println("Tree "+assigned.get(0)+" = "+registres.get(value)[j]+";");   
+                            }
+                            else{
+                                printWriter.println(assigned.get(0)+" = "+registres.get(value)[j]+";");
+                            }
+                            assigned.remove(0);
+                        }
                     }
-                    i++;
-                }
-                for(int j=0; j<outputs_func.size(); j++){
-                    if(isVariable(assigned.get(0))){
-                        printWriter.println("Tree "+assigned.get(0)+" = "+registres.get(value).get(j)+";");   
-                    }
-                    else{
-                        printWriter.println(assigned.get(0)+" = "+registres.get(value).get(j)+";");
-                    }
-                    assigned.remove(0);
+                    
                 }
             }
+                assign.clear();
+                assigned.clear();
             
-        }
-        assign.clear();
-        assigned.clear();
     }
 
     private boolean isVariable(String variable){
@@ -196,41 +191,58 @@ public class code3AtoC {
     }
 
     private void call(ThreeAdresses c3a) {
-        int i = 0;
-        ArrayList<String> reg = new ArrayList<>();
-        ArrayList<String> outputs_func = new ArrayList<>();
-        while (i < symbolsTable.size()){
-            if(symbolsTable.get(i).getName().equals(c3a.var)) {
-                outputs_func = symbolsTable.get(i).getOutputs();
+        switch(c3a.var){
+            case "tl":
+                printWriter.println(params.get(0)+"->r;");
+                break;
+            case "cons":
+                printWriter.println("Tree "+c3a.arg1+" = cons("+params.get(0)+", NULL, "+params.get(1)+");");
+                
+                break;
+            case "list":
+                break;
+            case "hd":
+                break;
+            default :
+            int i = 0;
+            //ArrayList<String> reg = new ArrayList<>();
+            ArrayList<String> outputs_func = new ArrayList<>();
+            while (i < symbolsTable.size()){
+                if(symbolsTable.get(i).getName().equals(c3a.var)) {
+                    outputs_func = symbolsTable.get(i).getOutputs();
+                }
+                i++;
             }
-            i++;
-        }
-        System.out.println(c3a.var +" a "+outputs_func.size()+" outputs");
-        for(int j = 0; j<outputs_func.size(); j++){
-            printWriter.println("Tree Reg_"+j+";");
-        }
-        printWriter.print(c3a.var+"(");
-        if(outputs_func.size()>0){
-            printWriter.print("Reg_"+0);
-            reg.add("Reg_"+0);
-            for(int j = 1; j<outputs_func.size();j++){
-                printWriter.print(", Reg_"+j);
-                reg.add("Reg_"+j);
+            System.out.println(c3a.var +" a "+outputs_func.size()+" outputs");
+            String[] reg = c3a.arg1.split(", ");
+            for(int j = 0; j<reg.length; j++){
+                printWriter.println("Tree "+reg[j]+";");
             }
-        }
-        if(params.size()>0){
+            printWriter.print(c3a.var+"(");
             if(outputs_func.size()>0){
-                printWriter.print(", "+params.get(0));
+                /*printWriter.print("Reg_"+0);
+                reg.add("Reg_"+0);
+                for(int j = 1; j<outputs_func.size();j++){
+                    printWriter.print(", Reg_"+j);
+                    reg.add("Reg_"+j);
+                }*/
+                printWriter.print(c3a.arg1);
             }
-            else {
-                printWriter.print(params.get(0));
+            if(params.size()>0){
+                if(outputs_func.size()>0){
+                    printWriter.print(", "+params.get(0));
+                }
+                else {
+                    printWriter.print(params.get(0));
+                }
+                for(int j = 1; j<params.size();j++){
+                    printWriter.print(", "+params.get(j));
+                }
             }
-            for(int j = 1; j<params.size();j++){
-                printWriter.print(", "+params.get(j));
-            }
+            registres.put(c3a.var, reg);
+            printWriter.println(");");
+            
         }
-        registres.put(c3a.var, reg);
-        printWriter.println(");");
         params.clear();
     }
 
@@ -268,6 +280,24 @@ public class code3AtoC {
                 }
                 
                 break;
+            case "FOR":
+                printWriter.println("int i"+indice+";");
+                
+                printWriter.println("for(i"+indice+"=0; i"+indice+"<intTree("+c3a.arg1+"); i"+indice+"++){");
+                indice++;
+                break;
+            case "FOREACH":
+                printWriter.println("int i"+indice+";");             
+                printWriter.println("Tree " + c3a.arg2 + " = " + c3a.arg1+";");
+                printWriter.println("for(i"+indice+"=0; i"+indice+"<intTree("+c3a.arg1+"); i"+indice+"++){");
+                printWriter.println(c3a.arg2 + " = " + c3a.arg2 + "->l;");
+                indice++;
+                break;
+            case "WHILE":
+                printWriter.println("while(boolTree("+c3a.arg1+")){");
+                break;
+            
+            
             default:
                 break;
         }

@@ -37,7 +37,15 @@ public class App {
 
         // temp test
         if(src == null || src.isEmpty()) {
-            src = "function add : read Op1, Op2 % Result := Op1 ; Result := ( cons nil Result ) % write Result,Result2 function sub : read Op1, Op2 % Result := (tl Result); Result,Somme := (add Op1 Op2) % write Result; ";
+            src = "function add :\n" + //
+                    "read Op1, Op2\n" + //
+                    "%\n" + //
+                    " Result := Op1 ;\n" + //
+                    "for Op2 do\n" + //
+                    " Result := ( cons nil ( cons nil Result ) )\n" + //
+                    "od\n" + //
+                    "%\n" + //
+                    "write Result,Result2 function useAdd : read Op1,Op2 % for Op1 do Result,Somme := (add (add Result Op2)) od % write Result";
         }
         System.out.println("Source code: " + src); 
 

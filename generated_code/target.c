@@ -11,16 +11,11 @@ int main(void) {
 
 void test(void)
 {
-    Tree t = node(node(NULL, 'M', NULL), 'O', node(NULL, 'G', NULL));
-    Tree t2 = node(node(NULL, 'D', NULL), 'M', node(NULL, 'R', NULL));
+    Tree t = cons(cons(nil, nilv, cons(nil, 'O', nil)), nilv, cons(cons(nil, 'M', nil), nilv, cons(nil, 'G', nil)));
+    Tree t2 = cons(cons(nil, nilv, cons(nil, 'M', nil)), nilv, cons(cons(nil, 'D', nil), nilv, cons(nil, 'R', nil)));
     printf("bool : %d \n", boolTree(t));
     printf("int : %d \n", intTree(t));
-    Tree sum = add(t, t2);
-    displayString(sum);
-    printf("\n");
-    printf("int : %d \n", intTree(sum));
-    Tree subt = sub(sum, node(node(NULL, 'L', NULL), 'K', node(NULL, 'M', NULL)));
-    printf("int sub : %d \n", intTree(subt));
-
+    displayString(cons(t, nilv, t2));
+    
     deleteTree(t);
 }

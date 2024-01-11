@@ -3,7 +3,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-Tree node(Tree l, char v, Tree r) 
+nil = NULL;
+
+Tree cons(Tree l, char* v, Tree r) 
 {
 	Node *m;
 	m = malloc(sizeof(Node));
@@ -60,7 +62,7 @@ Tree copy(Tree t)
 	return node(copy(t->l), t->v, copy(t->r));
 }
 
-Tree concatenate(Tree t1, Tree t2)
+/*Tree concatenate(Tree t1, Tree t2)
 {
 	Tree ct1 = copy(t1);
 	Tree ct2 = copy(t2);
@@ -121,4 +123,4 @@ Tree sub(Tree t1, Tree t2)
 		ct1->l = NULL;
 	}
 	return root;
-}
+}*/

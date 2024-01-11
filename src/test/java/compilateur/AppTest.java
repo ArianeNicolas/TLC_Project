@@ -1,5 +1,6 @@
 package compilateur;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.nio.file.Files;
@@ -10,16 +11,26 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import com.github.stefanbirkner.systemlambda.SystemLambda;
 
 import antlrworks.while_astLexer;
 import antlrworks.while_astParser;
+
 
 /**
  * Not really unit testing, but it's a good way to check if the grammar is working
  */
 
 public class AppTest {
+
+    @BeforeEach
+    public void setUp() {
+        //hard reset, if not surfire doesn't work, even with App.files = new ArrayList<String>();
+        App.files = null;
+    }
 
     @Test
     public void testInlinedCodeWorkingAST() {
@@ -72,7 +83,7 @@ public class AppTest {
     }
 
     @Test
-    public void testAddFunctionWithComments() {
+    public void testFunctionWithComments() {
         String src = """
             // Add function
             function add :
@@ -106,6 +117,8 @@ public class AppTest {
         assert(nbErrors == 0);
     }
 
+
+    
     @Test
     public void testTypeCheckingFromFile()
     {
@@ -228,19 +241,81 @@ public class AppTest {
         assert(src.length() > 0);
     }
     
+    
     @Test
-    public void testTypeCheckingWithoutFunctionDeclaration()
+    public void testTypeCheckingWithoutFunctionDeclaration() throws Exception
     {
-        String src = """
-                function useAdd :
-                read Op1, Op2
-                %
-                for Op1 do
-                Result := (add Result (add Result Op2))
-                od
-                %
-                write Result
-                """;
+ 
+        String arg = "src/test/whileTestFiles/use_add.while";
+
+        App.files = new ArrayList<String>();
+        App.files.add(arg);
+        String src = "";
+        // Read the file // todo put it in src
+        try {
+            for (String file : App.files) {
+                src += Files.readString(Path.of(file)) + "\n";
+            }
+        } catch (Exception e) {
+            fail("Error while reading file");
+        }
+                
+        // Parse the function content
+        while_astLexer lexer = new while_astLexer(new ANTLRStringStream(src));
+        // Get the token stream from the lexer
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+        // Create the parser
+        while_astParser parser = new while_astParser(tokens);
+
+       // Call the start rule, which is the entry point of the grammar
+       while_astParser.startProgram_return startProgram = null;
+       try {
+           startProgram = parser.startProgram();
+       } catch (RecognitionException e) {
+           fail("Error while parsing");
+       }
+
+       // The root of the AST
+       final CommonTree treeRoot = (CommonTree) startProgram.getTree();
+       System.out.println("Tree: " + treeRoot.toStringTree());
+   
+       //construct the symbol table
+       System.out.println("===========Constructing symbol table===========");
+       VisitorSymbolsTable visitorSymbolsTable = new VisitorSymbolsTable();
+       try {
+           visitorSymbolsTable.visit(treeRoot);
+       } catch (Exception e) {
+           fail("Error while constructing symbol table");
+       }
+       //check the types
+       System.out.println("===========Checking types===========");
+       VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitorSymbolsTable.getSymbolsTable());
+       SystemLambda.catchSystemExit(() -> {
+           visitorTypesChecker.visit(treeRoot);
+       });
+    }
+
+    //todo tester code 3 adresses et traduction en c
+    //todo tester pour toutes les fonctions exemples
+
+
+
+    @Test
+    public void testWhileAdd()
+    {
+        String arg = "src/test/whileTestFiles/add.while";
+        App.files = new ArrayList<String>();
+        App.files.add(arg);
+        String src = "";
+        // Read the file // todo put it in src
+        try {
+            for (String file : App.files) {
+                src += Files.readString(Path.of(file)) + "\n";
+            }
+        } catch (Exception e) {
+            fail("Error while reading file");
+        }
                 
         // Parse the function content
         while_astLexer lexer = new while_astLexer(new ANTLRStringStream(src));
@@ -273,22 +348,45 @@ public class AppTest {
         } catch (Exception e) {
             fail("Error while constructing symbol table");
         }
+        ArrayList<WhileContext> symbolTable = visitorSymbolsTable.getSymbolsTable();
+
         //check the types
+        /* todo gerer fichier parent
         System.out.println("===========Checking types===========");
         VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitorSymbolsTable.getSymbolsTable());
-        boolean failed = false;
         try {
             visitorTypesChecker.visit(treeRoot);
         } catch (Exception e) {
-            failed = true;
-        }
+            fail("Error while checking types");
+        }*/
 
-        assert(src.length() > 0);
+        //Testing the AST
+        String expectedTree = "(START (PROGRAM (FUNCDEF add (FUNCTION (INPUTS Op1 Op2) (VARDEF Result (EXPR Op1)) (FOR (EXPR Op2) (DO (VARDEF Result (EXPR (CONS nil Result)))) END) (OUTPUT Result)) END)))";
         assert(nbErrors == 0);
-        assert(failed);
-    }
+        assert(treeRoot != null);
+        assert(treeRoot.toStringTree().equals(expectedTree));
+        
+        //Testing the symbol table
+        assert(symbolTable.size() == 1);
+        assert(symbolTable.get(0).getName().equals("add"));
+        assert(symbolTable.get(0).getParameters().size() == 2);
+        assert(symbolTable.get(0).getParameters().get(0).equals("Op1"));
+        assert(symbolTable.get(0).getParameters().get(1).equals("Op2"));
+        assert(symbolTable.get(0).getVariables().size() == 2);
+        assert(symbolTable.get(0).getVariables().get(0).equals("Result"));
+        assert(symbolTable.get(0).getVariables().get(1).equals("Result"));
+        assert(symbolTable.get(0).getOutputs().size() == 1);
+        assert(symbolTable.get(0).getOutputs().get(0).equals("Result"));
+        
+        //Testing the types
+        //nothing to test here, the visitorTypesChecker throws an exception if there is a type error
 
-    //todo tester code 3 adresses et traduction en c
-    //todo tester pour toutes les fonctions exemples
+        //Testing 3 Adresses code
+        //TODO
+
+
+        //Testing c code
+        //TODO
+    }
     
 }

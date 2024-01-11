@@ -17,6 +17,8 @@
 ## Utilisation
 Pour le moment : `java -jar target/compilateur-while-runner.jar "<fichier1>" "<fichier2>" ...`
 
+L'argument -v ou --verbose permet d'afficher les détails de la compilation.
+
 
 ## Tests
 

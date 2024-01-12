@@ -117,16 +117,17 @@ exprs
     ;
 
 exprBase   :  nil_
-    | variable
+    | variable | symbol
     | cons | list
     | hd | tl
     | symbolExpr
-    | notVar
     ;
     
 nil_	:	('nil') -> 'nil'; 
     
 variable:	Variable -> Variable;
+
+symbol	:	Symbol -> Symbol;
 
 cons	:	'(' WS* 'cons ' lExpr WS* ')' -> ^(CONS lExpr); 
 list	:	'('WS* 'list ' lExpr WS* ')' -> ^(LIST lExpr);
@@ -138,7 +139,6 @@ tl	:	'(' WS*'tl ' exprBase WS*')' -> ^(TL exprBase);
 symbolExpr
 	:	'(' WS* Symbol WS* lExpr? WS*')' -> ^(CALL Symbol lExpr?); 
 	
-notVar	:	'('WS*'not' WS* Variable WS*')' -> ^(NOT Variable); 
 
 expression
     : lExpr (WS* '=?' WS* lExpr)? -> ^(EXPR lExpr lExpr?) 

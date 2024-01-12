@@ -40,9 +40,9 @@ public class App {
             src = "function add :\n" + //
                     "read Op1, Op2\n" + //
                     "%\n" + //
-                    " Result := Op1 ;\n" + //
+                    " Result, Result2 := Op1, Op2 ;\n" + //
                     "for Op2 do\n" + //
-                    " Result := ( cons nil ( cons nil Result ) )\n" + //
+                    " Result := ( cons nil nil Result )\n" + //
                     "od\n" + //
                     "%\n" + //
                     "write Result,Result2 function useAdd : read Op1,Op2 % for Op1 do Result,Somme := (add (add Result Op2)) od % write Result";

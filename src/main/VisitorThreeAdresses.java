@@ -148,7 +148,7 @@ public class VisitorThreeAdresses extends Visitor {
                         list2 = stock.get(node.getChild(0));
                     }
                     else {
-                        if(node.getChild(0).getText().equals("not")){
+                        /*if(node.getChild(0).getText().equals("not")){
                             list2 = stock.get(node.getChild(1));
                             ThreeAdresses param = new ThreeAdresses();
                             param.op = "PARAM";
@@ -166,8 +166,8 @@ public class VisitorThreeAdresses extends Visitor {
                             store.arg2 = "R"+ (indice-1);
                             indice++;
                             list2.add(store);
-                        }
-                        else{
+                        }*/
+                        
                             ThreeAdresses store1 = new ThreeAdresses();
                             list2 = stock.get(node.getChild(0));
                             store1.op = "STORE";
@@ -194,7 +194,7 @@ public class VisitorThreeAdresses extends Visitor {
                             store.arg2 = list2.get(list2.size()-1).var;
                             indice++;
                             list2.add(store);
-                        }
+                        
                     }
                     stock.put(node,list2);
                 break;
@@ -223,7 +223,15 @@ public class VisitorThreeAdresses extends Visitor {
                     list2 = stock.get(node.getChild(0));
                     ThreeAdresses paramHD = new ThreeAdresses();
                     paramHD.op = "PARAM";
-                    paramHD.arg1 = node.getChild(0).getText();
+                    String textHD = node.getChild(0).getText();
+                    if(node.getChildCount()==1&&(textHD.equals("nil")||Character.isLowerCase(textHD.charAt(0)))){
+                        ThreeAdresses callHD = new ThreeAdresses();
+                        callHD.op = "CALL";
+                        callHD.var = "nil";
+                        callHD.arg1 = "Reg_"+ indice;
+                        indice++;
+                        list2.add(callHD);
+                    }
                     list2.add(paramHD);
                     ThreeAdresses callHD = new ThreeAdresses();
                     callHD.op = "CALL";

@@ -135,8 +135,6 @@ public class App {
         for (int i = 0; i < lineCounts.size(); i++) {
             if(line > lineCounts.get(i)) {
                 line -= lineCounts.get(i);
-                // handle the add of a \n between files
-                line--;
                 fileIndex++;
             } else {
                 break;

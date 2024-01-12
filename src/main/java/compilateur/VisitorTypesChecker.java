@@ -4,13 +4,18 @@ import java.util.List;
 
 import org.antlr.runtime.tree.CommonTree;
 
+//todo tester 
 
-//ex f1,f2 = f3,f4,f5 -> on choisit si on gere ou pas
-//x1,x2=x2,x1
+
+//todo verification
+//dans if : 1
+//dans for : 1
+//dans while: 1
+//appel fonction : nombre inputs
+
 public class VisitorTypesChecker extends Visitor {
 
     private ArrayList<WhileContext> symbolsTable;
-    private String currentContextName;
 
     /**
      * @param symbolsTable Symbols table used to check the AST (need to be already filled)
@@ -28,13 +33,21 @@ public class VisitorTypesChecker extends Visitor {
             //tester ses parametres et ses outputs
 
 
-            case "VARIABLES":
-                //tester qu'une variable est definie dans le contexte avant d'etre utilisée
-                //tester que c'est avant la ligne courante
-                //vraiment à faire ????? -> juste ca vaut nil sinon
-
+            case "WHILE"://todo tester (d'abord juste la table des symboles)
                 break;
-
+            case "IF": //todo tester (d'abord juste la table des symboles)
+                break;
+            case "FOR": //works
+                CommonTree condition = (CommonTree) node.getChild(0);
+                ArrayList<CommonTree> conditionChildren = (ArrayList<CommonTree>) condition.getChildren();
+                int conditionType = 0;
+                for (CommonTree child : conditionChildren) {
+                    conditionType += getType(child);
+                }
+                if(conditionType != 1) {
+                    throw new WhileException("Condition must be a boolean : "+App.getFileNameAndLineNumber(node));
+                }
+                break;
             case "VARDEF": //:=
                 //System.out.println("NODE" +node);
                 //children
@@ -71,8 +84,6 @@ public class VisitorTypesChecker extends Visitor {
                 if(vars_left_type != exprs_right_type) {
                     throw new WhileException("Mismatched inputs("+vars_left_type+") and outputs("+exprs_right_type+") : "+App.getFileNameAndLineNumber(node));
                 }
-
-                
                 break;
             default:
                 break;
@@ -108,22 +119,18 @@ public class VisitorTypesChecker extends Visitor {
 
         String token=node.getText();
         switch (token) {
-            //condition arbre 1
-            // if arbre 0
-
-            // si if
-                //0
-            //si condition -> jsp comment on fait
-            //si arbre 
-                //1
             //parcours table de symboles
             // si fonction 
                 // on retourne le nombre d'output de la fonction
                 // mais il d'abord vérifier que la fonction recoit le bon nombre d'input
             //no output
+
+            //todo completer la liste des cas valant 0
             case "IF":
             case "ELSE":
             case "THEN":
+            case "FOR":
+            case "WHILE":
             case "COMMENT":
                 return 0;
             case "nil":
@@ -141,11 +148,4 @@ public class VisitorTypesChecker extends Visitor {
         
 
 
-    // gerer erreur table des symboles à sa construction
-
-    //type fonction nmbre valeurs retours / entrees
-    //tester les affectations -> nbre gauche, nbre droite
-    //a chaque noeudde l'ast (presque) -> associer l'exposant en tant que type
-    //fonctions a3 -> vers a2 
-    //x,y,...=a   -> affectation si type gauche= type droit
-
+    // todo? gerer erreur table des symboles à sa construction

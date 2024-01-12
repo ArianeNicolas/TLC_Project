@@ -1,9 +1,9 @@
-function severalOutputs :
+function forUsingFunction :
 read Op1, Op2
 %
  Result := Op1 ;
-for Op2 do
+for (add Result Op2) do
  Result := ( cons nil Result )
 od
 %
-write Result,Op1,Op3
+write Result

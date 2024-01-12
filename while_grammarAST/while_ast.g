@@ -52,7 +52,7 @@ getComment
 	:	Comment -> ^(COMMENT Comment);
 
 program
-    : function WS* program? -> ^(PROGRAM function program?)
+    : function WS* program? -> ^(PROGRAM function program?) 
     ; 
 
 function
@@ -72,7 +72,7 @@ inputSub
     ;
 
 output
-    : Variable (',' output)? -> ^(OUTPUT Variable output?)
+    : Variable WS* (',' WS* output)? -> ^(OUTPUT Variable output?)
     ;
 
 commands
@@ -109,11 +109,11 @@ foreach_
     ;
 
 vars
-    : Variable (','WS* vars)? -> Variable vars*
+    : Variable WS* (','WS* vars)? -> Variable vars*
     ;
 
 exprs
-    : expression (','WS* exprs)? -> expression exprs*
+    : expression WS* (','WS* exprs)? -> expression exprs*
     ;
 
 exprBase   :  nil_
@@ -136,7 +136,7 @@ hd	:	'('WS* 'hd ' exprBase WS*')' -> ^(HD exprBase);
 tl	:	'(' WS*'tl ' exprBase WS*')' -> ^(TL exprBase);
 
 symbolExpr
-	:	'(' WS* Symbol WS* lExpr? WS*')' -> ^(CALL Symbol lExpr?);
+	:	'(' WS* Symbol WS* lExpr? WS*')' -> ^(CALL Symbol lExpr?); 
 	
 notVar	:	'('WS*'not' WS* Variable WS*')' -> ^(NOT Variable); 
 

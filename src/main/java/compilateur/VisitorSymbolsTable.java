@@ -46,8 +46,7 @@ public class VisitorSymbolsTable extends Visitor {
                     //if it isn't a comment
                     if(!inputName.equals("COMMENT"))
                     {
-                        int currentContextIndex = symbolsTable.size()-1;
-                        symbolsTable.get(currentContextIndex).addParameter(inputName);
+                        symbolsTable.get(this.getCurrentContextIndex()).addParameter(inputName);
                         inputNames.add(inputName);
                     }
                     
@@ -55,22 +54,21 @@ public class VisitorSymbolsTable extends Visitor {
                 break;
                 
             case "OUTPUT":
-                List<CommonTree> outputs = (List<CommonTree>) node.getChildren();
-                List<String> outputNames = new ArrayList<String>();
-                if(outputs == null) break;
-                for (CommonTree output : outputs) {
-                    //test if the output is already declared in the current context 
-                    if(symbolsTable.size() > 0 && outputNames.contains(output.getText())) {
-                        //todo to test
-                        throw new WhileException("Output already declared : "+App.getFileNameAndLineNumber(node));
-                    }
-                    // add an output to the last function (because it's after the end)
-                    int currentContextIndex = symbolsTable.size()-1;
-                    symbolsTable.get(currentContextIndex).addOutput(output.getText());
-                    outputNames.add(output.getText());
+                CommonTree output = (CommonTree) node.getChild(0);
+                String outputName = output.getText();
+                if(output == null) break;
+                //test if the output is already declared in the current context 
+                if(symbolsTable.size() > 0) {
+                    List<String> outputNames = symbolsTable.get(getCurrentContextIndex()).getOutputs();
+                    for(String name : outputNames) {
+                        if(name.equals(outputName)) {
+                            throw new WhileException("Output already declared : "+App.getFileNameAndLineNumber(node));
+                        }
+                    }  
                 }
+                // add an output to the last function (because it's after the end)
+                symbolsTable.get(getCurrentContextIndex()).addOutput(output.getText());
                 break;
-
             case "VARDEF":
                 List<CommonTree> variables = (List<CommonTree>) node.getChildren();
                 if(variables == null) break;
@@ -80,8 +78,7 @@ public class VisitorSymbolsTable extends Visitor {
                     if(!var_text.equals("EXPR"))
                     {
                         // add a variable to the current function
-                        int currentContextIndex = symbolsTable.size()-1;
-                        symbolsTable.get(currentContextIndex).addVariable(var_text);
+                        symbolsTable.get(getCurrentContextIndex()).addVariable(var_text);
                     }
                 }
                 break;
@@ -138,6 +135,10 @@ public class VisitorSymbolsTable extends Visitor {
     @Override
     protected void exit(CommonTree node) throws Exception {
         // do nothing
+    }
+
+    private int getCurrentContextIndex() {
+        return symbolsTable.size()-1;
     }
 
 

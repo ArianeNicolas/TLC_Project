@@ -351,14 +351,13 @@ public class AppTest {
         ArrayList<WhileContext> symbolTable = visitorSymbolsTable.getSymbolsTable();
 
         //check the types
-        /* todo gerer fichier parent
         System.out.println("===========Checking types===========");
         VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitorSymbolsTable.getSymbolsTable());
         try {
             visitorTypesChecker.visit(treeRoot);
         } catch (Exception e) {
             fail("Error while checking types");
-        }*/
+        }
 
         //Testing the AST
         String expectedTree = "(START (PROGRAM (FUNCDEF add (FUNCTION (INPUTS Op1 Op2) (VARDEF Result (EXPR Op1)) (FOR (EXPR Op2) (DO (VARDEF Result (EXPR (CONS nil Result)))) END) (OUTPUT Result)) END)))";

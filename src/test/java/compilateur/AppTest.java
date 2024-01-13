@@ -573,6 +573,174 @@ public class AppTest {
     }
 
 
+     /**
+     * Test a function with a if statement
+     */
+    @Test
+    public void testWhileOneWhile()
+    {
+        String arg = "src/test/whileTestFiles/oneWhile.while";
+        App.inputFiles = new ArrayList<String>();
+        App.inputFiles.add(arg);
+        String src = "";
+        // Read the file // todo put it in src
+        try {
+            for (String file : App.inputFiles) {
+                src += Files.readString(Path.of(file)) + "\n";
+            }
+        } catch (Exception e) {
+            fail("Error while reading file");
+        }
+                
+        // Parse the function content
+        while_astLexer lexer = new while_astLexer(new ANTLRStringStream(src));
+        // Get the token stream from the lexer
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+        // Create the parser
+        while_astParser parser = new while_astParser(tokens);
+
+        // Call the start rule, which is the entry point of the grammar
+        while_astParser.startProgram_return startProgram = null;
+        try {
+            startProgram = parser.startProgram();
+        } catch (RecognitionException e) {
+            fail("Error while parsing");
+        }
+
+        // count the number of errors
+        int nbErrors = parser.getNumberOfSyntaxErrors();
+
+        // The root of the AST
+        final CommonTree treeRoot = (CommonTree) startProgram.getTree();
+    
+        //construct the symbol table
+        VisitorSymbolsTable visitorSymbolsTable = new VisitorSymbolsTable();
+        try {
+            visitorSymbolsTable.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while constructing symbol table");
+        }
+        ArrayList<WhileContext> symbolTable = visitorSymbolsTable.getSymbolsTable();
+
+        //check the types
+        VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitorSymbolsTable.getSymbolsTable());
+        try {
+            visitorTypesChecker.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while checking types");
+        }
+
+        //Testing the AST
+        assert(nbErrors == 0);
+        
+        //Testing the symbol table
+        assert(symbolTable.size() == 1);
+        assert(symbolTable.get(0).getName().equals("oneWhile"));
+        assert(symbolTable.get(0).getParameters().size() == 2);
+        assert(symbolTable.get(0).getParameters().get(0).equals("Op1"));
+        assert(symbolTable.get(0).getParameters().get(1).equals("Op2"));
+        assert(symbolTable.get(0).getVariables().size() == 1);
+        assert(symbolTable.get(0).getVariables().get(0).equals("Result"));
+        assert(symbolTable.get(0).getOutputs().size() == 1);
+        assert(symbolTable.get(0).getOutputs().get(0).equals("Result"));
+        
+        //Testing the types
+        //nothing to test here, the visitorTypesChecker throws an exception if there is a type error
+
+        //Testing 3 Adresses code
+        //TODO
+
+
+        //Testing c code
+        //TODO
+    }
+
+
+    /**
+     * Test a function with a if statement
+     */
+    @Test
+    public void testWhileOneForeach()
+    {
+        String arg = "src/test/whileTestFiles/oneForeach.while";
+        App.inputFiles = new ArrayList<String>();
+        App.inputFiles.add(arg);
+        String src = "";
+        // Read the file // todo put it in src
+        try {
+            for (String file : App.inputFiles) {
+                src += Files.readString(Path.of(file)) + "\n";
+            }
+        } catch (Exception e) {
+            fail("Error while reading file");
+        }
+                
+        // Parse the function content
+        while_astLexer lexer = new while_astLexer(new ANTLRStringStream(src));
+        // Get the token stream from the lexer
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+        // Create the parser
+        while_astParser parser = new while_astParser(tokens);
+
+        // Call the start rule, which is the entry point of the grammar
+        while_astParser.startProgram_return startProgram = null;
+        try {
+            startProgram = parser.startProgram();
+        } catch (RecognitionException e) {
+            fail("Error while parsing");
+        }
+
+        // count the number of errors
+        int nbErrors = parser.getNumberOfSyntaxErrors();
+
+        // The root of the AST
+        final CommonTree treeRoot = (CommonTree) startProgram.getTree();
+    
+        //construct the symbol table
+        VisitorSymbolsTable visitorSymbolsTable = new VisitorSymbolsTable();
+        try {
+            visitorSymbolsTable.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while constructing symbol table");
+        }
+        ArrayList<WhileContext> symbolTable = visitorSymbolsTable.getSymbolsTable();
+
+        //check the types
+        VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitorSymbolsTable.getSymbolsTable());
+        try {
+            visitorTypesChecker.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while checking types");
+        }
+
+        //Testing the AST
+        assert(nbErrors == 0);
+        
+        //Testing the symbol table
+        assert(symbolTable.size() == 1);
+        assert(symbolTable.get(0).getName().equals("oneForeach"));
+        assert(symbolTable.get(0).getParameters().size() == 2);
+        assert(symbolTable.get(0).getParameters().get(0).equals("Op1"));
+        assert(symbolTable.get(0).getParameters().get(1).equals("Op2"));
+        assert(symbolTable.get(0).getVariables().size() == 1);
+        assert(symbolTable.get(0).getVariables().get(0).equals("Result"));
+        assert(symbolTable.get(0).getOutputs().size() == 1);
+        assert(symbolTable.get(0).getOutputs().get(0).equals("Result"));
+        
+        //Testing the types
+        //nothing to test here, the visitorTypesChecker throws an exception if there is a type error
+
+        //Testing 3 Adresses code
+        //TODO
+
+
+        //Testing c code
+        //TODO
+    }
+
+
     /**
      * Commands correctly separated by ;
      */
@@ -719,6 +887,7 @@ public class AppTest {
     //les tabulations
     //for 
     //while
+    //foreach
     //test if and for in one function
     //test cons
     //test tl

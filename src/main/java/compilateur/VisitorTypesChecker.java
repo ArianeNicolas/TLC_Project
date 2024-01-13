@@ -57,11 +57,9 @@ public class VisitorTypesChecker extends Visitor {
                 System.out.println("Function called : "+function.getName()+" (inputs number="+parametersType+")");
 
                 break;
-            case "WHILE": // While loop, todo tester (d'abord juste la table des symboles)
-                break;
-            case "IF": // If statement, todo tester (d'abord juste la table des symboles)
-                break;
-            case "FOR": // For loop, works
+            case "WHILE": // While loop condition
+            case "IF": // If statement
+            case "FOR": // For loop condition // foreach doesn't need to have only one input
                 CommonTree condition = (CommonTree) node.getChild(0);
                 ArrayList<CommonTree> conditionChildren = (ArrayList<CommonTree>) condition.getChildren();
                 int conditionType = 0;
@@ -70,7 +68,7 @@ public class VisitorTypesChecker extends Visitor {
                 }
                 // Only boolean condition are allowed (one value)
                 if(conditionType != 1) {
-                    throw new WhileException("Condition must be a boolean : "+App.getFileNameAndLineNumber(node));
+                    throw new WhileException("Condition must have one input (boolean or integer) : "+App.getFileNameAndLineNumber(node));
                 }
                 System.out.println("Condition (in "+token+") had one input, has expected");
                 break;

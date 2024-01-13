@@ -29,7 +29,7 @@ public class AppTest {
     @BeforeEach
     public void setUp() {
         //hard reset, if not surfire doesn't work, even with App.files = new ArrayList<String>();
-        App.files = null;
+        App.inputFiles = null;
     }
 
     @Test
@@ -123,12 +123,12 @@ public class AppTest {
     public void testTypeCheckingFromFile()
     {
         String arg = "src/test/whileTestFiles/add.while";
-        App.files = new ArrayList<String>();
-        App.files.add(arg);
+        App.inputFiles = new ArrayList<String>();
+        App.inputFiles.add(arg);
         String src = "";
         // Read the file // todo put it in src
         try {
-            for (String file : App.files) {
+            for (String file : App.inputFiles) {
                 src += Files.readString(Path.of(file)) + "\n";
             }
         } catch (Exception e) {
@@ -184,13 +184,13 @@ public class AppTest {
     {
         String arg1 = "src/test/whileTestFiles/add.while";
         String arg2 = "src/test/whileTestFiles/use_add.while";
-        App.files = new ArrayList<String>();
-        App.files.add(arg1);
-        App.files.add(arg2);
+        App.inputFiles = new ArrayList<String>();
+        App.inputFiles.add(arg1);
+        App.inputFiles.add(arg2);
         String src = "";
         // Read the file // todo put it in src
         try {
-            for (String file : App.files) {
+            for (String file : App.inputFiles) {
                 src += Files.readString(Path.of(file)) + "\n";
             }
         } catch (Exception e) {
@@ -248,12 +248,12 @@ public class AppTest {
  
         String arg = "src/test/whileTestFiles/use_add.while";
 
-        App.files = new ArrayList<String>();
-        App.files.add(arg);
+        App.inputFiles = new ArrayList<String>();
+        App.inputFiles.add(arg);
         String src = "";
         // Read the file // todo put it in src
         try {
-            for (String file : App.files) {
+            for (String file : App.inputFiles) {
                 src += Files.readString(Path.of(file)) + "\n";
             }
         } catch (Exception e) {
@@ -305,12 +305,12 @@ public class AppTest {
     public void testWhileAdd()
     {
         String arg = "src/test/whileTestFiles/add.while";
-        App.files = new ArrayList<String>();
-        App.files.add(arg);
+        App.inputFiles = new ArrayList<String>();
+        App.inputFiles.add(arg);
         String src = "";
         // Read the file // todo put it in src
         try {
-            for (String file : App.files) {
+            for (String file : App.inputFiles) {
                 src += Files.readString(Path.of(file)) + "\n";
             }
         } catch (Exception e) {

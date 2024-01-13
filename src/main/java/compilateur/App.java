@@ -20,7 +20,7 @@ public class App {
     /**
      * List of files to compile
      */
-    public static ArrayList<String> files = new ArrayList<String>();
+    public static ArrayList<String> inputFiles = new ArrayList<String>();
 
     /**
      * Take a list of files as arguments and compile them (check syntax, check types, generate 3A code and convert it to C)
@@ -47,14 +47,34 @@ public class App {
 
 
         //files are parameter that don't start with -
+        //files before -o are input files
+        //files after -o are output files (there can be only one)
+        boolean outputFileisProvided = false;
+        String outputFileName = null;
         for (String arg : args) {
+            if(!outputFileisProvided && arg.equals("-o")) {
+                outputFileisProvided = true;
+            } 
+
             if(!arg.startsWith("-")) {
-                files.add(arg);
+                if(outputFileisProvided) {
+                    if(outputFileName != null) {
+                        System.err.println("Error: multiple output files provided");
+                        System.exit(1); 
+                    }
+                    outputFileName = arg;
+                } else {
+                    inputFiles.add(arg);
+                }
             }
+        }
+        //if no output file is provided, use a default one
+        if(outputFileName == null) {
+            outputFileName = "./a.out";
         }
         
         // Check if a file name is provided as argument
-        if(files == null || files.size() == 0) {
+        if(inputFiles == null || inputFiles.size() == 0) {
             System.err.println("Error: no file name provided");
             System.exit(1); 
         }
@@ -62,7 +82,7 @@ public class App {
         String src = "";
         // Read the file // todo put it in src
         try {
-            for (String file : files) {
+            for (String file : inputFiles) {
                 src += Files.readString(Path.of(file)) + "\n";
             }
             //remove the last \n
@@ -123,6 +143,18 @@ public class App {
 
         //todo ajouter la traduction en c
 
+        //write a file
+        System.out.println("===========Writing file===========");
+        String cCode = "temporaire"; //todo
+        //todo decommenter pour ecriture dans un fichier
+        /* 
+        try {
+            Files.writeString(Path.of(outputFileName), cCode);
+        } catch (IOException e) {
+            System.err.println("Error while writing file");
+            System.exit(1);
+        }**/
+
         //reset system.out to be able to print the final result
         System.setOut(new java.io.PrintStream(consoleOutput));
         System.out.println("===========Done!==========="); 
@@ -137,7 +169,7 @@ public class App {
         //get the line count of each file
         ArrayList<Integer> lineCounts = new ArrayList<Integer>();
         //files correspond to the arguments of the program
-        for (String arg : files) {
+        for (String arg : inputFiles) {
             try {
                 lineCounts.add(Files.readAllLines(Path.of(arg)).size());
             } catch (IOException e) {
@@ -156,6 +188,6 @@ public class App {
                 break;
             }
         }
-        return "File: " + files.get(fileIndex) + ", line: " + line;
+        return "File: " + inputFiles.get(fileIndex) + ", line: " + line;
     } 
 }

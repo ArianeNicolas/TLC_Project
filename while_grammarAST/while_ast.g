@@ -38,9 +38,9 @@ startProgram
     : program -> ^(START program) 
     ;
 
-Maj     : ('A'..'Z');
-Min     : ('a'..'z');
-Dec     : ('0'..'9');
+fragment Maj     : ('A'..'Z');
+fragment Min     : ('a'..'z');
+fragment Dec     : ('0'..'9');
 WS      : ' '|'\n'|'\r'; 
 
 Variable    : Maj (Maj | Min | Dec)* ('!' | '?')?;
@@ -50,6 +50,10 @@ Comment	:	' '* '/''/' ~('\n'|'\r')* '\r'? '\n';
 
 getComment
 	:	Comment -> ^(COMMENT Comment);
+	
+variable:	Variable -> Variable;
+
+symbol	:	Symbol -> Symbol;
 
 program
     : function WS* program? -> ^(PROGRAM function program?) 
@@ -96,7 +100,7 @@ else_	:	'else' getComment? WS* commands -> ^(ELSE commands getComment?);
 
 while_
     : ('while' WS* expression getComment? WS* do_) -> ^(WHILE expression getComment? do_ END)
-    ;
+    ; 
     
 do_ 	: 'do' getComment? WS* commands WS* 'od' getComment? -> ^(DO commands  getComment?);
 
@@ -125,10 +129,6 @@ exprBase   :  nil_
     ;
     
 nil_	:	('nil') -> 'nil'; 
-    
-variable:	Variable -> Variable;
-
-symbol	:	Symbol -> Symbol;
 
 cons	:	'(' WS* 'cons ' lExpr? WS* ')' -> ^(CONS lExpr); 
 list	:	'('WS* 'list ' lExpr? WS* ')' -> ^(LIST lExpr);

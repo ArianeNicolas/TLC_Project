@@ -1,4 +1,4 @@
-// $ANTLR 3.5.1 C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g 2024-01-13 21:50:38
+// $ANTLR 3.5.1 C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g 2024-01-13 21:58:49
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -670,9 +670,7 @@ public class while_astLexer extends Lexer {
 	// $ANTLR start "Maj"
 	public final void mMaj() throws RecognitionException {
 		try {
-			int _type = Maj;
-			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:41:9: ( ( 'A' .. 'Z' ) )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:41:18: ( ( 'A' .. 'Z' ) )
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z') ) {
@@ -685,8 +683,6 @@ public class while_astLexer extends Lexer {
 			}
 			}
 
-			state.type = _type;
-			state.channel = _channel;
 		}
 		finally {
 			// do for sure before leaving
@@ -697,9 +693,7 @@ public class while_astLexer extends Lexer {
 	// $ANTLR start "Min"
 	public final void mMin() throws RecognitionException {
 		try {
-			int _type = Min;
-			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:42:9: ( ( 'a' .. 'z' ) )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:42:18: ( ( 'a' .. 'z' ) )
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:
 			{
 			if ( (input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
@@ -712,8 +706,6 @@ public class while_astLexer extends Lexer {
 			}
 			}
 
-			state.type = _type;
-			state.channel = _channel;
 		}
 		finally {
 			// do for sure before leaving
@@ -724,9 +716,7 @@ public class while_astLexer extends Lexer {
 	// $ANTLR start "Dec"
 	public final void mDec() throws RecognitionException {
 		try {
-			int _type = Dec;
-			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:43:9: ( ( '0' .. '9' ) )
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:43:18: ( ( '0' .. '9' ) )
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:
 			{
 			if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
@@ -739,8 +729,6 @@ public class while_astLexer extends Lexer {
 			}
 			}
 
-			state.type = _type;
-			state.channel = _channel;
 		}
 		finally {
 			// do for sure before leaving
@@ -1012,8 +1000,8 @@ public class while_astLexer extends Lexer {
 
 	@Override
 	public void mTokens() throws RecognitionException {
-		// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:8: ( T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | Maj | Min | Dec | WS | Variable | Symbol | Comment )
-		int alt8=35;
+		// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:8: ( T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | WS | Variable | Symbol | Comment )
+		int alt8=32;
 		alt8 = dfa8.predict(input);
 		switch (alt8) {
 			case 1 :
@@ -1213,49 +1201,28 @@ public class while_astLexer extends Lexer {
 				}
 				break;
 			case 29 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:178: Maj
-				{
-				mMaj(); 
-
-				}
-				break;
-			case 30 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:182: Min
-				{
-				mMin(); 
-
-				}
-				break;
-			case 31 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:186: Dec
-				{
-				mDec(); 
-
-				}
-				break;
-			case 32 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:190: WS
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:178: WS
 				{
 				mWS(); 
 
 				}
 				break;
-			case 33 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:193: Variable
+			case 30 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:181: Variable
 				{
 				mVariable(); 
 
 				}
 				break;
-			case 34 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:202: Symbol
+			case 31 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:190: Symbol
 				{
 				mSymbol(); 
 
 				}
 				break;
-			case 35 :
-				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:209: Comment
+			case 32 :
+				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:1:197: Comment
 				{
 				mComment(); 
 
@@ -1268,151 +1235,134 @@ public class while_astLexer extends Lexer {
 
 	protected DFA8 dfa8 = new DFA8(this);
 	static final String DFA8_eotS =
-		"\5\uffff\1\33\2\uffff\14\35\1\60\1\35\1\uffff\1\30\4\uffff\1\36\2\uffff"+
-		"\1\63\1\36\1\65\3\36\1\71\1\72\3\36\1\77\5\36\2\uffff\1\36\1\uffff\1\36"+
-		"\1\uffff\1\110\1\36\3\uffff\1\36\1\113\1\114\1\115\1\uffff\2\36\1\uffff"+
-		"\3\36\1\123\1\36\1\uffff\2\36\3\uffff\1\127\1\130\2\36\2\uffff\2\36\3"+
-		"\uffff\1\135\3\36\2\uffff\1\141\1\36\1\uffff\1\143\1\uffff";
+		"\5\uffff\1\32\2\uffff\14\26\1\27\6\uffff\1\26\1\56\1\26\1\60\3\26\1\64"+
+		"\1\65\3\26\1\72\6\26\1\uffff\1\26\1\uffff\1\103\1\26\3\uffff\1\26\1\106"+
+		"\1\107\1\110\1\uffff\2\26\1\uffff\3\26\1\116\1\26\1\uffff\2\26\3\uffff"+
+		"\1\122\1\123\2\26\2\uffff\2\26\3\uffff\1\130\3\26\2\uffff\1\134\1\26\1"+
+		"\uffff\1\136\1\uffff";
 	static final String DFA8_eofS =
-		"\144\uffff";
+		"\137\uffff";
 	static final String DFA8_minS =
-		"\1\12\4\uffff\1\75\2\uffff\16\41\1\uffff\1\40\4\uffff\1\156\2\uffff\1"+
-		"\41\1\163\1\41\1\162\1\156\1\40\2\41\1\163\1\154\1\160\1\41\1\141\1\145"+
-		"\1\40\2\151\2\uffff\1\163\1\uffff\1\145\1\uffff\1\41\1\143\3\uffff\1\164"+
-		"\3\41\1\uffff\1\144\1\156\1\uffff\1\154\1\164\1\40\1\41\1\141\1\uffff"+
-		"\1\164\1\40\3\uffff\2\41\2\145\2\uffff\1\143\1\151\3\uffff\1\41\1\40\1"+
-		"\150\1\157\2\uffff\1\41\1\156\1\uffff\1\41\1\uffff";
+		"\1\12\4\uffff\1\75\2\uffff\2\157\1\154\1\151\1\144\1\146\2\151\1\144\1"+
+		"\145\2\150\1\40\6\uffff\1\156\1\41\1\163\1\41\1\162\1\156\1\40\2\41\1"+
+		"\163\1\154\1\160\1\41\1\141\1\145\1\40\2\151\1\163\1\uffff\1\145\1\uffff"+
+		"\1\41\1\143\3\uffff\1\164\3\41\1\uffff\1\144\1\156\1\uffff\1\154\1\164"+
+		"\1\40\1\41\1\141\1\uffff\1\164\1\40\3\uffff\2\41\2\145\2\uffff\1\143\1"+
+		"\151\3\uffff\1\41\1\40\1\150\1\157\2\uffff\1\41\1\156\1\uffff\1\41\1\uffff";
 	static final String DFA8_maxS =
-		"\1\172\4\uffff\1\75\2\uffff\16\172\1\uffff\1\57\4\uffff\1\156\2\uffff"+
-		"\1\172\1\163\1\172\1\162\1\156\1\40\2\172\1\163\1\154\1\164\1\172\1\141"+
-		"\1\145\1\40\2\151\2\uffff\1\163\1\uffff\1\145\1\uffff\1\172\1\143\3\uffff"+
-		"\1\164\3\172\1\uffff\1\144\1\156\1\uffff\1\154\1\164\1\40\1\172\1\141"+
-		"\1\uffff\1\164\1\40\3\uffff\2\172\2\145\2\uffff\1\143\1\151\3\uffff\1"+
-		"\172\1\40\1\150\1\157\2\uffff\1\172\1\156\1\uffff\1\172\1\uffff";
+		"\1\172\4\uffff\1\75\2\uffff\2\157\1\154\1\165\1\144\1\156\1\151\1\157"+
+		"\1\144\1\145\1\154\1\162\1\57\6\uffff\1\156\1\172\1\163\1\172\1\162\1"+
+		"\156\1\40\2\172\1\163\1\154\1\164\1\172\1\141\1\145\1\40\2\151\1\163\1"+
+		"\uffff\1\145\1\uffff\1\172\1\143\3\uffff\1\164\3\172\1\uffff\1\144\1\156"+
+		"\1\uffff\1\154\1\164\1\40\1\172\1\141\1\uffff\1\164\1\40\3\uffff\2\172"+
+		"\2\145\2\uffff\1\143\1\151\3\uffff\1\172\1\40\1\150\1\157\2\uffff\1\172"+
+		"\1\156\1\uffff\1\172\1\uffff";
 	static final String DFA8_acceptS =
-		"\1\uffff\1\1\1\2\1\3\1\4\1\uffff\1\7\1\10\16\uffff\1\37\1\uffff\1\40\1"+
-		"\43\1\6\1\5\1\uffff\1\36\1\42\21\uffff\1\35\1\41\1\uffff\1\12\1\uffff"+
-		"\1\14\2\uffff\1\20\1\21\1\22\4\uffff\1\27\2\uffff\1\32\5\uffff\1\15\2"+
-		"\uffff\1\24\1\25\1\26\4\uffff\1\11\1\13\2\uffff\1\23\1\30\1\31\4\uffff"+
-		"\1\33\1\34\2\uffff\1\16\1\uffff\1\17";
+		"\1\uffff\1\1\1\2\1\3\1\4\1\uffff\1\7\1\10\15\uffff\1\36\1\37\1\35\1\40"+
+		"\1\6\1\5\23\uffff\1\12\1\uffff\1\14\2\uffff\1\20\1\21\1\22\4\uffff\1\27"+
+		"\2\uffff\1\32\5\uffff\1\15\2\uffff\1\24\1\25\1\26\4\uffff\1\11\1\13\2"+
+		"\uffff\1\23\1\30\1\31\4\uffff\1\33\1\34\2\uffff\1\16\1\uffff\1\17";
 	static final String DFA8_specialS =
-		"\144\uffff}>";
+		"\137\uffff}>";
 	static final String[] DFA8_transitionS = {
-			"\1\30\2\uffff\1\30\22\uffff\1\27\4\uffff\1\1\2\uffff\1\2\1\3\2\uffff"+
-			"\1\4\2\uffff\1\31\12\26\1\5\1\6\1\uffff\1\7\3\uffff\32\24\6\uffff\2\25"+
-			"\1\10\1\11\1\12\1\13\1\25\1\14\1\15\2\25\1\16\1\25\1\17\1\20\2\25\1\21"+
-			"\1\25\1\22\2\25\1\23\3\25",
+			"\1\27\2\uffff\1\27\22\uffff\1\24\4\uffff\1\1\2\uffff\1\2\1\3\2\uffff"+
+			"\1\4\2\uffff\1\30\12\uffff\1\5\1\6\1\uffff\1\7\3\uffff\32\25\6\uffff"+
+			"\2\26\1\10\1\11\1\12\1\13\1\26\1\14\1\15\2\26\1\16\1\26\1\17\1\20\2\26"+
+			"\1\21\1\26\1\22\2\26\1\23\3\26",
 			"",
 			"",
 			"",
 			"",
-			"\1\32",
+			"\1\31",
 			"",
 			"",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\16\36\1\34\13"+
-			"\36",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\16\36\1\37\13"+
-			"\36",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\13\36\1\40\16"+
-			"\36",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\10\36\1\41\5"+
-			"\36\1\42\5\36\1\43\5\36",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\3\36\1\44\26"+
-			"\36",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\5\36\1\45\7"+
-			"\36\1\46\14\36",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\10\36\1\47\21"+
-			"\36",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\10\36\1\50\5"+
-			"\36\1\51\13\36",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\3\36\1\52\26"+
-			"\36",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\4\36\1\53\25"+
-			"\36",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\7\36\1\54\3"+
-			"\36\1\55\16\36",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\7\36\1\56\11"+
-			"\36\1\57\10\36",
-			"\1\61\16\uffff\12\61\5\uffff\1\61\1\uffff\32\61\6\uffff\32\61",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\32\36",
-			"",
-			"\1\31\16\uffff\1\31",
+			"\1\33",
+			"\1\34",
+			"\1\35",
+			"\1\36\5\uffff\1\37\5\uffff\1\40",
+			"\1\41",
+			"\1\42\7\uffff\1\43",
+			"\1\44",
+			"\1\45\5\uffff\1\46",
+			"\1\47",
+			"\1\50",
+			"\1\51\3\uffff\1\52",
+			"\1\53\11\uffff\1\54",
+			"\1\30\16\uffff\1\30",
 			"",
 			"",
 			"",
 			"",
+			"",
+			"",
+			"\1\55",
+			"\1\26\16\uffff\12\26\5\uffff\1\26\1\uffff\32\26\6\uffff\32\26",
+			"\1\57",
+			"\1\26\16\uffff\12\26\5\uffff\1\26\1\uffff\32\26\6\uffff\32\26",
+			"\1\61",
 			"\1\62",
-			"",
-			"",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\32\36",
-			"\1\64",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\32\36",
+			"\1\63",
+			"\1\26\16\uffff\12\26\5\uffff\1\26\1\uffff\32\26\6\uffff\32\26",
+			"\1\26\16\uffff\12\26\5\uffff\1\26\1\uffff\32\26\6\uffff\32\26",
 			"\1\66",
 			"\1\67",
-			"\1\70",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\32\36",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\32\36",
+			"\1\70\3\uffff\1\71",
+			"\1\26\16\uffff\12\26\5\uffff\1\26\1\uffff\32\26\6\uffff\32\26",
 			"\1\73",
 			"\1\74",
-			"\1\75\3\uffff\1\76",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\32\36",
+			"\1\75",
+			"\1\76",
+			"\1\77",
 			"\1\100",
+			"",
 			"\1\101",
-			"\1\102",
-			"\1\103",
+			"",
+			"\1\26\16\uffff\12\26\5\uffff\1\26\1\uffff\32\26\6\uffff\4\26\1\102\25"+
+			"\26",
 			"\1\104",
 			"",
 			"",
+			"",
 			"\1\105",
+			"\1\26\16\uffff\12\26\5\uffff\1\26\1\uffff\32\26\6\uffff\32\26",
+			"\1\26\16\uffff\12\26\5\uffff\1\26\1\uffff\32\26\6\uffff\32\26",
+			"\1\26\16\uffff\12\26\5\uffff\1\26\1\uffff\32\26\6\uffff\32\26",
 			"",
-			"\1\106",
-			"",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\4\36\1\107\25"+
-			"\36",
 			"\1\111",
-			"",
-			"",
-			"",
 			"\1\112",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\32\36",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\32\36",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\32\36",
 			"",
-			"\1\116",
+			"\1\113",
+			"\1\114",
+			"\1\115",
+			"\1\26\16\uffff\12\26\5\uffff\1\26\1\uffff\32\26\6\uffff\32\26",
 			"\1\117",
 			"",
 			"\1\120",
 			"\1\121",
-			"\1\122",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\32\36",
+			"",
+			"",
+			"",
+			"\1\26\16\uffff\12\26\5\uffff\1\26\1\uffff\32\26\6\uffff\32\26",
+			"\1\26\16\uffff\12\26\5\uffff\1\26\1\uffff\32\26\6\uffff\32\26",
 			"\1\124",
-			"",
 			"\1\125",
+			"",
+			"",
 			"\1\126",
+			"\1\127",
 			"",
 			"",
 			"",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\32\36",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\32\36",
+			"\1\26\16\uffff\12\26\5\uffff\1\26\1\uffff\32\26\6\uffff\32\26",
 			"\1\131",
 			"\1\132",
-			"",
-			"",
 			"\1\133",
-			"\1\134",
 			"",
 			"",
+			"\1\26\16\uffff\12\26\5\uffff\1\26\1\uffff\32\26\6\uffff\32\26",
+			"\1\135",
 			"",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\32\36",
-			"\1\136",
-			"\1\137",
-			"\1\140",
-			"",
-			"",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\32\36",
-			"\1\142",
-			"",
-			"\1\36\16\uffff\12\36\5\uffff\1\36\1\uffff\32\36\6\uffff\32\36",
+			"\1\26\16\uffff\12\26\5\uffff\1\26\1\uffff\32\26\6\uffff\32\26",
 			""
 	};
 
@@ -1447,7 +1397,7 @@ public class while_astLexer extends Lexer {
 		}
 		@Override
 		public String getDescription() {
-			return "1:1: Tokens : ( T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | Maj | Min | Dec | WS | Variable | Symbol | Comment );";
+			return "1:1: Tokens : ( T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | WS | Variable | Symbol | Comment );";
 		}
 	}
 

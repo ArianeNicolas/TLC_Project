@@ -3,12 +3,7 @@ function and :
 read Op1, Op2
 %
 for Op2 do
- Result := ( cons nil Result )
-od;
-if Op1 then
- Result := (cons)
-else 
- Result := (list)
-fi
+ Result := (cons a (cons b nil))
+od
 %
-write Result 
+write Result

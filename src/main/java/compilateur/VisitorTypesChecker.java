@@ -32,24 +32,41 @@ public class VisitorTypesChecker extends Visitor {
             //tester qu'une fonction est definie avant d'etre utilisée
             //tester ses parametres et ses outputs
 
+            case "CALL": // Function call
+                CommonTree functionNode = (CommonTree) node.getChild(0);
+                WhileContext function = VisitorSymbolsTable.getFunction(functionNode, symbolsTable);
+                //function parameters are the children of the call node except the first one (the function name)
+                ArrayList<CommonTree> parameters = (ArrayList<CommonTree>) node.getChildren();
+                parameters.remove(0);
 
-            case "WHILE"://todo tester (d'abord juste la table des symboles)
+                int parametersType = 0;
+                for (CommonTree parameter : parameters) {
+                    parametersType += getType(parameter);
+                }
+
+                // The type of the parameters must match the type of the inputs of the function
+                if(parametersType != function.getParameters().size()) {
+                    throw new WhileException("Wrong number of inputs for function "+function.getName()+" ("+parametersType+ " instead of "+function.getParameters().size()+") : "+App.getFileNameAndLineNumber(node));
+                }
+
                 break;
-            case "IF": //todo tester (d'abord juste la table des symboles)
+            case "WHILE": // While loop, todo tester (d'abord juste la table des symboles)
                 break;
-            case "FOR": //works
+            case "IF": // If statement, todo tester (d'abord juste la table des symboles)
+                break;
+            case "FOR": // For loop, works
                 CommonTree condition = (CommonTree) node.getChild(0);
                 ArrayList<CommonTree> conditionChildren = (ArrayList<CommonTree>) condition.getChildren();
                 int conditionType = 0;
                 for (CommonTree child : conditionChildren) {
                     conditionType += getType(child);
                 }
+                // Only boolean condition are allowed (one value)
                 if(conditionType != 1) {
                     throw new WhileException("Condition must be a boolean : "+App.getFileNameAndLineNumber(node));
                 }
                 break;
-            case "VARDEF": //:=
-                //System.out.println("NODE" +node);
+            case "VARDEF": // Assignment statement :=
                 //children
                 List<CommonTree> children = (List<CommonTree>) node.getChildren();
                 //System.out.println("children" +children);

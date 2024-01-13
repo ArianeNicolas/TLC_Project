@@ -5,11 +5,10 @@
 #include <string.h>
 #include <regex.h>
 
-Tree cons(Tree l, char v, Tree r) 
+Tree cons(Tree l, char v[], Tree r) 
 {
 	Node *m;
 	m = malloc(sizeof(Node));
-
 	m->l= l;
 	m->v = v;
 	m->r= r;
@@ -20,7 +19,7 @@ Tree cons(Tree l, char v, Tree r)
 void displayString(Tree t)
 {
 	if (isEmpty(t)) return;
-	if (t->v != nilv) printf("%c", t->v);
+	if (t->v != nil) printf("%s", t->v);
 	displayString(t->l);
 	displayString(t->r);
 }
@@ -87,15 +86,24 @@ Tree parsArgs(int argc, char *argv[])
 
 Tree buildTreeByInt(int nbT)
 {
-	if (nbT <= 0) return cons(nil, nilv, nil);
-	return cons(nil, nilv, buildTreeByInt(--nbT));
+	if (nbT <= 0) return cons(nil, nil, nil);
+	return cons(nil, nil, buildTreeByInt(--nbT));
 }
 
 Tree buildTreeByString(char str[], unsigned int start, unsigned int end)
 {	
 	//STOP CONDITION// 
 	if(cmpStrWithSubString(str, start, end, "nil")) return nil;
-	if(str[start] != '(') return cons(nil, str[start], nil);
+	if(str[start] != '(') 
+	{
+		char *tmp = (char*) malloc((end-start)*sizeof(char));
+		for (size_t i = 0; i < end-start; i++)
+		{
+			tmp[i] = str[start+i];
+		}
+		return cons(nil, tmp, nil);
+	}
+	
 
 	//INITIALISATION//
 	unsigned int  i = start;
@@ -139,7 +147,7 @@ Tree buildTreeByString(char str[], unsigned int start, unsigned int end)
 
 	Tree left = buildTreeByString(str, startSubStr1, endSubStr1);
 	Tree right = buildTreeByString(str, startSubStr2, endSubStr2);
-	return cons(left, nilv, right);
+	return cons(left, nil, right);
 }
 
 bool cmpStrWithSubString(char str[], unsigned int start, unsigned int end, char cmp[]) {

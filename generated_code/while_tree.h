@@ -3,7 +3,7 @@
 typedef struct linkTree
 {
 	struct linkTree *l;
-	char v;
+	char *v;
 	struct linkTree *r;
 
 }Node, *Tree;
@@ -12,7 +12,7 @@ typedef struct linkTree
 #define nilv '\0' //For null value in a Tree
 
 //Trees handling
-Tree cons(Tree l, char v, Tree r); //create a node
+Tree cons(Tree l, char v[], Tree r); //create a node
 void deleteTree(Tree t); //delete a tree
 void displayString(Tree t); //display a tree
 bool isEmpty(Tree t); 

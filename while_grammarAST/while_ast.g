@@ -130,8 +130,8 @@ variable:	Variable -> Variable;
 
 symbol	:	Symbol -> Symbol;
 
-cons	:	'(' WS* 'cons ' lExpr WS* ')' -> ^(CONS lExpr); 
-list	:	'('WS* 'list ' lExpr WS* ')' -> ^(LIST lExpr);
+cons	:	'(' WS* 'cons ' lExpr? WS* ')' -> ^(CONS lExpr); 
+list	:	'('WS* 'list ' lExpr? WS* ')' -> ^(LIST lExpr);
 
 hd	:	'('WS* 'hd ' exprBase WS*')' -> ^(HD exprBase);
 

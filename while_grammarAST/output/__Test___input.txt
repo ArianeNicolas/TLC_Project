@@ -6,9 +6,9 @@ for Op2 do
  Result := ( cons nil Result )
 od;
 if Op1 then
- Result := Op1
+ Result := (cons)
 else 
- Result := Op1=?Op2
+ Result := (list)
 fi
 %
 write Result 

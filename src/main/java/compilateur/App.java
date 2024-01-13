@@ -121,9 +121,11 @@ public class App {
         }
 
 
+        //todo ajouter la traduction en c
+
         //reset system.out to be able to print the final result
         System.setOut(new java.io.PrintStream(consoleOutput));
-        System.out.println("===========Done!==========="); //todo remplacer par le code c -> on pourra le rediriger dans un fichier
+        System.out.println("===========Done!==========="); 
     }   
 
     /**

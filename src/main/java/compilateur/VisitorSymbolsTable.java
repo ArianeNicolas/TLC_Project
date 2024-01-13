@@ -10,7 +10,7 @@ public class VisitorSymbolsTable extends Visitor {
     private ArrayList<WhileContext> symbolsTable = null;
 
     /**
-     * Each WhileContext (=functions) in the Stack is a context 
+     * Each WhileContext (=functions) in the list is a context 
      * @return the symbolsTable
      */
     public ArrayList<WhileContext> getSymbolsTable() {

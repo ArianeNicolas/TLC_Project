@@ -89,7 +89,7 @@ public class VisitorTypesChecker extends Visitor {
                 if(vars_left_type != exprs_right_type) {
                     throw new WhileException("Mismatched inputs("+vars_left_type+") and outputs("+exprs_right_type+") : "+App.getFileNameAndLineNumber(node));
                 }
-                System.out.println("Assignement statement : "+vars_left+" = "+exprs_right+" ("+vars_left_type+" = "+exprs_right_type+") : ");
+                System.out.println("Assignement statement : "+vars_left+" = "+exprs_right+" ("+vars_left_type+" = "+exprs_right_type+")");
                 break;
             default:
                 break;

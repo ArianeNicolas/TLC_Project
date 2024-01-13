@@ -17,12 +17,15 @@ import antlrworks.while_astParser;
  * Main class of the project, While compiler
  */
 public class App {
+    /**
+     * List of files to compile
+     */
     public static ArrayList<String> files = new ArrayList<String>();
 
     /**
      * Take a list of files as arguments and compile them (check syntax, check types, generate 3A code and convert it to C)
      * @param args List of files to compile (-v or --verbose can also be used to display compilation steps
-     * @throws Exception
+     * @throws Exception If there is a syntax error, a type error or a problem while reading the files
      */
     public static void main(String[] args) throws Exception {
         //test if the verbose option is activated
@@ -125,8 +128,8 @@ public class App {
 
     /**
      * Get the file name and line number of a node in the corresponding file (useful for error messages)
-     * @param node
-     * @return
+     * @param node The node to get the file name and line number from
+     * @return The file name and line number of the node
      */
     public static String getFileNameAndLineNumber(CommonTree node) {
         //get the line count of each file

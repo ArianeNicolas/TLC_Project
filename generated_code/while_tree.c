@@ -5,22 +5,30 @@
 #include <string.h>
 #include <regex.h>
 
-Tree cons(Tree l, char v, Tree r) 
+Tree cons(Tree l, char v[], Tree r) 
 {
+	char *tmp = NULL;
+	if(v != NULL) {
+		tmp = (char*)malloc(sizeof(char) * (strlen(v)));
+		if(tmp != NULL)
+			strcpy(tmp, v);
+	}
+	
 	Node *m;
 	m = malloc(sizeof(Node));
-
-	m->l= l;
-	m->v = v;
-	m->r= r;
-	
+	if(m != NULL)
+	{
+		m->l= l;
+		m->v = tmp;
+		m->r= r;
+	}
 	return m;
 }
 
 void displayString(Tree t)
 {
 	if (isEmpty(t)) return;
-	if (t->v != nilv) printf("%c", t->v);
+	if (t->v != NULL) printf("%s", t->v);
 	displayString(t->l);
 	displayString(t->r);
 }
@@ -30,6 +38,7 @@ void deleteTree(Tree t)
 	if (isEmpty(t)) return;
 	deleteTree(t->l);
 	deleteTree(t->r);
+	if(t->v != NULL) free(t->v);
 	free(t);
 }
 
@@ -63,6 +72,30 @@ Tree copy(Tree t)
 	return cons(copy(t->l), t->v, copy(t->r));
 }
 
+Tree equals(Tree t1, Tree t2)
+{
+	if(equalsRec(t1, t2)) return cons(nil, nil, cons(nil, nil, nil));
+	return cons(nil, nil, nil);
+}
+
+bool equalsRec(Tree t1, Tree t2)
+{
+	if(isEmpty(t1) && isEmpty(t2)) return true;
+	if(isLeaf(t1) && isLeaf(t2))
+	{
+		if (t1->v != nil && t2->v != nil)
+		{
+			if(strcmp( t1->v, t2->v ) != 0)
+			{
+				return false;
+			} else return true;
+		} else if(t1->v == nil && t2->v == nil) return true;
+		return false;
+	}
+	equalsRec(t1->l, t2->l);
+	equalsRec(t1->r, t2->r);
+}
+
 Tree parsArgs(int argc, char *argv[]) 
 {
 	//PRECONDITIONS//
@@ -87,15 +120,25 @@ Tree parsArgs(int argc, char *argv[])
 
 Tree buildTreeByInt(int nbT)
 {
-	if (nbT <= 0) return cons(nil, nilv, nil);
-	return cons(nil, nilv, buildTreeByInt(--nbT));
+	if (nbT <= 0) return cons(nil, nil, nil);
+	return cons(nil, nil, buildTreeByInt(--nbT));
 }
 
 Tree buildTreeByString(char str[], unsigned int start, unsigned int end)
 {	
 	//STOP CONDITION// 
+	int delta = end-start;
 	if(cmpStrWithSubString(str, start, end, "nil")) return nil;
-	if(str[start] != '(') return cons(nil, str[start], nil);
+	if(str[start] != '(') 
+	{
+		//char *tmp = (char*)malloc(sizeof(char) * (delta)+1);
+		char tmp[delta+1];
+		for (size_t i = 0; i < delta; i++)
+			tmp[i] = str[start+i];
+		tmp[delta] = '\0';
+		return cons(nil, tmp, nil);
+	}
+	
 
 	//INITIALISATION//
 	unsigned int  i = start;
@@ -139,7 +182,7 @@ Tree buildTreeByString(char str[], unsigned int start, unsigned int end)
 
 	Tree left = buildTreeByString(str, startSubStr1, endSubStr1);
 	Tree right = buildTreeByString(str, startSubStr2, endSubStr2);
-	return cons(left, nilv, right);
+	return cons(left, nil, right);
 }
 
 bool cmpStrWithSubString(char str[], unsigned int start, unsigned int end, char cmp[]) {

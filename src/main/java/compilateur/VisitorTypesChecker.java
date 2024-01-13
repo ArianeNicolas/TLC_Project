@@ -57,9 +57,31 @@ public class VisitorTypesChecker extends Visitor {
                 System.out.println("Function called : "+function.getName()+" (inputs number="+parametersType+")");
 
                 break;
+            case "IN":  // foreach in statement //todo tester, pas sur que ca marche
+                CommonTree parsedExpression = (CommonTree) node.getChild(1);
+                int parsedExpressionType = 0;
+                ArrayList<CommonTree> parsedExpressionChildren = (ArrayList<CommonTree>) parsedExpression.getChildren();
+                for(CommonTree child : parsedExpressionChildren) {
+                    if(child.getText().equals("EXPR")){ 
+                        //if an expression has more than one child, it is a comparison
+                        if(child.getChildCount() > 1) {
+                            //a comparison returns one value
+                            parsedExpressionType += 1;
+                        } else if (child.getChildCount() == 1) { 
+                            parsedExpressionType += getType((CommonTree)child.getChild(0));
+                        }
+                    } else {
+                        parsedExpressionType += getType(child);
+                    }
+                }
+                if(parsedExpressionType != 1) {
+                    throw new WhileException("Wrong number of inputs for foreach in statement ("+parsedExpressionType+ " instead of 1) : "+App.getFileNameAndLineNumber(node));
+                }
+                System.out.println("Foreach in statement : "+parsedExpression+" (inputs number="+parsedExpressionType+")");
+                break;
             case "WHILE": // While loop condition
             case "IF": // If statement
-            case "FOR": // For loop condition // foreach doesn't need to have only one input
+            case "FOR": // For loop condition 
                 CommonTree condition = (CommonTree) node.getChild(0);
                 ArrayList<CommonTree> conditionChildren = (ArrayList<CommonTree>) condition.getChildren();
                 int conditionType = 0;
@@ -147,8 +169,8 @@ public class VisitorTypesChecker extends Visitor {
                 CommonTree functionNode = (CommonTree) node.getChild(0);
                 WhileContext function = VisitorSymbolsTable.getFunction(functionNode, symbolsTable);
                 return function.getOutputs().size();
-            //a variable has one value
-            default:
+            //a variable has one value, same for a list
+            default: 
                 return 1;
         }
     }

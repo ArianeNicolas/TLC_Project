@@ -62,6 +62,30 @@ Tree copy(Tree t)
 	return cons(copy(t->l), t->v, copy(t->r));
 }
 
+Tree equals(Tree t1, Tree t2)
+{
+	if(equalsRec(t1, t2)) return cons(nil, nil, cons(nil, nil, nil));
+	return cons(nil, nil, nil);
+}
+
+bool equalsRec(Tree t1, Tree t2)
+{
+	if(isEmpty(t1) && isEmpty(t2)) return true;
+	if(isLeaf(t1) && isLeaf(t2))
+	{
+		if (t1->v != nil && t2->v != nil)
+		{
+			if(strcmp( t1->v, t2->v ) != 0)
+			{
+				return false;
+			} else return true;
+		} else if(t1->v == nil && t2->v == nil) return true;
+		return false;
+	}
+	equalsRec(t1->l, t2->l);
+	equalsRec(t1->r, t2->r);
+}
+
 Tree parsArgs(int argc, char *argv[]) 
 {
 	//PRECONDITIONS//

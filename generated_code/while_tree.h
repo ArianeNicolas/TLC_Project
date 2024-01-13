@@ -21,6 +21,9 @@ bool boolTree(Tree t); //return true if the root node is a tree
 int intTree(Tree t); // convert the tree into an integer. The integer corresponds to the tree height
 Tree copy(Tree t); // copy a tree
 Tree buildTreeByInt(int nbT); // build a tree that represents a int
+Tree equals(Tree t1, Tree t2); // Test if two trees are equals. Return boolTree true if equals else boolTree false
+bool equalsRec(Tree t1, Tree t2); // Test if two trees are equals. Return true if equals else false
+
 
 //Parsing
 Tree parsArgs(int argc, char *argv[]); // parse a tree passed in argument

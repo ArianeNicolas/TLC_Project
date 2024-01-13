@@ -16,10 +16,11 @@ void test(void)
 {
     
     Tree t = cons(cons(nil, nilv, cons(nil, "OMG", nil)), nilv, cons(cons(nil, "MDR", nil), nilv, cons(nil, "JPP\n", nil)));
-    //Tree t2 = cons(cons(nil, nilv, cons(nil, 'M', nil)), nilv, cons(cons(nil, 'D', nil), nilv, cons(nil, 'R', nil)));
+    Tree t2 = cons(cons(nil, nilv, cons(nil, "M", nil)), nilv, cons(cons(nil, "D", nil), nilv, cons(nil, "R", nil)));
     //printf("bool : %d \n", boolTree(t));
     //printf("int : %d \n", intTree(t));
     //displayString(cons(t, nilv, t2));
     displayString(t);
+    printf("%d", boolTree(equals(t, t2)));
     deleteTree(t);
 }

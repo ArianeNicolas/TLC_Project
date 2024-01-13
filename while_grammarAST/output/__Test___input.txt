@@ -1,15 +1,14 @@
-// Logical and 
-function and : 
-read Op1, Op2 
-% 
-if (not Op1) then 
- Result := (false) 
+// Logical and
+function and :
+read Op1, Op2
+%
+for Op2 do
+ Result := ( cons nil Result )
+od
+if Op1 then
+ Result := Op1
 else 
- if (not Op2) then
- Result := (false) 
- else 
- Result := (true) 
- fi 
-fi 
-% 
+ Result := Op2
+fi
+%
 write Result 

@@ -39,15 +39,16 @@ public class VisitorThreeAdresses extends Visitor {
     protected void exit(CommonTree node) {
         
         if(node.getChildren() == null&&!(node.getText().equals("END"))) {
-        ThreeAdresses temp = new ThreeAdresses();
-        temp.op = "IGNORE";
         ArrayList<ThreeAdresses> list = new ArrayList<>();
-        list.add(temp);
+        list.add(threeAdresses("IGNORE", null, null, null));
         stock.put(node,list);
             
         }
         else{
             switch (node.getText()) {
+                case "COMMENT":
+                    ArrayList<ThreeAdresses> comment = new ArrayList<>();
+                    comment.add(threeAdresses("IGNORE", null, null, null));
                 case "START":
                     ArrayList<ThreeAdresses> start = new ArrayList<>();
                     for(CommonTree child : (List<CommonTree>) node.getChildren()) {
@@ -63,23 +64,17 @@ public class VisitorThreeAdresses extends Visitor {
                     stock.put(node, program);
                     break;
                 case "FUNCDEF":
-                    System.out.println("last node : "+node.getChild(1).getChild(node.getChild(1).getChildCount()-1).getText());
                     outputs.put(node.getChild(0).getText(), node.getChild(1).getChild(node.getChild(1).getChildCount()-1).getChildCount());
-                    ArrayList<ThreeAdresses> code2 = new ArrayList<>();
-                    ThreeAdresses enterFunc = new ThreeAdresses();
-                    enterFunc.op = "ENTER";
-                    enterFunc.arg1 = node.getChild(0).getText();
-                    enterFunc.var = "FUNCTION";
-                    code2.add(enterFunc); 
+                    ArrayList<ThreeAdresses> funcdef = new ArrayList<>();
+                    funcdef.add(threeAdresses("ENTER", node.getChild(0).getText(), null, "FUNCTION")); 
                     for(CommonTree child : (List<CommonTree>) node.getChildren()) {
                         if(!child.getText().equals("END")&&Character.isUpperCase(child.getText().charAt(0))) {
-                            code2.addAll(stock.get(child));
+                            funcdef.addAll(stock.get(child));
                         }
                     }
-                    stock.put(node, code2);
+                    stock.put(node, funcdef);
                     break;
                 case "FUNCTION":
-                    
                     ArrayList<ThreeAdresses> code3 = new ArrayList<>();
                     for(CommonTree child : (List<CommonTree>) node.getChildren()) {
                         code3.addAll(stock.get(child));    
@@ -87,13 +82,9 @@ public class VisitorThreeAdresses extends Visitor {
                     stock.put(node, code3);
                     break;
                 case "INPUTS":
-                ArrayList<ThreeAdresses> code = new ArrayList<>();
-                for(int i = 0; i < node.getChildCount(); i++) {
-                        ThreeAdresses temp = new ThreeAdresses();
-                        temp.op = "READ";
-                        temp.var = node.getChild(i).getText();
-                        code.add(stock.get(node.getChild(i)).get(0));
-                        code.add(temp);
+                    ArrayList<ThreeAdresses> code = new ArrayList<>();
+                    for(int i = 0; i < node.getChildCount(); i++) {
+                        code.add(threeAdresses("READ", null, null, node.getChild(i).getText()));
                     }
                     stock.put(node,code);
                     break;
@@ -105,96 +96,78 @@ public class VisitorThreeAdresses extends Visitor {
                     }
                     
                     for(int i = 0; i < node.getChildCount(); i++) {//On parcourt tous les noeuds fils
-                        ThreeAdresses temp = new ThreeAdresses();
-                        if(node.getChild(i).getText().equals("EXPR")){//Si le noeud fils est une EXPR
-                            temp.op = "ASSIGN";
-                            CommonTree op = (CommonTree) node.getChild(i).getChild(0); //on récupère le noeud (variable, TL, HD, CALL...)
-                            if(op.getText().equals("CALL")||op.getText().equals("CONS")||op.getText().equals("HD")||op.getText().equals("TL")||op.getText().equals("LIST")){
-                                    for(ThreeAdresses c3a : stock.get(node.getChild(i))){//On parcourt tous le code 3 adresses associé au noeud EXPR
+                        CommonTree nodei = (CommonTree) node.getChild(i);
+                        if(nodei.getText().equals("EXPR")){//Si le noeud fils est une EXPR
+                            if(nodei.getChildCount()>1){//si l'expression a deux enfants, il s'agit d'une égalité
+                                ArrayList<ThreeAdresses> stockChildren = stock.get(node.getChild(i));
+                                boolean assign = false;
+                                int j = stockChildren.size();
+                                while(j>0&&!assign){//On parcourt tous les code 3 adresses associé au noeud EXPR
+                                    j--;
+                                    ThreeAdresses c3a = stockChildren.get(j);
+                                    if(c3a.op.equals("CALL")&&c3a.var.equals("equals")){//Si on trouve un CALL à equals
+                                        listVar.add(threeAdresses("ASSIGN", null, null, c3a.arg1));//on assigne le registre correspondant au retour
+                                        assign=true;
+                                    }
+                                }   
+                            }
+                            else{//sinon il s'agit d'une variable ou d'une fonction
+                                CommonTree op = (CommonTree) nodei.getChild(0); //on récupère le noeud (variable, TL, HD, CALL...)
+                                if(op.getText().equals("CALL")||op.getText().equals("CONS")||op.getText().equals("HD")||op.getText().equals("TL")||op.getText().equals("LIST")){
+                                    ArrayList<ThreeAdresses> stockChildren = stock.get(node.getChild(i));
+                                    boolean assign = false;
+                                    int j = stockChildren.size();
+                                    while(j>0&&!assign){//On parcourt tous le code 3 adresses associé au noeud EXPR
+                                        j--;
+                                        ThreeAdresses c3a = stockChildren.get(j);
                                         if(c3a.op.equals("CALL")){//Si on trouve un CALL
-                                            System.out.println("op.getText() = "+ op.getText()+" c3a.var = "+c3a.var+" c3a.arg1 = "+c3a.arg1);
+                                            System.out.println("c3a.var = "+c3a.var+"op.getText() = "+op.getText());
+                                            
                                             if(op.getText().equals("CALL")&&c3a.var.equals(op.getChild(0).getText())){//On regarde si notre noeud est un CALL et si sa fonction est la même que celle du code3a
-                                                temp.var = c3a.var;
+                                                listVar.add(threeAdresses("ASSIGN", null, null, c3a.var));
+                                                assign=true;
                                             }
-                                            else if(c3a.var.equals(op.getText().toLowerCase())){
-                                                temp.var = c3a.arg1;
+                                            else if(c3a.var.equals(op.getText().toLowerCase())||(c3a.var.equals("cons")&&op.getText().equals("LIST"))){
+                                                listVar.add(threeAdresses("ASSIGN", null, null, c3a.arg1));
+                                                assign=true;
                                             }
                                         }
                                     }
-                            }
-                            
-                            else{
-                                temp.var = op.getText();
+                                }                            
+                                else{
+                                    listVar.add(threeAdresses("ASSIGN", null, null, op.getText()));
+                                }
                             }
                         }
                         else{
-                            temp.op = "ASSIGNED";
-                            temp.var = node.getChild(i).getText();//stock.get(node.getChild(i)).get(0).arg1;
+                            listVar.add(threeAdresses("ASSIGNED", null, null, node.getChild(i).getText()));
                         }
-                        
-                        listVar.add(temp); 
                     }
                     
                     stock.put(node,listVar);
                     break;
-                /*case "VARIABLES":
-                    ArrayList<ThreeAdresses> list = stock.get(node.getChild(0));
-                    stock.put(node,list);
-                    break;*/
 
                 case "EXPR":
                     ArrayList<ThreeAdresses> list2 = new ArrayList<>();
                     if(node.getChildCount() == 1) {
                         list2 = stock.get(node.getChild(0));
                     }
-                    else {
-                        /*if(node.getChild(0).getText().equals("not")){
-                            list2 = stock.get(node.getChild(1));
-                            ThreeAdresses param = new ThreeAdresses();
-                            param.op = "PARAM";
-                            param.arg1 = stock.get(node.getChild(0)).get(0).arg1;
-                            list2.add(param);
-                            ThreeAdresses call = new ThreeAdresses();
-                            call.op = "CALL";
-                            call.var = "not";
-                            call.arg1 = node.getChild(0).getChild(0).getText();//"R"+ indice;
-                            indice++;
-                            list2.add(call);
-                            ThreeAdresses store = new ThreeAdresses();
-                            store.op = "STORE";
-                            store.arg1 = "R"+ indice;
-                            store.arg2 = "R"+ (indice-1);
-                            indice++;
-                            list2.add(store);
-                        }*/
-                        
-                            ThreeAdresses store1 = new ThreeAdresses();
-                            list2 = stock.get(node.getChild(0));
-                            store1.op = "STORE";
-                            store1.arg1 = "R"+ indice;
-                            store1.arg2 = node.getChild(0).getText();
-                            indice++;
-                            list2.add(store1);
-                            ThreeAdresses store2 = new ThreeAdresses();
-                            store2.op = "STORE";
-                            store2.arg1 = "R"+ indice;
-                            store2.arg2 = stock.get(node.getChild(1)).get(0).arg1;
-                            indice++;
-                            list2.add(store2);
-                            ThreeAdresses equals = new ThreeAdresses();
-                            equals.op = "EQUALS";
-                            equals.arg1 = store1.arg1;
-                            equals.arg2 = store2.arg1;
-                            equals.var = "R"+ indice;
-                            indice++;
-                            list2.add(equals);
-                            ThreeAdresses store = new ThreeAdresses();
-                            store.op = "STORE";
-                            store.arg1 = "R"+ indice;
-                            store.arg2 = list2.get(list2.size()-1).var;
-                            indice++;
-                            list2.add(store);
-                        
+                    else { //On sait pas ce que c'est
+                        ThreeAdresses store1 = new ThreeAdresses();
+                        list2 = stock.get(node.getChild(0));
+                        store1.op = "PARAM";
+                        store1.arg1 = node.getChild(0).getText();
+                        list2.add(store1);
+                        ThreeAdresses store2 = new ThreeAdresses();
+                        store2.op = "PARAM";
+                        store2.arg1 = node.getChild(1).getText();
+                        list2.add(store2);
+                        ThreeAdresses equals = new ThreeAdresses();
+                        equals.op = "CALL";
+                        equals.arg1 = "Reg_"+ indice;
+                        equals.var = "equals";
+                        indice++;
+                        list2.add(equals);                        
                     }
                     stock.put(node,list2);
                 break;
@@ -203,20 +176,21 @@ public class VisitorThreeAdresses extends Visitor {
                     list2 = stock.get(node.getChild(0));
                     ThreeAdresses paramTL = new ThreeAdresses();
                     paramTL.op = "PARAM";
-                    paramTL.arg1 = node.getChild(0).getText();
+                    String textTL = node.getChild(0).getText();
+                    if(textTL.equals("CALL")||textTL.equals("TL")||textTL.equals("HD")||textTL.equals("CONS")||textTL.equals("LIST")){
+                        ArrayList<ThreeAdresses> c3a = stock.get(node.getChild(0));
+                        paramTL.arg1 = c3a.get(c3a.size()-1).arg1;
+                    }
+                    else {
+                        paramTL.arg1 = node.getChild(0).getText();
+                    }
                     list2.add(paramTL);
                     ThreeAdresses callTL = new ThreeAdresses();
                     callTL.op = "CALL";
-                    callTL.arg1 = "R"+ indice;
                     callTL.var = "tl";
+                    callTL.arg1 = "Reg_"+ indice;
                     indice++;
                     list2.add(callTL);
-                    ThreeAdresses store = new ThreeAdresses();
-                    store.op = "STORE";
-                    store.arg1 = "R"+ indice;
-                    store.arg2 = "R"+ (indice-1);
-                    indice++;
-                    list2.add(store);
                     stock.put(node,list2);
                     break;
                 case "HD":
@@ -224,83 +198,90 @@ public class VisitorThreeAdresses extends Visitor {
                     ThreeAdresses paramHD = new ThreeAdresses();
                     paramHD.op = "PARAM";
                     String textHD = node.getChild(0).getText();
-                    if(node.getChildCount()==1&&(textHD.equals("nil")||Character.isLowerCase(textHD.charAt(0)))){
-                        ThreeAdresses callHD = new ThreeAdresses();
-                        callHD.op = "CALL";
-                        callHD.var = "nil";
-                        callHD.arg1 = "Reg_"+ indice;
-                        indice++;
-                        list2.add(callHD);
+                    if(textHD.equals("CALL")||textHD.equals("TL")||textHD.equals("HD")||textHD.equals("CONS")||textHD.equals("LIST")){
+                        ArrayList<ThreeAdresses> c3a = stock.get(node.getChild(0));
+                        paramHD.arg1 = c3a.get(c3a.size()-1).arg1;
+                    }
+                    else {
+                        paramHD.arg1 = node.getChild(0).getText();
                     }
                     list2.add(paramHD);
                     ThreeAdresses callHD = new ThreeAdresses();
                     callHD.op = "CALL";
                     callHD.var = "hd";
-                    callHD.arg1 = "R"+ indice;
+                    callHD.arg1 = "Reg_"+ indice;
                     indice++;
                     list2.add(callHD);
-                    ThreeAdresses store2 = new ThreeAdresses();
-                    store2.op = "STORE";
-                    store2.arg1 = "R"+ indice;
-                    store2.arg2 = "R"+ (indice-1);
-                    indice++;
-                    list2.add(store2);
                     stock.put(node,list2);
                     break;
                 case "LIST":
-                    list2 = stock.get(node.getChild(0));
-                    ThreeAdresses paramLIST = new ThreeAdresses();
-                    paramLIST.op = "PARAM";
-                    paramLIST.arg1 = node.getChild(0).getText();
-                    list2.add(paramLIST);
-                    ThreeAdresses callLIST = new ThreeAdresses();
-                    callLIST.op = "CALL";
-                    callLIST.var = "list";
-                    callLIST.arg1 = "R"+ indice;
-                    indice++;
-                    list2.add(callLIST);
-                    ThreeAdresses store3 = new ThreeAdresses();
-                    store3.op = "STORE";
-                    store3.arg1 = "R"+ indice;
-                    store3.arg2 = "R"+ (indice-1);
-                    indice++;
-                    list2.add(store3);
-                    stock.put(node,list2);
+                    list2 = new ArrayList<>();
+                    if(node.getChildCount()==0){
+                        list2.add(threeAdresses("PARAM", "empty", null, null));
+                        list2.add(threeAdresses("PARAM", "empty", null, null));
+                        list2.add(threeAdresses("CALL", "Reg_"+indice, null, "list"));
+                        indice++;
+                    }
+                    else {    
+                        ArrayList<String> paramCons = new ArrayList<>();
+                        for(CommonTree child: (List<CommonTree>) node.getChildren()){
+                            String text = child.getText();
+                            if(text.equals("CALL")||text.equals("TL")||text.equals("HD")||text.equals("CONS")||text.equals("LIST")){
+                                list2.addAll(stock.get(child));
+                                String[] outputs_func = stock.get(child).get(stock.get(child).size()-1).arg1.split(", ");
+                                for(String output : outputs_func){
+                                    paramCons.add(output);
+                                }
+                            }
+                            else{
+                                paramCons.add(child.getText());
+                            }
+                        }
+                        paramCons.add("nil");
+                        list2 = consRecursif(paramCons, list2);
+                    }
+                    stock.put(node, list2);
                     break;
                 case "CONS":
-                    list2 = stock.get(node.getChild(0));
-                    list2.addAll(stock.get(node.getChild(1)));
-                    for(int i =0; i<2;i++){
-                    ThreeAdresses paramCONS = new ThreeAdresses();
-                    paramCONS.op = "PARAM";
-                    String text = node.getChild(i).getText();
-                    if(text.equals("CALL")||text.equals("TL")||text.equals("HD")||text.equals("CONS")||text.equals("LIST")){
-                        ArrayList<ThreeAdresses> c3a = stock.get(node.getChild(i));
-                        paramCONS.arg1 = c3a.get(c3a.size()-1).arg1;
+                    list2 = new ArrayList<>();
+                    if(node.getChildCount()==0){
+                        list2.add(threeAdresses("PARAM", "empty", null, null));
+                        list2.add(threeAdresses("PARAM", "empty", null, null));
+                        list2.add(threeAdresses("CALL", "Reg_"+indice, null, "cons"));
                     }
-                    else {
-                        paramCONS.arg1 = node.getChild(i).getText();
+                    else {    
+                        ArrayList<String> paramCons = new ArrayList<>();
+                        for(CommonTree child: (List<CommonTree>) node.getChildren()){
+                            String text = child.getText();
+                            if(text.equals("CALL")||text.equals("TL")||text.equals("HD")||text.equals("CONS")||text.equals("LIST")){
+                                list2.addAll(stock.get(child));
+                                String[] outputs_func = stock.get(child).get(stock.get(child).size()-1).arg1.split(", ");
+                                for(String output : outputs_func){
+                                    paramCons.add(output);
+                                }
+                            }
+                            else{
+                                paramCons.add(child.getText());
+                            }
+                        }
+                        if (paramCons.size()==1){
+                            list2.add(threeAdresses("PARAM", "empty", null, null));
+                            list2.add(threeAdresses("PARAM", paramCons.get(0), null, null));
+                            list2.add(threeAdresses("CALL", "Reg_"+indice, null, "cons"));
+                            indice++;
+                        }
+                        else list2 = consRecursif(paramCons, list2);
                     }
-                    list2.add(paramCONS);}
-                    ThreeAdresses callCONS = new ThreeAdresses();
-                    callCONS.op = "CALL";
-                    callCONS.var = "cons";
-                    callCONS.arg1 = "Reg_"+ indice;
-                    indice++;
-                    list2.add(callCONS);
-                    stock.put(node,list2);
+                    stock.put(node, list2);
+                        
                     break;
                 case "CALL":
                     list2 = new ArrayList<>();
-                    //System.out.println(node.getChild(0).getChild(0).getText());
                     for(int i = 1; i<node.getChildCount();i++){
                         String text = node.getChild(i).getText();
                         if(Character.isUpperCase(text.charAt(0))){
                             list2.addAll(stock.get(node.getChild(i)));
                         }
-                    }
-                    for(int i = 1; i<node.getChildCount();i++){
-                        String text = node.getChild(i).getText();
                         ThreeAdresses param = new ThreeAdresses();
                         param.op = "PARAM";
                         if(text.equals("CALL")||text.equals("TL")||text.equals("HD")||text.equals("CONS")||text.equals("LIST")){
@@ -313,13 +294,10 @@ public class VisitorThreeAdresses extends Visitor {
                         
                         list2.add(param);
                     }
-                    String output = "Reg_"+ indice;//chaque fonction a au moin un retour
+                    String output = "Reg_"+ indice;//chaque fonction a au moins un retour
                     indice++;
-                    System.out.println(outputs.get(node.getChild(0).getText()));
                     for(int i = 0; i<(outputs.get(node.getChild(0).getText())-1);i++){//si elle en a plus, on ajoute à la string autant de registres qu'il faut
-                        System.out.println("je suis dans la boucle !");
                         String concat = ", Reg_"+indice;
-                        System.out.println("concat = "+concat);
                         output+=concat;
                         indice++;
                     }
@@ -330,199 +308,23 @@ public class VisitorThreeAdresses extends Visitor {
                     list2.add(call);
                     stock.put(node,list2);
                     break;            
-                    
-                    
-                /*case "EXPR":
-                    ArrayList<ThreeAdresses> list2 = new ArrayList<>();
-                    if(node.getChildCount() == 1) {
-                        switch (node.getChild(0).getText()) {
-                            case "TL":
-                                list2 = stock.get(node.getChild(0).getChild(0));
-                                ThreeAdresses paramTL = new ThreeAdresses();
-                                paramTL.op = "PARAM";
-                                paramTL.arg1 = node.getChild(0).getChild(0).getText();
-                                list2.add(paramTL);
-                                ThreeAdresses callTL = new ThreeAdresses();
-                                callTL.op = "CALL";
-                                callTL.arg1 = "R"+ indice;
-                                callTL.var = "tl";
-                                indice++;
-                                list2.add(callTL);
-                                ThreeAdresses store = new ThreeAdresses();
-                                store.op = "STORE";
-                                store.arg1 = "R"+ indice;
-                                store.arg2 = "R"+ (indice-1);
-                                indice++;
-                                list2.add(store);
-                                break;
-                            case "HD":
-                                list2 = stock.get(node.getChild(0).getChild(0));
-                                ThreeAdresses paramHD = new ThreeAdresses();
-                                paramHD.op = "PARAM";
-                                paramHD.arg1 = node.getChild(0).getChild(0).getText();
-                                list2.add(paramHD);
-                                ThreeAdresses callHD = new ThreeAdresses();
-                                callHD.op = "CALL";
-                                callHD.var = "hd";
-                                callHD.arg1 = "R"+ indice;
-                                indice++;
-                                list2.add(callHD);
-                                ThreeAdresses store2 = new ThreeAdresses();
-                                store2.op = "STORE";
-                                store2.arg1 = "R"+ indice;
-                                store2.arg2 = "R"+ (indice-1);
-                                indice++;
-                                list2.add(store2);
-                                break;
-                            case "LIST":
-                                list2 = stock.get(node.getChild(0).getChild(0));
-                                ThreeAdresses paramLIST = new ThreeAdresses();
-                                paramLIST.op = "PARAM";
-                                paramLIST.arg1 = node.getChild(0).getChild(0).getText();
-                                list2.add(paramLIST);
-                                ThreeAdresses callLIST = new ThreeAdresses();
-                                callLIST.op = "CALL";
-                                callLIST.var = "list";
-                                callLIST.arg1 = "R"+ indice;
-                                indice++;
-                                list2.add(callLIST);
-                                ThreeAdresses store3 = new ThreeAdresses();
-                                store3.op = "STORE";
-                                store3.arg1 = "R"+ indice;
-                                store3.arg2 = "R"+ (indice-1);
-                                indice++;
-                                list2.add(store3);
-                                break;
-                            case "CONS":
-                                list2 = new ArrayList<>();
-                                ThreeAdresses paramCONS = new ThreeAdresses();
-                                paramCONS.op = "PARAM";
-                                paramCONS.arg1 = node.getChild(0).getChild(0).getText();
-                                list2.add(paramCONS);
-                                ThreeAdresses paramCONS2 = new ThreeAdresses();
-                                paramCONS2.op = "PARAM";
-                                paramCONS2.arg1 = node.getChild(0).getChild(1).getText();
-                                list2.add(paramCONS2);
-                                ThreeAdresses callCONS = new ThreeAdresses();
-                                callCONS.op = "CALL";
-                                callCONS.var = "cons";
-                                callCONS.arg1 = "R"+ indice;
-                                indice++;
-                                list2.add(callCONS);
-                                break;
-                            case "CALL":
-                                list2 = new ArrayList<>();
-                                //System.out.println(node.getChild(0).getChild(0).getText());
-                                for(int i = 1; i<node.getChild(0).getChildCount();i++){
-                                    String text = node.getChild(0).getChild(i).getText();
-                                    if(Character.isUpperCase(text.charAt(0))){
-                                        System.out.println(text);
-                                        list2.addAll(stock.get(node.getChild(0).getChild(i)));
-                                    }
-                                }
-                                for(int i = 1; i<node.getChild(0).getChildCount();i++){
-                                    //System.out.println("param");
-                                    ThreeAdresses param = new ThreeAdresses();
-                                    param.op = "PARAM";
-                                    param.arg1 = node.getChild(0).getChild(i).getText();
-                                    list2.add(param);
-                                }
-                                ThreeAdresses call = new ThreeAdresses();
-                                call.op = "CALL";
-                                call.var = node.getChild(0).getChild(0).getText();
-                                call.arg1 = "R"+ indice;
-                                indice++;
-                                list2.add(call);
-                                break;
-                            default:
-                                break;
-                        }                           
-                    }
-                    
-                    else {
-                        if(node.getChild(0).getText().equals("not")){
-                            list2 = stock.get(node.getChild(1));
-                            ThreeAdresses param = new ThreeAdresses();
-                            param.op = "PARAM";
-                            param.arg1 = stock.get(node.getChild(0)).get(0).arg1;
-                            list2.add(param);
-                            ThreeAdresses call = new ThreeAdresses();
-                            call.op = "CALL";
-                            call.var = "not";
-                            call.arg1 = node.getChild(0).getChild(0).getText();//"R"+ indice;
-                            indice++;
-                            list2.add(call);
-                            ThreeAdresses store = new ThreeAdresses();
-                            store.op = "STORE";
-                            store.arg1 = "R"+ indice;
-                            store.arg2 = "R"+ (indice-1);
-                            indice++;
-                            list2.add(store);
-                        }
-                        else{
-                            ThreeAdresses store1 = new ThreeAdresses();
-                            list2 = stock.get(node.getChild(0));
-                            store1.op = "STORE";
-                            store1.arg1 = "R"+ indice;
-                            store1.arg2 = node.getChild(0).getText();
-                            indice++;
-                            list2.add(store1);
-                            ThreeAdresses store2 = new ThreeAdresses();
-                            store2.op = "STORE";
-                            store2.arg1 = "R"+ indice;
-                            store2.arg2 = stock.get(node.getChild(1)).get(0).arg1;
-                            indice++;
-                            list2.add(store2);
-                            ThreeAdresses equals = new ThreeAdresses();
-                            equals.op = "EQUALS";
-                            equals.arg1 = store1.arg1;
-                            equals.arg2 = store2.arg1;
-                            equals.var = "R"+ indice;
-                            indice++;
-                            list2.add(equals);
-                            ThreeAdresses store = new ThreeAdresses();
-                            store.op = "STORE";
-                            store.arg1 = "R"+ indice;
-                            store.arg2 = list2.get(list2.size()-1).var;
-                            indice++;
-                            list2.add(store);
-                        }
-                    }
-                    
-                    stock.put(node,list2);
-                    break;*/
+
                 case "FOR":
                     ArrayList<ThreeAdresses> forList = new ArrayList<>();
+                    String textFOR = node.getChild(0).getChild(0).getText();
                     ThreeAdresses enterFor = new ThreeAdresses();
+                    if(textFOR.equals("CALL")||textFOR.equals("TL")||textFOR.equals("HD")||textFOR.equals("CONS")||textFOR.equals("LIST")){
+                        ArrayList<ThreeAdresses> c3a = stock.get(node.getChild(0));
+                        forList.addAll(c3a);
+                        enterFor.arg1 = c3a.get(c3a.size()-1).arg1;
+                    }
+                    else enterFor.arg1 = textFOR;
                     enterFor.op = "ENTER";
-                    enterFor.arg1 = node.getChild(0).getChild(0).getText();
                     enterFor.var = "FOR";
                     forList.add(enterFor); 
                     //On ajoute les codes trois adresses des enfants
                     for(CommonTree child : (List<CommonTree>) node.getChildren()) {
-                        if(child.getText().equals("DO")) {
-                            forList.addAll(stock.get(child));
-                        }
-                    }
-
-                   /*  //on décrémente l'indice
-                    ThreeAdresses param2 = new ThreeAdresses();
-                    param2.op = "PARAM";
-                    param2.arg1 = node.getChild(0).getText();
-                    forList.add(param2);
-                    ThreeAdresses increment = new ThreeAdresses();
-                    increment.op = "CALL";
-                    increment.var = "TL";
-                    increment.arg1 = "R"+ indice;
-                    indice++;
-                    forList.add(increment);
-                    ThreeAdresses arbre = new ThreeAdresses();
-                    arbre.op = "ASSIGN";
-                    arbre.arg1 = stock.get(node.getChild(0)).get(0).arg1;
-                    arbre.arg2 = "R"+ (indice-1);*/
-                    
-                    for(CommonTree child : (List<CommonTree>) node.getChildren()) {
-                        if(child.getText().equals("END")) {
+                        if(child.getText().equals("DO") || child.getText().equals("END")) {
                             forList.addAll(stock.get(child));
                         }
                     }
@@ -532,51 +334,20 @@ public class VisitorThreeAdresses extends Visitor {
                 case "FOREACH":
                     ArrayList<ThreeAdresses> forEachList = new ArrayList<>();
                     ThreeAdresses foreachjump = new ThreeAdresses();
+                    String textForeach = node.getChild(0).getChild(1).getChild(0).getText();
+                    if(textForeach.equals("CALL")||textForeach.equals("TL")||textForeach.equals("HD")||textForeach.equals("CONS")||textForeach.equals("LIST")){
+                        ArrayList<ThreeAdresses> c3a = stock.get(node.getChild(0).getChild(1).getChild(0));
+                        forEachList.addAll(c3a);
+                        foreachjump.arg1 = c3a.get(c3a.size()-1).arg1;
+                    }
+                    else foreachjump.arg1 = textForeach;
                     foreachjump.op = "ENTER";
-                    foreachjump.arg1 = node.getChild(0).getChild(1).getChild(0).getText();
                     foreachjump.arg2 = node.getChild(0).getChild(0).getText();
                     foreachjump.var = "FOREACH";
-                    forEachList.add(foreachjump);
-                    /*ThreeAdresses param3 = new ThreeAdresses();
-                    param3.op = "PARAM";
-                    param3.arg1 = node.getChild(0).getChild(1).getChild(0).getText();
-                    param3.arg2 = node.getChild(0).getChild(0).getText();
-                    forEachList.add(param3);
-                    ThreeAdresses verifChild = new ThreeAdresses();
-                    verifChild.op = "CALL";
-                    verifChild.var = "VERIFCHILD";
-                    verifChild.arg1 = "R"+ indice;
-                    indice++;
-                    forEachList.add(verifChild);
-                    ThreeAdresses jump_cond2 = new ThreeAdresses();
-                    jump_cond2.op = "GOTO_IF_TRUE";
-                    jump_cond2.arg1 = "R"+ (indice-1);
-                    jump_cond2.arg2 = "break";
-                    forEachList.add(jump_cond2);*/
+                    forEachList.add(foreachjump); 
                     //On ajoute les codes trois adresses des enfants
                     for(CommonTree child : (List<CommonTree>) node.getChildren()) {
-                        if(child.getText().equals("DO")) {
-                            forEachList.addAll(stock.get(child));
-                        }
-                    }
-                   /* 
-                    ThreeAdresses param4 = new ThreeAdresses();
-                    param4.op = "PARAM";
-                    param4.arg1 = node.getChild(0).getChild(1).getChild(0).getText();
-                    forEachList.add(param4);
-                    ThreeAdresses increment2 = new ThreeAdresses();
-                    increment2.op = "CALL";
-                    increment2.var = "TL";
-                    increment2.arg1 = "R"+ indice;
-                    indice++;
-                    forEachList.add(increment2);
-                    ThreeAdresses sous_arbre = new ThreeAdresses();
-                    sous_arbre.op = "ASSIGN";
-                    sous_arbre.arg1 = node.getChild(0).getChild(0).getText();
-                    sous_arbre.arg2 = forEachList.get(forEachList.size()-1).arg1;
-                    forEachList.add(sous_arbre);*/
-                    for(CommonTree child : (List<CommonTree>) node.getChildren()) {
-                        if(child.getText().equals("END")) {
+                        if(child.getText().equals("DO")||child.getText().equals("END")) {
                             forEachList.addAll(stock.get(child));
                         }
                     }
@@ -588,29 +359,21 @@ public class VisitorThreeAdresses extends Visitor {
                         ThreeAdresses enterWhile = new ThreeAdresses();
                         enterWhile.op = "ENTER";
                         enterWhile.var = "WHILE";
+                        String textWHILE = node.getChild(0).getChild(0).getText();
+                        if(textWHILE.equals("CALL")||textWHILE.equals("TL")||textWHILE.equals("HD")||textWHILE.equals("CONS")||textWHILE.equals("LIST")){
+                            ArrayList<ThreeAdresses> c3a = stock.get(node.getChild(0));
+                            whileList.addAll(c3a);
+                            enterWhile.arg1 = c3a.get(c3a.size()-1).arg1;
+                        }
+                        else enterWhile.arg1 = textWHILE;
                         whileList.add(enterWhile);
-                        ThreeAdresses param5 = new ThreeAdresses();
-                        ArrayList<ThreeAdresses> expr = stock.get(node.getChild(0));
-                        param5.op = "PARAM";
-                        param5.arg1 = expr.get(expr.size()-1).arg1;
-                        whileList.add(param5);
-                        ThreeAdresses verifTrue = new ThreeAdresses();
-                        verifTrue.op = "CALL";
-                        verifTrue.var = "VERIFTRUE";
-                        verifTrue.arg1 = "R"+ indice;
-                        indice++;
-                        whileList.add(verifTrue);
-                        ThreeAdresses jump_cond3 = new ThreeAdresses();
-                        jump_cond3.op = "GOTO_IF_TRUE";
-                        jump_cond3.arg1 = "R"+ (indice-1);
-                        jump_cond3.arg2 = "break";
-                        whileList.add(jump_cond3);
                         //On ajoute les codes trois adresses des enfants
                         for(CommonTree child : (List<CommonTree>) node.getChildren()) {
                             if(child.getText().equals("DO")||child.getText().equals("END")) {
                                 whileList.addAll(stock.get(child));
                             }
                         }
+                        stock.put(node,whileList);
                         break;
                 case "DO":
                     ArrayList<ThreeAdresses> list7 = new ArrayList<>();
@@ -624,25 +387,16 @@ public class VisitorThreeAdresses extends Visitor {
                     ThreeAdresses ifjump = new ThreeAdresses();
                     ifjump.op = "ENTER";
                     ifjump.var = "IF";
+                    String textIF = node.getChild(0).getChild(0).getText();
+                        if(textIF.equals("CALL")||textIF.equals("TL")||textIF.equals("HD")||textIF.equals("CONS")||textIF.equals("LIST")){
+                            ArrayList<ThreeAdresses> c3a = stock.get(node.getChild(0));
+                            ifList.addAll(c3a);
+                            ifjump.arg1 = c3a.get(c3a.size()-1).arg1;
+                        }
+                        else ifjump.arg1 = textIF;
                     ifList.add(ifjump);
-                    ThreeAdresses param6 = new ThreeAdresses();
-                    ArrayList<ThreeAdresses> expr2 = stock.get(node.getChild(0));
-                    param6.op = "PARAM";
-                    param6.arg1 = expr2.get(expr2.size()-1).arg1;
-                    ifList.add(param6);
-                    ThreeAdresses verifTrueIf = new ThreeAdresses();
-                    verifTrueIf.op = "CALL";
-                    verifTrueIf.var = "VERIFTRUE";
-                    verifTrueIf.arg1 = "R"+ indice;
-                    indice++;
-                    ifList.add(verifTrueIf);
-                    ThreeAdresses jump_cond4 = new ThreeAdresses();
-                    jump_cond4.op = "GOTO_IF_FALSE";
-                    jump_cond4.arg1 = "R"+ (indice-1);
-                    jump_cond4.arg2 = "ElSE";
-                    ifList.add(jump_cond4);
                     for(CommonTree child : (List<CommonTree>) node.getChildren()) {
-                        if(!child.getText().equals("END")){
+                        if(child.getText().equals("THEN")||child.getText().equals("ELSE")||child.getText().equals("END")){
                             ifList.addAll(stock.get(child));
                         }
                     }
@@ -686,7 +440,7 @@ public class VisitorThreeAdresses extends Visitor {
 
                 case "END":
                         String parent = node.getParent().getText();
-                        if(parent.equals("FOR")||parent.equals("WHILE")||parent.equals("FOREACH")) {
+                        if(parent.equals("FOR")||parent.equals("WHILE")||parent.equals("FOREACH")||parent.equals("IF")) {
                             ThreeAdresses jump = new ThreeAdresses();
                             jump.op = "END";
                             jump.arg1 = node.getParent().getText();
@@ -697,9 +451,38 @@ public class VisitorThreeAdresses extends Visitor {
                 default:
                     break;
             }
+
+            
         }
     }
+    public ThreeAdresses threeAdresses(String op, String arg1, String arg2, String var){
+        ThreeAdresses c3a = new ThreeAdresses();
+        c3a.op = op;
+        c3a.arg1 = arg1;
+        c3a.arg2 = arg2;
+        c3a.var = var;
+        return c3a;
+    }
 
+    public ArrayList<ThreeAdresses> consRecursif(ArrayList<String> inputs, ArrayList<ThreeAdresses> list){
+        if(inputs.size()==2){
+            list.add(threeAdresses("PARAM", inputs.get(0), null, null));
+            list.add(threeAdresses("PARAM", inputs.get(1), null, null));
+            list.add(threeAdresses("CALL", "Reg_"+indice, null, "cons"));
+            indice++;
+            return list;
+        }
+        else{
+            String param = inputs.get(0);
+            inputs.remove(0);
+            list = consRecursif(inputs, list);
+            list.add(threeAdresses("PARAM", param, null, null));
+            list.add(threeAdresses("PARAM", list.get(list.size()-2).arg1, null, null));
+            list.add(threeAdresses("CALL", "Reg_"+indice, null, "cons"));
+            indice++;
+            return list;
+        }
+    }
     
 }
 

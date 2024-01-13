@@ -50,3 +50,15 @@ Pour vous assurer de disposer de la dernière version du jar du compilateur, vou
 Pour le moment : `java -jar target/compilateur-while-runner.jar "<fichier1>" "<fichier2>" ...`
 
 L'argument -v ou --verbose permet d'afficher les détails de la compilation.
+
+
+
+<style>
+    /* the difference between h3 and h4 is too small on gitlab */
+    h3 {
+        font-size: 110%; /* Adjust the font size as needed */
+    }
+    h4 {
+        font-size: 90%; /* Adjust the font size as needed */
+    }
+</style>

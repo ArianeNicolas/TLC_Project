@@ -20,6 +20,17 @@ public class VisitorTypesChecker extends Visitor {
      */
     public VisitorTypesChecker(ArrayList<WhileContext> symbolsTable) {
         this.symbolsTable = symbolsTable;
+        //A main function is needed
+        boolean mainFound = false;
+        for (WhileContext function : symbolsTable) {
+            if(function.getName().equals("main")) {
+                mainFound = true;
+            }
+        }
+        if(!mainFound) {
+            //print warning in orange
+            System.err.println("\u001B[38;5;208m" + "[Warning] no main function found" + "\u001B[0m");
+        }
     }
 
 
@@ -75,7 +86,13 @@ public class VisitorTypesChecker extends Visitor {
                 int exprs_right_type = 0;
                 for (CommonTree child : children) {
                     if(child.getText().equals("EXPR")){ 
-                        exprs_right.add((CommonTree)child.getChild(0));
+                        //if an expression has more than one child, it is a comparison
+                        if(child.getChildCount() > 1) {
+                            //a comparison returns one value
+                            exprs_right_type += 1;
+                        } else if (child.getChildCount() == 1) { 
+                            exprs_right.add((CommonTree)child.getChild(0));
+                        }
                     } else {
                         vars_left.add(child);
                     }

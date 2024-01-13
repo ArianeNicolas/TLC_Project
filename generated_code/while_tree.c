@@ -114,7 +114,7 @@ Tree buildTreeByString(char str[], unsigned int start, unsigned int end)
 		}*/
 
 		if (str[i] == '(') ++parenthesesStack;
-		if (str[i] == ' ' && parenthesesStack == 1) 
+		if (str[i] == ' ' && parenthesesStack == 1 && i > 0 && str[i-1] != '(' && str[i-1] != ' ') 
 		{
 			++spacesStack;
 			if (spacesStack == 1) {

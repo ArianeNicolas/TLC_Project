@@ -5,7 +5,9 @@
 #include <stdbool.h>
 
 int main(int argc, char *argv[]) {
-    displayString(parsArgs(argc, argv));
+    Tree t = parsArgs(argc, argv);
+    displayString(t);
+    printf("intArg : %d \n", intTree(t));
     test();
 	return 0;
 }

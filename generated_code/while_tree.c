@@ -52,6 +52,7 @@ bool boolTree(Tree t)
 
 int intTree(Tree t)
 {
+	if (isEmpty(t)) return 0;
 	if (isLeaf(t)) return 0;
 	return intTree(t->r)+1;
 }
@@ -73,34 +74,44 @@ Tree parsArgs(int argc, char *argv[])
 		exit(1);
 	}
 
+	char str[strlen(argv[1])];
+	strcpy(str, argv[1]);
+
+
 	//\(cons\s+((?:[^()]|\((?1)\))+)\s+((?:[^()]|\((?2)\))+)\)
-	return buildTreeByString(argv[1], 0, strlen(argv[1]));
+	int intTree = 0;
+	if (sscanf (str, "%i", &intTree) != 1) 
+    	return buildTreeByString(str, 0, strlen(str));
+	return buildTreeByInt(intTree);
 }
 
+Tree buildTreeByInt(int nbT)
+{
+	if (nbT <= 0) return cons(nil, nilv, nil);
+	return cons(nil, nilv, buildTreeByInt(--nbT));
+}
 
-
-
-Tree buildTreeByString(char str[], unsigned char start, unsigned char end)
+Tree buildTreeByString(char str[], unsigned int start, unsigned int end)
 {	
 	//STOP CONDITION// 
 	if(cmpStrWithSubString(str, start, end, "nil")) return nil;
 	if(str[start] != '(') return cons(nil, str[start], nil);
 
 	//INITIALISATION//
-	unsigned char  i = start;
-	unsigned char parenthesesStack= 0;
-	unsigned char spacesStack= 0;
-    unsigned char startSubStr1 = 0, startSubStr2 = 0, endSubStr1 = 0, endSubStr2 = 0;
+	unsigned int  i = start;
+	unsigned int parenthesesStack= 0;
+	unsigned int spacesStack= 0;
+    unsigned int startSubStr1 = 0, startSubStr2 = 0, endSubStr1 = 0, endSubStr2 = 0;
 	bool isSubStr1 = true;
 
 	//PROCESSING//
 	//extract the two substrings of (cons A B) (extract A and B for build trees A, B and AB tree)
 	while (i < end) 
 	{
-		if (i >= 255) {
+		/*if (i >= 255) {
 			fprintf(stderr, "Argument too long ! Max 256 chars \n");
 			exit(1);
-		}
+		}*/
 
 		if (str[i] == '(') ++parenthesesStack;
 		if (str[i] == ' ' && parenthesesStack == 1) 
@@ -125,13 +136,13 @@ Tree buildTreeByString(char str[], unsigned char start, unsigned char end)
 		}
 		++i;
 	}
-	
+
 	Tree left = buildTreeByString(str, startSubStr1, endSubStr1);
 	Tree right = buildTreeByString(str, startSubStr2, endSubStr2);
 	return cons(left, nilv, right);
 }
 
-bool cmpStrWithSubString(char str[], unsigned char start, unsigned char end, char cmp[]) {
+bool cmpStrWithSubString(char str[], unsigned int start, unsigned int end, char cmp[]) {
 	if (end-start > strlen(cmp)) return false; 
 
 	for(int i = 0; i<strlen(cmp); ++i)

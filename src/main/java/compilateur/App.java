@@ -70,7 +70,7 @@ public class App {
         }
         //if no output file is provided, use a default one
         if(outputFileName == null) {
-            outputFileName = "./a.out";
+            outputFileName = "./output.c";
         }
         
         // Check if a file name is provided as argument

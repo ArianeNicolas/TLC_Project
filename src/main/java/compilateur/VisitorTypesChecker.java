@@ -5,6 +5,7 @@ import java.util.List;
 import org.antlr.runtime.tree.CommonTree;
 
 //todo verification
+// dans =? -> peut etre pareil que dans := ???????
 //dans if : 1
 //dans while: 1
 

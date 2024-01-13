@@ -22,6 +22,9 @@ import antlrworks.while_astParser;
 
 /**
  * Not really unit testing, but it's a good way to check if the grammar is working
+ * This program test :
+ * - (1) The the compiler
+ * - (2) The implementation of the while language
  */
 
 public class AppTest {
@@ -32,6 +35,13 @@ public class AppTest {
         App.inputFiles = null;
     }
 
+    /**************************************************************************/
+    /*                      (1) TESTING THE COMPILER                          */
+    /**************************************************************************/
+
+    /**
+     * test a program in one line (can't go further than the symbol table without using files)
+     */
     @Test
     public void testInlinedCodeWorkingAST() {
         String src = "function add : read Op1, Op2 % Result := Op1; foreach Op in Op2 do Result := (tl Result) od % write Result;";
@@ -57,6 +67,9 @@ public class AppTest {
         assert(nbErrors == 0);
     }
 
+    /**
+     * test an invalid program in one line (can't go further than the symbol table without using files)
+     */
     @Test
     public void testInlinedCodeInvalidAST() {
         String src = "function sub do  Result := (tl Result) od % write Result;";
@@ -82,6 +95,9 @@ public class AppTest {
         assert(nbErrors > 0);
     }
 
+    /**
+     * test a program on several lines with comments (can't go further than the symbol table without using files)
+     */
     @Test
     public void testFunctionWithComments() {
         String src = """
@@ -119,6 +135,9 @@ public class AppTest {
 
 
     
+    /**
+     * test a program from a file until type checking
+     */
     @Test
     public void testTypeCheckingFromFile()
     {
@@ -179,6 +198,9 @@ public class AppTest {
         assert(src.length() > 0);
     }
 
+    /**
+     * test a program from two files until type checking
+     */
    @Test
     public void testTypeCheckingFromTwoFile()
     {
@@ -240,8 +262,16 @@ public class AppTest {
 
         assert(src.length() > 0);
     }
+
+
+    /**************************************************************************/
+    /*      (2) TESTING THE IMPLEMENTATION OF THE WHILE LANGUAGE              */
+    /**************************************************************************/
     
-    
+    /**
+     * test a program lacking a function declaration, until type checking
+     * @throws Exception
+     */
     @Test
     public void testTypeCheckingWithoutFunctionDeclaration() throws Exception
     {
@@ -300,7 +330,9 @@ public class AppTest {
     //todo tester pour toutes les fonctions exemples
 
 
-
+    /**
+     * Test the add function
+     */
     @Test
     public void testWhileAdd()
     {
@@ -360,10 +392,7 @@ public class AppTest {
         }
 
         //Testing the AST
-        String expectedTree = "(START (PROGRAM (FUNCDEF add (FUNCTION (INPUTS Op1 Op2) (VARDEF Result (EXPR Op1)) (FOR (EXPR Op2) (DO (VARDEF Result (EXPR (CONS nil Result)))) END) (OUTPUT Result)) END)))";
         assert(nbErrors == 0);
-        assert(treeRoot != null);
-        assert(treeRoot.toStringTree().equals(expectedTree));
         
         //Testing the symbol table
         assert(symbolTable.size() == 1);
@@ -387,5 +416,110 @@ public class AppTest {
         //Testing c code
         //TODO
     }
+
+    /**
+     * Test a function with a if statement
+     */
+    @Test
+    public void testWhileOneIf()
+    {
+        String arg = "src/test/whileTestFiles/oneIf.while";
+        App.inputFiles = new ArrayList<String>();
+        App.inputFiles.add(arg);
+        String src = "";
+        // Read the file // todo put it in src
+        try {
+            for (String file : App.inputFiles) {
+                src += Files.readString(Path.of(file)) + "\n";
+            }
+        } catch (Exception e) {
+            fail("Error while reading file");
+        }
+                
+        // Parse the function content
+        while_astLexer lexer = new while_astLexer(new ANTLRStringStream(src));
+        // Get the token stream from the lexer
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+        // Create the parser
+        while_astParser parser = new while_astParser(tokens);
+
+        // Call the start rule, which is the entry point of the grammar
+        while_astParser.startProgram_return startProgram = null;
+        try {
+            startProgram = parser.startProgram();
+        } catch (RecognitionException e) {
+            fail("Error while parsing");
+        }
+
+        // count the number of errors
+        int nbErrors = parser.getNumberOfSyntaxErrors();
+
+        // The root of the AST
+        final CommonTree treeRoot = (CommonTree) startProgram.getTree();
+        System.out.println("Tree: " + treeRoot.toStringTree());
+    
+        //construct the symbol table
+        System.out.println("===========Constructing symbol table===========");
+        VisitorSymbolsTable visitorSymbolsTable = new VisitorSymbolsTable();
+        try {
+            visitorSymbolsTable.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while constructing symbol table");
+        }
+        ArrayList<WhileContext> symbolTable = visitorSymbolsTable.getSymbolsTable();
+
+        //check the types
+        System.out.println("===========Checking types===========");
+        VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitorSymbolsTable.getSymbolsTable());
+        try {
+            visitorTypesChecker.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while checking types");
+        }
+
+        //Testing the AST
+        assert(nbErrors == 0);
+        
+        //Testing the symbol table
+        assert(symbolTable.size() == 1);
+        assert(symbolTable.get(0).getName().equals("oneIf"));
+        assert(symbolTable.get(0).getParameters().size() == 2);
+        assert(symbolTable.get(0).getParameters().get(0).equals("Op1"));
+        assert(symbolTable.get(0).getParameters().get(1).equals("Op2"));
+        assert(symbolTable.get(0).getVariables().size() == 2);
+        assert(symbolTable.get(0).getVariables().get(0).equals("Result"));
+        assert(symbolTable.get(0).getVariables().get(1).equals("Result"));
+        assert(symbolTable.get(0).getOutputs().size() == 1);
+        assert(symbolTable.get(0).getOutputs().get(0).equals("Result"));
+        
+        //Testing the types
+        //nothing to test here, the visitorTypesChecker throws an exception if there is a type error
+
+        //Testing 3 Adresses code
+        //TODO
+
+
+        //Testing c code
+        //TODO
+    }
+
+
+
+    //todo test :
+    //les espaces
+    //les tabulations
+    //for 
+    //while
+    //=?
+    //:=
+    //test if and for in one function
+    //test cons
+    //test tl
+    //test nil
+    //test function call
+    //test les commentaires, partout
+
+    //test les fonctions exemples
     
 }

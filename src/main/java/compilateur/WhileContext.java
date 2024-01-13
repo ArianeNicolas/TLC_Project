@@ -1,6 +1,8 @@
 package compilateur;
 import java.util.ArrayList;
-
+/**
+ * Context in a While program (in While, only functions can have a context)
+ */
 public class WhileContext {
     private String name;
     private ArrayList<String> parameters;

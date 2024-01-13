@@ -3,6 +3,9 @@ import java.util.HashSet;
 
 import org.antlr.runtime.tree.CommonTree;
 
+/**
+ * Abstract class for the visitors
+ */
 public abstract class Visitor {
 
     /**

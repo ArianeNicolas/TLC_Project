@@ -13,8 +13,17 @@ import org.antlr.runtime.tree.CommonTree;
 import antlrworks.while_astLexer;
 import antlrworks.while_astParser;
 
+/**
+ * Main class of the project, While compiler
+ */
 public class App {
     public static ArrayList<String> files = new ArrayList<String>();
+
+    /**
+     * Take a list of files as arguments and compile them (check syntax, check types, generate 3A code and convert it to C)
+     * @param args List of files to compile (-v or --verbose can also be used to display compilation steps
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         //test if the verbose option is activated
         boolean verbose = false;
@@ -53,6 +62,8 @@ public class App {
             for (String file : files) {
                 src += Files.readString(Path.of(file)) + "\n";
             }
+            //remove the last \n
+            src = src.substring(0, src.length() - 1);
         } catch (Exception e) {
             System.err.println("Error while reading file");
             System.exit(1);

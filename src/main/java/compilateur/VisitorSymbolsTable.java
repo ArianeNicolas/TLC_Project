@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.antlr.runtime.tree.CommonTree;
 
+/**
+ * Create a symbols table from the AST
+ */
 public class VisitorSymbolsTable extends Visitor {
     private ArrayList<WhileContext> symbolsTable = null;
 

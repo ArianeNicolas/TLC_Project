@@ -4,17 +4,14 @@ import java.util.List;
 
 import org.antlr.runtime.tree.CommonTree;
 
-//todo tester 
-
-
 //todo verification
 //dans if : 1
-//dans for : 1
 //dans while: 1
-//appel fonction : nombre inputs
 
+/**
+ * Check the types of the AST and stop the program if there is a type error (needs an already filled symbols table to work)
+ */
 public class VisitorTypesChecker extends Visitor {
-
     private ArrayList<WhileContext> symbolsTable;
 
     /**
@@ -29,9 +26,6 @@ public class VisitorTypesChecker extends Visitor {
     protected void entry(CommonTree node) throws WhileException {
         String token=node.getText();
         switch (token) {
-            //tester qu'une fonction est definie avant d'etre utilisée
-            //tester ses parametres et ses outputs
-
             case "CALL": // Function call
                 CommonTree functionNode = (CommonTree) node.getChild(0);
                 WhileContext function = VisitorSymbolsTable.getFunction(functionNode, symbolsTable);
@@ -48,6 +42,7 @@ public class VisitorTypesChecker extends Visitor {
                 if(parametersType != function.getParameters().size()) {
                     throw new WhileException("Wrong number of inputs for function "+function.getName()+" ("+parametersType+ " instead of "+function.getParameters().size()+") : "+App.getFileNameAndLineNumber(node));
                 }
+                System.out.println("Function called : "+function.getName()+" (inputs number="+parametersType+")");
 
                 break;
             case "WHILE": // While loop, todo tester (d'abord juste la table des symboles)
@@ -65,19 +60,18 @@ public class VisitorTypesChecker extends Visitor {
                 if(conditionType != 1) {
                     throw new WhileException("Condition must be a boolean : "+App.getFileNameAndLineNumber(node));
                 }
+                System.out.println("Condition (in "+token+") had one input, has expected");
                 break;
             case "VARDEF": // Assignment statement :=
-                //children
                 List<CommonTree> children = (List<CommonTree>) node.getChildren();
-                //System.out.println("children" +children);
 
-                //gauche égalité
+                //Left side of the assignment
                 List<CommonTree> vars_left = new ArrayList<>();
                 int vars_left_type = 0;
-                //droite égalité 
+                //Right side of the assignment
                 List<CommonTree>  exprs_right = new ArrayList<>();
-                int exprs_right_type = 0;
 
+                int exprs_right_type = 0;
                 for (CommonTree child : children) {
                     if(child.getText().equals("EXPR")){ 
                         exprs_right.add((CommonTree)child.getChild(0));
@@ -92,15 +86,10 @@ public class VisitorTypesChecker extends Visitor {
                 for (CommonTree expr_right : exprs_right) {
                     exprs_right_type += getType(expr_right);
                 }
-                System.out.println("vars_left " + vars_left);
-                System.out.println("vars_left_type " + vars_left_type);
-                System.out.println("exprs_right " + exprs_right);
-                System.out.println("exprs_right_type " + exprs_right_type);
-
-                
                 if(vars_left_type != exprs_right_type) {
                     throw new WhileException("Mismatched inputs("+vars_left_type+") and outputs("+exprs_right_type+") : "+App.getFileNameAndLineNumber(node));
                 }
+                System.out.println("Assignement statement : "+vars_left+" = "+exprs_right+" ("+vars_left_type+" = "+exprs_right_type+") : ");
                 break;
             default:
                 break;
@@ -123,26 +112,10 @@ public class VisitorTypesChecker extends Visitor {
      * @throws WhileException
      */
     private int getType(CommonTree node) throws WhileException{
-
-        // variable = 1
-        // function -> input ou output
-        //todo
-        //get context -> si dans contexte -> on peut definir le type
-            //on utilise le nom du contexte ???
-            //OU -> dans cette classe qud fonction currentOCntext+1 et quand END -> currentContext-1
-        //sinon -> nil
-
-        //fonction -> nbre outpus  ou input
-
         String token=node.getText();
         switch (token) {
-            //parcours table de symboles
-            // si fonction 
-                // on retourne le nombre d'output de la fonction
-                // mais il d'abord vérifier que la fonction recoit le bon nombre d'input
-            //no output
-
             //todo completer la liste des cas valant 0
+            //The following tokens have no value
             case "IF":
             case "ELSE":
             case "THEN":
@@ -150,12 +123,15 @@ public class VisitorTypesChecker extends Visitor {
             case "WHILE":
             case "COMMENT":
                 return 0;
+            //nil is a value
             case "nil":
                 return 1;
+            //The number of outputs of a function is stated in the symbols table
             case "CALL":
                 CommonTree functionNode = (CommonTree) node.getChild(0);
                 WhileContext function = VisitorSymbolsTable.getFunction(functionNode, symbolsTable);
                 return function.getOutputs().size();
+            //a variable has one value
             default:
                 return 1;
         }

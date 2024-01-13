@@ -15,8 +15,8 @@ int main(int argc, char *argv[]) {
 void test(void)
 {
     
-    Tree t = cons(cons(nil, nilv, cons(nil, "OMG", nil)), nilv, cons(cons(nil, "MDR", nil), nilv, cons(nil, "JPP\n", nil)));
-    Tree t2 = cons(cons(nil, nilv, cons(nil, "M", nil)), nilv, cons(cons(nil, "D", nil), nilv, cons(nil, "R", nil)));
+    Tree t = cons(cons(nil, nil, cons(nil, "OMG", nil)), nil, cons(cons(nil, "MDR", nil), nil, cons(nil, "JPP", nil)));
+    Tree t2 = cons(cons(nil, nil, cons(nil, "M", nil)), nil, cons(cons(nil, "D", nil), nil, cons(nil, "R", nil)));
     //printf("bool : %d \n", boolTree(t));
     //printf("int : %d \n", intTree(t));
     //displayString(cons(t, nilv, t2));

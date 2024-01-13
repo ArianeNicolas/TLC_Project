@@ -7,19 +7,28 @@
 
 Tree cons(Tree l, char v[], Tree r) 
 {
+	char *tmp = NULL;
+	if(v != NULL) {
+		tmp = (char*)malloc(sizeof(char) * (strlen(v)));
+		if(tmp != NULL)
+			strcpy(tmp, v);
+	}
+	
 	Node *m;
 	m = malloc(sizeof(Node));
-	m->l= l;
-	m->v = v;
-	m->r= r;
-	
+	if(m != NULL)
+	{
+		m->l= l;
+		m->v = tmp;
+		m->r= r;
+	}
 	return m;
 }
 
 void displayString(Tree t)
 {
 	if (isEmpty(t)) return;
-	if (t->v != nil) printf("%s", t->v);
+	if (t->v != NULL) printf("%s", t->v);
 	displayString(t->l);
 	displayString(t->r);
 }
@@ -29,6 +38,7 @@ void deleteTree(Tree t)
 	if (isEmpty(t)) return;
 	deleteTree(t->l);
 	deleteTree(t->r);
+	if(t->v != NULL) free(t->v);
 	free(t);
 }
 
@@ -117,14 +127,15 @@ Tree buildTreeByInt(int nbT)
 Tree buildTreeByString(char str[], unsigned int start, unsigned int end)
 {	
 	//STOP CONDITION// 
+	int delta = end-start;
 	if(cmpStrWithSubString(str, start, end, "nil")) return nil;
 	if(str[start] != '(') 
 	{
-		char *tmp = (char*) malloc((end-start)*sizeof(char));
-		for (size_t i = 0; i < end-start; i++)
-		{
+		//char *tmp = (char*)malloc(sizeof(char) * (delta)+1);
+		char tmp[delta+1];
+		for (size_t i = 0; i < delta; i++)
 			tmp[i] = str[start+i];
-		}
+		tmp[delta] = '\0';
 		return cons(nil, tmp, nil);
 	}
 	

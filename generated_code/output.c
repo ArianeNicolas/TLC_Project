@@ -12,3 +12,12 @@ Result = Reg_0;
 }
 }
 
+void mul_while(Tree Result, Tree Op1, Tree Op2) {
+int i1;
+for(i1=0; i1<intTree(Op1); i1++){
+Tree Reg_1;
+add_while(Reg_1, Result, Op2);
+Result = Reg_1;
+}
+}
+

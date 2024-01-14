@@ -42,7 +42,7 @@ public class VisitorTypesChecker extends Visitor {
                 CommonTree functionNode = (CommonTree) node.getChild(0);
                 WhileContext function = VisitorSymbolsTable.getFunction(functionNode, symbolsTable);
                 //function parameters are the children of the call node except the first one (the function name)
-                ArrayList<CommonTree> parameters = (ArrayList<CommonTree>) node.getChildren();
+                ArrayList<CommonTree> parameters = new ArrayList<>((ArrayList<CommonTree>)node.getChildren());
                 parameters.remove(0);
 
                 int parametersType = 0;

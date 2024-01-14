@@ -12,7 +12,7 @@ tokens {
     VARIABLES;
     EXPR;
     IF;
-    WHILE;
+    WHILE; 
     FOR;
     FOREACH;
     IN;

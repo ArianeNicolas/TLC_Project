@@ -1,17 +1,15 @@
-// $ANTLR 3.5.1 C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g 2024-01-14 12:07:07
+// $ANTLR 3.5.1 C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g 2024-01-14 12:21:14
 
 import org.antlr.runtime.*;
 import java.util.Stack;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.antlr.runtime.debug.*;
-import java.io.IOException;
 import org.antlr.runtime.tree.*;
 
 
 @SuppressWarnings("all")
-public class while_astParser extends DebugParser {
+public class while_astParser extends Parser {
 	public static final String[] tokenNames = new String[] {
 		"<invalid>", "<EOR>", "<DOWN>", "<UP>", "CALL", "COMMENT", "CONS", "Comment", 
 		"DO", "Dec", "ELSE", "END", "EXPR", "EXPRBASE", "FOR", "FOREACH", "FUNCDEF", 
@@ -92,73 +90,21 @@ public class while_astParser extends DebugParser {
 	// delegators
 
 
-	public static final String[] ruleNames = new String[] {
-		"invalidRule", "symbolExpr", "tl", "then_", "variable", "definition", 
-		"output", "inputSub", "foreach_", "else_", "list", "for_", "vars", "symbol", 
-		"exprs", "function", "decl", "commands", "nil_", "hd", "while_", "do_", 
-		"exprBase", "cons", "input", "getComment", "expression", "startProgram", 
-		"if_", "command", "program", "lExpr"
-	};
-
-	public static final boolean[] decisionCanBacktrack = new boolean[] {
-		false, // invalid decision
-		false, false, false, false, false, false, false, false, false, false, 
-		    false, false, false, false, false, false, false, false, false, false, 
-		    false, false, false, false, false, false, false, false, false, false, 
-		    false, false, false, false, false, false, false, false, false, false, 
-		    false, false, false, false, false, false, false, false, false, false, 
-		    false, false, false, false, false, false, false, false, false, false, 
-		    false, false, false, false, false, false, false, false, false, false, 
-		    false, false, false, false, false, false, false, false, false, false, 
-		    false, false, false, false, false, false, false, false, false, false, 
-		    false, false, false, false, false, false, false, false, false, false
-	};
-
- 
-	public int ruleLevel = 0;
-	public int getRuleLevel() { return ruleLevel; }
-	public void incRuleLevel() { ruleLevel++; }
-	public void decRuleLevel() { ruleLevel--; }
 	public while_astParser(TokenStream input) {
-		this(input, DebugEventSocketProxy.DEFAULT_DEBUGGER_PORT, new RecognizerSharedState());
+		this(input, new RecognizerSharedState());
 	}
-	public while_astParser(TokenStream input, int port, RecognizerSharedState state) {
+	public while_astParser(TokenStream input, RecognizerSharedState state) {
 		super(input, state);
-		DebugEventSocketProxy proxy =
-			new DebugEventSocketProxy(this,port,adaptor);
-		setDebugListener(proxy);
-		setTokenStream(new DebugTokenStream(input,proxy));
-		try {
-			proxy.handshake();
-		}
-		catch (IOException ioe) {
-			reportError(ioe);
-		}
-		TreeAdaptor adap = new CommonTreeAdaptor();
-		setTreeAdaptor(adap);
-		proxy.setTreeAdaptor(adap);
 	}
 
-	public while_astParser(TokenStream input, DebugEventListener dbg) {
-		super(input, dbg);
-		 
-		TreeAdaptor adap = new CommonTreeAdaptor();
-		setTreeAdaptor(adap);
+	protected TreeAdaptor adaptor = new CommonTreeAdaptor();
 
+	public void setTreeAdaptor(TreeAdaptor adaptor) {
+		this.adaptor = adaptor;
 	}
-
-	protected boolean evalPredicate(boolean result, String predicate) {
-		dbg.semanticPredicate(result, predicate);
-		return result;
+	public TreeAdaptor getTreeAdaptor() {
+		return adaptor;
 	}
-
-		protected DebugTreeAdaptor adaptor;
-		public void setTreeAdaptor(TreeAdaptor adaptor) {
-			this.adaptor = new DebugTreeAdaptor(dbg,adaptor);
-		}
-		public TreeAdaptor getTreeAdaptor() {
-			return adaptor;
-		}
 	@Override public String[] getTokenNames() { return while_astParser.tokenNames; }
 	@Override public String getGrammarFileName() { return "C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g"; }
 
@@ -182,18 +128,10 @@ public class while_astParser extends DebugParser {
 
 		RewriteRuleSubtreeStream stream_program=new RewriteRuleSubtreeStream(adaptor,"rule program");
 
-		try { dbg.enterRule(getGrammarFileName(), "startProgram");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(37, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:38:5: ( program -> ^( START program ) )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:38:7: program
 			{
-			dbg.location(38,7);
 			pushFollow(FOLLOW_program_in_startProgram223);
 			program1=program();
 			state._fsp--;
@@ -212,13 +150,10 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 38:15: -> ^( START program )
 			{
-				dbg.location(38,18);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:38:18: ^( START program )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(38,20);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(START, "START"), root_1);
-				dbg.location(38,26);
 				adaptor.addChild(root_1, stream_program.nextTree());
 				adaptor.addChild(root_0, root_1);
 				}
@@ -244,15 +179,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(39, 4);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "startProgram");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "startProgram"
@@ -278,18 +204,10 @@ public class while_astParser extends DebugParser {
 		Object Comment2_tree=null;
 		RewriteRuleTokenStream stream_Comment=new RewriteRuleTokenStream(adaptor,"token Comment");
 
-		try { dbg.enterRule(getGrammarFileName(), "getComment");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(51, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:52:2: ( Comment -> ^( COMMENT Comment ) )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:52:4: Comment
 			{
-			dbg.location(52,4);
 			Comment2=(Token)match(input,Comment,FOLLOW_Comment_in_getComment405);  
 			stream_Comment.add(Comment2);
 
@@ -306,13 +224,10 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 52:12: -> ^( COMMENT Comment )
 			{
-				dbg.location(52,15);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:52:15: ^( COMMENT Comment )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(52,17);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(COMMENT, "COMMENT"), root_1);
-				dbg.location(52,25);
 				adaptor.addChild(root_1, stream_Comment.nextNode());
 				adaptor.addChild(root_0, root_1);
 				}
@@ -338,15 +253,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(52, 32);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "getComment");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "getComment"
@@ -372,18 +278,10 @@ public class while_astParser extends DebugParser {
 		Object Variable3_tree=null;
 		RewriteRuleTokenStream stream_Variable=new RewriteRuleTokenStream(adaptor,"token Variable");
 
-		try { dbg.enterRule(getGrammarFileName(), "variable");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(54, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:54:9: ( Variable -> Variable )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:54:11: Variable
 			{
-			dbg.location(54,11);
 			Variable3=(Token)match(input,Variable,FOLLOW_Variable_in_variable421);  
 			stream_Variable.add(Variable3);
 
@@ -400,7 +298,6 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 54:20: -> Variable
 			{
-				dbg.location(54,23);
 				adaptor.addChild(root_0, stream_Variable.nextNode());
 			}
 
@@ -423,15 +320,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(54, 30);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "variable");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "variable"
@@ -457,18 +345,10 @@ public class while_astParser extends DebugParser {
 		Object Symbol4_tree=null;
 		RewriteRuleTokenStream stream_Symbol=new RewriteRuleTokenStream(adaptor,"token Symbol");
 
-		try { dbg.enterRule(getGrammarFileName(), "symbol");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(56, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:56:8: ( Symbol -> Symbol )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:56:10: Symbol
 			{
-			dbg.location(56,10);
 			Symbol4=(Token)match(input,Symbol,FOLLOW_Symbol_in_symbol433);  
 			stream_Symbol.add(Symbol4);
 
@@ -485,7 +365,6 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 56:17: -> Symbol
 			{
-				dbg.location(56,20);
 				adaptor.addChild(root_0, stream_Symbol.nextNode());
 			}
 
@@ -508,15 +387,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(56, 25);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "symbol");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "symbol"
@@ -546,45 +416,28 @@ public class while_astParser extends DebugParser {
 		RewriteRuleSubtreeStream stream_function=new RewriteRuleSubtreeStream(adaptor,"rule function");
 		RewriteRuleSubtreeStream stream_program=new RewriteRuleSubtreeStream(adaptor,"rule program");
 
-		try { dbg.enterRule(getGrammarFileName(), "program");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(58, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:59:5: ( function ( WS )* ( program )? -> ^( PROGRAM function ( program )? ) )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:59:7: function ( WS )* ( program )?
 			{
-			dbg.location(59,7);
 			pushFollow(FOLLOW_function_in_program449);
 			function5=function();
 			state._fsp--;
 
-			stream_function.add(function5.getTree());dbg.location(59,16);
+			stream_function.add(function5.getTree());
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:59:16: ( WS )*
-			try { dbg.enterSubRule(1);
-
 			loop1:
 			while (true) {
 				int alt1=2;
-				try { dbg.enterDecision(1, decisionCanBacktrack[1]);
-
 				int LA1_0 = input.LA(1);
 				if ( (LA1_0==WS) ) {
 					alt1=1;
 				}
 
-				} finally {dbg.exitDecision(1);}
-
 				switch (alt1) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:59:16: WS
 					{
-					dbg.location(59,16);
 					WS6=(Token)match(input,WS,FOLLOW_WS_in_program451);  
 					stream_WS.add(WS6);
 
@@ -595,26 +448,17 @@ public class while_astParser extends DebugParser {
 					break loop1;
 				}
 			}
-			} finally {dbg.exitSubRule(1);}
-			dbg.location(59,20);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:59:20: ( program )?
 			int alt2=2;
-			try { dbg.enterSubRule(2);
-			try { dbg.enterDecision(2, decisionCanBacktrack[2]);
-
 			int LA2_0 = input.LA(1);
 			if ( (LA2_0==Comment||LA2_0==WS||LA2_0==51) ) {
 				alt2=1;
 			}
-			} finally {dbg.exitDecision(2);}
-
 			switch (alt2) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:59:20: program
 					{
-					dbg.location(59,20);
 					pushFollow(FOLLOW_program_in_program454);
 					program7=program();
 					state._fsp--;
@@ -624,7 +468,6 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(2);}
 
 			// AST REWRITE
 			// elements: function, program
@@ -639,17 +482,13 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 59:29: -> ^( PROGRAM function ( program )? )
 			{
-				dbg.location(59,32);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:59:32: ^( PROGRAM function ( program )? )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(59,34);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(PROGRAM, "PROGRAM"), root_1);
-				dbg.location(59,42);
-				adaptor.addChild(root_1, stream_function.nextTree());dbg.location(59,51);
+				adaptor.addChild(root_1, stream_function.nextTree());
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:59:51: ( program )?
 				if ( stream_program.hasNext() ) {
-					dbg.location(59,51);
 					adaptor.addChild(root_1, stream_program.nextTree());
 				}
 				stream_program.reset();
@@ -678,15 +517,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(60, 4);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "program");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "program"
@@ -734,40 +564,23 @@ public class while_astParser extends DebugParser {
 		RewriteRuleSubtreeStream stream_getComment=new RewriteRuleSubtreeStream(adaptor,"rule getComment");
 		RewriteRuleSubtreeStream stream_definition=new RewriteRuleSubtreeStream(adaptor,"rule definition");
 
-		try { dbg.enterRule(getGrammarFileName(), "function");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(62, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:63:5: ( ( WS )* ( getComment )? 'function' WS Symbol ( WS )* ':' ( WS )* ( getComment )? ( WS )* definition -> ^( FUNCDEF Symbol definition END ) )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:63:7: ( WS )* ( getComment )? 'function' WS Symbol ( WS )* ':' ( WS )* ( getComment )? ( WS )* definition
 			{
-			dbg.location(63,7);
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:63:7: ( WS )*
-			try { dbg.enterSubRule(3);
-
 			loop3:
 			while (true) {
 				int alt3=2;
-				try { dbg.enterDecision(3, decisionCanBacktrack[3]);
-
 				int LA3_0 = input.LA(1);
 				if ( (LA3_0==WS) ) {
 					alt3=1;
 				}
 
-				} finally {dbg.exitDecision(3);}
-
 				switch (alt3) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:63:7: WS
 					{
-					dbg.location(63,7);
 					WS8=(Token)match(input,WS,FOLLOW_WS_in_function485);  
 					stream_WS.add(WS8);
 
@@ -778,26 +591,17 @@ public class while_astParser extends DebugParser {
 					break loop3;
 				}
 			}
-			} finally {dbg.exitSubRule(3);}
-			dbg.location(63,11);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:63:11: ( getComment )?
 			int alt4=2;
-			try { dbg.enterSubRule(4);
-			try { dbg.enterDecision(4, decisionCanBacktrack[4]);
-
 			int LA4_0 = input.LA(1);
 			if ( (LA4_0==Comment) ) {
 				alt4=1;
 			}
-			} finally {dbg.exitDecision(4);}
-
 			switch (alt4) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:63:11: getComment
 					{
-					dbg.location(63,11);
 					pushFollow(FOLLOW_getComment_in_function488);
 					getComment9=getComment();
 					state._fsp--;
@@ -807,39 +611,29 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(4);}
-			dbg.location(63,23);
+
 			string_literal10=(Token)match(input,51,FOLLOW_51_in_function491);  
 			stream_51.add(string_literal10);
-			dbg.location(63,34);
+
 			WS11=(Token)match(input,WS,FOLLOW_WS_in_function493);  
 			stream_WS.add(WS11);
-			dbg.location(63,37);
+
 			Symbol12=(Token)match(input,Symbol,FOLLOW_Symbol_in_function495);  
 			stream_Symbol.add(Symbol12);
-			dbg.location(63,44);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:63:44: ( WS )*
-			try { dbg.enterSubRule(5);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:63:44: ( WS )*
 			loop5:
 			while (true) {
 				int alt5=2;
-				try { dbg.enterDecision(5, decisionCanBacktrack[5]);
-
 				int LA5_0 = input.LA(1);
 				if ( (LA5_0==WS) ) {
 					alt5=1;
 				}
 
-				} finally {dbg.exitDecision(5);}
-
 				switch (alt5) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:63:44: WS
 					{
-					dbg.location(63,44);
 					WS13=(Token)match(input,WS,FOLLOW_WS_in_function497);  
 					stream_WS.add(WS13);
 
@@ -850,33 +644,23 @@ public class while_astParser extends DebugParser {
 					break loop5;
 				}
 			}
-			} finally {dbg.exitSubRule(5);}
-			dbg.location(63,48);
+
 			char_literal14=(Token)match(input,41,FOLLOW_41_in_function500);  
 			stream_41.add(char_literal14);
-			dbg.location(63,52);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:63:52: ( WS )*
-			try { dbg.enterSubRule(6);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:63:52: ( WS )*
 			loop6:
 			while (true) {
 				int alt6=2;
-				try { dbg.enterDecision(6, decisionCanBacktrack[6]);
-
 				int LA6_0 = input.LA(1);
 				if ( (LA6_0==WS) ) {
 					alt6=1;
 				}
 
-				} finally {dbg.exitDecision(6);}
-
 				switch (alt6) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:63:52: WS
 					{
-					dbg.location(63,52);
 					WS15=(Token)match(input,WS,FOLLOW_WS_in_function502);  
 					stream_WS.add(WS15);
 
@@ -887,26 +671,17 @@ public class while_astParser extends DebugParser {
 					break loop6;
 				}
 			}
-			} finally {dbg.exitSubRule(6);}
-			dbg.location(63,56);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:63:56: ( getComment )?
 			int alt7=2;
-			try { dbg.enterSubRule(7);
-			try { dbg.enterDecision(7, decisionCanBacktrack[7]);
-
 			int LA7_0 = input.LA(1);
 			if ( (LA7_0==Comment) ) {
 				alt7=1;
 			}
-			} finally {dbg.exitDecision(7);}
-
 			switch (alt7) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:63:56: getComment
 					{
-					dbg.location(63,56);
 					pushFollow(FOLLOW_getComment_in_function505);
 					getComment16=getComment();
 					state._fsp--;
@@ -916,30 +691,20 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(7);}
-			dbg.location(63,68);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:63:68: ( WS )*
-			try { dbg.enterSubRule(8);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:63:68: ( WS )*
 			loop8:
 			while (true) {
 				int alt8=2;
-				try { dbg.enterDecision(8, decisionCanBacktrack[8]);
-
 				int LA8_0 = input.LA(1);
 				if ( (LA8_0==WS) ) {
 					alt8=1;
 				}
 
-				} finally {dbg.exitDecision(8);}
-
 				switch (alt8) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:63:68: WS
 					{
-					dbg.location(63,68);
 					WS17=(Token)match(input,WS,FOLLOW_WS_in_function508);  
 					stream_WS.add(WS17);
 
@@ -950,15 +715,14 @@ public class while_astParser extends DebugParser {
 					break loop8;
 				}
 			}
-			} finally {dbg.exitSubRule(8);}
-			dbg.location(63,72);
+
 			pushFollow(FOLLOW_definition_in_function511);
 			definition18=definition();
 			state._fsp--;
 
 			stream_definition.add(definition18.getTree());
 			// AST REWRITE
-			// elements: Symbol, definition
+			// elements: definition, Symbol
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -970,15 +734,12 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 63:83: -> ^( FUNCDEF Symbol definition END )
 			{
-				dbg.location(63,86);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:63:86: ^( FUNCDEF Symbol definition END )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(63,88);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(FUNCDEF, "FUNCDEF"), root_1);
-				dbg.location(63,96);
-				adaptor.addChild(root_1, stream_Symbol.nextNode());dbg.location(63,103);
-				adaptor.addChild(root_1, stream_definition.nextTree());dbg.location(63,114);
+				adaptor.addChild(root_1, stream_Symbol.nextNode());
+				adaptor.addChild(root_1, stream_definition.nextTree());
 				adaptor.addChild(root_1, (Object)adaptor.create(END, "END"));
 				adaptor.addChild(root_0, root_1);
 				}
@@ -1004,15 +765,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(64, 4);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "function");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "function"
@@ -1073,43 +825,26 @@ public class while_astParser extends DebugParser {
 		RewriteRuleSubtreeStream stream_getComment=new RewriteRuleSubtreeStream(adaptor,"rule getComment");
 		RewriteRuleSubtreeStream stream_commands=new RewriteRuleSubtreeStream(adaptor,"rule commands");
 
-		try { dbg.enterRule(getGrammarFileName(), "definition");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(66, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:5: ( 'read' ( WS )* input '%' ( WS )* ( getComment )? ( WS )* commands ( WS )* '%' ( WS )* ( getComment )? ( WS )* 'write' ( WS )* output ( WS )* ( getComment )? -> ^( FUNCTION input commands output ) )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:7: 'read' ( WS )* input '%' ( WS )* ( getComment )? ( WS )* commands ( WS )* '%' ( WS )* ( getComment )? ( WS )* 'write' ( WS )* output ( WS )* ( getComment )?
 			{
-			dbg.location(67,7);
 			string_literal19=(Token)match(input,59,FOLLOW_59_in_definition541);  
 			stream_59.add(string_literal19);
-			dbg.location(67,14);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:14: ( WS )*
-			try { dbg.enterSubRule(9);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:14: ( WS )*
 			loop9:
 			while (true) {
 				int alt9=2;
-				try { dbg.enterDecision(9, decisionCanBacktrack[9]);
-
 				int LA9_0 = input.LA(1);
 				if ( (LA9_0==WS) ) {
 					alt9=1;
 				}
 
-				} finally {dbg.exitDecision(9);}
-
 				switch (alt9) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:14: WS
 					{
-					dbg.location(67,14);
 					WS20=(Token)match(input,WS,FOLLOW_WS_in_definition543);  
 					stream_WS.add(WS20);
 
@@ -1120,38 +855,28 @@ public class while_astParser extends DebugParser {
 					break loop9;
 				}
 			}
-			} finally {dbg.exitSubRule(9);}
-			dbg.location(67,18);
+
 			pushFollow(FOLLOW_input_in_definition546);
 			input21=input();
 			state._fsp--;
 
-			stream_input.add(input21.getTree());dbg.location(67,24);
+			stream_input.add(input21.getTree());
 			char_literal22=(Token)match(input,37,FOLLOW_37_in_definition548);  
 			stream_37.add(char_literal22);
-			dbg.location(67,28);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:28: ( WS )*
-			try { dbg.enterSubRule(10);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:28: ( WS )*
 			loop10:
 			while (true) {
 				int alt10=2;
-				try { dbg.enterDecision(10, decisionCanBacktrack[10]);
-
 				int LA10_0 = input.LA(1);
 				if ( (LA10_0==WS) ) {
 					alt10=1;
 				}
 
-				} finally {dbg.exitDecision(10);}
-
 				switch (alt10) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:28: WS
 					{
-					dbg.location(67,28);
 					WS23=(Token)match(input,WS,FOLLOW_WS_in_definition550);  
 					stream_WS.add(WS23);
 
@@ -1162,26 +887,17 @@ public class while_astParser extends DebugParser {
 					break loop10;
 				}
 			}
-			} finally {dbg.exitSubRule(10);}
-			dbg.location(67,32);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:32: ( getComment )?
 			int alt11=2;
-			try { dbg.enterSubRule(11);
-			try { dbg.enterDecision(11, decisionCanBacktrack[11]);
-
 			int LA11_0 = input.LA(1);
 			if ( (LA11_0==Comment) ) {
 				alt11=1;
 			}
-			} finally {dbg.exitDecision(11);}
-
 			switch (alt11) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:32: getComment
 					{
-					dbg.location(67,32);
 					pushFollow(FOLLOW_getComment_in_definition553);
 					getComment24=getComment();
 					state._fsp--;
@@ -1191,30 +907,20 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(11);}
-			dbg.location(67,44);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:44: ( WS )*
-			try { dbg.enterSubRule(12);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:44: ( WS )*
 			loop12:
 			while (true) {
 				int alt12=2;
-				try { dbg.enterDecision(12, decisionCanBacktrack[12]);
-
 				int LA12_0 = input.LA(1);
 				if ( (LA12_0==WS) ) {
 					alt12=1;
 				}
 
-				} finally {dbg.exitDecision(12);}
-
 				switch (alt12) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:44: WS
 					{
-					dbg.location(67,44);
 					WS25=(Token)match(input,WS,FOLLOW_WS_in_definition556);  
 					stream_WS.add(WS25);
 
@@ -1225,35 +931,25 @@ public class while_astParser extends DebugParser {
 					break loop12;
 				}
 			}
-			} finally {dbg.exitSubRule(12);}
-			dbg.location(67,48);
+
 			pushFollow(FOLLOW_commands_in_definition559);
 			commands26=commands();
 			state._fsp--;
 
-			stream_commands.add(commands26.getTree());dbg.location(67,57);
+			stream_commands.add(commands26.getTree());
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:57: ( WS )*
-			try { dbg.enterSubRule(13);
-
 			loop13:
 			while (true) {
 				int alt13=2;
-				try { dbg.enterDecision(13, decisionCanBacktrack[13]);
-
 				int LA13_0 = input.LA(1);
 				if ( (LA13_0==WS) ) {
 					alt13=1;
 				}
 
-				} finally {dbg.exitDecision(13);}
-
 				switch (alt13) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:57: WS
 					{
-					dbg.location(67,57);
 					WS27=(Token)match(input,WS,FOLLOW_WS_in_definition561);  
 					stream_WS.add(WS27);
 
@@ -1264,33 +960,23 @@ public class while_astParser extends DebugParser {
 					break loop13;
 				}
 			}
-			} finally {dbg.exitSubRule(13);}
-			dbg.location(67,61);
+
 			char_literal28=(Token)match(input,37,FOLLOW_37_in_definition564);  
 			stream_37.add(char_literal28);
-			dbg.location(67,65);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:65: ( WS )*
-			try { dbg.enterSubRule(14);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:65: ( WS )*
 			loop14:
 			while (true) {
 				int alt14=2;
-				try { dbg.enterDecision(14, decisionCanBacktrack[14]);
-
 				int LA14_0 = input.LA(1);
 				if ( (LA14_0==WS) ) {
 					alt14=1;
 				}
 
-				} finally {dbg.exitDecision(14);}
-
 				switch (alt14) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:65: WS
 					{
-					dbg.location(67,65);
 					WS29=(Token)match(input,WS,FOLLOW_WS_in_definition566);  
 					stream_WS.add(WS29);
 
@@ -1301,26 +987,17 @@ public class while_astParser extends DebugParser {
 					break loop14;
 				}
 			}
-			} finally {dbg.exitSubRule(14);}
-			dbg.location(67,69);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:69: ( getComment )?
 			int alt15=2;
-			try { dbg.enterSubRule(15);
-			try { dbg.enterDecision(15, decisionCanBacktrack[15]);
-
 			int LA15_0 = input.LA(1);
 			if ( (LA15_0==Comment) ) {
 				alt15=1;
 			}
-			} finally {dbg.exitDecision(15);}
-
 			switch (alt15) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:69: getComment
 					{
-					dbg.location(67,69);
 					pushFollow(FOLLOW_getComment_in_definition569);
 					getComment30=getComment();
 					state._fsp--;
@@ -1330,30 +1007,20 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(15);}
-			dbg.location(67,81);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:81: ( WS )*
-			try { dbg.enterSubRule(16);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:81: ( WS )*
 			loop16:
 			while (true) {
 				int alt16=2;
-				try { dbg.enterDecision(16, decisionCanBacktrack[16]);
-
 				int LA16_0 = input.LA(1);
 				if ( (LA16_0==WS) ) {
 					alt16=1;
 				}
 
-				} finally {dbg.exitDecision(16);}
-
 				switch (alt16) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:81: WS
 					{
-					dbg.location(67,81);
 					WS31=(Token)match(input,WS,FOLLOW_WS_in_definition572);  
 					stream_WS.add(WS31);
 
@@ -1364,33 +1031,23 @@ public class while_astParser extends DebugParser {
 					break loop16;
 				}
 			}
-			} finally {dbg.exitSubRule(16);}
-			dbg.location(67,85);
+
 			string_literal32=(Token)match(input,63,FOLLOW_63_in_definition575);  
 			stream_63.add(string_literal32);
-			dbg.location(67,93);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:93: ( WS )*
-			try { dbg.enterSubRule(17);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:93: ( WS )*
 			loop17:
 			while (true) {
 				int alt17=2;
-				try { dbg.enterDecision(17, decisionCanBacktrack[17]);
-
 				int LA17_0 = input.LA(1);
 				if ( (LA17_0==WS) ) {
 					alt17=1;
 				}
 
-				} finally {dbg.exitDecision(17);}
-
 				switch (alt17) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:93: WS
 					{
-					dbg.location(67,93);
 					WS33=(Token)match(input,WS,FOLLOW_WS_in_definition577);  
 					stream_WS.add(WS33);
 
@@ -1401,35 +1058,25 @@ public class while_astParser extends DebugParser {
 					break loop17;
 				}
 			}
-			} finally {dbg.exitSubRule(17);}
-			dbg.location(67,97);
+
 			pushFollow(FOLLOW_output_in_definition580);
 			output34=output();
 			state._fsp--;
 
-			stream_output.add(output34.getTree());dbg.location(67,104);
+			stream_output.add(output34.getTree());
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:104: ( WS )*
-			try { dbg.enterSubRule(18);
-
 			loop18:
 			while (true) {
 				int alt18=2;
-				try { dbg.enterDecision(18, decisionCanBacktrack[18]);
-
 				int LA18_0 = input.LA(1);
 				if ( (LA18_0==WS) ) {
 					alt18=1;
 				}
 
-				} finally {dbg.exitDecision(18);}
-
 				switch (alt18) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:104: WS
 					{
-					dbg.location(67,104);
 					WS35=(Token)match(input,WS,FOLLOW_WS_in_definition582);  
 					stream_WS.add(WS35);
 
@@ -1440,26 +1087,17 @@ public class while_astParser extends DebugParser {
 					break loop18;
 				}
 			}
-			} finally {dbg.exitSubRule(18);}
-			dbg.location(67,108);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:108: ( getComment )?
 			int alt19=2;
-			try { dbg.enterSubRule(19);
-			try { dbg.enterDecision(19, decisionCanBacktrack[19]);
-
 			int LA19_0 = input.LA(1);
 			if ( (LA19_0==Comment) ) {
 				alt19=1;
 			}
-			} finally {dbg.exitDecision(19);}
-
 			switch (alt19) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:108: getComment
 					{
-					dbg.location(67,108);
 					pushFollow(FOLLOW_getComment_in_definition585);
 					getComment36=getComment();
 					state._fsp--;
@@ -1469,7 +1107,6 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(19);}
 
 			// AST REWRITE
 			// elements: commands, output, input
@@ -1484,15 +1121,12 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 67:119: -> ^( FUNCTION input commands output )
 			{
-				dbg.location(67,122);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:67:122: ^( FUNCTION input commands output )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(67,124);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(FUNCTION, "FUNCTION"), root_1);
-				dbg.location(67,133);
-				adaptor.addChild(root_1, stream_input.nextTree());dbg.location(67,139);
-				adaptor.addChild(root_1, stream_commands.nextTree());dbg.location(67,148);
+				adaptor.addChild(root_1, stream_input.nextTree());
+				adaptor.addChild(root_1, stream_commands.nextTree());
 				adaptor.addChild(root_1, stream_output.nextTree());
 				adaptor.addChild(root_0, root_1);
 				}
@@ -1518,15 +1152,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(68, 4);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "definition");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "definition"
@@ -1556,36 +1181,20 @@ public class while_astParser extends DebugParser {
 		RewriteRuleSubtreeStream stream_inputSub=new RewriteRuleSubtreeStream(adaptor,"rule inputSub");
 		RewriteRuleSubtreeStream stream_getComment=new RewriteRuleSubtreeStream(adaptor,"rule getComment");
 
-		try { dbg.enterRule(getGrammarFileName(), "input");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(70, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:71:5: ( ( inputSub )? ( WS )* ( getComment )? -> ^( INPUTS ( inputSub )? ) )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:71:7: ( inputSub )? ( WS )* ( getComment )?
 			{
-			dbg.location(71,7);
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:71:7: ( inputSub )?
 			int alt20=2;
-			try { dbg.enterSubRule(20);
-			try { dbg.enterDecision(20, decisionCanBacktrack[20]);
-
 			int LA20_0 = input.LA(1);
 			if ( (LA20_0==Variable) ) {
 				alt20=1;
 			}
-			} finally {dbg.exitDecision(20);}
-
 			switch (alt20) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:71:7: inputSub
 					{
-					dbg.location(71,7);
 					pushFollow(FOLLOW_inputSub_in_input615);
 					inputSub37=inputSub();
 					state._fsp--;
@@ -1595,30 +1204,20 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(20);}
-			dbg.location(71,17);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:71:17: ( WS )*
-			try { dbg.enterSubRule(21);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:71:17: ( WS )*
 			loop21:
 			while (true) {
 				int alt21=2;
-				try { dbg.enterDecision(21, decisionCanBacktrack[21]);
-
 				int LA21_0 = input.LA(1);
 				if ( (LA21_0==WS) ) {
 					alt21=1;
 				}
 
-				} finally {dbg.exitDecision(21);}
-
 				switch (alt21) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:71:17: WS
 					{
-					dbg.location(71,17);
 					WS38=(Token)match(input,WS,FOLLOW_WS_in_input618);  
 					stream_WS.add(WS38);
 
@@ -1629,26 +1228,17 @@ public class while_astParser extends DebugParser {
 					break loop21;
 				}
 			}
-			} finally {dbg.exitSubRule(21);}
-			dbg.location(71,21);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:71:21: ( getComment )?
 			int alt22=2;
-			try { dbg.enterSubRule(22);
-			try { dbg.enterDecision(22, decisionCanBacktrack[22]);
-
 			int LA22_0 = input.LA(1);
 			if ( (LA22_0==Comment) ) {
 				alt22=1;
 			}
-			} finally {dbg.exitDecision(22);}
-
 			switch (alt22) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:71:21: getComment
 					{
-					dbg.location(71,21);
 					pushFollow(FOLLOW_getComment_in_input621);
 					getComment39=getComment();
 					state._fsp--;
@@ -1658,7 +1248,6 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(22);}
 
 			// AST REWRITE
 			// elements: inputSub
@@ -1673,16 +1262,12 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 71:33: -> ^( INPUTS ( inputSub )? )
 			{
-				dbg.location(71,37);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:71:37: ^( INPUTS ( inputSub )? )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(71,39);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(INPUTS, "INPUTS"), root_1);
-				dbg.location(71,46);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:71:46: ( inputSub )?
 				if ( stream_inputSub.hasNext() ) {
-					dbg.location(71,46);
 					adaptor.addChild(root_1, stream_inputSub.nextTree());
 				}
 				stream_inputSub.reset();
@@ -1711,15 +1296,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(72, 4);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "input");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "input"
@@ -1755,43 +1331,26 @@ public class while_astParser extends DebugParser {
 		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
 		RewriteRuleSubtreeStream stream_inputSub=new RewriteRuleSubtreeStream(adaptor,"rule inputSub");
 
-		try { dbg.enterRule(getGrammarFileName(), "inputSub");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(74, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:75:5: ( Variable ( WS )* ( ',' ( WS )* inputSub )? -> Variable ( inputSub )? )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:75:7: Variable ( WS )* ( ',' ( WS )* inputSub )?
 			{
-			dbg.location(75,7);
 			Variable40=(Token)match(input,Variable,FOLLOW_Variable_in_inputSub649);  
 			stream_Variable.add(Variable40);
-			dbg.location(75,16);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:75:16: ( WS )*
-			try { dbg.enterSubRule(23);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:75:16: ( WS )*
 			loop23:
 			while (true) {
 				int alt23=2;
-				try { dbg.enterDecision(23, decisionCanBacktrack[23]);
-
 				int LA23_0 = input.LA(1);
 				if ( (LA23_0==WS) ) {
 					alt23=1;
 				}
 
-				} finally {dbg.exitDecision(23);}
-
 				switch (alt23) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:75:16: WS
 					{
-					dbg.location(75,16);
 					WS41=(Token)match(input,WS,FOLLOW_WS_in_inputSub651);  
 					stream_WS.add(WS41);
 
@@ -1802,51 +1361,33 @@ public class while_astParser extends DebugParser {
 					break loop23;
 				}
 			}
-			} finally {dbg.exitSubRule(23);}
-			dbg.location(75,20);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:75:20: ( ',' ( WS )* inputSub )?
 			int alt25=2;
-			try { dbg.enterSubRule(25);
-			try { dbg.enterDecision(25, decisionCanBacktrack[25]);
-
 			int LA25_0 = input.LA(1);
 			if ( (LA25_0==40) ) {
 				alt25=1;
 			}
-			} finally {dbg.exitDecision(25);}
-
 			switch (alt25) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:75:21: ',' ( WS )* inputSub
 					{
-					dbg.location(75,21);
 					char_literal42=(Token)match(input,40,FOLLOW_40_in_inputSub655);  
 					stream_40.add(char_literal42);
-					dbg.location(75,25);
-					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:75:25: ( WS )*
-					try { dbg.enterSubRule(24);
 
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:75:25: ( WS )*
 					loop24:
 					while (true) {
 						int alt24=2;
-						try { dbg.enterDecision(24, decisionCanBacktrack[24]);
-
 						int LA24_0 = input.LA(1);
 						if ( (LA24_0==WS) ) {
 							alt24=1;
 						}
 
-						} finally {dbg.exitDecision(24);}
-
 						switch (alt24) {
 						case 1 :
-							dbg.enterAlt(1);
-
 							// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:75:25: WS
 							{
-							dbg.location(75,25);
 							WS43=(Token)match(input,WS,FOLLOW_WS_in_inputSub657);  
 							stream_WS.add(WS43);
 
@@ -1857,8 +1398,7 @@ public class while_astParser extends DebugParser {
 							break loop24;
 						}
 					}
-					} finally {dbg.exitSubRule(24);}
-					dbg.location(75,29);
+
 					pushFollow(FOLLOW_inputSub_in_inputSub660);
 					inputSub44=inputSub();
 					state._fsp--;
@@ -1868,10 +1408,9 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(25);}
 
 			// AST REWRITE
-			// elements: inputSub, Variable
+			// elements: Variable, inputSub
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -1883,11 +1422,9 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 75:40: -> Variable ( inputSub )?
 			{
-				dbg.location(75,43);
-				adaptor.addChild(root_0, stream_Variable.nextNode());dbg.location(75,52);
+				adaptor.addChild(root_0, stream_Variable.nextNode());
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:75:52: ( inputSub )?
 				if ( stream_inputSub.hasNext() ) {
-					dbg.location(75,52);
 					adaptor.addChild(root_0, stream_inputSub.nextTree());
 				}
 				stream_inputSub.reset();
@@ -1913,15 +1450,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(76, 4);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "inputSub");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "inputSub"
@@ -1957,43 +1485,26 @@ public class while_astParser extends DebugParser {
 		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
 		RewriteRuleSubtreeStream stream_output=new RewriteRuleSubtreeStream(adaptor,"rule output");
 
-		try { dbg.enterRule(getGrammarFileName(), "output");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(78, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:79:5: ( Variable ( WS )* ( ',' ( WS )* output )? -> ^( OUTPUT Variable ( output )? ) )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:79:7: Variable ( WS )* ( ',' ( WS )* output )?
 			{
-			dbg.location(79,7);
 			Variable45=(Token)match(input,Variable,FOLLOW_Variable_in_output688);  
 			stream_Variable.add(Variable45);
-			dbg.location(79,16);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:79:16: ( WS )*
-			try { dbg.enterSubRule(26);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:79:16: ( WS )*
 			loop26:
 			while (true) {
 				int alt26=2;
-				try { dbg.enterDecision(26, decisionCanBacktrack[26]);
-
 				int LA26_0 = input.LA(1);
 				if ( (LA26_0==WS) ) {
 					alt26=1;
 				}
 
-				} finally {dbg.exitDecision(26);}
-
 				switch (alt26) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:79:16: WS
 					{
-					dbg.location(79,16);
 					WS46=(Token)match(input,WS,FOLLOW_WS_in_output690);  
 					stream_WS.add(WS46);
 
@@ -2004,51 +1515,33 @@ public class while_astParser extends DebugParser {
 					break loop26;
 				}
 			}
-			} finally {dbg.exitSubRule(26);}
-			dbg.location(79,20);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:79:20: ( ',' ( WS )* output )?
 			int alt28=2;
-			try { dbg.enterSubRule(28);
-			try { dbg.enterDecision(28, decisionCanBacktrack[28]);
-
 			int LA28_0 = input.LA(1);
 			if ( (LA28_0==40) ) {
 				alt28=1;
 			}
-			} finally {dbg.exitDecision(28);}
-
 			switch (alt28) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:79:21: ',' ( WS )* output
 					{
-					dbg.location(79,21);
 					char_literal47=(Token)match(input,40,FOLLOW_40_in_output694);  
 					stream_40.add(char_literal47);
-					dbg.location(79,25);
-					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:79:25: ( WS )*
-					try { dbg.enterSubRule(27);
 
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:79:25: ( WS )*
 					loop27:
 					while (true) {
 						int alt27=2;
-						try { dbg.enterDecision(27, decisionCanBacktrack[27]);
-
 						int LA27_0 = input.LA(1);
 						if ( (LA27_0==WS) ) {
 							alt27=1;
 						}
 
-						} finally {dbg.exitDecision(27);}
-
 						switch (alt27) {
 						case 1 :
-							dbg.enterAlt(1);
-
 							// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:79:25: WS
 							{
-							dbg.location(79,25);
 							WS48=(Token)match(input,WS,FOLLOW_WS_in_output696);  
 							stream_WS.add(WS48);
 
@@ -2059,8 +1552,7 @@ public class while_astParser extends DebugParser {
 							break loop27;
 						}
 					}
-					} finally {dbg.exitSubRule(27);}
-					dbg.location(79,29);
+
 					pushFollow(FOLLOW_output_in_output699);
 					output49=output();
 					state._fsp--;
@@ -2070,10 +1562,9 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(28);}
 
 			// AST REWRITE
-			// elements: Variable, output
+			// elements: output, Variable
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -2085,17 +1576,13 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 79:38: -> ^( OUTPUT Variable ( output )? )
 			{
-				dbg.location(79,41);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:79:41: ^( OUTPUT Variable ( output )? )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(79,43);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(OUTPUT, "OUTPUT"), root_1);
-				dbg.location(79,50);
-				adaptor.addChild(root_1, stream_Variable.nextNode());dbg.location(79,59);
+				adaptor.addChild(root_1, stream_Variable.nextNode());
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:79:59: ( output )?
 				if ( stream_output.hasNext() ) {
-					dbg.location(79,59);
 					adaptor.addChild(root_1, stream_output.nextTree());
 				}
 				stream_output.reset();
@@ -2124,15 +1611,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(80, 4);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "output");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "output"
@@ -2169,67 +1647,35 @@ public class while_astParser extends DebugParser {
 		RewriteRuleSubtreeStream stream_command=new RewriteRuleSubtreeStream(adaptor,"rule command");
 		RewriteRuleSubtreeStream stream_commands=new RewriteRuleSubtreeStream(adaptor,"rule commands");
 
-		try { dbg.enterRule(getGrammarFileName(), "commands");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(82, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:83:5: ( command ( ( WS )* ';' ( WS )* ( getComment )? commands )? -> command ( commands )? )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:83:7: command ( ( WS )* ';' ( WS )* ( getComment )? commands )?
 			{
-			dbg.location(83,7);
 			pushFollow(FOLLOW_command_in_commands729);
 			command50=command();
 			state._fsp--;
 
-			stream_command.add(command50.getTree());dbg.location(83,15);
+			stream_command.add(command50.getTree());
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:83:15: ( ( WS )* ';' ( WS )* ( getComment )? commands )?
 			int alt32=2;
-			try { dbg.enterSubRule(32);
-			try { dbg.enterDecision(32, decisionCanBacktrack[32]);
-
-			try {
-				isCyclicDecision = true;
-				alt32 = dfa32.predict(input);
-			}
-			catch (NoViableAltException nvae) {
-				dbg.recognitionException(nvae);
-				throw nvae;
-			}
-			} finally {dbg.exitDecision(32);}
-
+			alt32 = dfa32.predict(input);
 			switch (alt32) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:83:17: ( WS )* ';' ( WS )* ( getComment )? commands
 					{
-					dbg.location(83,17);
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:83:17: ( WS )*
-					try { dbg.enterSubRule(29);
-
 					loop29:
 					while (true) {
 						int alt29=2;
-						try { dbg.enterDecision(29, decisionCanBacktrack[29]);
-
 						int LA29_0 = input.LA(1);
 						if ( (LA29_0==WS) ) {
 							alt29=1;
 						}
 
-						} finally {dbg.exitDecision(29);}
-
 						switch (alt29) {
 						case 1 :
-							dbg.enterAlt(1);
-
 							// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:83:17: WS
 							{
-							dbg.location(83,17);
 							WS51=(Token)match(input,WS,FOLLOW_WS_in_commands733);  
 							stream_WS.add(WS51);
 
@@ -2240,33 +1686,23 @@ public class while_astParser extends DebugParser {
 							break loop29;
 						}
 					}
-					} finally {dbg.exitSubRule(29);}
-					dbg.location(83,21);
+
 					char_literal52=(Token)match(input,43,FOLLOW_43_in_commands736);  
 					stream_43.add(char_literal52);
-					dbg.location(83,25);
-					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:83:25: ( WS )*
-					try { dbg.enterSubRule(30);
 
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:83:25: ( WS )*
 					loop30:
 					while (true) {
 						int alt30=2;
-						try { dbg.enterDecision(30, decisionCanBacktrack[30]);
-
 						int LA30_0 = input.LA(1);
 						if ( (LA30_0==WS) ) {
 							alt30=1;
 						}
 
-						} finally {dbg.exitDecision(30);}
-
 						switch (alt30) {
 						case 1 :
-							dbg.enterAlt(1);
-
 							// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:83:25: WS
 							{
-							dbg.location(83,25);
 							WS53=(Token)match(input,WS,FOLLOW_WS_in_commands738);  
 							stream_WS.add(WS53);
 
@@ -2277,26 +1713,17 @@ public class while_astParser extends DebugParser {
 							break loop30;
 						}
 					}
-					} finally {dbg.exitSubRule(30);}
-					dbg.location(83,29);
+
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:83:29: ( getComment )?
 					int alt31=2;
-					try { dbg.enterSubRule(31);
-					try { dbg.enterDecision(31, decisionCanBacktrack[31]);
-
 					int LA31_0 = input.LA(1);
 					if ( (LA31_0==Comment) ) {
 						alt31=1;
 					}
-					} finally {dbg.exitDecision(31);}
-
 					switch (alt31) {
 						case 1 :
-							dbg.enterAlt(1);
-
 							// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:83:29: getComment
 							{
-							dbg.location(83,29);
 							pushFollow(FOLLOW_getComment_in_commands741);
 							getComment54=getComment();
 							state._fsp--;
@@ -2306,8 +1733,7 @@ public class while_astParser extends DebugParser {
 							break;
 
 					}
-					} finally {dbg.exitSubRule(31);}
-					dbg.location(83,41);
+
 					pushFollow(FOLLOW_commands_in_commands744);
 					commands55=commands();
 					state._fsp--;
@@ -2317,7 +1743,6 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(32);}
 
 			// AST REWRITE
 			// elements: commands, command
@@ -2332,11 +1757,9 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 83:52: -> command ( commands )?
 			{
-				dbg.location(83,55);
-				adaptor.addChild(root_0, stream_command.nextTree());dbg.location(83,63);
+				adaptor.addChild(root_0, stream_command.nextTree());
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:83:63: ( commands )?
 				if ( stream_commands.hasNext() ) {
-					dbg.location(83,63);
 					adaptor.addChild(root_0, stream_commands.nextTree());
 				}
 				stream_commands.reset();
@@ -2362,15 +1785,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(84, 4);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "commands");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "commands"
@@ -2400,16 +1814,9 @@ public class while_astParser extends DebugParser {
 
 		Object string_literal56_tree=null;
 
-		try { dbg.enterRule(getGrammarFileName(), "command");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(86, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:87:5: ( 'nop' | decl | if_ | for_ | while_ | foreach_ )
 			int alt33=6;
-			try { dbg.enterDecision(33, decisionCanBacktrack[33]);
-
 			switch ( input.LA(1) ) {
 			case 57:
 				{
@@ -2444,21 +1851,15 @@ public class while_astParser extends DebugParser {
 			default:
 				NoViableAltException nvae =
 					new NoViableAltException("", 33, 0, input);
-				dbg.recognitionException(nvae);
 				throw nvae;
 			}
-			} finally {dbg.exitDecision(33);}
-
 			switch (alt33) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:87:7: 'nop'
 					{
 					root_0 = (Object)adaptor.nil();
 
 
-					dbg.location(87,7);
 					string_literal56=(Token)match(input,57,FOLLOW_57_in_command771); 
 					string_literal56_tree = (Object)adaptor.create(string_literal56);
 					adaptor.addChild(root_0, string_literal56_tree);
@@ -2466,14 +1867,11 @@ public class while_astParser extends DebugParser {
 					}
 					break;
 				case 2 :
-					dbg.enterAlt(2);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:87:15: decl
 					{
 					root_0 = (Object)adaptor.nil();
 
 
-					dbg.location(87,15);
 					pushFollow(FOLLOW_decl_in_command775);
 					decl57=decl();
 					state._fsp--;
@@ -2483,14 +1881,11 @@ public class while_astParser extends DebugParser {
 					}
 					break;
 				case 3 :
-					dbg.enterAlt(3);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:87:22: if_
 					{
 					root_0 = (Object)adaptor.nil();
 
 
-					dbg.location(87,22);
 					pushFollow(FOLLOW_if__in_command779);
 					if_58=if_();
 					state._fsp--;
@@ -2500,14 +1895,11 @@ public class while_astParser extends DebugParser {
 					}
 					break;
 				case 4 :
-					dbg.enterAlt(4);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:87:28: for_
 					{
 					root_0 = (Object)adaptor.nil();
 
 
-					dbg.location(87,28);
 					pushFollow(FOLLOW_for__in_command783);
 					for_59=for_();
 					state._fsp--;
@@ -2517,14 +1909,11 @@ public class while_astParser extends DebugParser {
 					}
 					break;
 				case 5 :
-					dbg.enterAlt(5);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:87:35: while_
 					{
 					root_0 = (Object)adaptor.nil();
 
 
-					dbg.location(87,35);
 					pushFollow(FOLLOW_while__in_command787);
 					while_60=while_();
 					state._fsp--;
@@ -2534,14 +1923,11 @@ public class while_astParser extends DebugParser {
 					}
 					break;
 				case 6 :
-					dbg.enterAlt(6);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:87:44: foreach_
 					{
 					root_0 = (Object)adaptor.nil();
 
 
-					dbg.location(87,44);
 					pushFollow(FOLLOW_foreach__in_command791);
 					foreach_61=foreach_();
 					state._fsp--;
@@ -2566,15 +1952,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(87, 52);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "command");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "command"
@@ -2613,51 +1990,31 @@ public class while_astParser extends DebugParser {
 		RewriteRuleSubtreeStream stream_getComment=new RewriteRuleSubtreeStream(adaptor,"rule getComment");
 		RewriteRuleSubtreeStream stream_vars=new RewriteRuleSubtreeStream(adaptor,"rule vars");
 
-		try { dbg.enterRule(getGrammarFileName(), "decl");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(89, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:5: ( ( vars ( WS )* ':=' ( WS )* exprs ) ( WS )* ( getComment )? -> ^( VARDEF vars exprs ) )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:7: ( vars ( WS )* ':=' ( WS )* exprs ) ( WS )* ( getComment )?
 			{
-			dbg.location(90,7);
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:7: ( vars ( WS )* ':=' ( WS )* exprs )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:8: vars ( WS )* ':=' ( WS )* exprs
 			{
-			dbg.location(90,8);
 			pushFollow(FOLLOW_vars_in_decl805);
 			vars62=vars();
 			state._fsp--;
 
-			stream_vars.add(vars62.getTree());dbg.location(90,13);
+			stream_vars.add(vars62.getTree());
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:13: ( WS )*
-			try { dbg.enterSubRule(34);
-
 			loop34:
 			while (true) {
 				int alt34=2;
-				try { dbg.enterDecision(34, decisionCanBacktrack[34]);
-
 				int LA34_0 = input.LA(1);
 				if ( (LA34_0==WS) ) {
 					alt34=1;
 				}
 
-				} finally {dbg.exitDecision(34);}
-
 				switch (alt34) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:13: WS
 					{
-					dbg.location(90,13);
 					WS63=(Token)match(input,WS,FOLLOW_WS_in_decl807);  
 					stream_WS.add(WS63);
 
@@ -2668,33 +2025,23 @@ public class while_astParser extends DebugParser {
 					break loop34;
 				}
 			}
-			} finally {dbg.exitSubRule(34);}
-			dbg.location(90,17);
+
 			string_literal64=(Token)match(input,42,FOLLOW_42_in_decl810);  
 			stream_42.add(string_literal64);
-			dbg.location(90,22);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:22: ( WS )*
-			try { dbg.enterSubRule(35);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:22: ( WS )*
 			loop35:
 			while (true) {
 				int alt35=2;
-				try { dbg.enterDecision(35, decisionCanBacktrack[35]);
-
 				int LA35_0 = input.LA(1);
 				if ( (LA35_0==WS) ) {
 					alt35=1;
 				}
 
-				} finally {dbg.exitDecision(35);}
-
 				switch (alt35) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:22: WS
 					{
-					dbg.location(90,22);
 					WS65=(Token)match(input,WS,FOLLOW_WS_in_decl812);  
 					stream_WS.add(WS65);
 
@@ -2705,37 +2052,27 @@ public class while_astParser extends DebugParser {
 					break loop35;
 				}
 			}
-			} finally {dbg.exitSubRule(35);}
-			dbg.location(90,26);
+
 			pushFollow(FOLLOW_exprs_in_decl815);
 			exprs66=exprs();
 			state._fsp--;
 
 			stream_exprs.add(exprs66.getTree());
 			}
-			dbg.location(90,33);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:33: ( WS )*
-			try { dbg.enterSubRule(36);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:33: ( WS )*
 			loop36:
 			while (true) {
 				int alt36=2;
-				try { dbg.enterDecision(36, decisionCanBacktrack[36]);
-
 				int LA36_0 = input.LA(1);
 				if ( (LA36_0==WS) ) {
 					alt36=1;
 				}
 
-				} finally {dbg.exitDecision(36);}
-
 				switch (alt36) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:33: WS
 					{
-					dbg.location(90,33);
 					WS67=(Token)match(input,WS,FOLLOW_WS_in_decl818);  
 					stream_WS.add(WS67);
 
@@ -2746,26 +2083,17 @@ public class while_astParser extends DebugParser {
 					break loop36;
 				}
 			}
-			} finally {dbg.exitSubRule(36);}
-			dbg.location(90,37);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:37: ( getComment )?
 			int alt37=2;
-			try { dbg.enterSubRule(37);
-			try { dbg.enterDecision(37, decisionCanBacktrack[37]);
-
 			int LA37_0 = input.LA(1);
 			if ( (LA37_0==Comment) ) {
 				alt37=1;
 			}
-			} finally {dbg.exitDecision(37);}
-
 			switch (alt37) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:37: getComment
 					{
-					dbg.location(90,37);
 					pushFollow(FOLLOW_getComment_in_decl821);
 					getComment68=getComment();
 					state._fsp--;
@@ -2775,10 +2103,9 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(37);}
 
 			// AST REWRITE
-			// elements: exprs, vars
+			// elements: vars, exprs
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -2790,14 +2117,11 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 90:49: -> ^( VARDEF vars exprs )
 			{
-				dbg.location(90,52);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:90:52: ^( VARDEF vars exprs )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(90,54);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(VARDEF, "VARDEF"), root_1);
-				dbg.location(90,61);
-				adaptor.addChild(root_1, stream_vars.nextTree());dbg.location(90,66);
+				adaptor.addChild(root_1, stream_vars.nextTree());
 				adaptor.addChild(root_1, stream_exprs.nextTree());
 				adaptor.addChild(root_0, root_1);
 				}
@@ -2823,15 +2147,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(91, 4);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "decl");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "decl"
@@ -2879,49 +2194,29 @@ public class while_astParser extends DebugParser {
 		RewriteRuleSubtreeStream stream_else_=new RewriteRuleSubtreeStream(adaptor,"rule else_");
 		RewriteRuleSubtreeStream stream_getComment=new RewriteRuleSubtreeStream(adaptor,"rule getComment");
 
-		try { dbg.enterRule(getGrammarFileName(), "if_");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(93, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:94:5: ( ( 'if' ( WS )* expression ( WS )* then_ ( WS )* ( else_ ( WS )* )? 'fi' ( WS )* ( getComment )? ) -> ^( IF expression then_ ( else_ )? END ) )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:94:7: ( 'if' ( WS )* expression ( WS )* then_ ( WS )* ( else_ ( WS )* )? 'fi' ( WS )* ( getComment )? )
 			{
-			dbg.location(94,7);
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:94:7: ( 'if' ( WS )* expression ( WS )* then_ ( WS )* ( else_ ( WS )* )? 'fi' ( WS )* ( getComment )? )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:94:8: 'if' ( WS )* expression ( WS )* then_ ( WS )* ( else_ ( WS )* )? 'fi' ( WS )* ( getComment )?
 			{
-			dbg.location(94,8);
 			string_literal69=(Token)match(input,53,FOLLOW_53_in_if_852);  
 			stream_53.add(string_literal69);
-			dbg.location(94,13);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:94:13: ( WS )*
-			try { dbg.enterSubRule(38);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:94:13: ( WS )*
 			loop38:
 			while (true) {
 				int alt38=2;
-				try { dbg.enterDecision(38, decisionCanBacktrack[38]);
-
 				int LA38_0 = input.LA(1);
 				if ( (LA38_0==WS) ) {
 					alt38=1;
 				}
 
-				} finally {dbg.exitDecision(38);}
-
 				switch (alt38) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:94:13: WS
 					{
-					dbg.location(94,13);
 					WS70=(Token)match(input,WS,FOLLOW_WS_in_if_854);  
 					stream_WS.add(WS70);
 
@@ -2932,35 +2227,25 @@ public class while_astParser extends DebugParser {
 					break loop38;
 				}
 			}
-			} finally {dbg.exitSubRule(38);}
-			dbg.location(94,17);
+
 			pushFollow(FOLLOW_expression_in_if_857);
 			expression71=expression();
 			state._fsp--;
 
-			stream_expression.add(expression71.getTree());dbg.location(94,28);
+			stream_expression.add(expression71.getTree());
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:94:28: ( WS )*
-			try { dbg.enterSubRule(39);
-
 			loop39:
 			while (true) {
 				int alt39=2;
-				try { dbg.enterDecision(39, decisionCanBacktrack[39]);
-
 				int LA39_0 = input.LA(1);
 				if ( (LA39_0==WS) ) {
 					alt39=1;
 				}
 
-				} finally {dbg.exitDecision(39);}
-
 				switch (alt39) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:94:28: WS
 					{
-					dbg.location(94,28);
 					WS72=(Token)match(input,WS,FOLLOW_WS_in_if_859);  
 					stream_WS.add(WS72);
 
@@ -2971,35 +2256,25 @@ public class while_astParser extends DebugParser {
 					break loop39;
 				}
 			}
-			} finally {dbg.exitSubRule(39);}
-			dbg.location(94,32);
+
 			pushFollow(FOLLOW_then__in_if_862);
 			then_73=then_();
 			state._fsp--;
 
-			stream_then_.add(then_73.getTree());dbg.location(94,38);
+			stream_then_.add(then_73.getTree());
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:94:38: ( WS )*
-			try { dbg.enterSubRule(40);
-
 			loop40:
 			while (true) {
 				int alt40=2;
-				try { dbg.enterDecision(40, decisionCanBacktrack[40]);
-
 				int LA40_0 = input.LA(1);
 				if ( (LA40_0==WS) ) {
 					alt40=1;
 				}
 
-				} finally {dbg.exitDecision(40);}
-
 				switch (alt40) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:94:38: WS
 					{
-					dbg.location(94,38);
 					WS74=(Token)match(input,WS,FOLLOW_WS_in_if_864);  
 					stream_WS.add(WS74);
 
@@ -3010,53 +2285,35 @@ public class while_astParser extends DebugParser {
 					break loop40;
 				}
 			}
-			} finally {dbg.exitSubRule(40);}
-			dbg.location(94,42);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:94:42: ( else_ ( WS )* )?
 			int alt42=2;
-			try { dbg.enterSubRule(42);
-			try { dbg.enterDecision(42, decisionCanBacktrack[42]);
-
 			int LA42_0 = input.LA(1);
 			if ( (LA42_0==47) ) {
 				alt42=1;
 			}
-			} finally {dbg.exitDecision(42);}
-
 			switch (alt42) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:94:43: else_ ( WS )*
 					{
-					dbg.location(94,43);
 					pushFollow(FOLLOW_else__in_if_868);
 					else_75=else_();
 					state._fsp--;
 
-					stream_else_.add(else_75.getTree());dbg.location(94,49);
+					stream_else_.add(else_75.getTree());
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:94:49: ( WS )*
-					try { dbg.enterSubRule(41);
-
 					loop41:
 					while (true) {
 						int alt41=2;
-						try { dbg.enterDecision(41, decisionCanBacktrack[41]);
-
 						int LA41_0 = input.LA(1);
 						if ( (LA41_0==WS) ) {
 							alt41=1;
 						}
 
-						} finally {dbg.exitDecision(41);}
-
 						switch (alt41) {
 						case 1 :
-							dbg.enterAlt(1);
-
 							// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:94:49: WS
 							{
-							dbg.location(94,49);
 							WS76=(Token)match(input,WS,FOLLOW_WS_in_if_870);  
 							stream_WS.add(WS76);
 
@@ -3067,39 +2324,28 @@ public class while_astParser extends DebugParser {
 							break loop41;
 						}
 					}
-					} finally {dbg.exitSubRule(41);}
 
 					}
 					break;
 
 			}
-			} finally {dbg.exitSubRule(42);}
-			dbg.location(94,55);
+
 			string_literal77=(Token)match(input,48,FOLLOW_48_in_if_875);  
 			stream_48.add(string_literal77);
-			dbg.location(94,60);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:94:60: ( WS )*
-			try { dbg.enterSubRule(43);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:94:60: ( WS )*
 			loop43:
 			while (true) {
 				int alt43=2;
-				try { dbg.enterDecision(43, decisionCanBacktrack[43]);
-
 				int LA43_0 = input.LA(1);
 				if ( (LA43_0==WS) ) {
 					alt43=1;
 				}
 
-				} finally {dbg.exitDecision(43);}
-
 				switch (alt43) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:94:60: WS
 					{
-					dbg.location(94,60);
 					WS78=(Token)match(input,WS,FOLLOW_WS_in_if_877);  
 					stream_WS.add(WS78);
 
@@ -3110,26 +2356,17 @@ public class while_astParser extends DebugParser {
 					break loop43;
 				}
 			}
-			} finally {dbg.exitSubRule(43);}
-			dbg.location(94,64);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:94:64: ( getComment )?
 			int alt44=2;
-			try { dbg.enterSubRule(44);
-			try { dbg.enterDecision(44, decisionCanBacktrack[44]);
-
 			int LA44_0 = input.LA(1);
 			if ( (LA44_0==Comment) ) {
 				alt44=1;
 			}
-			} finally {dbg.exitDecision(44);}
-
 			switch (alt44) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:94:64: getComment
 					{
-					dbg.location(94,64);
 					pushFollow(FOLLOW_getComment_in_if_880);
 					getComment79=getComment();
 					state._fsp--;
@@ -3139,12 +2376,11 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(44);}
 
 			}
 
 			// AST REWRITE
-			// elements: expression, then_, else_
+			// elements: then_, expression, else_
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -3156,22 +2392,18 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 94:77: -> ^( IF expression then_ ( else_ )? END )
 			{
-				dbg.location(94,80);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:94:80: ^( IF expression then_ ( else_ )? END )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(94,82);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(IF, "IF"), root_1);
-				dbg.location(94,85);
-				adaptor.addChild(root_1, stream_expression.nextTree());dbg.location(94,96);
-				adaptor.addChild(root_1, stream_then_.nextTree());dbg.location(94,102);
+				adaptor.addChild(root_1, stream_expression.nextTree());
+				adaptor.addChild(root_1, stream_then_.nextTree());
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:94:102: ( else_ )?
 				if ( stream_else_.hasNext() ) {
-					dbg.location(94,102);
 					adaptor.addChild(root_1, stream_else_.nextTree());
 				}
 				stream_else_.reset();
-				dbg.location(94,109);
+
 				adaptor.addChild(root_1, (Object)adaptor.create(END, "END"));
 				adaptor.addChild(root_0, root_1);
 				}
@@ -3197,15 +2429,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(95, 4);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "if_");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "if_"
@@ -3240,43 +2463,26 @@ public class while_astParser extends DebugParser {
 		RewriteRuleSubtreeStream stream_getComment=new RewriteRuleSubtreeStream(adaptor,"rule getComment");
 		RewriteRuleSubtreeStream stream_commands=new RewriteRuleSubtreeStream(adaptor,"rule commands");
 
-		try { dbg.enterRule(getGrammarFileName(), "then_");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(97, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:97:7: ( 'then' ( WS )* ( getComment )? ( WS )* commands -> ^( THEN commands ) )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:97:9: 'then' ( WS )* ( getComment )? ( WS )* commands
 			{
-			dbg.location(97,9);
 			string_literal80=(Token)match(input,60,FOLLOW_60_in_then_915);  
 			stream_60.add(string_literal80);
-			dbg.location(97,16);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:97:16: ( WS )*
-			try { dbg.enterSubRule(45);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:97:16: ( WS )*
 			loop45:
 			while (true) {
 				int alt45=2;
-				try { dbg.enterDecision(45, decisionCanBacktrack[45]);
-
 				int LA45_0 = input.LA(1);
 				if ( (LA45_0==WS) ) {
 					alt45=1;
 				}
 
-				} finally {dbg.exitDecision(45);}
-
 				switch (alt45) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:97:16: WS
 					{
-					dbg.location(97,16);
 					WS81=(Token)match(input,WS,FOLLOW_WS_in_then_917);  
 					stream_WS.add(WS81);
 
@@ -3287,26 +2493,17 @@ public class while_astParser extends DebugParser {
 					break loop45;
 				}
 			}
-			} finally {dbg.exitSubRule(45);}
-			dbg.location(97,20);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:97:20: ( getComment )?
 			int alt46=2;
-			try { dbg.enterSubRule(46);
-			try { dbg.enterDecision(46, decisionCanBacktrack[46]);
-
 			int LA46_0 = input.LA(1);
 			if ( (LA46_0==Comment) ) {
 				alt46=1;
 			}
-			} finally {dbg.exitDecision(46);}
-
 			switch (alt46) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:97:20: getComment
 					{
-					dbg.location(97,20);
 					pushFollow(FOLLOW_getComment_in_then_920);
 					getComment82=getComment();
 					state._fsp--;
@@ -3316,30 +2513,20 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(46);}
-			dbg.location(97,32);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:97:32: ( WS )*
-			try { dbg.enterSubRule(47);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:97:32: ( WS )*
 			loop47:
 			while (true) {
 				int alt47=2;
-				try { dbg.enterDecision(47, decisionCanBacktrack[47]);
-
 				int LA47_0 = input.LA(1);
 				if ( (LA47_0==WS) ) {
 					alt47=1;
 				}
 
-				} finally {dbg.exitDecision(47);}
-
 				switch (alt47) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:97:32: WS
 					{
-					dbg.location(97,32);
 					WS83=(Token)match(input,WS,FOLLOW_WS_in_then_923);  
 					stream_WS.add(WS83);
 
@@ -3350,8 +2537,7 @@ public class while_astParser extends DebugParser {
 					break loop47;
 				}
 			}
-			} finally {dbg.exitSubRule(47);}
-			dbg.location(97,36);
+
 			pushFollow(FOLLOW_commands_in_then_926);
 			commands84=commands();
 			state._fsp--;
@@ -3370,13 +2556,10 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 97:45: -> ^( THEN commands )
 			{
-				dbg.location(97,48);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:97:48: ^( THEN commands )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(97,50);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(THEN, "THEN"), root_1);
-				dbg.location(97,55);
 				adaptor.addChild(root_1, stream_commands.nextTree());
 				adaptor.addChild(root_0, root_1);
 				}
@@ -3402,15 +2585,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(97, 63);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "then_");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "then_"
@@ -3445,43 +2619,26 @@ public class while_astParser extends DebugParser {
 		RewriteRuleSubtreeStream stream_getComment=new RewriteRuleSubtreeStream(adaptor,"rule getComment");
 		RewriteRuleSubtreeStream stream_commands=new RewriteRuleSubtreeStream(adaptor,"rule commands");
 
-		try { dbg.enterRule(getGrammarFileName(), "else_");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(99, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:99:7: ( 'else' ( WS )* ( getComment )? ( WS )* commands -> ^( ELSE commands ) )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:99:9: 'else' ( WS )* ( getComment )? ( WS )* commands
 			{
-			dbg.location(99,9);
 			string_literal85=(Token)match(input,47,FOLLOW_47_in_else_943);  
 			stream_47.add(string_literal85);
-			dbg.location(99,16);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:99:16: ( WS )*
-			try { dbg.enterSubRule(48);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:99:16: ( WS )*
 			loop48:
 			while (true) {
 				int alt48=2;
-				try { dbg.enterDecision(48, decisionCanBacktrack[48]);
-
 				int LA48_0 = input.LA(1);
 				if ( (LA48_0==WS) ) {
 					alt48=1;
 				}
 
-				} finally {dbg.exitDecision(48);}
-
 				switch (alt48) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:99:16: WS
 					{
-					dbg.location(99,16);
 					WS86=(Token)match(input,WS,FOLLOW_WS_in_else_945);  
 					stream_WS.add(WS86);
 
@@ -3492,26 +2649,17 @@ public class while_astParser extends DebugParser {
 					break loop48;
 				}
 			}
-			} finally {dbg.exitSubRule(48);}
-			dbg.location(99,20);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:99:20: ( getComment )?
 			int alt49=2;
-			try { dbg.enterSubRule(49);
-			try { dbg.enterDecision(49, decisionCanBacktrack[49]);
-
 			int LA49_0 = input.LA(1);
 			if ( (LA49_0==Comment) ) {
 				alt49=1;
 			}
-			} finally {dbg.exitDecision(49);}
-
 			switch (alt49) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:99:20: getComment
 					{
-					dbg.location(99,20);
 					pushFollow(FOLLOW_getComment_in_else_948);
 					getComment87=getComment();
 					state._fsp--;
@@ -3521,30 +2669,20 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(49);}
-			dbg.location(99,32);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:99:32: ( WS )*
-			try { dbg.enterSubRule(50);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:99:32: ( WS )*
 			loop50:
 			while (true) {
 				int alt50=2;
-				try { dbg.enterDecision(50, decisionCanBacktrack[50]);
-
 				int LA50_0 = input.LA(1);
 				if ( (LA50_0==WS) ) {
 					alt50=1;
 				}
 
-				} finally {dbg.exitDecision(50);}
-
 				switch (alt50) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:99:32: WS
 					{
-					dbg.location(99,32);
 					WS88=(Token)match(input,WS,FOLLOW_WS_in_else_951);  
 					stream_WS.add(WS88);
 
@@ -3555,8 +2693,7 @@ public class while_astParser extends DebugParser {
 					break loop50;
 				}
 			}
-			} finally {dbg.exitSubRule(50);}
-			dbg.location(99,36);
+
 			pushFollow(FOLLOW_commands_in_else_954);
 			commands89=commands();
 			state._fsp--;
@@ -3575,13 +2712,10 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 99:45: -> ^( ELSE commands )
 			{
-				dbg.location(99,48);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:99:48: ^( ELSE commands )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(99,50);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ELSE, "ELSE"), root_1);
-				dbg.location(99,55);
 				adaptor.addChild(root_1, stream_commands.nextTree());
 				adaptor.addChild(root_0, root_1);
 				}
@@ -3607,15 +2741,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(99, 63);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "else_");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "else_"
@@ -3654,49 +2779,29 @@ public class while_astParser extends DebugParser {
 		RewriteRuleSubtreeStream stream_do_=new RewriteRuleSubtreeStream(adaptor,"rule do_");
 		RewriteRuleSubtreeStream stream_getComment=new RewriteRuleSubtreeStream(adaptor,"rule getComment");
 
-		try { dbg.enterRule(getGrammarFileName(), "while_");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(101, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:102:5: ( ( 'while' ( WS )* expression ( WS )* ( getComment )? ( WS )* do_ ) -> ^( WHILE expression do_ END ) )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:102:7: ( 'while' ( WS )* expression ( WS )* ( getComment )? ( WS )* do_ )
 			{
-			dbg.location(102,7);
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:102:7: ( 'while' ( WS )* expression ( WS )* ( getComment )? ( WS )* do_ )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:102:8: 'while' ( WS )* expression ( WS )* ( getComment )? ( WS )* do_
 			{
-			dbg.location(102,8);
 			string_literal90=(Token)match(input,62,FOLLOW_62_in_while_977);  
 			stream_62.add(string_literal90);
-			dbg.location(102,16);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:102:16: ( WS )*
-			try { dbg.enterSubRule(51);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:102:16: ( WS )*
 			loop51:
 			while (true) {
 				int alt51=2;
-				try { dbg.enterDecision(51, decisionCanBacktrack[51]);
-
 				int LA51_0 = input.LA(1);
 				if ( (LA51_0==WS) ) {
 					alt51=1;
 				}
 
-				} finally {dbg.exitDecision(51);}
-
 				switch (alt51) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:102:16: WS
 					{
-					dbg.location(102,16);
 					WS91=(Token)match(input,WS,FOLLOW_WS_in_while_979);  
 					stream_WS.add(WS91);
 
@@ -3707,35 +2812,25 @@ public class while_astParser extends DebugParser {
 					break loop51;
 				}
 			}
-			} finally {dbg.exitSubRule(51);}
-			dbg.location(102,20);
+
 			pushFollow(FOLLOW_expression_in_while_982);
 			expression92=expression();
 			state._fsp--;
 
-			stream_expression.add(expression92.getTree());dbg.location(102,31);
+			stream_expression.add(expression92.getTree());
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:102:31: ( WS )*
-			try { dbg.enterSubRule(52);
-
 			loop52:
 			while (true) {
 				int alt52=2;
-				try { dbg.enterDecision(52, decisionCanBacktrack[52]);
-
 				int LA52_0 = input.LA(1);
 				if ( (LA52_0==WS) ) {
 					alt52=1;
 				}
 
-				} finally {dbg.exitDecision(52);}
-
 				switch (alt52) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:102:31: WS
 					{
-					dbg.location(102,31);
 					WS93=(Token)match(input,WS,FOLLOW_WS_in_while_984);  
 					stream_WS.add(WS93);
 
@@ -3746,26 +2841,17 @@ public class while_astParser extends DebugParser {
 					break loop52;
 				}
 			}
-			} finally {dbg.exitSubRule(52);}
-			dbg.location(102,35);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:102:35: ( getComment )?
 			int alt53=2;
-			try { dbg.enterSubRule(53);
-			try { dbg.enterDecision(53, decisionCanBacktrack[53]);
-
 			int LA53_0 = input.LA(1);
 			if ( (LA53_0==Comment) ) {
 				alt53=1;
 			}
-			} finally {dbg.exitDecision(53);}
-
 			switch (alt53) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:102:35: getComment
 					{
-					dbg.location(102,35);
 					pushFollow(FOLLOW_getComment_in_while_987);
 					getComment94=getComment();
 					state._fsp--;
@@ -3775,30 +2861,20 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(53);}
-			dbg.location(102,47);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:102:47: ( WS )*
-			try { dbg.enterSubRule(54);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:102:47: ( WS )*
 			loop54:
 			while (true) {
 				int alt54=2;
-				try { dbg.enterDecision(54, decisionCanBacktrack[54]);
-
 				int LA54_0 = input.LA(1);
 				if ( (LA54_0==WS) ) {
 					alt54=1;
 				}
 
-				} finally {dbg.exitDecision(54);}
-
 				switch (alt54) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:102:47: WS
 					{
-					dbg.location(102,47);
 					WS95=(Token)match(input,WS,FOLLOW_WS_in_while_990);  
 					stream_WS.add(WS95);
 
@@ -3809,8 +2885,7 @@ public class while_astParser extends DebugParser {
 					break loop54;
 				}
 			}
-			} finally {dbg.exitSubRule(54);}
-			dbg.location(102,51);
+
 			pushFollow(FOLLOW_do__in_while_993);
 			do_96=do_();
 			state._fsp--;
@@ -3819,7 +2894,7 @@ public class while_astParser extends DebugParser {
 			}
 
 			// AST REWRITE
-			// elements: do_, expression
+			// elements: expression, do_
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -3831,15 +2906,12 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 102:56: -> ^( WHILE expression do_ END )
 			{
-				dbg.location(102,59);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:102:59: ^( WHILE expression do_ END )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(102,61);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(WHILE, "WHILE"), root_1);
-				dbg.location(102,67);
-				adaptor.addChild(root_1, stream_expression.nextTree());dbg.location(102,78);
-				adaptor.addChild(root_1, stream_do_.nextTree());dbg.location(102,82);
+				adaptor.addChild(root_1, stream_expression.nextTree());
+				adaptor.addChild(root_1, stream_do_.nextTree());
 				adaptor.addChild(root_1, (Object)adaptor.create(END, "END"));
 				adaptor.addChild(root_0, root_1);
 				}
@@ -3865,15 +2937,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(103, 4);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "while_");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "while_"
@@ -3916,43 +2979,26 @@ public class while_astParser extends DebugParser {
 		RewriteRuleSubtreeStream stream_getComment=new RewriteRuleSubtreeStream(adaptor,"rule getComment");
 		RewriteRuleSubtreeStream stream_commands=new RewriteRuleSubtreeStream(adaptor,"rule commands");
 
-		try { dbg.enterRule(getGrammarFileName(), "do_");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(105, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:105:6: ( 'do' ( WS )* ( getComment )? ( WS )* commands ( WS )* 'od' ( WS )* ( getComment )? -> ^( DO commands ) )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:105:8: 'do' ( WS )* ( getComment )? ( WS )* commands ( WS )* 'od' ( WS )* ( getComment )?
 			{
-			dbg.location(105,8);
 			string_literal97=(Token)match(input,46,FOLLOW_46_in_do_1025);  
 			stream_46.add(string_literal97);
-			dbg.location(105,13);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:105:13: ( WS )*
-			try { dbg.enterSubRule(55);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:105:13: ( WS )*
 			loop55:
 			while (true) {
 				int alt55=2;
-				try { dbg.enterDecision(55, decisionCanBacktrack[55]);
-
 				int LA55_0 = input.LA(1);
 				if ( (LA55_0==WS) ) {
 					alt55=1;
 				}
 
-				} finally {dbg.exitDecision(55);}
-
 				switch (alt55) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:105:13: WS
 					{
-					dbg.location(105,13);
 					WS98=(Token)match(input,WS,FOLLOW_WS_in_do_1027);  
 					stream_WS.add(WS98);
 
@@ -3963,26 +3009,17 @@ public class while_astParser extends DebugParser {
 					break loop55;
 				}
 			}
-			} finally {dbg.exitSubRule(55);}
-			dbg.location(105,17);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:105:17: ( getComment )?
 			int alt56=2;
-			try { dbg.enterSubRule(56);
-			try { dbg.enterDecision(56, decisionCanBacktrack[56]);
-
 			int LA56_0 = input.LA(1);
 			if ( (LA56_0==Comment) ) {
 				alt56=1;
 			}
-			} finally {dbg.exitDecision(56);}
-
 			switch (alt56) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:105:17: getComment
 					{
-					dbg.location(105,17);
 					pushFollow(FOLLOW_getComment_in_do_1030);
 					getComment99=getComment();
 					state._fsp--;
@@ -3992,30 +3029,20 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(56);}
-			dbg.location(105,29);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:105:29: ( WS )*
-			try { dbg.enterSubRule(57);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:105:29: ( WS )*
 			loop57:
 			while (true) {
 				int alt57=2;
-				try { dbg.enterDecision(57, decisionCanBacktrack[57]);
-
 				int LA57_0 = input.LA(1);
 				if ( (LA57_0==WS) ) {
 					alt57=1;
 				}
 
-				} finally {dbg.exitDecision(57);}
-
 				switch (alt57) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:105:29: WS
 					{
-					dbg.location(105,29);
 					WS100=(Token)match(input,WS,FOLLOW_WS_in_do_1033);  
 					stream_WS.add(WS100);
 
@@ -4026,35 +3053,25 @@ public class while_astParser extends DebugParser {
 					break loop57;
 				}
 			}
-			} finally {dbg.exitSubRule(57);}
-			dbg.location(105,33);
+
 			pushFollow(FOLLOW_commands_in_do_1036);
 			commands101=commands();
 			state._fsp--;
 
-			stream_commands.add(commands101.getTree());dbg.location(105,42);
+			stream_commands.add(commands101.getTree());
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:105:42: ( WS )*
-			try { dbg.enterSubRule(58);
-
 			loop58:
 			while (true) {
 				int alt58=2;
-				try { dbg.enterDecision(58, decisionCanBacktrack[58]);
-
 				int LA58_0 = input.LA(1);
 				if ( (LA58_0==WS) ) {
 					alt58=1;
 				}
 
-				} finally {dbg.exitDecision(58);}
-
 				switch (alt58) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:105:42: WS
 					{
-					dbg.location(105,42);
 					WS102=(Token)match(input,WS,FOLLOW_WS_in_do_1038);  
 					stream_WS.add(WS102);
 
@@ -4065,33 +3082,23 @@ public class while_astParser extends DebugParser {
 					break loop58;
 				}
 			}
-			} finally {dbg.exitSubRule(58);}
-			dbg.location(105,46);
+
 			string_literal103=(Token)match(input,58,FOLLOW_58_in_do_1041);  
 			stream_58.add(string_literal103);
-			dbg.location(105,51);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:105:51: ( WS )*
-			try { dbg.enterSubRule(59);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:105:51: ( WS )*
 			loop59:
 			while (true) {
 				int alt59=2;
-				try { dbg.enterDecision(59, decisionCanBacktrack[59]);
-
 				int LA59_0 = input.LA(1);
 				if ( (LA59_0==WS) ) {
 					alt59=1;
 				}
 
-				} finally {dbg.exitDecision(59);}
-
 				switch (alt59) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:105:51: WS
 					{
-					dbg.location(105,51);
 					WS104=(Token)match(input,WS,FOLLOW_WS_in_do_1043);  
 					stream_WS.add(WS104);
 
@@ -4102,26 +3109,17 @@ public class while_astParser extends DebugParser {
 					break loop59;
 				}
 			}
-			} finally {dbg.exitSubRule(59);}
-			dbg.location(105,55);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:105:55: ( getComment )?
 			int alt60=2;
-			try { dbg.enterSubRule(60);
-			try { dbg.enterDecision(60, decisionCanBacktrack[60]);
-
 			int LA60_0 = input.LA(1);
 			if ( (LA60_0==Comment) ) {
 				alt60=1;
 			}
-			} finally {dbg.exitDecision(60);}
-
 			switch (alt60) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:105:55: getComment
 					{
-					dbg.location(105,55);
 					pushFollow(FOLLOW_getComment_in_do_1046);
 					getComment105=getComment();
 					state._fsp--;
@@ -4131,7 +3129,6 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(60);}
 
 			// AST REWRITE
 			// elements: commands
@@ -4146,13 +3143,10 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 105:67: -> ^( DO commands )
 			{
-				dbg.location(105,70);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:105:70: ^( DO commands )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(105,72);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(DO, "DO"), root_1);
-				dbg.location(105,75);
 				adaptor.addChild(root_1, stream_commands.nextTree());
 				adaptor.addChild(root_0, root_1);
 				}
@@ -4178,15 +3172,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(105, 83);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "do_");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "do_"
@@ -4225,49 +3210,29 @@ public class while_astParser extends DebugParser {
 		RewriteRuleSubtreeStream stream_do_=new RewriteRuleSubtreeStream(adaptor,"rule do_");
 		RewriteRuleSubtreeStream stream_getComment=new RewriteRuleSubtreeStream(adaptor,"rule getComment");
 
-		try { dbg.enterRule(getGrammarFileName(), "for_");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(107, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:108:5: ( ( 'for' ( WS )* expression ( WS )* ( getComment )? ( WS )* do_ ) -> ^( FOR expression do_ END ) )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:108:7: ( 'for' ( WS )* expression ( WS )* ( getComment )? ( WS )* do_ )
 			{
-			dbg.location(108,7);
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:108:7: ( 'for' ( WS )* expression ( WS )* ( getComment )? ( WS )* do_ )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:108:8: 'for' ( WS )* expression ( WS )* ( getComment )? ( WS )* do_
 			{
-			dbg.location(108,8);
 			string_literal106=(Token)match(input,49,FOLLOW_49_in_for_1068);  
 			stream_49.add(string_literal106);
-			dbg.location(108,14);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:108:14: ( WS )*
-			try { dbg.enterSubRule(61);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:108:14: ( WS )*
 			loop61:
 			while (true) {
 				int alt61=2;
-				try { dbg.enterDecision(61, decisionCanBacktrack[61]);
-
 				int LA61_0 = input.LA(1);
 				if ( (LA61_0==WS) ) {
 					alt61=1;
 				}
 
-				} finally {dbg.exitDecision(61);}
-
 				switch (alt61) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:108:14: WS
 					{
-					dbg.location(108,14);
 					WS107=(Token)match(input,WS,FOLLOW_WS_in_for_1070);  
 					stream_WS.add(WS107);
 
@@ -4278,35 +3243,25 @@ public class while_astParser extends DebugParser {
 					break loop61;
 				}
 			}
-			} finally {dbg.exitSubRule(61);}
-			dbg.location(108,18);
+
 			pushFollow(FOLLOW_expression_in_for_1073);
 			expression108=expression();
 			state._fsp--;
 
-			stream_expression.add(expression108.getTree());dbg.location(108,29);
+			stream_expression.add(expression108.getTree());
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:108:29: ( WS )*
-			try { dbg.enterSubRule(62);
-
 			loop62:
 			while (true) {
 				int alt62=2;
-				try { dbg.enterDecision(62, decisionCanBacktrack[62]);
-
 				int LA62_0 = input.LA(1);
 				if ( (LA62_0==WS) ) {
 					alt62=1;
 				}
 
-				} finally {dbg.exitDecision(62);}
-
 				switch (alt62) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:108:29: WS
 					{
-					dbg.location(108,29);
 					WS109=(Token)match(input,WS,FOLLOW_WS_in_for_1075);  
 					stream_WS.add(WS109);
 
@@ -4317,26 +3272,17 @@ public class while_astParser extends DebugParser {
 					break loop62;
 				}
 			}
-			} finally {dbg.exitSubRule(62);}
-			dbg.location(108,33);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:108:33: ( getComment )?
 			int alt63=2;
-			try { dbg.enterSubRule(63);
-			try { dbg.enterDecision(63, decisionCanBacktrack[63]);
-
 			int LA63_0 = input.LA(1);
 			if ( (LA63_0==Comment) ) {
 				alt63=1;
 			}
-			} finally {dbg.exitDecision(63);}
-
 			switch (alt63) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:108:33: getComment
 					{
-					dbg.location(108,33);
 					pushFollow(FOLLOW_getComment_in_for_1078);
 					getComment110=getComment();
 					state._fsp--;
@@ -4346,30 +3292,20 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(63);}
-			dbg.location(108,45);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:108:45: ( WS )*
-			try { dbg.enterSubRule(64);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:108:45: ( WS )*
 			loop64:
 			while (true) {
 				int alt64=2;
-				try { dbg.enterDecision(64, decisionCanBacktrack[64]);
-
 				int LA64_0 = input.LA(1);
 				if ( (LA64_0==WS) ) {
 					alt64=1;
 				}
 
-				} finally {dbg.exitDecision(64);}
-
 				switch (alt64) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:108:45: WS
 					{
-					dbg.location(108,45);
 					WS111=(Token)match(input,WS,FOLLOW_WS_in_for_1081);  
 					stream_WS.add(WS111);
 
@@ -4380,8 +3316,7 @@ public class while_astParser extends DebugParser {
 					break loop64;
 				}
 			}
-			} finally {dbg.exitSubRule(64);}
-			dbg.location(108,49);
+
 			pushFollow(FOLLOW_do__in_for_1084);
 			do_112=do_();
 			state._fsp--;
@@ -4390,7 +3325,7 @@ public class while_astParser extends DebugParser {
 			}
 
 			// AST REWRITE
-			// elements: do_, expression
+			// elements: expression, do_
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -4402,15 +3337,12 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 108:54: -> ^( FOR expression do_ END )
 			{
-				dbg.location(108,57);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:108:57: ^( FOR expression do_ END )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(108,59);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(FOR, "FOR"), root_1);
-				dbg.location(108,63);
-				adaptor.addChild(root_1, stream_expression.nextTree());dbg.location(108,74);
-				adaptor.addChild(root_1, stream_do_.nextTree());dbg.location(108,78);
+				adaptor.addChild(root_1, stream_expression.nextTree());
+				adaptor.addChild(root_1, stream_do_.nextTree());
 				adaptor.addChild(root_1, (Object)adaptor.create(END, "END"));
 				adaptor.addChild(root_0, root_1);
 				}
@@ -4436,15 +3368,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(109, 4);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "for_");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "for_"
@@ -4493,49 +3416,29 @@ public class while_astParser extends DebugParser {
 		RewriteRuleSubtreeStream stream_do_=new RewriteRuleSubtreeStream(adaptor,"rule do_");
 		RewriteRuleSubtreeStream stream_getComment=new RewriteRuleSubtreeStream(adaptor,"rule getComment");
 
-		try { dbg.enterRule(getGrammarFileName(), "foreach_");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(111, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:112:5: ( ( 'foreach' ( WS )* Variable ( WS )* 'in' ( WS )* expression ( WS )* ( getComment )? ( WS )* do_ ) -> ^( FOREACH ^( IN Variable expression ) do_ END ) )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:112:7: ( 'foreach' ( WS )* Variable ( WS )* 'in' ( WS )* expression ( WS )* ( getComment )? ( WS )* do_ )
 			{
-			dbg.location(112,7);
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:112:7: ( 'foreach' ( WS )* Variable ( WS )* 'in' ( WS )* expression ( WS )* ( getComment )? ( WS )* do_ )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:112:8: 'foreach' ( WS )* Variable ( WS )* 'in' ( WS )* expression ( WS )* ( getComment )? ( WS )* do_
 			{
-			dbg.location(112,8);
 			string_literal113=(Token)match(input,50,FOLLOW_50_in_foreach_1115);  
 			stream_50.add(string_literal113);
-			dbg.location(112,18);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:112:18: ( WS )*
-			try { dbg.enterSubRule(65);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:112:18: ( WS )*
 			loop65:
 			while (true) {
 				int alt65=2;
-				try { dbg.enterDecision(65, decisionCanBacktrack[65]);
-
 				int LA65_0 = input.LA(1);
 				if ( (LA65_0==WS) ) {
 					alt65=1;
 				}
 
-				} finally {dbg.exitDecision(65);}
-
 				switch (alt65) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:112:18: WS
 					{
-					dbg.location(112,18);
 					WS114=(Token)match(input,WS,FOLLOW_WS_in_foreach_1117);  
 					stream_WS.add(WS114);
 
@@ -4546,33 +3449,23 @@ public class while_astParser extends DebugParser {
 					break loop65;
 				}
 			}
-			} finally {dbg.exitSubRule(65);}
-			dbg.location(112,22);
+
 			Variable115=(Token)match(input,Variable,FOLLOW_Variable_in_foreach_1120);  
 			stream_Variable.add(Variable115);
-			dbg.location(112,31);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:112:31: ( WS )*
-			try { dbg.enterSubRule(66);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:112:31: ( WS )*
 			loop66:
 			while (true) {
 				int alt66=2;
-				try { dbg.enterDecision(66, decisionCanBacktrack[66]);
-
 				int LA66_0 = input.LA(1);
 				if ( (LA66_0==WS) ) {
 					alt66=1;
 				}
 
-				} finally {dbg.exitDecision(66);}
-
 				switch (alt66) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:112:31: WS
 					{
-					dbg.location(112,31);
 					WS116=(Token)match(input,WS,FOLLOW_WS_in_foreach_1122);  
 					stream_WS.add(WS116);
 
@@ -4583,33 +3476,23 @@ public class while_astParser extends DebugParser {
 					break loop66;
 				}
 			}
-			} finally {dbg.exitSubRule(66);}
-			dbg.location(112,35);
+
 			string_literal117=(Token)match(input,54,FOLLOW_54_in_foreach_1125);  
 			stream_54.add(string_literal117);
-			dbg.location(112,40);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:112:40: ( WS )*
-			try { dbg.enterSubRule(67);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:112:40: ( WS )*
 			loop67:
 			while (true) {
 				int alt67=2;
-				try { dbg.enterDecision(67, decisionCanBacktrack[67]);
-
 				int LA67_0 = input.LA(1);
 				if ( (LA67_0==WS) ) {
 					alt67=1;
 				}
 
-				} finally {dbg.exitDecision(67);}
-
 				switch (alt67) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:112:40: WS
 					{
-					dbg.location(112,40);
 					WS118=(Token)match(input,WS,FOLLOW_WS_in_foreach_1127);  
 					stream_WS.add(WS118);
 
@@ -4620,35 +3503,25 @@ public class while_astParser extends DebugParser {
 					break loop67;
 				}
 			}
-			} finally {dbg.exitSubRule(67);}
-			dbg.location(112,44);
+
 			pushFollow(FOLLOW_expression_in_foreach_1130);
 			expression119=expression();
 			state._fsp--;
 
-			stream_expression.add(expression119.getTree());dbg.location(112,55);
+			stream_expression.add(expression119.getTree());
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:112:55: ( WS )*
-			try { dbg.enterSubRule(68);
-
 			loop68:
 			while (true) {
 				int alt68=2;
-				try { dbg.enterDecision(68, decisionCanBacktrack[68]);
-
 				int LA68_0 = input.LA(1);
 				if ( (LA68_0==WS) ) {
 					alt68=1;
 				}
 
-				} finally {dbg.exitDecision(68);}
-
 				switch (alt68) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:112:55: WS
 					{
-					dbg.location(112,55);
 					WS120=(Token)match(input,WS,FOLLOW_WS_in_foreach_1132);  
 					stream_WS.add(WS120);
 
@@ -4659,26 +3532,17 @@ public class while_astParser extends DebugParser {
 					break loop68;
 				}
 			}
-			} finally {dbg.exitSubRule(68);}
-			dbg.location(112,59);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:112:59: ( getComment )?
 			int alt69=2;
-			try { dbg.enterSubRule(69);
-			try { dbg.enterDecision(69, decisionCanBacktrack[69]);
-
 			int LA69_0 = input.LA(1);
 			if ( (LA69_0==Comment) ) {
 				alt69=1;
 			}
-			} finally {dbg.exitDecision(69);}
-
 			switch (alt69) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:112:59: getComment
 					{
-					dbg.location(112,59);
 					pushFollow(FOLLOW_getComment_in_foreach_1135);
 					getComment121=getComment();
 					state._fsp--;
@@ -4688,30 +3552,20 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(69);}
-			dbg.location(112,71);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:112:71: ( WS )*
-			try { dbg.enterSubRule(70);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:112:71: ( WS )*
 			loop70:
 			while (true) {
 				int alt70=2;
-				try { dbg.enterDecision(70, decisionCanBacktrack[70]);
-
 				int LA70_0 = input.LA(1);
 				if ( (LA70_0==WS) ) {
 					alt70=1;
 				}
 
-				} finally {dbg.exitDecision(70);}
-
 				switch (alt70) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:112:71: WS
 					{
-					dbg.location(112,71);
 					WS122=(Token)match(input,WS,FOLLOW_WS_in_foreach_1138);  
 					stream_WS.add(WS122);
 
@@ -4722,8 +3576,7 @@ public class while_astParser extends DebugParser {
 					break loop70;
 				}
 			}
-			} finally {dbg.exitSubRule(70);}
-			dbg.location(112,75);
+
 			pushFollow(FOLLOW_do__in_foreach_1141);
 			do_123=do_();
 			state._fsp--;
@@ -4732,7 +3585,7 @@ public class while_astParser extends DebugParser {
 			}
 
 			// AST REWRITE
-			// elements: Variable, do_, expression
+			// elements: Variable, expression, do_
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -4744,25 +3597,20 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 112:80: -> ^( FOREACH ^( IN Variable expression ) do_ END )
 			{
-				dbg.location(112,83);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:112:83: ^( FOREACH ^( IN Variable expression ) do_ END )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(112,85);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(FOREACH, "FOREACH"), root_1);
-				dbg.location(112,93);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:112:93: ^( IN Variable expression )
 				{
 				Object root_2 = (Object)adaptor.nil();
-				dbg.location(112,95);
 				root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(IN, "IN"), root_2);
-				dbg.location(112,98);
-				adaptor.addChild(root_2, stream_Variable.nextNode());dbg.location(112,107);
+				adaptor.addChild(root_2, stream_Variable.nextNode());
 				adaptor.addChild(root_2, stream_expression.nextTree());
 				adaptor.addChild(root_1, root_2);
 				}
-				dbg.location(112,119);
-				adaptor.addChild(root_1, stream_do_.nextTree());dbg.location(112,123);
+
+				adaptor.addChild(root_1, stream_do_.nextTree());
 				adaptor.addChild(root_1, (Object)adaptor.create(END, "END"));
 				adaptor.addChild(root_0, root_1);
 				}
@@ -4788,15 +3636,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(113, 4);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "foreach_");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "foreach_"
@@ -4832,43 +3671,26 @@ public class while_astParser extends DebugParser {
 		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
 		RewriteRuleSubtreeStream stream_vars=new RewriteRuleSubtreeStream(adaptor,"rule vars");
 
-		try { dbg.enterRule(getGrammarFileName(), "vars");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(115, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:116:5: ( Variable ( WS )* ( ',' ( WS )* vars )? -> Variable ( vars )* )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:116:7: Variable ( WS )* ( ',' ( WS )* vars )?
 			{
-			dbg.location(116,7);
 			Variable124=(Token)match(input,Variable,FOLLOW_Variable_in_vars1177);  
 			stream_Variable.add(Variable124);
-			dbg.location(116,16);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:116:16: ( WS )*
-			try { dbg.enterSubRule(71);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:116:16: ( WS )*
 			loop71:
 			while (true) {
 				int alt71=2;
-				try { dbg.enterDecision(71, decisionCanBacktrack[71]);
-
 				int LA71_0 = input.LA(1);
 				if ( (LA71_0==WS) ) {
 					alt71=1;
 				}
 
-				} finally {dbg.exitDecision(71);}
-
 				switch (alt71) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:116:16: WS
 					{
-					dbg.location(116,16);
 					WS125=(Token)match(input,WS,FOLLOW_WS_in_vars1179);  
 					stream_WS.add(WS125);
 
@@ -4879,51 +3701,33 @@ public class while_astParser extends DebugParser {
 					break loop71;
 				}
 			}
-			} finally {dbg.exitSubRule(71);}
-			dbg.location(116,20);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:116:20: ( ',' ( WS )* vars )?
 			int alt73=2;
-			try { dbg.enterSubRule(73);
-			try { dbg.enterDecision(73, decisionCanBacktrack[73]);
-
 			int LA73_0 = input.LA(1);
 			if ( (LA73_0==40) ) {
 				alt73=1;
 			}
-			} finally {dbg.exitDecision(73);}
-
 			switch (alt73) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:116:21: ',' ( WS )* vars
 					{
-					dbg.location(116,21);
 					char_literal126=(Token)match(input,40,FOLLOW_40_in_vars1183);  
 					stream_40.add(char_literal126);
-					dbg.location(116,24);
-					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:116:24: ( WS )*
-					try { dbg.enterSubRule(72);
 
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:116:24: ( WS )*
 					loop72:
 					while (true) {
 						int alt72=2;
-						try { dbg.enterDecision(72, decisionCanBacktrack[72]);
-
 						int LA72_0 = input.LA(1);
 						if ( (LA72_0==WS) ) {
 							alt72=1;
 						}
 
-						} finally {dbg.exitDecision(72);}
-
 						switch (alt72) {
 						case 1 :
-							dbg.enterAlt(1);
-
 							// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:116:24: WS
 							{
-							dbg.location(116,24);
 							WS127=(Token)match(input,WS,FOLLOW_WS_in_vars1184);  
 							stream_WS.add(WS127);
 
@@ -4934,8 +3738,7 @@ public class while_astParser extends DebugParser {
 							break loop72;
 						}
 					}
-					} finally {dbg.exitSubRule(72);}
-					dbg.location(116,28);
+
 					pushFollow(FOLLOW_vars_in_vars1187);
 					vars128=vars();
 					state._fsp--;
@@ -4945,7 +3748,6 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(73);}
 
 			// AST REWRITE
 			// elements: Variable, vars
@@ -4960,11 +3762,9 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 116:35: -> Variable ( vars )*
 			{
-				dbg.location(116,38);
-				adaptor.addChild(root_0, stream_Variable.nextNode());dbg.location(116,47);
+				adaptor.addChild(root_0, stream_Variable.nextNode());
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:116:47: ( vars )*
 				while ( stream_vars.hasNext() ) {
-					dbg.location(116,47);
 					adaptor.addChild(root_0, stream_vars.nextTree());
 				}
 				stream_vars.reset();
@@ -4990,15 +3790,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(117, 4);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "vars");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "vars"
@@ -5033,45 +3824,28 @@ public class while_astParser extends DebugParser {
 		RewriteRuleSubtreeStream stream_expression=new RewriteRuleSubtreeStream(adaptor,"rule expression");
 		RewriteRuleSubtreeStream stream_exprs=new RewriteRuleSubtreeStream(adaptor,"rule exprs");
 
-		try { dbg.enterRule(getGrammarFileName(), "exprs");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(119, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:120:5: ( expression ( WS )* ( ',' ( WS )* exprs )? -> expression ( exprs )* )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:120:7: expression ( WS )* ( ',' ( WS )* exprs )?
 			{
-			dbg.location(120,7);
 			pushFollow(FOLLOW_expression_in_exprs1213);
 			expression129=expression();
 			state._fsp--;
 
-			stream_expression.add(expression129.getTree());dbg.location(120,18);
+			stream_expression.add(expression129.getTree());
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:120:18: ( WS )*
-			try { dbg.enterSubRule(74);
-
 			loop74:
 			while (true) {
 				int alt74=2;
-				try { dbg.enterDecision(74, decisionCanBacktrack[74]);
-
 				int LA74_0 = input.LA(1);
 				if ( (LA74_0==WS) ) {
 					alt74=1;
 				}
 
-				} finally {dbg.exitDecision(74);}
-
 				switch (alt74) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:120:18: WS
 					{
-					dbg.location(120,18);
 					WS130=(Token)match(input,WS,FOLLOW_WS_in_exprs1215);  
 					stream_WS.add(WS130);
 
@@ -5082,51 +3856,33 @@ public class while_astParser extends DebugParser {
 					break loop74;
 				}
 			}
-			} finally {dbg.exitSubRule(74);}
-			dbg.location(120,22);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:120:22: ( ',' ( WS )* exprs )?
 			int alt76=2;
-			try { dbg.enterSubRule(76);
-			try { dbg.enterDecision(76, decisionCanBacktrack[76]);
-
 			int LA76_0 = input.LA(1);
 			if ( (LA76_0==40) ) {
 				alt76=1;
 			}
-			} finally {dbg.exitDecision(76);}
-
 			switch (alt76) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:120:23: ',' ( WS )* exprs
 					{
-					dbg.location(120,23);
 					char_literal131=(Token)match(input,40,FOLLOW_40_in_exprs1219);  
 					stream_40.add(char_literal131);
-					dbg.location(120,26);
-					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:120:26: ( WS )*
-					try { dbg.enterSubRule(75);
 
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:120:26: ( WS )*
 					loop75:
 					while (true) {
 						int alt75=2;
-						try { dbg.enterDecision(75, decisionCanBacktrack[75]);
-
 						int LA75_0 = input.LA(1);
 						if ( (LA75_0==WS) ) {
 							alt75=1;
 						}
 
-						} finally {dbg.exitDecision(75);}
-
 						switch (alt75) {
 						case 1 :
-							dbg.enterAlt(1);
-
 							// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:120:26: WS
 							{
-							dbg.location(120,26);
 							WS132=(Token)match(input,WS,FOLLOW_WS_in_exprs1220);  
 							stream_WS.add(WS132);
 
@@ -5137,8 +3893,7 @@ public class while_astParser extends DebugParser {
 							break loop75;
 						}
 					}
-					} finally {dbg.exitSubRule(75);}
-					dbg.location(120,30);
+
 					pushFollow(FOLLOW_exprs_in_exprs1223);
 					exprs133=exprs();
 					state._fsp--;
@@ -5148,7 +3903,6 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(76);}
 
 			// AST REWRITE
 			// elements: exprs, expression
@@ -5163,11 +3917,9 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 120:38: -> expression ( exprs )*
 			{
-				dbg.location(120,41);
-				adaptor.addChild(root_0, stream_expression.nextTree());dbg.location(120,52);
+				adaptor.addChild(root_0, stream_expression.nextTree());
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:120:52: ( exprs )*
 				while ( stream_exprs.hasNext() ) {
-					dbg.location(120,52);
 					adaptor.addChild(root_0, stream_exprs.nextTree());
 				}
 				stream_exprs.reset();
@@ -5193,15 +3945,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(121, 4);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "exprs");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "exprs"
@@ -5232,36 +3975,17 @@ public class while_astParser extends DebugParser {
 		ParserRuleReturnScope symbolExpr141 =null;
 
 
-		try { dbg.enterRule(getGrammarFileName(), "exprBase");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(123, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:123:12: ( nil_ | variable | symbol | cons | list | hd | tl | symbolExpr )
 			int alt77=8;
-			try { dbg.enterDecision(77, decisionCanBacktrack[77]);
-
-			try {
-				isCyclicDecision = true;
-				alt77 = dfa77.predict(input);
-			}
-			catch (NoViableAltException nvae) {
-				dbg.recognitionException(nvae);
-				throw nvae;
-			}
-			} finally {dbg.exitDecision(77);}
-
+			alt77 = dfa77.predict(input);
 			switch (alt77) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:123:15: nil_
 					{
 					root_0 = (Object)adaptor.nil();
 
 
-					dbg.location(123,15);
 					pushFollow(FOLLOW_nil__in_exprBase1248);
 					nil_134=nil_();
 					state._fsp--;
@@ -5271,14 +3995,11 @@ public class while_astParser extends DebugParser {
 					}
 					break;
 				case 2 :
-					dbg.enterAlt(2);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:124:7: variable
 					{
 					root_0 = (Object)adaptor.nil();
 
 
-					dbg.location(124,7);
 					pushFollow(FOLLOW_variable_in_exprBase1256);
 					variable135=variable();
 					state._fsp--;
@@ -5288,14 +4009,11 @@ public class while_astParser extends DebugParser {
 					}
 					break;
 				case 3 :
-					dbg.enterAlt(3);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:124:18: symbol
 					{
 					root_0 = (Object)adaptor.nil();
 
 
-					dbg.location(124,18);
 					pushFollow(FOLLOW_symbol_in_exprBase1260);
 					symbol136=symbol();
 					state._fsp--;
@@ -5305,14 +4023,11 @@ public class while_astParser extends DebugParser {
 					}
 					break;
 				case 4 :
-					dbg.enterAlt(4);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:125:7: cons
 					{
 					root_0 = (Object)adaptor.nil();
 
 
-					dbg.location(125,7);
 					pushFollow(FOLLOW_cons_in_exprBase1268);
 					cons137=cons();
 					state._fsp--;
@@ -5322,14 +4037,11 @@ public class while_astParser extends DebugParser {
 					}
 					break;
 				case 5 :
-					dbg.enterAlt(5);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:125:14: list
 					{
 					root_0 = (Object)adaptor.nil();
 
 
-					dbg.location(125,14);
 					pushFollow(FOLLOW_list_in_exprBase1272);
 					list138=list();
 					state._fsp--;
@@ -5339,14 +4051,11 @@ public class while_astParser extends DebugParser {
 					}
 					break;
 				case 6 :
-					dbg.enterAlt(6);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:126:7: hd
 					{
 					root_0 = (Object)adaptor.nil();
 
 
-					dbg.location(126,7);
 					pushFollow(FOLLOW_hd_in_exprBase1280);
 					hd139=hd();
 					state._fsp--;
@@ -5356,14 +4065,11 @@ public class while_astParser extends DebugParser {
 					}
 					break;
 				case 7 :
-					dbg.enterAlt(7);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:126:12: tl
 					{
 					root_0 = (Object)adaptor.nil();
 
 
-					dbg.location(126,12);
 					pushFollow(FOLLOW_tl_in_exprBase1284);
 					tl140=tl();
 					state._fsp--;
@@ -5373,14 +4079,11 @@ public class while_astParser extends DebugParser {
 					}
 					break;
 				case 8 :
-					dbg.enterAlt(8);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:127:7: symbolExpr
 					{
 					root_0 = (Object)adaptor.nil();
 
 
-					dbg.location(127,7);
 					pushFollow(FOLLOW_symbolExpr_in_exprBase1292);
 					symbolExpr141=symbolExpr();
 					state._fsp--;
@@ -5405,15 +4108,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(128, 4);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "exprBase");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "exprBase"
@@ -5439,24 +4133,13 @@ public class while_astParser extends DebugParser {
 		Object string_literal142_tree=null;
 		RewriteRuleTokenStream stream_56=new RewriteRuleTokenStream(adaptor,"token 56");
 
-		try { dbg.enterRule(getGrammarFileName(), "nil_");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(130, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:130:6: ( ( 'nil' ) -> 'nil' )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:130:8: ( 'nil' )
 			{
-			dbg.location(130,8);
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:130:8: ( 'nil' )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:130:9: 'nil'
 			{
-			dbg.location(130,9);
 			string_literal142=(Token)match(input,56,FOLLOW_56_in_nil_1310);  
 			stream_56.add(string_literal142);
 
@@ -5475,7 +4158,6 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 130:16: -> 'nil'
 			{
-				dbg.location(130,19);
 				adaptor.addChild(root_0, stream_56.nextNode());
 			}
 
@@ -5498,15 +4180,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(130, 23);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "nil_");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "nil_"
@@ -5547,43 +4220,26 @@ public class while_astParser extends DebugParser {
 		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
 		RewriteRuleSubtreeStream stream_lExpr=new RewriteRuleSubtreeStream(adaptor,"rule lExpr");
 
-		try { dbg.enterRule(getGrammarFileName(), "cons");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(132, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:132:6: ( '(' ( WS )* 'cons' ( WS )* ( lExpr )? ( WS )* ')' -> ^( CONS ( lExpr )? ) )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:132:8: '(' ( WS )* 'cons' ( WS )* ( lExpr )? ( WS )* ')'
 			{
-			dbg.location(132,8);
 			char_literal143=(Token)match(input,38,FOLLOW_38_in_cons1324);  
 			stream_38.add(char_literal143);
-			dbg.location(132,12);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:132:12: ( WS )*
-			try { dbg.enterSubRule(78);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:132:12: ( WS )*
 			loop78:
 			while (true) {
 				int alt78=2;
-				try { dbg.enterDecision(78, decisionCanBacktrack[78]);
-
 				int LA78_0 = input.LA(1);
 				if ( (LA78_0==WS) ) {
 					alt78=1;
 				}
 
-				} finally {dbg.exitDecision(78);}
-
 				switch (alt78) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:132:12: WS
 					{
-					dbg.location(132,12);
 					WS144=(Token)match(input,WS,FOLLOW_WS_in_cons1326);  
 					stream_WS.add(WS144);
 
@@ -5594,33 +4250,23 @@ public class while_astParser extends DebugParser {
 					break loop78;
 				}
 			}
-			} finally {dbg.exitSubRule(78);}
-			dbg.location(132,16);
+
 			string_literal145=(Token)match(input,45,FOLLOW_45_in_cons1329);  
 			stream_45.add(string_literal145);
-			dbg.location(132,23);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:132:23: ( WS )*
-			try { dbg.enterSubRule(79);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:132:23: ( WS )*
 			loop79:
 			while (true) {
 				int alt79=2;
-				try { dbg.enterDecision(79, decisionCanBacktrack[79]);
-
 				int LA79_0 = input.LA(1);
 				if ( (LA79_0==WS) ) {
 					alt79=1;
 				}
 
-				} finally {dbg.exitDecision(79);}
-
 				switch (alt79) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:132:23: WS
 					{
-					dbg.location(132,23);
 					WS146=(Token)match(input,WS,FOLLOW_WS_in_cons1331);  
 					stream_WS.add(WS146);
 
@@ -5631,26 +4277,17 @@ public class while_astParser extends DebugParser {
 					break loop79;
 				}
 			}
-			} finally {dbg.exitSubRule(79);}
-			dbg.location(132,27);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:132:27: ( lExpr )?
 			int alt80=2;
-			try { dbg.enterSubRule(80);
-			try { dbg.enterDecision(80, decisionCanBacktrack[80]);
-
 			int LA80_0 = input.LA(1);
 			if ( (LA80_0==Symbol||LA80_0==Variable||LA80_0==38||LA80_0==56) ) {
 				alt80=1;
 			}
-			} finally {dbg.exitDecision(80);}
-
 			switch (alt80) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:132:27: lExpr
 					{
-					dbg.location(132,27);
 					pushFollow(FOLLOW_lExpr_in_cons1334);
 					lExpr147=lExpr();
 					state._fsp--;
@@ -5660,30 +4297,20 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(80);}
-			dbg.location(132,34);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:132:34: ( WS )*
-			try { dbg.enterSubRule(81);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:132:34: ( WS )*
 			loop81:
 			while (true) {
 				int alt81=2;
-				try { dbg.enterDecision(81, decisionCanBacktrack[81]);
-
 				int LA81_0 = input.LA(1);
 				if ( (LA81_0==WS) ) {
 					alt81=1;
 				}
 
-				} finally {dbg.exitDecision(81);}
-
 				switch (alt81) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:132:34: WS
 					{
-					dbg.location(132,34);
 					WS148=(Token)match(input,WS,FOLLOW_WS_in_cons1337);  
 					stream_WS.add(WS148);
 
@@ -5694,8 +4321,7 @@ public class while_astParser extends DebugParser {
 					break loop81;
 				}
 			}
-			} finally {dbg.exitSubRule(81);}
-			dbg.location(132,38);
+
 			char_literal149=(Token)match(input,39,FOLLOW_39_in_cons1340);  
 			stream_39.add(char_literal149);
 
@@ -5712,16 +4338,12 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 132:42: -> ^( CONS ( lExpr )? )
 			{
-				dbg.location(132,45);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:132:45: ^( CONS ( lExpr )? )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(132,47);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(CONS, "CONS"), root_1);
-				dbg.location(132,52);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:132:52: ( lExpr )?
 				if ( stream_lExpr.hasNext() ) {
-					dbg.location(132,52);
 					adaptor.addChild(root_1, stream_lExpr.nextTree());
 				}
 				stream_lExpr.reset();
@@ -5750,15 +4372,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(132, 58);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "cons");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "cons"
@@ -5799,43 +4412,26 @@ public class while_astParser extends DebugParser {
 		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
 		RewriteRuleSubtreeStream stream_lExpr=new RewriteRuleSubtreeStream(adaptor,"rule lExpr");
 
-		try { dbg.enterRule(getGrammarFileName(), "list");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(133, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:133:6: ( '(' ( WS )* 'list' ( WS )* ( lExpr )? ( WS )* ')' -> ^( LIST lExpr ) )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:133:8: '(' ( WS )* 'list' ( WS )* ( lExpr )? ( WS )* ')'
 			{
-			dbg.location(133,8);
 			char_literal150=(Token)match(input,38,FOLLOW_38_in_list1357);  
 			stream_38.add(char_literal150);
-			dbg.location(133,11);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:133:11: ( WS )*
-			try { dbg.enterSubRule(82);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:133:11: ( WS )*
 			loop82:
 			while (true) {
 				int alt82=2;
-				try { dbg.enterDecision(82, decisionCanBacktrack[82]);
-
 				int LA82_0 = input.LA(1);
 				if ( (LA82_0==WS) ) {
 					alt82=1;
 				}
 
-				} finally {dbg.exitDecision(82);}
-
 				switch (alt82) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:133:11: WS
 					{
-					dbg.location(133,11);
 					WS151=(Token)match(input,WS,FOLLOW_WS_in_list1358);  
 					stream_WS.add(WS151);
 
@@ -5846,33 +4442,23 @@ public class while_astParser extends DebugParser {
 					break loop82;
 				}
 			}
-			} finally {dbg.exitSubRule(82);}
-			dbg.location(133,15);
+
 			string_literal152=(Token)match(input,55,FOLLOW_55_in_list1361);  
 			stream_55.add(string_literal152);
-			dbg.location(133,22);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:133:22: ( WS )*
-			try { dbg.enterSubRule(83);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:133:22: ( WS )*
 			loop83:
 			while (true) {
 				int alt83=2;
-				try { dbg.enterDecision(83, decisionCanBacktrack[83]);
-
 				int LA83_0 = input.LA(1);
 				if ( (LA83_0==WS) ) {
 					alt83=1;
 				}
 
-				} finally {dbg.exitDecision(83);}
-
 				switch (alt83) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:133:22: WS
 					{
-					dbg.location(133,22);
 					WS153=(Token)match(input,WS,FOLLOW_WS_in_list1363);  
 					stream_WS.add(WS153);
 
@@ -5883,26 +4469,17 @@ public class while_astParser extends DebugParser {
 					break loop83;
 				}
 			}
-			} finally {dbg.exitSubRule(83);}
-			dbg.location(133,26);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:133:26: ( lExpr )?
 			int alt84=2;
-			try { dbg.enterSubRule(84);
-			try { dbg.enterDecision(84, decisionCanBacktrack[84]);
-
 			int LA84_0 = input.LA(1);
 			if ( (LA84_0==Symbol||LA84_0==Variable||LA84_0==38||LA84_0==56) ) {
 				alt84=1;
 			}
-			} finally {dbg.exitDecision(84);}
-
 			switch (alt84) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:133:26: lExpr
 					{
-					dbg.location(133,26);
 					pushFollow(FOLLOW_lExpr_in_list1366);
 					lExpr154=lExpr();
 					state._fsp--;
@@ -5912,30 +4489,20 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(84);}
-			dbg.location(133,33);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:133:33: ( WS )*
-			try { dbg.enterSubRule(85);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:133:33: ( WS )*
 			loop85:
 			while (true) {
 				int alt85=2;
-				try { dbg.enterDecision(85, decisionCanBacktrack[85]);
-
 				int LA85_0 = input.LA(1);
 				if ( (LA85_0==WS) ) {
 					alt85=1;
 				}
 
-				} finally {dbg.exitDecision(85);}
-
 				switch (alt85) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:133:33: WS
 					{
-					dbg.location(133,33);
 					WS155=(Token)match(input,WS,FOLLOW_WS_in_list1369);  
 					stream_WS.add(WS155);
 
@@ -5946,8 +4513,7 @@ public class while_astParser extends DebugParser {
 					break loop85;
 				}
 			}
-			} finally {dbg.exitSubRule(85);}
-			dbg.location(133,37);
+
 			char_literal156=(Token)match(input,39,FOLLOW_39_in_list1372);  
 			stream_39.add(char_literal156);
 
@@ -5964,13 +4530,10 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 133:41: -> ^( LIST lExpr )
 			{
-				dbg.location(133,44);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:133:44: ^( LIST lExpr )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(133,46);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(LIST, "LIST"), root_1);
-				dbg.location(133,51);
 				adaptor.addChild(root_1, stream_lExpr.nextTree());
 				adaptor.addChild(root_0, root_1);
 				}
@@ -5996,15 +4559,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(133, 56);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "list");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "list"
@@ -6045,43 +4599,26 @@ public class while_astParser extends DebugParser {
 		RewriteRuleTokenStream stream_52=new RewriteRuleTokenStream(adaptor,"token 52");
 		RewriteRuleSubtreeStream stream_exprBase=new RewriteRuleSubtreeStream(adaptor,"rule exprBase");
 
-		try { dbg.enterRule(getGrammarFileName(), "hd");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(135, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:135:4: ( '(' ( WS )* 'hd' ( WS )* exprBase ( WS )* ')' -> ^( HD exprBase ) )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:135:6: '(' ( WS )* 'hd' ( WS )* exprBase ( WS )* ')'
 			{
-			dbg.location(135,6);
 			char_literal157=(Token)match(input,38,FOLLOW_38_in_hd1388);  
 			stream_38.add(char_literal157);
-			dbg.location(135,9);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:135:9: ( WS )*
-			try { dbg.enterSubRule(86);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:135:9: ( WS )*
 			loop86:
 			while (true) {
 				int alt86=2;
-				try { dbg.enterDecision(86, decisionCanBacktrack[86]);
-
 				int LA86_0 = input.LA(1);
 				if ( (LA86_0==WS) ) {
 					alt86=1;
 				}
 
-				} finally {dbg.exitDecision(86);}
-
 				switch (alt86) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:135:9: WS
 					{
-					dbg.location(135,9);
 					WS158=(Token)match(input,WS,FOLLOW_WS_in_hd1389);  
 					stream_WS.add(WS158);
 
@@ -6092,33 +4629,23 @@ public class while_astParser extends DebugParser {
 					break loop86;
 				}
 			}
-			} finally {dbg.exitSubRule(86);}
-			dbg.location(135,13);
+
 			string_literal159=(Token)match(input,52,FOLLOW_52_in_hd1392);  
 			stream_52.add(string_literal159);
-			dbg.location(135,18);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:135:18: ( WS )*
-			try { dbg.enterSubRule(87);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:135:18: ( WS )*
 			loop87:
 			while (true) {
 				int alt87=2;
-				try { dbg.enterDecision(87, decisionCanBacktrack[87]);
-
 				int LA87_0 = input.LA(1);
 				if ( (LA87_0==WS) ) {
 					alt87=1;
 				}
 
-				} finally {dbg.exitDecision(87);}
-
 				switch (alt87) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:135:18: WS
 					{
-					dbg.location(135,18);
 					WS160=(Token)match(input,WS,FOLLOW_WS_in_hd1394);  
 					stream_WS.add(WS160);
 
@@ -6129,35 +4656,25 @@ public class while_astParser extends DebugParser {
 					break loop87;
 				}
 			}
-			} finally {dbg.exitSubRule(87);}
-			dbg.location(135,22);
+
 			pushFollow(FOLLOW_exprBase_in_hd1397);
 			exprBase161=exprBase();
 			state._fsp--;
 
-			stream_exprBase.add(exprBase161.getTree());dbg.location(135,31);
+			stream_exprBase.add(exprBase161.getTree());
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:135:31: ( WS )*
-			try { dbg.enterSubRule(88);
-
 			loop88:
 			while (true) {
 				int alt88=2;
-				try { dbg.enterDecision(88, decisionCanBacktrack[88]);
-
 				int LA88_0 = input.LA(1);
 				if ( (LA88_0==WS) ) {
 					alt88=1;
 				}
 
-				} finally {dbg.exitDecision(88);}
-
 				switch (alt88) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:135:31: WS
 					{
-					dbg.location(135,31);
 					WS162=(Token)match(input,WS,FOLLOW_WS_in_hd1399);  
 					stream_WS.add(WS162);
 
@@ -6168,8 +4685,7 @@ public class while_astParser extends DebugParser {
 					break loop88;
 				}
 			}
-			} finally {dbg.exitSubRule(88);}
-			dbg.location(135,34);
+
 			char_literal163=(Token)match(input,39,FOLLOW_39_in_hd1401);  
 			stream_39.add(char_literal163);
 
@@ -6186,13 +4702,10 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 135:38: -> ^( HD exprBase )
 			{
-				dbg.location(135,41);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:135:41: ^( HD exprBase )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(135,43);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(HD, "HD"), root_1);
-				dbg.location(135,46);
 				adaptor.addChild(root_1, stream_exprBase.nextTree());
 				adaptor.addChild(root_0, root_1);
 				}
@@ -6218,15 +4731,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(135, 54);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "hd");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "hd"
@@ -6267,43 +4771,26 @@ public class while_astParser extends DebugParser {
 		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
 		RewriteRuleSubtreeStream stream_exprBase=new RewriteRuleSubtreeStream(adaptor,"rule exprBase");
 
-		try { dbg.enterRule(getGrammarFileName(), "tl");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(137, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:137:4: ( '(' ( WS )* 'tl' ( WS )* exprBase ( WS )* ')' -> ^( TL exprBase ) )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:137:6: '(' ( WS )* 'tl' ( WS )* exprBase ( WS )* ')'
 			{
-			dbg.location(137,6);
 			char_literal164=(Token)match(input,38,FOLLOW_38_in_tl1417);  
 			stream_38.add(char_literal164);
-			dbg.location(137,10);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:137:10: ( WS )*
-			try { dbg.enterSubRule(89);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:137:10: ( WS )*
 			loop89:
 			while (true) {
 				int alt89=2;
-				try { dbg.enterDecision(89, decisionCanBacktrack[89]);
-
 				int LA89_0 = input.LA(1);
 				if ( (LA89_0==WS) ) {
 					alt89=1;
 				}
 
-				} finally {dbg.exitDecision(89);}
-
 				switch (alt89) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:137:10: WS
 					{
-					dbg.location(137,10);
 					WS165=(Token)match(input,WS,FOLLOW_WS_in_tl1419);  
 					stream_WS.add(WS165);
 
@@ -6314,33 +4801,23 @@ public class while_astParser extends DebugParser {
 					break loop89;
 				}
 			}
-			} finally {dbg.exitSubRule(89);}
-			dbg.location(137,13);
+
 			string_literal166=(Token)match(input,61,FOLLOW_61_in_tl1421);  
 			stream_61.add(string_literal166);
-			dbg.location(137,18);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:137:18: ( WS )*
-			try { dbg.enterSubRule(90);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:137:18: ( WS )*
 			loop90:
 			while (true) {
 				int alt90=2;
-				try { dbg.enterDecision(90, decisionCanBacktrack[90]);
-
 				int LA90_0 = input.LA(1);
 				if ( (LA90_0==WS) ) {
 					alt90=1;
 				}
 
-				} finally {dbg.exitDecision(90);}
-
 				switch (alt90) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:137:18: WS
 					{
-					dbg.location(137,18);
 					WS167=(Token)match(input,WS,FOLLOW_WS_in_tl1423);  
 					stream_WS.add(WS167);
 
@@ -6351,35 +4828,25 @@ public class while_astParser extends DebugParser {
 					break loop90;
 				}
 			}
-			} finally {dbg.exitSubRule(90);}
-			dbg.location(137,22);
+
 			pushFollow(FOLLOW_exprBase_in_tl1426);
 			exprBase168=exprBase();
 			state._fsp--;
 
-			stream_exprBase.add(exprBase168.getTree());dbg.location(137,31);
+			stream_exprBase.add(exprBase168.getTree());
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:137:31: ( WS )*
-			try { dbg.enterSubRule(91);
-
 			loop91:
 			while (true) {
 				int alt91=2;
-				try { dbg.enterDecision(91, decisionCanBacktrack[91]);
-
 				int LA91_0 = input.LA(1);
 				if ( (LA91_0==WS) ) {
 					alt91=1;
 				}
 
-				} finally {dbg.exitDecision(91);}
-
 				switch (alt91) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:137:31: WS
 					{
-					dbg.location(137,31);
 					WS169=(Token)match(input,WS,FOLLOW_WS_in_tl1428);  
 					stream_WS.add(WS169);
 
@@ -6390,8 +4857,7 @@ public class while_astParser extends DebugParser {
 					break loop91;
 				}
 			}
-			} finally {dbg.exitSubRule(91);}
-			dbg.location(137,34);
+
 			char_literal170=(Token)match(input,39,FOLLOW_39_in_tl1430);  
 			stream_39.add(char_literal170);
 
@@ -6408,13 +4874,10 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 137:38: -> ^( TL exprBase )
 			{
-				dbg.location(137,41);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:137:41: ^( TL exprBase )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(137,43);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(TL, "TL"), root_1);
-				dbg.location(137,46);
 				adaptor.addChild(root_1, stream_exprBase.nextTree());
 				adaptor.addChild(root_0, root_1);
 				}
@@ -6440,15 +4903,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(137, 54);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "tl");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "tl"
@@ -6489,43 +4943,26 @@ public class while_astParser extends DebugParser {
 		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
 		RewriteRuleSubtreeStream stream_lExpr=new RewriteRuleSubtreeStream(adaptor,"rule lExpr");
 
-		try { dbg.enterRule(getGrammarFileName(), "symbolExpr");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(139, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:140:2: ( '(' ( WS )* Symbol ( WS )* ( lExpr )? ( WS )* ')' -> ^( CALL Symbol ( lExpr )? ) )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:140:4: '(' ( WS )* Symbol ( WS )* ( lExpr )? ( WS )* ')'
 			{
-			dbg.location(140,4);
 			char_literal171=(Token)match(input,38,FOLLOW_38_in_symbolExpr1447);  
 			stream_38.add(char_literal171);
-			dbg.location(140,8);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:140:8: ( WS )*
-			try { dbg.enterSubRule(92);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:140:8: ( WS )*
 			loop92:
 			while (true) {
 				int alt92=2;
-				try { dbg.enterDecision(92, decisionCanBacktrack[92]);
-
 				int LA92_0 = input.LA(1);
 				if ( (LA92_0==WS) ) {
 					alt92=1;
 				}
 
-				} finally {dbg.exitDecision(92);}
-
 				switch (alt92) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:140:8: WS
 					{
-					dbg.location(140,8);
 					WS172=(Token)match(input,WS,FOLLOW_WS_in_symbolExpr1449);  
 					stream_WS.add(WS172);
 
@@ -6536,33 +4973,23 @@ public class while_astParser extends DebugParser {
 					break loop92;
 				}
 			}
-			} finally {dbg.exitSubRule(92);}
-			dbg.location(140,12);
+
 			Symbol173=(Token)match(input,Symbol,FOLLOW_Symbol_in_symbolExpr1452);  
 			stream_Symbol.add(Symbol173);
-			dbg.location(140,19);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:140:19: ( WS )*
-			try { dbg.enterSubRule(93);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:140:19: ( WS )*
 			loop93:
 			while (true) {
 				int alt93=2;
-				try { dbg.enterDecision(93, decisionCanBacktrack[93]);
-
 				int LA93_0 = input.LA(1);
 				if ( (LA93_0==WS) ) {
 					alt93=1;
 				}
 
-				} finally {dbg.exitDecision(93);}
-
 				switch (alt93) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:140:19: WS
 					{
-					dbg.location(140,19);
 					WS174=(Token)match(input,WS,FOLLOW_WS_in_symbolExpr1454);  
 					stream_WS.add(WS174);
 
@@ -6573,26 +5000,17 @@ public class while_astParser extends DebugParser {
 					break loop93;
 				}
 			}
-			} finally {dbg.exitSubRule(93);}
-			dbg.location(140,23);
+
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:140:23: ( lExpr )?
 			int alt94=2;
-			try { dbg.enterSubRule(94);
-			try { dbg.enterDecision(94, decisionCanBacktrack[94]);
-
 			int LA94_0 = input.LA(1);
 			if ( (LA94_0==Symbol||LA94_0==Variable||LA94_0==38||LA94_0==56) ) {
 				alt94=1;
 			}
-			} finally {dbg.exitDecision(94);}
-
 			switch (alt94) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:140:23: lExpr
 					{
-					dbg.location(140,23);
 					pushFollow(FOLLOW_lExpr_in_symbolExpr1457);
 					lExpr175=lExpr();
 					state._fsp--;
@@ -6602,30 +5020,20 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(94);}
-			dbg.location(140,30);
-			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:140:30: ( WS )*
-			try { dbg.enterSubRule(95);
 
+			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:140:30: ( WS )*
 			loop95:
 			while (true) {
 				int alt95=2;
-				try { dbg.enterDecision(95, decisionCanBacktrack[95]);
-
 				int LA95_0 = input.LA(1);
 				if ( (LA95_0==WS) ) {
 					alt95=1;
 				}
 
-				} finally {dbg.exitDecision(95);}
-
 				switch (alt95) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:140:30: WS
 					{
-					dbg.location(140,30);
 					WS176=(Token)match(input,WS,FOLLOW_WS_in_symbolExpr1460);  
 					stream_WS.add(WS176);
 
@@ -6636,13 +5044,12 @@ public class while_astParser extends DebugParser {
 					break loop95;
 				}
 			}
-			} finally {dbg.exitSubRule(95);}
-			dbg.location(140,33);
+
 			char_literal177=(Token)match(input,39,FOLLOW_39_in_symbolExpr1462);  
 			stream_39.add(char_literal177);
 
 			// AST REWRITE
-			// elements: lExpr, Symbol
+			// elements: Symbol, lExpr
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -6654,17 +5061,13 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 140:37: -> ^( CALL Symbol ( lExpr )? )
 			{
-				dbg.location(140,40);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:140:40: ^( CALL Symbol ( lExpr )? )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(140,42);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(CALL, "CALL"), root_1);
-				dbg.location(140,47);
-				adaptor.addChild(root_1, stream_Symbol.nextNode());dbg.location(140,54);
+				adaptor.addChild(root_1, stream_Symbol.nextNode());
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:140:54: ( lExpr )?
 				if ( stream_lExpr.hasNext() ) {
-					dbg.location(140,54);
 					adaptor.addChild(root_1, stream_lExpr.nextTree());
 				}
 				stream_lExpr.reset();
@@ -6693,15 +5096,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(140, 60);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "symbolExpr");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "symbolExpr"
@@ -6735,67 +5129,35 @@ public class while_astParser extends DebugParser {
 		RewriteRuleTokenStream stream_WS=new RewriteRuleTokenStream(adaptor,"token WS");
 		RewriteRuleSubtreeStream stream_exprBase=new RewriteRuleSubtreeStream(adaptor,"rule exprBase");
 
-		try { dbg.enterRule(getGrammarFileName(), "expression");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(142, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:143:5: ( exprBase ( ( WS )* '=?' ( WS )* exprBase )? -> ^( EXPR exprBase ( exprBase )? ) )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:143:7: exprBase ( ( WS )* '=?' ( WS )* exprBase )?
 			{
-			dbg.location(143,7);
 			pushFollow(FOLLOW_exprBase_in_expression1486);
 			exprBase178=exprBase();
 			state._fsp--;
 
-			stream_exprBase.add(exprBase178.getTree());dbg.location(143,16);
+			stream_exprBase.add(exprBase178.getTree());
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:143:16: ( ( WS )* '=?' ( WS )* exprBase )?
 			int alt98=2;
-			try { dbg.enterSubRule(98);
-			try { dbg.enterDecision(98, decisionCanBacktrack[98]);
-
-			try {
-				isCyclicDecision = true;
-				alt98 = dfa98.predict(input);
-			}
-			catch (NoViableAltException nvae) {
-				dbg.recognitionException(nvae);
-				throw nvae;
-			}
-			} finally {dbg.exitDecision(98);}
-
+			alt98 = dfa98.predict(input);
 			switch (alt98) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:143:17: ( WS )* '=?' ( WS )* exprBase
 					{
-					dbg.location(143,17);
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:143:17: ( WS )*
-					try { dbg.enterSubRule(96);
-
 					loop96:
 					while (true) {
 						int alt96=2;
-						try { dbg.enterDecision(96, decisionCanBacktrack[96]);
-
 						int LA96_0 = input.LA(1);
 						if ( (LA96_0==WS) ) {
 							alt96=1;
 						}
 
-						} finally {dbg.exitDecision(96);}
-
 						switch (alt96) {
 						case 1 :
-							dbg.enterAlt(1);
-
 							// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:143:17: WS
 							{
-							dbg.location(143,17);
 							WS179=(Token)match(input,WS,FOLLOW_WS_in_expression1489);  
 							stream_WS.add(WS179);
 
@@ -6806,33 +5168,23 @@ public class while_astParser extends DebugParser {
 							break loop96;
 						}
 					}
-					} finally {dbg.exitSubRule(96);}
-					dbg.location(143,21);
+
 					string_literal180=(Token)match(input,44,FOLLOW_44_in_expression1492);  
 					stream_44.add(string_literal180);
-					dbg.location(143,26);
-					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:143:26: ( WS )*
-					try { dbg.enterSubRule(97);
 
+					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:143:26: ( WS )*
 					loop97:
 					while (true) {
 						int alt97=2;
-						try { dbg.enterDecision(97, decisionCanBacktrack[97]);
-
 						int LA97_0 = input.LA(1);
 						if ( (LA97_0==WS) ) {
 							alt97=1;
 						}
 
-						} finally {dbg.exitDecision(97);}
-
 						switch (alt97) {
 						case 1 :
-							dbg.enterAlt(1);
-
 							// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:143:26: WS
 							{
-							dbg.location(143,26);
 							WS181=(Token)match(input,WS,FOLLOW_WS_in_expression1494);  
 							stream_WS.add(WS181);
 
@@ -6843,8 +5195,7 @@ public class while_astParser extends DebugParser {
 							break loop97;
 						}
 					}
-					} finally {dbg.exitSubRule(97);}
-					dbg.location(143,30);
+
 					pushFollow(FOLLOW_exprBase_in_expression1497);
 					exprBase182=exprBase();
 					state._fsp--;
@@ -6854,7 +5205,6 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(98);}
 
 			// AST REWRITE
 			// elements: exprBase, exprBase
@@ -6869,17 +5219,13 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 143:41: -> ^( EXPR exprBase ( exprBase )? )
 			{
-				dbg.location(143,44);
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:143:44: ^( EXPR exprBase ( exprBase )? )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(143,46);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(EXPR, "EXPR"), root_1);
-				dbg.location(143,51);
-				adaptor.addChild(root_1, stream_exprBase.nextTree());dbg.location(143,60);
+				adaptor.addChild(root_1, stream_exprBase.nextTree());
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:143:60: ( exprBase )?
 				if ( stream_exprBase.hasNext() ) {
-					dbg.location(143,60);
 					adaptor.addChild(root_1, stream_exprBase.nextTree());
 				}
 				stream_exprBase.reset();
@@ -6908,15 +5254,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(144, 4);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "expression");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "expression"
@@ -6946,67 +5283,35 @@ public class while_astParser extends DebugParser {
 		RewriteRuleSubtreeStream stream_exprBase=new RewriteRuleSubtreeStream(adaptor,"rule exprBase");
 		RewriteRuleSubtreeStream stream_lExpr=new RewriteRuleSubtreeStream(adaptor,"rule lExpr");
 
-		try { dbg.enterRule(getGrammarFileName(), "lExpr");
-		if ( getRuleLevel()==0 ) {dbg.commence();}
-		incRuleLevel();
-		dbg.location(147, 0);
-
 		try {
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:148:5: ( exprBase ( ( WS )* lExpr )? -> exprBase ( lExpr )? )
-			dbg.enterAlt(1);
-
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:148:7: exprBase ( ( WS )* lExpr )?
 			{
-			dbg.location(148,7);
 			pushFollow(FOLLOW_exprBase_in_lExpr1532);
 			exprBase183=exprBase();
 			state._fsp--;
 
-			stream_exprBase.add(exprBase183.getTree());dbg.location(148,16);
+			stream_exprBase.add(exprBase183.getTree());
 			// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:148:16: ( ( WS )* lExpr )?
 			int alt100=2;
-			try { dbg.enterSubRule(100);
-			try { dbg.enterDecision(100, decisionCanBacktrack[100]);
-
-			try {
-				isCyclicDecision = true;
-				alt100 = dfa100.predict(input);
-			}
-			catch (NoViableAltException nvae) {
-				dbg.recognitionException(nvae);
-				throw nvae;
-			}
-			} finally {dbg.exitDecision(100);}
-
+			alt100 = dfa100.predict(input);
 			switch (alt100) {
 				case 1 :
-					dbg.enterAlt(1);
-
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:148:17: ( WS )* lExpr
 					{
-					dbg.location(148,17);
 					// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:148:17: ( WS )*
-					try { dbg.enterSubRule(99);
-
 					loop99:
 					while (true) {
 						int alt99=2;
-						try { dbg.enterDecision(99, decisionCanBacktrack[99]);
-
 						int LA99_0 = input.LA(1);
 						if ( (LA99_0==WS) ) {
 							alt99=1;
 						}
 
-						} finally {dbg.exitDecision(99);}
-
 						switch (alt99) {
 						case 1 :
-							dbg.enterAlt(1);
-
 							// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:148:17: WS
 							{
-							dbg.location(148,17);
 							WS184=(Token)match(input,WS,FOLLOW_WS_in_lExpr1535);  
 							stream_WS.add(WS184);
 
@@ -7017,8 +5322,7 @@ public class while_astParser extends DebugParser {
 							break loop99;
 						}
 					}
-					} finally {dbg.exitSubRule(99);}
-					dbg.location(148,21);
+
 					pushFollow(FOLLOW_lExpr_in_lExpr1538);
 					lExpr185=lExpr();
 					state._fsp--;
@@ -7028,7 +5332,6 @@ public class while_astParser extends DebugParser {
 					break;
 
 			}
-			} finally {dbg.exitSubRule(100);}
 
 			// AST REWRITE
 			// elements: exprBase, lExpr
@@ -7043,11 +5346,9 @@ public class while_astParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 			// 148:29: -> exprBase ( lExpr )?
 			{
-				dbg.location(148,32);
-				adaptor.addChild(root_0, stream_exprBase.nextTree());dbg.location(148,41);
+				adaptor.addChild(root_0, stream_exprBase.nextTree());
 				// C:\\Users\\Axel\\OneDrive\\Documents\\tlc-projet\\while_grammarAST\\while_ast.g:148:41: ( lExpr )?
 				if ( stream_lExpr.hasNext() ) {
-					dbg.location(148,41);
 					adaptor.addChild(root_0, stream_lExpr.nextTree());
 				}
 				stream_lExpr.reset();
@@ -7073,15 +5374,6 @@ public class while_astParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(149, 4);
-
-		}
-		finally {
-			dbg.exitRule(getGrammarFileName(), "lExpr");
-			decRuleLevel();
-			if ( getRuleLevel()==0 ) {dbg.terminate();}
-		}
-
 		return retval;
 	}
 	// $ANTLR end "lExpr"
@@ -7145,9 +5437,6 @@ public class while_astParser extends DebugParser {
 		public String getDescription() {
 			return "83:15: ( ( WS )* ';' ( WS )* ( getComment )? commands )?";
 		}
-		public void error(NoViableAltException nvae) {
-			dbg.recognitionException(nvae);
-		}
 	}
 
 	static final String DFA77_eotS =
@@ -7209,9 +5498,6 @@ public class while_astParser extends DebugParser {
 		public String getDescription() {
 			return "123:1: exprBase : ( nil_ | variable | symbol | cons | list | hd | tl | symbolExpr );";
 		}
-		public void error(NoViableAltException nvae) {
-			dbg.recognitionException(nvae);
-		}
 	}
 
 	static final String DFA98_eotS =
@@ -7268,9 +5554,6 @@ public class while_astParser extends DebugParser {
 		public String getDescription() {
 			return "143:16: ( ( WS )* '=?' ( WS )* exprBase )?";
 		}
-		public void error(NoViableAltException nvae) {
-			dbg.recognitionException(nvae);
-		}
 	}
 
 	static final String DFA100_eotS =
@@ -7324,9 +5607,6 @@ public class while_astParser extends DebugParser {
 		@Override
 		public String getDescription() {
 			return "148:16: ( ( WS )* lExpr )?";
-		}
-		public void error(NoViableAltException nvae) {
-			dbg.recognitionException(nvae);
 		}
 	}
 

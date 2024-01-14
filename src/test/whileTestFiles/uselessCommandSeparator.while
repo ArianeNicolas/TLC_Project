@@ -1,4 +1,4 @@
-function commandsWronglySeparated :
+function uselessCommandSeparator :
 read Op1, Op2
 %
 if Op1 then

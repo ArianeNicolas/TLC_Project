@@ -8,7 +8,6 @@ import java.util.HashMap;
 
 import compilateur.VisitorThreeAdresses.ThreeAdresses;
 
-
 public class code3AtoC {
     private ArrayList<VisitorThreeAdresses.ThreeAdresses> code3A;
     private ArrayList<WhileContext> symbolsTable;

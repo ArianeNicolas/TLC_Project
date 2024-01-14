@@ -1,13 +1,10 @@
 package compilateur;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.antlr.runtime.tree.CommonTree;
-
-import antlrworks.while_astParser.else__return;
 
 public class VisitorThreeAdresses extends Visitor {
 

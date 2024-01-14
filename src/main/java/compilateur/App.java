@@ -120,22 +120,10 @@ public class App {
             System.out.println(c3A.op + " " + c3A.arg1 + " " + c3A.arg2 + " " + c3A.var);
         }
 
-
         System.out.println("===========Generating C code===========");
         code3AtoC ctoc = new code3AtoC(lastCode3A, visitorSymbolsTable.getSymbolsTable(), src);
         ctoc.startConversion();
 
-        //write a file
-        System.out.println("===========Writing file===========");
-        String cCode = "temporaire"; //todo
-        //todo decommenter pour ecriture dans un fichier
-        /* 
-        try {
-            Files.writeString(Path.of(outputFileName), cCode);
-        } catch (IOException e) {
-            System.err.println("Error while writing file");
-            System.exit(1);
-        }**/
 
         //reset system.out to be able to print the final result
         System.setOut(new java.io.PrintStream(consoleOutput));

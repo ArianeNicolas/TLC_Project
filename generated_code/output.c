@@ -12,16 +12,3 @@ Result = Reg_0;
 }
 }
 
-void oneForeach_while(Tree Result, Tree Op1, Tree Op2) {
-Tree Reg_1 = cons(Op2, nilv, nil);
-Tree Reg_2 = cons(Op1, nilv, Reg_1);
-int i1;
-Tree V1 = Reg_2;
-Tree Var = Reg_2;
-for(i1=0; i1<intTree(Reg_2); i1++){
-V1 = Reg_2->r;
-Var = Reg_2->l;
-Result = Var;
-}
-}
-

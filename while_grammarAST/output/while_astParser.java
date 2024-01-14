@@ -1,4 +1,4 @@
-// $ANTLR 3.5.1 C:\\Users\\PC\\Desktop\\projet-tlc\\while_grammarAST\\while_ast.g 2024-01-14 14:06:10
+// $ANTLR 3.5.1 C:\\Users\\PC\\Desktop\\projet-tlc\\while_grammarAST\\while_ast.g 2024-01-14 14:49:22
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -2380,7 +2380,7 @@ public class while_astParser extends Parser {
 			}
 
 			// AST REWRITE
-			// elements: expression, else_, then_
+			// elements: else_, then_, expression
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -3585,7 +3585,7 @@ public class while_astParser extends Parser {
 			}
 
 			// AST REWRITE
-			// elements: Variable, expression, do_
+			// elements: Variable, do_, expression
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -3750,7 +3750,7 @@ public class while_astParser extends Parser {
 			}
 
 			// AST REWRITE
-			// elements: Variable, vars
+			// elements: vars, Variable
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -5334,7 +5334,7 @@ public class while_astParser extends Parser {
 			}
 
 			// AST REWRITE
-			// elements: exprBase, lExpr
+			// elements: lExpr, exprBase
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 

@@ -12,7 +12,7 @@ done
 JAR_FILE="$(dirname "$0")/compilateur-while-runner.jar"
 
 # Run the Java JAR file with the provided arguments
-java -jar "$JAR_FILE" "$@" "-o" "$(dirname "$0")/outputs/output.c"
+java -jar "$JAR_FILE" "$@"
 
 #compiling the output.c file
 # TODO : le mieux ca serait d'appeler un script à part -> comme ca on peut aussi l'appeler indépendamment

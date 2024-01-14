@@ -1,0 +1,13 @@
+function commandsWronglySeparated :
+read Op1, Op2
+%
+for Op2 do
+ Result := ( cons nil Result )
+od
+if Op1 then
+ Result := Op1
+else 
+ Result := Op2
+fi
+%
+write Result 

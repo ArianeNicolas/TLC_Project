@@ -1,0 +1,9 @@
+function forUsingFunction :
+read Op1, Op2
+%
+ Result := Op1 ;
+for (add Result Op2) do
+ Result := ( cons nil Result )
+od
+%
+write Result

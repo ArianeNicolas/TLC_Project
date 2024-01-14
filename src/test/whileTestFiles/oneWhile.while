@@ -1,0 +1,8 @@
+function oneWhile :
+read Op1, Op2
+%
+while Op1 do 
+ Result := Op2
+od
+%
+write Result 

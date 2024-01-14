@@ -1,0 +1,9 @@
+function commentsEverywhere : //comment at function declaration
+read Op1, Op2 //comment at inputs
+% //comment after the %
+ Result := Op1 ; //comment after semicolon
+for Op2 do //comment after do
+ Result := ( cons nil Result ) // comment after tree
+od //comment after od
+% //comment after the second %
+write Result //comment after write

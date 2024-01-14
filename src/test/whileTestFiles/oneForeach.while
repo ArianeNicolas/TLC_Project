@@ -1,0 +1,8 @@
+function oneForeach :
+read Op1, Op2
+%
+foreach Var in (list Op1 Op2) do 
+ Result := Var
+od
+%
+write Result 

@@ -1,0 +1,41 @@
+function normalSpacing :
+read Op1, Op2
+%
+ Result := Op1 ;
+for Op2 do
+ Result := ( cons nil Result )
+od
+%
+write Result
+
+function inlined : read Op1, Op2 % Result := Op1 ; for Op2 do Result := ( cons nil Result ) od % write Result
+
+function noSpacing:
+read Op1,Op2
+%
+ Result,Result2:=Op1,Op2;
+for Op2 do
+ Result:=(cons nil Result)
+od
+%
+write Result,Result2
+
+function tooMuchSpacing :
+read Op1 , Op2
+%
+ Result , Result2 := Op1 , Op2 ;
+for Op2 do
+ Result := ( cons nil Result )
+od
+%
+write Result , Result2
+
+function tabulationSpacing :
+read Op1 , Op2
+%
+    Result , Result2 := Op1 , Op2 ;
+for Op2 do
+    Result := ( cons nil Result )
+od
+%
+write Result , Result2

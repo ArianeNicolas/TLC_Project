@@ -37,134 +37,134 @@ public class App {
 
         // temp test
         if(src == null || src.isEmpty()) {
-            src = "function add :\r\n" + //
+             src = "function add :\r\n" + //
                     "read Op1, Op2\r\n" + //
                     "%\r\n" + //
-                    "Result := Op1 ;\r\n" + //
-                    "for Op2 do\r\n" + //
-                    "Result := ( cons nil Result )\r\n" + //
-                    "od\r\n" + //
+                    "    Result := Op1 ;\r\n" + //
+                    "    for Op2 do\r\n" + //
+                    "        Result := ( cons nil Result )\r\n" + //
+                    "    od\r\n" + //
                     "%\r\n" + //
                     "write Result\r\n" + //
                     "\r\n" + //
                     "function test:\r\n" + //
                     "read Op1, Op2\r\n" + //
                     "%\r\n" + //
-                    "nop;\r\n" + //
-                    "Result := nil;\r\n" + //
-                    "Result := (add Result nil);\r\n" + //
-                    "Result := (add Result nil);\r\n" + //
-                    "Result := (add Result nil);\r\n" + //
-                    "Result := (add Result nil);\r\n" + //
-                    "Result := (tl Result);\r\n" + //
-                    "Result := (hd Result);\r\n" + //
-                    "Result := (list Result Result Result Result);\r\n" + //
-                    "Result := (cons Result Result Result (cons Result));\r\n" + //
+                    "    nop;\r\n" + //
+                    "    Result := (cons);\r\n" + //
+                    "    Result := (add Result (cons));\r\n" + //
+                    "    Result := (add Result (cons));\r\n" + //
+                    "    Result := (add Result (cons));\r\n" + //
+                    "    Result := (add Result (cons));\r\n" + //
+                    "    Result := (tl Result);\r\n" + //
+                    "    Result := (hd Result);\r\n" + //
+                    "    Result := (list Result Result Result Result);\r\n" + //
+                    "    Result := (cons Result Result Result (cons Result));\r\n" + //
                     "\r\n" + //
-                    "while Op2\r\n" + //
-                    "do\r\n" + //
-                    "Result := (list Result);\r\n" + //
-                    "Test := nil\r\n" + //
-                    "od;\r\n" + //
+                    "    while Op2\r\n" + //
+                    "    do\r\n" + //
+                    "        Result := (list Result);\r\n" + //
+                    "        Test := (cons)\r\n" + //
+                    "    od;\r\n" + //
                     "\r\n" + //
-                    "while (cons Result (add Result nil))\r\n" + //
-                    "do\r\n" + //
-                    "Result := nil\r\n" + //
-                    "od;\r\n" + //
+                    "    while (cons Result (add Result(cons)))\r\n" + //
+                    "    do\r\n" + //
+                    "        Result := (cons)\r\n" + //
+                    "    od;\r\n" + //
                     "\r\n" + //
-                    "Test := nil\r\n" + //
+                    "    Test := (cons)\r\n" + //
                     "%\r\n" + //
                     "write Result\r\n" + //
                     "\r\n" + //
                     "function sub :\r\n" + //
                     "read Op1, Op2\r\n" + //
                     "%\r\n" + //
-                    "Result := Op1;\r\n" + //
-                    "for Op2 do\r\n" + //
-                    "Result := (tl Result)\r\n" + //
-                    "od\r\n" + //
+                    "    Result := Op1;\r\n" + //
+                    "    for Op2 do\r\n" + //
+                    "        Result := (tl Result)\r\n" + //
+                    "    od\r\n" + //
                     "%\r\n" + //
                     "write Result\r\n" + //
                     "\r\n" + //
                     "function mul :\r\n" + //
                     "read Op1, Op2\r\n" + //
                     "%\r\n" + //
-                    "for Op1 do\r\n" + //
-                    "Result := (add Result Op2)\r\n" + //
-                    "od\r\n" + //
+                    "    for Op1 do\r\n" + //
+                    "        Result := (add Result Op2)\r\n" + //
+                    "    od\r\n" + //
                     "%\r\n" + //
                     "write Result\r\n" + //
                     "\r\n" + //
                     "function test2:\r\n" + //
                     "read Op1, Op2\r\n" + //
                     "%\r\n" + //
-                    "Result := nil;\r\n" + //
-                    "Result := (add Result nil);\r\n" + //
-                    "Result := (add Result nil);\r\n" + //
-                    "Result := (add Result nil);\r\n" + //
-                    "Result := (add Result nil)\r\n" + //
+                    "    Result := (cons);\r\n" + //
+                    "    Result := (add Result (cons));\r\n" + //
+                    "    Result := (add Result (cons));\r\n" + //
+                    "    Result := (add Result (cons));\r\n" + //
+                    "    Result := (add Result (cons))\r\n" + //
                     "%\r\n" + //
                     "write Result\r\n" + //
                     "\r\n" + //
                     "function true :\r\n" + //
                     "read\r\n" + //
                     "%\r\n" + //
-                    "Result := (cons nil nil)\r\n" + //
+                    "    Result := (cons nil nil)\r\n" + //
                     "%\r\n" + //
                     "write Result\r\n" + //
                     "\r\n" + //
                     "function false :\r\n" + //
                     "read\r\n" + //
                     "%\r\n" + //
-                    "Result := nil\r\n" + //
+                    "    Result := nil\r\n" + //
                     "%\r\n" + //
                     "write Result\r\n" + //
                     "\r\n" + //
                     "function not :\r\n" + //
                     "read Op1\r\n" + //
                     "%\r\n" + //
-                    "if Op1 then Result := (false) else Result := (true) fi\r\n" + //
+                    "    if Op1 then Result := (false) else Result := (true) fi\r\n" + //
                     "%\r\n" + //
                     "write Result\r\n" + //
                     "\r\n" + //
                     "function and :\r\n" + //
                     "read Op1, Op2\r\n" + //
                     "%\r\n" + //
-                    "if (not Op1) then\r\n" + //
-                    "Result := (false)\r\n" + //
-                    "else\r\n" + //
-                    "if (not Op2) then\r\n" + //
-                    "Result := (false)\r\n" + //
-                    "else\r\n" + //
-                    "Result := (true)\r\n" + //
-                    "fi\r\n" + //
-                    "fi\r\n" + //
+                    "    if (not Op1) then\r\n" + //
+                    "        Result := (false)\r\n" + //
+                    "    else\r\n" + //
+                    "        if (not Op2) then\r\n" + //
+                    "            Result := (false)\r\n" + //
+                    "        else\r\n" + //
+                    "            Result := (true)\r\n" + //
+                    "        fi\r\n" + //
+                    "    fi\r\n" + //
                     "%\r\n" + //
                     "write Result\r\n" + //
                     "\r\n" + //
                     "function testRetourMultiple :\r\n" + //
                     "read Op1, Op2\r\n" + //
                     "%\r\n" + //
-                    "V1, V2 := Op1, Op2\r\n" + //
+                    "    V1, V2 := Op1, Op2\r\n" + //
                     "%\r\n" + //
                     "write V1, V2\r\n" + //
                     "\r\n" + //
                     "function jeVeuxMourir:\r\n" + //
                     "read Op1, Op2\r\n" + //
                     "%\r\n" + //
-                    "Test1, Test2, Test3 := (testRetourMultiple Op1 Op2), nil;\r\n" + //
-                    "Test4 := (cons aa (cons bb nil))\r\n" + //
+                    "    Test1, Test2, Test3 := (testRetourMultiple Op1 Op2), (cons);\r\n" + //
+                    "    Test4 := (cons a (cons b nil))\r\n" + //
                     "%\r\n" + //
                     "write Test1, Test2\r\n" + //
                     "\r\n" + //
                     "function testForeachetComm:\r\n" + //
                     "read Op1, Op2, Op3\r\n" + //
                     "%\r\n" + //
-                    "Test1 := nil;\r\n" + //
-                    "foreach VFor in Op2 do\r\n" + //
-                    "Test1 := (cons VFor Test1)\r\n" + //
-                    "od;\r\n" + //
-                    "Test2 := nil =? Test1\r\n" + //
+                    "    Test1 := (cons);\r\n" + //
+                    "    foreach VFor in Op2 do\r\n" + //
+                    "        Test1 := (cons VFor Test1)\r\n" + //
+                    "    od;\r\n" + //
+                    "    Test2 := (cons) =? Test1\r\n" + //
                     "\r\n" + //
                     "%\r\n" + //
                     "write Test1, Test2\r\n" + //
@@ -172,8 +172,8 @@ public class App {
                     "function main:\r\n" + //
                     "read\r\n" + //
                     "%\r\n" + //
-                    "Result := nil;\r\n" + //
-                    "Result := (add nil (cons aa))\r\n" + //
+                    "    Result := (cons);\r\n" + //
+                    "    Result := (add nil (cons a))\r\n" + //
                     "%\r\n" + //
                     "write Result";
         }

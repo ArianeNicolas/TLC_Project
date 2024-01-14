@@ -134,8 +134,26 @@ public class code3AtoC {
             }
 
             else if(!knownfunctions.contains(value)){
-                if(value.equals("nil")) printWriter.println("Tree "+assigned.get(0)+" = nil;");
-                else printWriter.println("Tree "+assigned.get(0)+" = cons(nil, \""+value+"\", nil);");
+                if(value.equals("nil")) {
+                    if(isVariable(assigned.get(0))){
+                        printWriter.println("Tree "+assigned.get(0)+" = nil;");
+                        variables.remove(assigned.get(0));
+                    }
+                    else {
+                        printWriter.println(assigned.get(0)+" = nil;");
+                    }
+                }
+                else {
+                    if(value.equals("nil")) {
+                        if(isVariable(assigned.get(0))){
+                            printWriter.println("Tree "+assigned.get(0)+" = cons(nil, \""+value+"\", nil);");
+                            variables.remove(assigned.get(0));
+                        }
+                        else {
+                            printWriter.println(assigned.get(0)+" = cons(nil, \""+value+"\", nil);");
+                        }
+                    }
+                }
                     
             }
             else{
@@ -164,6 +182,7 @@ public class code3AtoC {
                         for(int j=0; j<outputs_func.size(); j++){
                             if(isVariable(assigned.get(0))){
                                 printWriter.println("Tree "+assigned.get(0)+" = "+registres.get(value)[j]+";");   
+                                variables.remove(assigned.get(0));
                             }
                             else{
                                 printWriter.println(assigned.get(0)+" = "+registres.get(value)[j]+";");
@@ -215,7 +234,13 @@ public class code3AtoC {
             case "cons":
                 String param1 = params.get(params.size()-2);
                 String param2l = params.get(params.size()-1);
-                printWriter.print("Tree "+c3a.arg1+" = ");
+                if(isVariable(c3a.arg1)||c3a.arg1.startsWith("Reg_")){
+                    printWriter.print("Tree "+c3a.arg1+" = ");
+                    variables.remove(c3a.arg1);
+                }
+                else{
+                    printWriter.print(c3a.arg1+" = ");
+                }
                 if(param1.equals("empty")&&param2l.equals("empty")){
                     printWriter.println("nil;");
                 }
@@ -242,10 +267,10 @@ public class code3AtoC {
                             printWriter.println("cons("+param1+", nilv, "+param2l+");");
                         }
                     }
-                    params.remove(params.size()-1);
-                    params.remove(params.size()-1);
+                    
                 }
-                
+                params.remove(params.size()-1);
+                params.remove(params.size()-1);
                 break;
             
             case "hd":
@@ -335,7 +360,8 @@ public class code3AtoC {
                 break;
             case "FOR":
                 if(isVariable(c3a.arg1)){
-                    printWriter.println("int i"+indice+";");
+                    printWriter.println("Tree "+c3a.arg1+" = nil;");
+                    variables.remove(c3a.arg1);
                 }
                 printWriter.println("int i"+indice+";");
                 printWriter.println("for(i"+indice+"=0; i"+indice+"<intTree("+c3a.arg1+"); i"+indice+"++){");

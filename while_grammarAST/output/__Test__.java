@@ -2,6 +2,9 @@ import java.io.*;
 import org.antlr.runtime.*;
 import org.antlr.runtime.debug.DebugEventSocketProxy;
 
+import antlrworks.while_astLexer;
+import antlrworks.while_astParser;
+
 
 public class __Test__ {
 

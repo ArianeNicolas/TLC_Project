@@ -38,7 +38,7 @@ public class VisitorThreeAdresses extends Visitor {
     @Override
     protected void exit(CommonTree node) {
         
-        if(node.getChildren() == null&&!(node.getText().equals("END"))) {
+        if(node.getChildren() == null&&!(node.getText().equals("END"))&&!(node.getText().equals("CONS"))&&!(node.getText().equals("LIST"))) {
         ArrayList<ThreeAdresses> list = new ArrayList<>();
         list.add(threeAdresses("IGNORE", null, null, null));
         stock.put(node,list);
@@ -153,23 +153,23 @@ public class VisitorThreeAdresses extends Visitor {
                         list2 = stock.get(node.getChild(0));
                     }
                     else { //On sait pas ce que c'est
-                        ThreeAdresses store1 = new ThreeAdresses();
-                        list2 = stock.get(node.getChild(0));
-                        store1.op = "PARAM";
-                        store1.arg1 = node.getChild(0).getText();
-                        list2.add(store1);
-                        ThreeAdresses store2 = new ThreeAdresses();
-                        store2.op = "PARAM";
-                        store2.arg1 = node.getChild(1).getText();
-                        list2.add(store2);
-                        ThreeAdresses equals = new ThreeAdresses();
-                        equals.op = "CALL";
-                        equals.arg1 = "Reg_"+ indice;
-                        equals.var = "equals";
-                        indice++;
-                        list2.add(equals);                        
+                    list2 = new ArrayList<>();
+                    for(int i = 0; i<2; i++){
+                        String text = node.getChild(i).getText();
+                        if(text.equals("CALL")||text.equals("TL")||text.equals("HD")||text.equals("CONS")||text.equals("LIST")){
+                            ArrayList<ThreeAdresses> c3a = stock.get(node.getChild(i));
+                            list2.addAll(c3a);
+                            list2.add(threeAdresses("PARAM", c3a.get(c3a.size()-1).arg1, null, null));
+                        }
+                        else {
+                            list2.add(threeAdresses("PARAM", text, null, null));
+                        }
                     }
-                    stock.put(node,list2);
+                    list2.add(threeAdresses("CALL", "Reg_"+indice, null, "equals"));   
+                    indice++;                     
+                }
+                stock.put(node,list2);                       
+                    
                 break;
 
                 case "TL":
@@ -248,6 +248,7 @@ public class VisitorThreeAdresses extends Visitor {
                         list2.add(threeAdresses("PARAM", "empty", null, null));
                         list2.add(threeAdresses("PARAM", "empty", null, null));
                         list2.add(threeAdresses("CALL", "Reg_"+indice, null, "cons"));
+                        indice++;
                     }
                     else {    
                         ArrayList<String> paramCons = new ArrayList<>();

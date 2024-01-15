@@ -324,9 +324,9 @@ public class code3AtoC {
                 ArrayList<String> inputs_func = new ArrayList<>();
                 while (i < symbolsTable.size()){
                     if(symbolsTable.get(i).getName().equals(c3a.arg1)) {
-                        outputs = symbolsTable.get(i).getOutputs();
-                        inputs_func = symbolsTable.get(i).getParameters();
-                        variables = symbolsTable.get(i).getVariables();
+                        outputs =  new ArrayList<>(symbolsTable.get(i).getOutputs());
+                        inputs_func = new ArrayList<>(symbolsTable.get(i).getParameters());
+                        variables = new ArrayList<>(symbolsTable.get(i).getVariables());
                         indiceContext = i;
                     }
                     i++;

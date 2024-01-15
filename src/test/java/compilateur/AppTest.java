@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -206,7 +207,7 @@ public class AppTest {
         App.inputFiles.add(arg1);
         App.inputFiles.add(arg2);
         String src = "";
-        // Read the file // todo put it in src
+        // Read the file 
         try {
             for (String file : App.inputFiles) {
                 src += Files.readString(Path.of(file)) + "\n";
@@ -274,7 +275,7 @@ public class AppTest {
         App.inputFiles = new ArrayList<String>();
         App.inputFiles.add(arg);
         String src = "";
-        // Read the file // todo put it in src
+        // Read the file
         try {
             for (String file : App.inputFiles) {
                 src += Files.readString(Path.of(file)) + "\n";
@@ -330,7 +331,7 @@ public class AppTest {
         App.inputFiles = new ArrayList<String>();
         App.inputFiles.add(arg);
         String src = "";
-        // Read the file // todo put it in src
+        // Read the file
         try {
             for (String file : App.inputFiles) {
                 src += Files.readString(Path.of(file)) + "\n";
@@ -377,10 +378,31 @@ public class AppTest {
         } catch (Exception e) {
             fail("Error while checking types");
         }
+        
+        //generate the 3A code
+        VisitorThreeAdresses visitorThreeAdresses = new VisitorThreeAdresses();
+        try {
+            visitorThreeAdresses.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while generating 3A code");
+
+        }
+
+        
+        //Translation to c code 
+        HashMap<CommonTree,ArrayList<VisitorThreeAdresses.ThreeAdresses>> code3A = visitorThreeAdresses.getCode3A();
+        ArrayList<VisitorThreeAdresses.ThreeAdresses> lastCode3A = code3A.get(treeRoot.getChild(0));
+        try {
+            code3AtoC ctoc = new code3AtoC(lastCode3A, visitorSymbolsTable.getSymbolsTable(), src);
+            ctoc.startConversion();
+        } catch (Exception e) {
+            fail("Error while generating C code");
+        }
+
 
         //Testing the AST
         assert(nbErrors == 0);
-        
+
         //Testing the symbol table
         assert(symbolTable.size() == 1);
         assert(symbolTable.get(0).getName().equals("add"));
@@ -392,16 +414,16 @@ public class AppTest {
         assert(symbolTable.get(0).getVariables().get(1).equals("Result"));
         assert(symbolTable.get(0).getOutputs().size() == 1);
         assert(symbolTable.get(0).getOutputs().get(0).equals("Result"));
-        
+
         //Testing the types
         //nothing to test here, the visitorTypesChecker throws an exception if there is a type error
 
         //Testing 3 Adresses code
-        //TODO
-
+        //todo
 
         //Testing c code
-        //TODO
+        //todo
+
     }
 
 

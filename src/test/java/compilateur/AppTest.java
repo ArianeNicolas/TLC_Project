@@ -11,7 +11,8 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import com.github.stefanbirkner.systemlambda.SystemLambda;
@@ -29,10 +30,29 @@ import antlrworks.while_astParser;
 
 public class AppTest {
 
-    @BeforeEach
-    public void setUp() {
-        //hard reset, if not surfire doesn't work, even with App.files = new ArrayList<String>();
-        App.inputFiles = null;
+
+    //to save the modified c file content
+    private static String cFileContent = "";
+
+    @BeforeAll
+    public static void setUpAll() {
+        //save the c file content
+        try {
+            cFileContent = Files.readString(Path.of(code3AtoC.OUTPUT_FILE));
+        } catch (Exception e) {
+            fail("Error while reading file");
+        }
+        
+    }
+
+    @AfterAll
+    public static void tearDownAll() {
+        //reset the c file content
+        try {
+            Files.writeString(Path.of(code3AtoC.OUTPUT_FILE), cFileContent);
+        } catch (Exception e) {
+            fail("Error while writing file");
+        }
     }
 
     /**************************************************************************/
@@ -485,6 +505,26 @@ public class AppTest {
             fail("Error while checking types");
         }
 
+        //generate the 3A code
+        VisitorThreeAdresses visitorThreeAdresses = new VisitorThreeAdresses();
+        try {
+            visitorThreeAdresses.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while generating 3A code");
+
+        }
+
+        
+        //Translation to c code 
+        HashMap<CommonTree,ArrayList<VisitorThreeAdresses.ThreeAdresses>> code3A = visitorThreeAdresses.getCode3A();
+        ArrayList<VisitorThreeAdresses.ThreeAdresses> lastCode3A = code3A.get(treeRoot.getChild(0));
+        try {
+            code3AtoC ctoc = new code3AtoC(lastCode3A, visitorSymbolsTable.getSymbolsTable(), src);
+            ctoc.startConversion();
+        } catch (Exception e) {
+            fail("Error while generating C code");
+        }
+
         //Testing the AST
         assert(nbErrors == 0);
         
@@ -566,6 +606,26 @@ public class AppTest {
             visitorTypesChecker.visit(treeRoot);
         } catch (Exception e) {
             fail("Error while checking types");
+        }
+
+        //generate the 3A code
+        VisitorThreeAdresses visitorThreeAdresses = new VisitorThreeAdresses();
+        try {
+            visitorThreeAdresses.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while generating 3A code");
+
+        }
+
+        
+        //Translation to c code 
+        HashMap<CommonTree,ArrayList<VisitorThreeAdresses.ThreeAdresses>> code3A = visitorThreeAdresses.getCode3A();
+        ArrayList<VisitorThreeAdresses.ThreeAdresses> lastCode3A = code3A.get(treeRoot.getChild(0));
+        try {
+            code3AtoC ctoc = new code3AtoC(lastCode3A, visitorSymbolsTable.getSymbolsTable(), src);
+            ctoc.startConversion();
+        } catch (Exception e) {
+            fail("Error while generating C code");
         }
 
         //Testing the AST
@@ -653,6 +713,26 @@ public class AppTest {
             fail("Error while checking types");
         }
 
+        //generate the 3A code
+        VisitorThreeAdresses visitorThreeAdresses = new VisitorThreeAdresses();
+        try {
+            visitorThreeAdresses.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while generating 3A code");
+
+        }
+
+        
+        //Translation to c code 
+        HashMap<CommonTree,ArrayList<VisitorThreeAdresses.ThreeAdresses>> code3A = visitorThreeAdresses.getCode3A();
+        ArrayList<VisitorThreeAdresses.ThreeAdresses> lastCode3A = code3A.get(treeRoot.getChild(0));
+        try {
+            code3AtoC ctoc = new code3AtoC(lastCode3A, visitorSymbolsTable.getSymbolsTable(), src);
+            ctoc.startConversion();
+        } catch (Exception e) {
+            fail("Error while generating C code");
+        }
+
         //Testing the AST
         assert(nbErrors == 0);
         
@@ -735,6 +815,26 @@ public class AppTest {
             visitorTypesChecker.visit(treeRoot);
         } catch (Exception e) {
             fail("Error while checking types");
+        }
+
+        //generate the 3A code
+        VisitorThreeAdresses visitorThreeAdresses = new VisitorThreeAdresses();
+        try {
+            visitorThreeAdresses.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while generating 3A code");
+
+        }
+
+        
+        //Translation to c code 
+        HashMap<CommonTree,ArrayList<VisitorThreeAdresses.ThreeAdresses>> code3A = visitorThreeAdresses.getCode3A();
+        ArrayList<VisitorThreeAdresses.ThreeAdresses> lastCode3A = code3A.get(treeRoot.getChild(0));
+        try {
+            code3AtoC ctoc = new code3AtoC(lastCode3A, visitorSymbolsTable.getSymbolsTable(), src);
+            ctoc.startConversion();
+        } catch (Exception e) {
+            fail("Error while generating C code");
         }
 
         //Testing the AST

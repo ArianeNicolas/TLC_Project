@@ -24,6 +24,8 @@ public class code3AtoC {
     private ArrayList<String> knownfunctions = new ArrayList<>();
     private int indice = 0;
     private int indiceRegistres = 0;
+    
+    public final static String OUTPUT_FILE = "generated_code/output.c";
 
     /**
      * Convert code 3 adresses into C and write the result in a .c file
@@ -34,7 +36,7 @@ public class code3AtoC {
     code3AtoC(ArrayList<VisitorThreeAdresses.ThreeAdresses> code3A, ArrayList<WhileContext> symbolsTable, String outputDirectory) throws IOException {
         this.code3A = code3A;
         this.symbolsTable = symbolsTable;
-        fileWriter = new FileWriter("generated_code/output.c");
+        fileWriter = new FileWriter(OUTPUT_FILE);
         printWriter = new PrintWriter(fileWriter);
     }
 

@@ -49,13 +49,18 @@ Ce dossier est créé si vous exécutez le build du projet. Il contient les fich
 
 ## Installation
 
-Pour vous assurer de disposer de la dernière version du jar du compilateur, vous pouvez exécuter son build avec la commande `mvn clean install` .
+Pour vous assurer de disposer de la dernière version du jar du compilateur, vous pouvez exécuter son build avec la commande `mvn clean install` . 
 
+Cela mettra égalmement à jour la documentation javadoc et exécutera la batterie de tests.
 
 ## Utilisation
 
-### Du compilateur
+Les fichiers d'éxécution du compilateur sont disponibles dans le dossier Executables.
 
-Pour le moment : `java -jar target/compilateur-while-runner.jar "<fichier1>" "<fichier2>" ...`
+Dans le dossier exécutable, vous pouvez éxecuter les commandes suivantes :
 
-L'argument -v ou --verbose permet d'afficher les détails de la compilation.
+- Pour la chaine de compilation complète : `./full-compilation.sh "<fichierSource1>" "<fichierSource2>" ...`
+
+- Pour générer le code C, sans le compiler : `java -jar target/compilateur-while-runner.jar "<fichierSource1>" "<fichierSource2>" ...`
+
+Pour les deux options, l'argument -v ou --verbose permet d'afficher les détails de la compilation.

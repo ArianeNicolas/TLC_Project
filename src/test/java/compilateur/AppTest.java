@@ -278,6 +278,67 @@ public class AppTest {
     }
 
 
+    /**
+     * test a program with all kind of spacing
+     */
+   @Test
+   public void testASTWithWeirdSpacing()
+   {
+       String arg = "src/test/whileTestFiles/weirdSpacing.while";
+       App.inputFiles = new ArrayList<String>();
+        App.inputFiles.add(arg);
+       String src = "";
+       // Read the file 
+       try {
+           for (String file : App.inputFiles) {
+               src += Files.readString(Path.of(file)) + "\n";
+           }
+       } catch (Exception e) {
+           fail("Error while reading file");
+       }
+
+       // Parse the function content
+       while_astLexer lexer = new while_astLexer(new ANTLRStringStream(src));
+       // Get the token stream from the lexer
+       CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+       // Create the parser
+       while_astParser parser = new while_astParser(tokens);
+
+       // Call the start rule, which is the entry point of the grammar
+       while_astParser.startProgram_return startProgram = null;
+       try {
+           startProgram = parser.startProgram();
+       } catch (RecognitionException e) {
+           fail("Error while parsing");
+       }
+
+       // The root of the AST
+       final CommonTree treeRoot = (CommonTree) startProgram.getTree();
+   
+       //construct the symbol table
+       VisitorSymbolsTable visitorSymbolsTable = new VisitorSymbolsTable();
+       try {
+           visitorSymbolsTable.visit(treeRoot);
+       } catch (Exception e) {
+           fail("Error while constructing symbol table");
+       }
+       //check the types
+       VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitorSymbolsTable.getSymbolsTable());
+       try {
+           visitorTypesChecker.visit(treeRoot);
+       } catch (Exception e) {
+           fail("Error while checking types");
+       }
+
+       // count the number of errors
+       int nbErrors = parser.getNumberOfSyntaxErrors();
+       assert(nbErrors == 0);
+
+       assert(src.length() > 0);
+   }
+
+
     /**************************************************************************/
     /*      (2) TESTING THE IMPLEMENTATION OF THE WHILE LANGUAGE              */
     /**************************************************************************/
@@ -554,9 +615,9 @@ public class AppTest {
      * Test a function with a if statement
      */
     @Test
-    public void testWhileOneIf()
+    public void testWhileIfStatement()
     {
-        String arg = "src/test/whileTestFiles/oneIf.while";
+        String arg = "src/test/whileTestFiles/ifStatement.while";
         App.inputFiles = new ArrayList<String>();
         App.inputFiles.add(arg);
         String src = "";
@@ -633,7 +694,7 @@ public class AppTest {
         
         //Testing the symbol table
         assert(symbolTable.size() == 1);
-        assert(symbolTable.get(0).getName().equals("oneIf"));
+        assert(symbolTable.get(0).getName().equals("ifStatement"));
         assert(symbolTable.get(0).getParameters().size() == 2);
         assert(symbolTable.get(0).getParameters().get(0).equals("Op1"));
         assert(symbolTable.get(0).getParameters().get(1).equals("Op2"));
@@ -659,9 +720,9 @@ public class AppTest {
      * Test a function with a if statement
      */
     @Test
-    public void testWhileOneWhile()
+    public void testWhileWhileLoop()
     {
-        String arg = "src/test/whileTestFiles/oneWhile.while";
+        String arg = "src/test/whileTestFiles/whileLoop.while";
         App.inputFiles = new ArrayList<String>();
         App.inputFiles.add(arg);
         String src = "";
@@ -738,7 +799,7 @@ public class AppTest {
         
         //Testing the symbol table
         assert(symbolTable.size() == 1);
-        assert(symbolTable.get(0).getName().equals("oneWhile"));
+        assert(symbolTable.get(0).getName().equals("whileLoop"));
         assert(symbolTable.get(0).getParameters().size() == 2);
         assert(symbolTable.get(0).getParameters().get(0).equals("Op1"));
         assert(symbolTable.get(0).getParameters().get(1).equals("Op2"));
@@ -763,9 +824,9 @@ public class AppTest {
      * Test a function with a if statement
      */
     @Test
-    public void testWhileOneForeach()
+    public void testWhileForeachLoop()
     {
-        String arg = "src/test/whileTestFiles/oneForeach.while";
+        String arg = "src/test/whileTestFiles/foreachLoop.while";
         App.inputFiles = new ArrayList<String>();
         App.inputFiles.add(arg);
         String src = "";
@@ -842,7 +903,7 @@ public class AppTest {
         
         //Testing the symbol table
         assert(symbolTable.size() == 1);
-        assert(symbolTable.get(0).getName().equals("oneForeach"));
+        assert(symbolTable.get(0).getName().equals("foreachLoop"));
         assert(symbolTable.get(0).getParameters().size() == 2);
         assert(symbolTable.get(0).getParameters().get(0).equals("Op1"));
         assert(symbolTable.get(0).getParameters().get(1).equals("Op2"));

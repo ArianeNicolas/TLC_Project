@@ -154,22 +154,31 @@ public class VisitorTypesChecker extends Visitor {
         switch (token) {
             //todo completer la liste des cas valant 0
             //The following tokens have no value
+            
+            case "START":
+            case "FUNCTION":
+            case "FUNCDEF":
+            case "EXPR": // we handle expr in the entry method by testing its children 
+            case "EXPRBASE":
             case "IF":
-            case "ELSE":
-            case "THEN":
-            case "FOR":
             case "WHILE":
+            case "FOR":
+            case "FOREACH":
+            case "IN":
+            case "PROGRAM":
+            case "THEN":
+            case "ELSE":
+            case "DO":
+            case "END":
+            case "NOT":
             case "COMMENT":
                 return 0;
-            //nil is a value
-            case "nil":
-                return 1;
             //The number of outputs of a function is stated in the symbols table
             case "CALL":
                 CommonTree functionNode = (CommonTree) node.getChild(0);
                 WhileContext function = VisitorSymbolsTable.getFunction(functionNode, symbolsTable);
                 return function.getOutputs().size();
-            //a variable has one value, same for a list
+            //a variable has one value, same for a list, same for nil
             default: 
                 return 1;
         }

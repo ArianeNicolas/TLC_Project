@@ -16,7 +16,7 @@ Documentation utilisateur au format pdf.
 
 - 📁 Conception
 
-schemas???????
+Contient le diagramme de classes de la partie Java du compilateur.
 
 - 📁 Javadoc
 

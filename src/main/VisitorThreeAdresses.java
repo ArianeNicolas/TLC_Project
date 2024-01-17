@@ -427,7 +427,7 @@ public class VisitorThreeAdresses extends Visitor {
                             ifList.addAll(stock.get(child));
                         }
                     }
-                    ifList.add(threeAdresses("GOTO_IF_NOT_TRUE", indiceIf, null, "block"+(indiceBlock+1)));
+                    ifList.add(threeAdresses("GOTO", indiceIf, null, "block"+(indiceBlock+1)));
                     
                     ifList.add(threeAdresses("ENTER", null, null, "block"+indiceBlock));
                     for(CommonTree child : (List<CommonTree>) node.getChildren()) {

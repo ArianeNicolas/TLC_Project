@@ -18,7 +18,7 @@ public class code3AtoC {
     private ArrayList<String> assigned = new ArrayList<>();
     private ArrayList<String> assign = new ArrayList<>();
     private ArrayList<String> outputs = new ArrayList<>();
-    private ArrayList<String> variables = new ArrayList<>();
+    private ArrayList<String> knownvariables = new ArrayList<>();
     private HashMap<String,String[]> registres = new HashMap<>();
     private int indiceContext = 0;
     private ArrayList<String> knownfunctions = new ArrayList<>();
@@ -88,18 +88,17 @@ public class code3AtoC {
                 case "ASSIGNED":
                     assigned.add(c3A.var);
                     break;
-                case "GOTO":
-                    gotoOP(c3A);
+                case "GOTO_IF_NOT_NIL":
+                    gotoIfNotNil(c3A);
+                    break;
+                case "GOTO_IF_NOT_TRUE":
+                    gotoIfNotTrue(c3A);
                     break;
                 case "RETURN":
-                    returnOP(c3A);
-                    if(i==code3A.size()-1||!code3A.get(i+1).op.equals("RETURN")){
-                        printWriter.println("}");
-                        printWriter.println();
-                    }
                     break;
-                case "END":
+                case "ENDFUNC":
                     printWriter.println("}");
+                    printWriter.println();
                 break;
                 default:
                     break;
@@ -113,8 +112,16 @@ public class code3AtoC {
     private void returnOP(ThreeAdresses c3a) {
     }
 
-    private void gotoOP(ThreeAdresses c3a) {
-        //TODO
+    private void gotoIfNotNil(ThreeAdresses c3a) {
+        printWriter.println("if(equals(nil, "+c3a.arg1+")){");
+        printWriter.println("goto "+c3a.var+";");
+        printWriter.println("}");
+    }
+
+    private void gotoIfNotTrue(ThreeAdresses c3a) {
+        printWriter.println("if(!boolTree("+c3a.arg1+")){");
+        printWriter.println("goto "+c3a.var+";");
+        printWriter.println("}");
     }
 
     private void assign() {
@@ -123,9 +130,8 @@ public class code3AtoC {
             if(Character.isUpperCase(value.charAt(0))){
                 if(isVariable(assigned.get(0))){
                     printWriter.println("Tree "+assigned.get(0)+" = "+value+";");
-                    variables.remove(assigned.get(0));
+                    knownvariables.add(assigned.get(0));
                     assigned.remove(0);
-                    
                 }
                 else{
                     printWriter.println(assigned.get(0)+" = "+value+";");
@@ -137,7 +143,7 @@ public class code3AtoC {
                 if(value.equals("nil")) {
                     if(isVariable(assigned.get(0))){
                         printWriter.println("Tree "+assigned.get(0)+" = nil;");
-                        variables.remove(assigned.get(0));
+                        knownvariables.add(assigned.get(0));
                     }
                     else {
                         printWriter.println(assigned.get(0)+" = nil;");
@@ -147,7 +153,7 @@ public class code3AtoC {
                     if(value.equals("nil")) {
                         if(isVariable(assigned.get(0))){
                             printWriter.println("Tree "+assigned.get(0)+" = cons(nil, \""+value+"\", nil);");
-                            variables.remove(assigned.get(0));
+                            knownvariables.add(assigned.get(0));
                         }
                         else {
                             printWriter.println(assigned.get(0)+" = cons(nil, \""+value+"\", nil);");
@@ -156,42 +162,37 @@ public class code3AtoC {
                 }
                     
             }
-            else{
-                switch(value){
-                    case "tl":
-                        printWriter.println(assigned.get(0)+" = ");
-                        break;
-                    case "cons":
-                        printWriter.println(assigned.get(0)+" = ");
-                        break;
-                    case "hd":
-                        printWriter.println(assigned.get(0)+" = ");
-                        break;
-                    case "equals":
-                        printWriter.println(assigned.get(0)+" = ");
-                        break;
-                    default :
-                        int i = 0;
-                        ArrayList<String> outputs_func = new ArrayList<>();
-                        while (i < symbolsTable.size()){
-                            if(symbolsTable.get(i).getName().equals(value)) {
-                                outputs_func = symbolsTable.get(i).getOutputs();
-                            }
-                            i++;
-                        }
-                        for(int j=0; j<outputs_func.size(); j++){
-                            if(isVariable(assigned.get(0))){
-                                printWriter.println("Tree "+assigned.get(0)+" = "+registres.get(value)[j]+";");   
-                                variables.remove(assigned.get(0));
-                            }
-                            else{
-                                printWriter.println(assigned.get(0)+" = "+registres.get(value)[j]+";");
-                            }
-                            assigned.remove(0);
-                        }
-                    }
-                    
+            else if(value.equals("tl")||value.equals("hd")||value.equals("cons")||value.equals("equals")){
+                if(isVariable(assigned.get(0))){
+                    printWriter.println("Tree "+assigned.get(0)+" = ");
+                    knownvariables.add(assigned.get(0));
                 }
+                else {
+                    printWriter.println(assigned.get(0)+" = ");
+                }
+            }
+                else{
+                    int i = 0;
+                    ArrayList<String> outputs_func = new ArrayList<>();
+                    while (i < symbolsTable.size()){
+                        if(symbolsTable.get(i).getName().equals(value)) {
+                            outputs_func = symbolsTable.get(i).getOutputs();
+                        }
+                        i++;
+                    }
+                    for(int j=0; j<outputs_func.size(); j++){
+                        if(isVariable(assigned.get(0))){
+                            printWriter.println("Tree "+assigned.get(0)+" = "+registres.get(value)[j]+";");   
+                            knownvariables.add(assigned.get(0));
+                        }
+                        else{
+                            printWriter.println(assigned.get(0)+" = "+registres.get(value)[j]+";");
+                        }
+                        assigned.remove(0);
+                    }
+                }
+                
+            
             }
                 assign.clear();
                 assigned.clear();
@@ -199,12 +200,12 @@ public class code3AtoC {
     }
 
     private boolean isVariable(String variable){
-        for(String var:variables){
+        for(String var:knownvariables){
             if(var.equals(variable)){
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     private void equalsOP(ThreeAdresses c3a) {
@@ -216,27 +217,46 @@ public class code3AtoC {
     }
 
     private void call(ThreeAdresses c3a) {
+        boolean isVar = isVariable(c3a.arg1);
         switch(c3a.var){
             case "tl":
                 if(Character.isLowerCase(params.get(0).charAt(0))){
-                    printWriter.println("Tree "+c3a.arg1+" = nil;");
+                    if(isVar){
+                        printWriter.println("Tree "+c3a.arg1+" = nil;");
+                        knownvariables.add(c3a.arg1);
+                    }
+                    else{
+                        printWriter.println(c3a.arg1+" = nil;");
+                    }
                 }
                 else{
-                    printWriter.println("Tree "+c3a.arg1+" = "+params.get(params.size()-1)+"->r;");
+                    if(isVar){
+                        printWriter.println("Tree "+c3a.arg1+" = "+params.get(params.size()-1)+"->r;");
+                        knownvariables.add(c3a.arg1);
+                    }
+                    else{
+                        printWriter.println(c3a.arg1+" = "+params.get(params.size()-1)+"->r;");
+                    }
                     params.remove(params.size()-1);
                 }
             break;
             case "equals":
-                printWriter.println("Tree "+c3a.arg1+" = equals("+params.get(params.size()-2)+", "+params.get(params.size()-1)+");");
+                if(isVar){
+                    printWriter.println("Tree "+c3a.arg1+" = equals("+params.get(params.size()-2)+", "+params.get(params.size()-1)+");");
+                    knownvariables.add(c3a.arg1);
+                }
+                else{
+                    printWriter.println(c3a.arg1+" = equals("+params.get(params.size()-2)+", "+params.get(params.size()-1)+");");
+                }
                 params.remove(params.size()-1);
                 params.remove(params.size()-1);
                 break;
             case "cons":
                 String param1 = params.get(params.size()-2);
                 String param2l = params.get(params.size()-1);
-                if(isVariable(c3a.arg1)||c3a.arg1.startsWith("Reg_")){
+                if(isVar||c3a.arg1.startsWith("Reg_")){
                     printWriter.print("Tree "+c3a.arg1+" = ");
-                    variables.remove(c3a.arg1);
+                    knownvariables.add(c3a.arg1);
                 }
                 else{
                     printWriter.print(c3a.arg1+" = ");
@@ -274,13 +294,25 @@ public class code3AtoC {
                 break;
             
             case "hd":
-                if(Character.isLowerCase(params.get(0).charAt(0))){
+            if(Character.isLowerCase(params.get(0).charAt(0))){
+                if(isVar){
                     printWriter.println("Tree "+c3a.arg1+" = nil;");
+                    knownvariables.add(c3a.arg1);
                 }
                 else{
+                    printWriter.println(c3a.arg1+" = nil;");
+                }
+            }
+            else{
+                if(isVar){
                     printWriter.println("Tree "+c3a.arg1+" = "+params.get(params.size()-1)+"->l;");
-                    params.remove(params.size()-1);
-                } 
+                    knownvariables.add(c3a.arg1);
+                }
+                else{
+                    printWriter.println(c3a.arg1+" = "+params.get(params.size()-1)+"->l;");
+                }
+                params.remove(params.size()-1);
+            } 
                 break;
             default :
             int i = 0;
@@ -297,6 +329,7 @@ public class code3AtoC {
             String[] reg = c3a.arg1.split(", ");
             for(int j = 0; j<reg.length; j++){
                 printWriter.println("Tree "+reg[j]+";");
+                knownvariables.add(reg[j]);
             }
             printWriter.print(c3a.var+"_while(");
             if(outputs_func>0){
@@ -317,8 +350,8 @@ public class code3AtoC {
     }
 
     private void enter(ThreeAdresses c3a) {
-        switch(c3a.var){
-            case "FUNCTION":
+        
+        if(c3a.var=="FUNCTION"){
                 int i = 0;
                 knownfunctions.add(c3a.arg1);
                 ArrayList<String> inputs_func = new ArrayList<>();
@@ -326,19 +359,13 @@ public class code3AtoC {
                     if(symbolsTable.get(i).getName().equals(c3a.arg1)) {
                         outputs = symbolsTable.get(i).getOutputs();
                         inputs_func = symbolsTable.get(i).getParameters();
-                        variables = symbolsTable.get(i).getVariables();
                         indiceContext = i;
                     }
                     i++;
                 }
                 int j = 0;
-                while(j<variables.size()){
-                    if(isOutput(variables.get(j))||isParam(variables.get(j), inputs_func)){
-                        variables.remove(variables.get(j));
-                        j--;
-                    }
-                    j++;
-                }
+                knownvariables.addAll(outputs);
+                knownvariables.addAll(inputs_func);
 
                 printWriter.print("void "+ c3a.arg1+"_while(");
                 if(inputs_func.size()>0){
@@ -356,37 +383,9 @@ public class code3AtoC {
                     }
                     printWriter.println("Tree "+outputs.get(outputs.size()-1)+"){");
                 }
-                
-                break;
-            case "FOR":
-                if(isVariable(c3a.arg1)){
-                    printWriter.println("Tree "+c3a.arg1+" = nil;");
-                    variables.remove(c3a.arg1);
-                }
-                printWriter.println("int i"+indice+";");
-                printWriter.println("for(i"+indice+"=0; i"+indice+"<intTree("+c3a.arg1+"); i"+indice+"++){");
-                indice++;
-                break;
-            case "FOREACH":
-                printWriter.println("int i"+indice+";");             
-                printWriter.println("Tree V" +indice+  " = " + c3a.arg1+";");
-                printWriter.println("Tree " +c3a.arg2+  " = " + c3a.arg1+";");
-                printWriter.println("for(i"+indice+"=0; i"+indice+"<intTree("+c3a.arg1+"); i"+indice+"++){");
-                printWriter.println("V" +indice+  " = " + c3a.arg1+"->r;");
-                printWriter.println(c3a.arg2+  " = " + c3a.arg1+"->l;");
-                indice++;
-                break;
-            case "WHILE":
-                printWriter.println("while(boolTree("+c3a.arg1+")){");
-                break;
-            case "IF":
-                printWriter.println("if(boolTree("+c3a.arg1+")){");
-                break;
-            case "ELSE":
-            printWriter.println("}");
-            printWriter.println("else{");
-            default:
-                break;
+        }
+        else {
+            printWriter.println(c3a.var+":");
         }
 
     }
@@ -394,14 +393,6 @@ public class code3AtoC {
     private boolean isParam(String output, ArrayList<String> inputs){
         for(String param:inputs){
             if(param.equals(output)){
-                return true;
-            }
-        }
-        return false;
-    }
-    private boolean isOutput(String variable){
-        for(String var:outputs){
-            if(var.equals(variable)){
                 return true;
             }
         }

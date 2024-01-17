@@ -224,7 +224,7 @@ public class code3AtoC {
                     }
                     else{
                         if(param1.equals("empty")){
-                            printWriter.println(param2l+";");
+                            printWriter.println(type(param2l)+";");
                         }
                         else if(Character.isLowerCase(param1.charAt(0))&&!param1.equals("nil")){
                             printWriter.println("cons(cons(nil, \""+param1+"\", nil), nilv, "+type(param2l)+");");
@@ -278,7 +278,7 @@ public class code3AtoC {
             if(params.size()>0){//on vérifie s'il y a des paramètres
                 for(int j = 0; j<inputs_func;j++){
                     int diff = params.size()-(inputs_func-j);
-                    printWriter.print(", "+params.get(diff));//on print autant de paramètres qu'il faut, en partant de la fin de la liste.
+                    printWriter.print(", "+type(params.get(diff)));//on print autant de paramètres qu'il faut, en partant de la fin de la liste.
                     params.remove(diff);
                 }
             }

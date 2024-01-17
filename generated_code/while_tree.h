@@ -9,12 +9,13 @@ typedef struct linkTree
 }Node, *Tree;
 
 #define nil NULL //For null Tree
-#define nilv '\0' //For null value in a Tree
+#define nilv nil //For null value in a Tree
 
 //Trees handling
 Tree cons(Tree l, char v[], Tree r); //create a node
 void deleteTree(Tree t); //delete a tree
 void displayString(Tree t); //display a tree
+void pp(Tree t);
 bool isEmpty(Tree t); 
 bool isLeaf(Tree t);
 bool boolTree(Tree t); //return true if the root node is a tree

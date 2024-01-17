@@ -55,11 +55,11 @@ Cela mettra égalmement à jour la documentation javadoc et exécutera la batter
 
 ## Utilisation
 
-Les fichiers d'éxécution du compilateur sont disponibles dans le dossier Executables.
+Les fichiers d'exécution du compilateur sont disponibles dans le dossier Executables.
 
-Dans le dossier exécutable, vous pouvez éxecuter les commandes suivantes :
+Dans le dossier exécutable, vous pouvez exécuter les commandes suivantes :
 
-- Pour la chaine de compilation complète : `./full-compilation.sh "<fichierSource1>" "<fichierSource2>" ...`
+- Pour la chaîne de compilation complète : `./full-compilation.sh "<fichierSource1>" "<fichierSource2>" ...`
 
 - Pour générer le code C, sans le compiler : `java -jar target/compilateur-while-runner.jar "<fichierSource1>" "<fichierSource2>" ...`
 

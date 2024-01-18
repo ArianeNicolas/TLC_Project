@@ -165,7 +165,6 @@ public class AppTest {
         App.inputFiles = new ArrayList<String>();
         App.inputFiles.add(arg);
         String src = "";
-        // Read the file // todo put it in src
         try {
             for (String file : App.inputFiles) {
                 src += Files.readString(Path.of(file)) + "\n";
@@ -337,7 +336,7 @@ public class AppTest {
 
        assert(src.length() > 0);
    }
-
+   
 
     /**************************************************************************/
     /*      (2) TESTING THE IMPLEMENTATION OF THE WHILE LANGUAGE              */
@@ -397,9 +396,6 @@ public class AppTest {
            visitorTypesChecker.visit(treeRoot);
        });
     }
-
-    //todo tester code 3 adresses et traduction en c
-    //todo tester pour toutes les fonctions exemples
 
 
     /**
@@ -498,13 +494,6 @@ public class AppTest {
 
         //Testing the types
         //nothing to test here, the visitorTypesChecker throws an exception if there is a type error
-
-        //Testing 3 Adresses code
-        //todo
-
-        //Testing c code
-        //todo
-
     }
 
 
@@ -518,7 +507,6 @@ public class AppTest {
         App.inputFiles = new ArrayList<String>();
         App.inputFiles.add(arg);
         String src = "";
-        // Read the file // todo put it in src
         try {
             for (String file : App.inputFiles) {
                 src += Files.readString(Path.of(file)) + "\n";
@@ -599,16 +587,6 @@ public class AppTest {
         assert(symbolTable.get(0).getVariables().get(0).equals("Result"));
         assert(symbolTable.get(0).getOutputs().size() == 1);
         assert(symbolTable.get(0).getOutputs().get(0).equals("Result"));
-        
-        //Testing the types
-        //nothing to test here, the visitorTypesChecker throws an exception if there is a type error
-
-        //Testing 3 Adresses code
-        //TODO
-
-
-        //Testing c code
-        //TODO
     }
 
     /**
@@ -621,7 +599,6 @@ public class AppTest {
         App.inputFiles = new ArrayList<String>();
         App.inputFiles.add(arg);
         String src = "";
-        // Read the file // todo put it in src
         try {
             for (String file : App.inputFiles) {
                 src += Files.readString(Path.of(file)) + "\n";
@@ -703,16 +680,6 @@ public class AppTest {
         assert(symbolTable.get(0).getVariables().get(1).equals("Result"));
         assert(symbolTable.get(0).getOutputs().size() == 1);
         assert(symbolTable.get(0).getOutputs().get(0).equals("Result"));
-        
-        //Testing the types
-        //nothing to test here, the visitorTypesChecker throws an exception if there is a type error
-
-        //Testing 3 Adresses code
-        //TODO
-
-
-        //Testing c code
-        //TODO
     }
 
 
@@ -726,7 +693,6 @@ public class AppTest {
         App.inputFiles = new ArrayList<String>();
         App.inputFiles.add(arg);
         String src = "";
-        // Read the file // todo put it in src
         try {
             for (String file : App.inputFiles) {
                 src += Files.readString(Path.of(file)) + "\n";
@@ -807,16 +773,6 @@ public class AppTest {
         assert(symbolTable.get(0).getVariables().get(0).equals("Result"));
         assert(symbolTable.get(0).getOutputs().size() == 1);
         assert(symbolTable.get(0).getOutputs().get(0).equals("Result"));
-        
-        //Testing the types
-        //nothing to test here, the visitorTypesChecker throws an exception if there is a type error
-
-        //Testing 3 Adresses code
-        //TODO
-
-
-        //Testing c code
-        //TODO
     }
 
 
@@ -830,7 +786,6 @@ public class AppTest {
         App.inputFiles = new ArrayList<String>();
         App.inputFiles.add(arg);
         String src = "";
-        // Read the file // todo put it in src
         try {
             for (String file : App.inputFiles) {
                 src += Files.readString(Path.of(file)) + "\n";
@@ -911,16 +866,6 @@ public class AppTest {
         assert(symbolTable.get(0).getVariables().get(0).equals("Result"));
         assert(symbolTable.get(0).getOutputs().size() == 1);
         assert(symbolTable.get(0).getOutputs().get(0).equals("Result"));
-        
-        //Testing the types
-        //nothing to test here, the visitorTypesChecker throws an exception if there is a type error
-
-        //Testing 3 Adresses code
-        //TODO
-
-
-        //Testing c code
-        //TODO
     }
 
 
@@ -934,7 +879,6 @@ public class AppTest {
         App.inputFiles = new ArrayList<String>();
         App.inputFiles.add(arg);
         String src = "";
-        // Read the file // todo put it in src
         try {
             for (String file : App.inputFiles) {
                 src += Files.readString(Path.of(file)) + "\n";
@@ -980,7 +924,6 @@ public class AppTest {
         App.inputFiles = new ArrayList<String>();
         App.inputFiles.add(arg);
         String src = "";
-        // Read the file // todo put it in src
         try {
             for (String file : App.inputFiles) {
                 src += Files.readString(Path.of(file)) + "\n";
@@ -1026,7 +969,6 @@ public class AppTest {
         App.inputFiles = new ArrayList<String>();
         App.inputFiles.add(arg);
         String src = "";
-        // Read the file // todo put it in src
         try {
             for (String file : App.inputFiles) {
                 src += Files.readString(Path.of(file)) + "\n";
@@ -1062,21 +1004,588 @@ public class AppTest {
     }
 
 
+    /**
+     * Test the nop instruction
+     */
+    @Test
+    public void testNop()
+    {
+        String arg = "src/test/whileTestFiles/nopStatement.while";
+        App.inputFiles = new ArrayList<String>();
+        App.inputFiles.add(arg);
+        String src = "";
+        try {
+            for (String file : App.inputFiles) {
+                src += Files.readString(Path.of(file)) + "\n";
+            }
+        } catch (Exception e) {
+            fail("Error while reading file");
+        }
+                
+        // Parse the function content
+        while_astLexer lexer = new while_astLexer(new ANTLRStringStream(src));
+        // Get the token stream from the lexer
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+        // Create the parser
+        while_astParser parser = new while_astParser(tokens);
+
+        // Call the start rule, which is the entry point of the grammar
+        while_astParser.startProgram_return startProgram = null;
+        try {
+            startProgram = parser.startProgram();
+        } catch (RecognitionException e) {
+            fail("Error while parsing");
+        }
+
+        // count the number of errors
+        int nbErrors = parser.getNumberOfSyntaxErrors();
+
+        // The root of the AST
+        final CommonTree treeRoot = (CommonTree) startProgram.getTree();
+
+        //construct the symbol table
+        VisitorSymbolsTable visitorSymbolsTable = new VisitorSymbolsTable();
+        try {
+            visitorSymbolsTable.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while constructing symbol table");
+        }
+        ArrayList<WhileContext> symbolTable = visitorSymbolsTable.getSymbolsTable();
+
+        //check the types
+        VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitorSymbolsTable.getSymbolsTable());
+        try {
+            visitorTypesChecker.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while checking types");
+        }
+
+        //generate the 3A code
+        VisitorThreeAdresses visitorThreeAdresses = new VisitorThreeAdresses();
+        try {
+            visitorThreeAdresses.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while generating 3A code");
+
+        }
+
+        
+        //Translation to c code 
+        HashMap<CommonTree,ArrayList<VisitorThreeAdresses.ThreeAdresses>> code3A = visitorThreeAdresses.getCode3A();
+        ArrayList<VisitorThreeAdresses.ThreeAdresses> lastCode3A = code3A.get(treeRoot.getChild(0));
+        try {
+            code3AtoC ctoc = new code3AtoC(lastCode3A, visitorSymbolsTable.getSymbolsTable(), src);
+            ctoc.startConversion();
+        } catch (Exception e) {
+            fail("Error while generating C code");
+        }
+
+        //Testing the AST
+        assert(nbErrors == 0);
+    }
 
 
+    /**
+     * Test the function corresponding to false
+     */
+    @Test
+    public void testFalse()
+    {
+        String arg = "src/test/whileTestFiles/false.while";
+        App.inputFiles = new ArrayList<String>();
+        App.inputFiles.add(arg);
+        String src = "";
+        try {
+            for (String file : App.inputFiles) {
+                src += Files.readString(Path.of(file)) + "\n";
+            }
+        } catch (Exception e) {
+            fail("Error while reading file");
+        }
+                
+        // Parse the function content
+        while_astLexer lexer = new while_astLexer(new ANTLRStringStream(src));
+        // Get the token stream from the lexer
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+        // Create the parser
+        while_astParser parser = new while_astParser(tokens);
+
+        // Call the start rule, which is the entry point of the grammar
+        while_astParser.startProgram_return startProgram = null;
+        try {
+            startProgram = parser.startProgram();
+        } catch (RecognitionException e) {
+            fail("Error while parsing");
+        }
+
+        // count the number of errors
+        int nbErrors = parser.getNumberOfSyntaxErrors();
+
+        // The root of the AST
+        final CommonTree treeRoot = (CommonTree) startProgram.getTree();
+
+        //construct the symbol table
+        VisitorSymbolsTable visitorSymbolsTable = new VisitorSymbolsTable();
+        try {
+            visitorSymbolsTable.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while constructing symbol table");
+        }
+        ArrayList<WhileContext> symbolTable = visitorSymbolsTable.getSymbolsTable();
+
+        //check the types
+        VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitorSymbolsTable.getSymbolsTable());
+        try {
+            visitorTypesChecker.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while checking types");
+        }
+
+        //generate the 3A code
+        VisitorThreeAdresses visitorThreeAdresses = new VisitorThreeAdresses();
+        try {
+            visitorThreeAdresses.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while generating 3A code");
+
+        }
+
+        
+        //Translation to c code 
+        HashMap<CommonTree,ArrayList<VisitorThreeAdresses.ThreeAdresses>> code3A = visitorThreeAdresses.getCode3A();
+        ArrayList<VisitorThreeAdresses.ThreeAdresses> lastCode3A = code3A.get(treeRoot.getChild(0));
+        try {
+            code3AtoC ctoc = new code3AtoC(lastCode3A, visitorSymbolsTable.getSymbolsTable(), src);
+            ctoc.startConversion();
+        } catch (Exception e) {
+            fail("Error while generating C code");
+        }
+
+        //Testing the AST
+        assert(nbErrors == 0);
+    }
+
+    @Test
+    /**
+     * Test the function corresponding to true
+     */
+    public void testTrue()
+    {
+        String arg = "src/test/whileTestFiles/true.while";
+        App.inputFiles = new ArrayList<String>();
+        App.inputFiles.add(arg);
+        String src = "";
+        // Read the file 
+        try {
+            for (String file : App.inputFiles) {
+                src += Files.readString(Path.of(file)) + "\n";
+            }
+        } catch (Exception e) {
+           fail("Error while reading file");
+        }
+                
+        // Parse the function content
+        while_astLexer lexer = new while_astLexer(new ANTLRStringStream(src));
+       // Get the token stream from the lexer
+       CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+       // Create the parser
+       while_astParser parser = new while_astParser(tokens);
+
+       // Call the start rule, which is the entry point of the grammar
+       while_astParser.startProgram_return startProgram = null;
+       try {
+           startProgram = parser.startProgram();
+       } catch (RecognitionException e) {
+           fail("Error while parsing");
+       }
+
+       // count the number of errors
+       int nbErrors = parser.getNumberOfSyntaxErrors();
+
+       // The root of the AST
+       final CommonTree treeRoot = (CommonTree) startProgram.getTree();
+
+
+        //construct the symbol table
+        VisitorSymbolsTable visitorSymbolsTable = new VisitorSymbolsTable();
+        try {
+            visitorSymbolsTable.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while constructing symbol table");
+        }
+        ArrayList<WhileContext> symbolTable = visitorSymbolsTable.getSymbolsTable();
+
+        //check the types
+        VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitorSymbolsTable.getSymbolsTable());
+        try {
+            visitorTypesChecker.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while checking types");
+        }
+
+        //generate the 3A code
+        VisitorThreeAdresses visitorThreeAdresses = new VisitorThreeAdresses();
+        try {
+            visitorThreeAdresses.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while generating 3A code");
+
+        }
+
+        
+        //Translation to c code 
+        HashMap<CommonTree,ArrayList<VisitorThreeAdresses.ThreeAdresses>> code3A = visitorThreeAdresses.getCode3A();
+        ArrayList<VisitorThreeAdresses.ThreeAdresses> lastCode3A = code3A.get(treeRoot.getChild(0));
+        try {
+            code3AtoC ctoc = new code3AtoC(lastCode3A, visitorSymbolsTable.getSymbolsTable(), src);
+            ctoc.startConversion();
+        } catch (Exception e) {
+            fail("Error while generating C code");
+        }
+
+       //Testing the AST
+       assert(nbErrors == 0);
+    }
+
+
+    @Test
+    /**
+     * Testing Logical not 
+     */
+    public void testNot()
+    {
+        String arg1 = "src/test/whileTestFiles/true.while";
+        String arg2 = "src/test/whileTestFiles/false.while";
+        String arg3 = "src/test/whileTestFiles/not.while";
+        App.inputFiles = new ArrayList<String>();
+        App.inputFiles.add(arg1);
+        App.inputFiles.add(arg2);
+        App.inputFiles.add(arg3);
+        String src = "";
+        // Read the file 
+        try {
+            for (String file : App.inputFiles) {
+                src += Files.readString(Path.of(file)) + "\n";
+            }
+        } catch (Exception e) {
+           fail("Error while reading file");
+        }
+                
+        // Parse the function content
+        while_astLexer lexer = new while_astLexer(new ANTLRStringStream(src));
+       // Get the token stream from the lexer
+       CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+       // Create the parser
+       while_astParser parser = new while_astParser(tokens);
+
+       // Call the start rule, which is the entry point of the grammar
+       while_astParser.startProgram_return startProgram = null;
+       try {
+           startProgram = parser.startProgram();
+       } catch (RecognitionException e) {
+           fail("Error while parsing");
+       }
+
+       // count the number of errors
+       int nbErrors = parser.getNumberOfSyntaxErrors();
+
+       // The root of the AST
+       final CommonTree treeRoot = (CommonTree) startProgram.getTree();
+
+        //construct the symbol table
+        VisitorSymbolsTable visitorSymbolsTable = new VisitorSymbolsTable();
+        try {
+            visitorSymbolsTable.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while constructing symbol table");
+        }
+        ArrayList<WhileContext> symbolTable = visitorSymbolsTable.getSymbolsTable();
+
+        //check the types
+        VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitorSymbolsTable.getSymbolsTable());
+        try {
+            visitorTypesChecker.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while checking types");
+        }
+
+        //generate the 3A code
+        VisitorThreeAdresses visitorThreeAdresses = new VisitorThreeAdresses();
+        try {
+            visitorThreeAdresses.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while generating 3A code");
+
+        }
+
+        //Translation to c code 
+        HashMap<CommonTree,ArrayList<VisitorThreeAdresses.ThreeAdresses>> code3A = visitorThreeAdresses.getCode3A();
+        ArrayList<VisitorThreeAdresses.ThreeAdresses> lastCode3A = code3A.get(treeRoot.getChild(0));
+        try {
+            code3AtoC ctoc = new code3AtoC(lastCode3A, visitorSymbolsTable.getSymbolsTable(), src);
+            ctoc.startConversion();
+        } catch (Exception e) {
+            fail("Error while generating C code");
+        }
+
+       //Testing the AST
+       assert(nbErrors == 0);
+    }
+
+    @Test
+    /**
+     * Test tl
+     */
+    public void testTl()
+    {
+        String arg = "src/test/whileTestFiles/testTl.while";
+        App.inputFiles = new ArrayList<String>();
+        App.inputFiles.add(arg);
+        String src = "";
+        // Read the file 
+        try {
+            for (String file : App.inputFiles) {
+                src += Files.readString(Path.of(file)) + "\n";
+            }
+        } catch (Exception e) {
+           fail("Error while reading file");
+        }
+                
+        // Parse the function content
+        while_astLexer lexer = new while_astLexer(new ANTLRStringStream(src));
+       // Get the token stream from the lexer
+       CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+       // Create the parser
+       while_astParser parser = new while_astParser(tokens);
+
+       // Call the start rule, which is the entry point of the grammar
+       while_astParser.startProgram_return startProgram = null;
+       try {
+           startProgram = parser.startProgram();
+       } catch (RecognitionException e) {
+           fail("Error while parsing");
+       }
+
+       // count the number of errors
+       int nbErrors = parser.getNumberOfSyntaxErrors();
+
+       // The root of the AST
+       final CommonTree treeRoot = (CommonTree) startProgram.getTree();
+
+
+        //construct the symbol table
+        VisitorSymbolsTable visitorSymbolsTable = new VisitorSymbolsTable();
+        try {
+            visitorSymbolsTable.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while constructing symbol table");
+        }
+        ArrayList<WhileContext> symbolTable = visitorSymbolsTable.getSymbolsTable();
+
+        //check the types
+        VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitorSymbolsTable.getSymbolsTable());
+        try {
+            visitorTypesChecker.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while checking types");
+        }
+
+        //generate the 3A code
+        VisitorThreeAdresses visitorThreeAdresses = new VisitorThreeAdresses();
+        try {
+            visitorThreeAdresses.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while generating 3A code");
+
+        }
+
+        
+        //Translation to c code 
+        HashMap<CommonTree,ArrayList<VisitorThreeAdresses.ThreeAdresses>> code3A = visitorThreeAdresses.getCode3A();
+        ArrayList<VisitorThreeAdresses.ThreeAdresses> lastCode3A = code3A.get(treeRoot.getChild(0));
+        try {
+            code3AtoC ctoc = new code3AtoC(lastCode3A, visitorSymbolsTable.getSymbolsTable(), src);
+            ctoc.startConversion();
+        } catch (Exception e) {
+            fail("Error while generating C code");
+        }
+
+       //Testing the AST
+       assert(nbErrors == 0);
+    }
+
+
+    @Test
+    /**
+     * Test hd
+     */
+    public void testHd()
+    {
+        String arg = "src/test/whileTestFiles/testHd.while";
+        App.inputFiles = new ArrayList<String>();
+        App.inputFiles.add(arg);
+        String src = "";
+        // Read the file 
+        try {
+            for (String file : App.inputFiles) {
+                src += Files.readString(Path.of(file)) + "\n";
+            }
+        } catch (Exception e) {
+           fail("Error while reading file");
+        }
+                
+        // Parse the function content
+        while_astLexer lexer = new while_astLexer(new ANTLRStringStream(src));
+       // Get the token stream from the lexer
+       CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+       // Create the parser
+       while_astParser parser = new while_astParser(tokens);
+
+       // Call the start rule, which is the entry point of the grammar
+       while_astParser.startProgram_return startProgram = null;
+       try {
+           startProgram = parser.startProgram();
+       } catch (RecognitionException e) {
+           fail("Error while parsing");
+       }
+
+       // count the number of errors
+       int nbErrors = parser.getNumberOfSyntaxErrors();
+
+       // The root of the AST
+       final CommonTree treeRoot = (CommonTree) startProgram.getTree();
+
+        //construct the symbol table
+        VisitorSymbolsTable visitorSymbolsTable = new VisitorSymbolsTable();
+        try {
+            visitorSymbolsTable.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while constructing symbol table");
+        }
+        ArrayList<WhileContext> symbolTable = visitorSymbolsTable.getSymbolsTable();
+
+        //check the types
+        VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitorSymbolsTable.getSymbolsTable());
+        try {
+            visitorTypesChecker.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while checking types");
+        }
+
+        //generate the 3A code
+        VisitorThreeAdresses visitorThreeAdresses = new VisitorThreeAdresses();
+        try {
+            visitorThreeAdresses.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while generating 3A code");
+
+        }
+
+        
+        //Translation to c code 
+        HashMap<CommonTree,ArrayList<VisitorThreeAdresses.ThreeAdresses>> code3A = visitorThreeAdresses.getCode3A();
+        ArrayList<VisitorThreeAdresses.ThreeAdresses> lastCode3A = code3A.get(treeRoot.getChild(0));
+        try {
+            code3AtoC ctoc = new code3AtoC(lastCode3A, visitorSymbolsTable.getSymbolsTable(), src);
+            ctoc.startConversion();
+        } catch (Exception e) {
+            fail("Error while generating C code");
+        }
+
+       //Testing the AST
+       assert(nbErrors == 0);
+    }
+
+
+    @Test
+    /**
+     * Testing comments on every line
+     */
+    public void testCommentsEverywhere()
+    {
+        String arg = "src/test/whileTestFiles/commentsEverywhere.while";
+        App.inputFiles = new ArrayList<String>();
+        App.inputFiles.add(arg);
+        String src = "";
+        // Read the file 
+        try {
+            for (String file : App.inputFiles) {
+                src += Files.readString(Path.of(file)) + "\n";
+            }
+        } catch (Exception e) {
+           fail("Error while reading file");
+        }
+                
+        // Parse the function content
+        while_astLexer lexer = new while_astLexer(new ANTLRStringStream(src));
+       // Get the token stream from the lexer
+       CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+       // Create the parser
+       while_astParser parser = new while_astParser(tokens);
+
+       // Call the start rule, which is the entry point of the grammar
+       while_astParser.startProgram_return startProgram = null;
+       try {
+           startProgram = parser.startProgram();
+       } catch (RecognitionException e) {
+           fail("Error while parsing");
+       }
+
+       // count the number of errors
+       int nbErrors = parser.getNumberOfSyntaxErrors();
+
+       // The root of the AST
+       final CommonTree treeRoot = (CommonTree) startProgram.getTree();
+
+        //construct the symbol table
+        VisitorSymbolsTable visitorSymbolsTable = new VisitorSymbolsTable();
+        try {
+            visitorSymbolsTable.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while constructing symbol table");
+        }
+        ArrayList<WhileContext> symbolTable = visitorSymbolsTable.getSymbolsTable();
+
+        //check the types
+        VisitorTypesChecker visitorTypesChecker = new VisitorTypesChecker(visitorSymbolsTable.getSymbolsTable());
+        try {
+            visitorTypesChecker.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while checking types");
+        }
+
+        //generate the 3A code
+        VisitorThreeAdresses visitorThreeAdresses = new VisitorThreeAdresses();
+        try {
+            visitorThreeAdresses.visit(treeRoot);
+        } catch (Exception e) {
+            fail("Error while generating 3A code");
+
+        }
+
+        
+        //Translation to c code 
+        HashMap<CommonTree,ArrayList<VisitorThreeAdresses.ThreeAdresses>> code3A = visitorThreeAdresses.getCode3A();
+        ArrayList<VisitorThreeAdresses.ThreeAdresses> lastCode3A = code3A.get(treeRoot.getChild(0));
+        try {
+            code3AtoC ctoc = new code3AtoC(lastCode3A, visitorSymbolsTable.getSymbolsTable(), src);
+            ctoc.startConversion();
+        } catch (Exception e) {
+            fail("Error while generating C code");
+        }
+
+       //Testing the AST
+       assert(nbErrors == 0);
+    }
 
     //todo test :
-    //les espaces
-    //les tabulations
-    //for 
-    //while
-    //foreach
-    //test if and for in one function
-    //test cons
-    //test tl
-    //test nil
-    //test function call
-    //test les commentaires, partout
 
     //test les fonctions exemples
     

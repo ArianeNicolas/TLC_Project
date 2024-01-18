@@ -1,0 +1,6 @@
+function nopStatement :
+read Op1
+%
+    nop
+%
+write Op1

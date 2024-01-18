@@ -1,0 +1,6 @@
+function testTl :
+read Op1
+%
+    Result := (tl Op1)
+%
+write Result

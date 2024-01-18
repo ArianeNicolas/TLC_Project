@@ -1,0 +1,6 @@
+function testTHd :
+read Op1
+%
+    Result := (hd Op1)
+%
+write Result

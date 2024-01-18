@@ -1,5 +1,5 @@
 package antlrworks;
-// $ANTLR 3.5.1 C:\\Users\\PC\\Desktop\\projet-tlc\\while_grammarAST\\while_ast.g 2024-01-14 15:55:58
+// $ANTLR 3.5.1 C:\\Users\\PC\\Desktop\\projet-tlc\\while_grammarAST\\while_ast.g 2024-01-18 21:20:59
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -471,7 +471,7 @@ public class while_astParser extends Parser {
 			}
 
 			// AST REWRITE
-			// elements: function, program
+			// elements: program, function
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -723,7 +723,7 @@ public class while_astParser extends Parser {
 
 			stream_definition.add(definition18.getTree());
 			// AST REWRITE
-			// elements: Symbol, definition
+			// elements: definition, Symbol
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -1110,7 +1110,7 @@ public class while_astParser extends Parser {
 			}
 
 			// AST REWRITE
-			// elements: input, output, commands
+			// elements: output, commands, input
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -1411,7 +1411,7 @@ public class while_astParser extends Parser {
 			}
 
 			// AST REWRITE
-			// elements: inputSub, Variable
+			// elements: Variable, inputSub
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -2106,7 +2106,7 @@ public class while_astParser extends Parser {
 			}
 
 			// AST REWRITE
-			// elements: vars, exprs
+			// elements: exprs, vars
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -2381,7 +2381,7 @@ public class while_astParser extends Parser {
 			}
 
 			// AST REWRITE
-			// elements: expression, else_, then_
+			// elements: then_, else_, expression
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -3326,7 +3326,7 @@ public class while_astParser extends Parser {
 			}
 
 			// AST REWRITE
-			// elements: expression, do_
+			// elements: do_, expression
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -3751,7 +3751,7 @@ public class while_astParser extends Parser {
 			}
 
 			// AST REWRITE
-			// elements: Variable, vars
+			// elements: vars, Variable
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -3906,7 +3906,7 @@ public class while_astParser extends Parser {
 			}
 
 			// AST REWRITE
-			// elements: exprs, expression
+			// elements: expression, exprs
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -5335,7 +5335,7 @@ public class while_astParser extends Parser {
 			}
 
 			// AST REWRITE
-			// elements: exprBase, lExpr
+			// elements: lExpr, exprBase
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 

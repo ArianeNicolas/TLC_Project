@@ -9,12 +9,12 @@ Tree cons(Tree l, char v[], Tree r)
 {
 	char *tmp = NULL;
 	if(v != NULL) {
-		tmp = (char*)malloc(sizeof(char) * (strlen(v)));
+		tmp = (char*)malloc(sizeof(char) * (strlen(v) + 1));
 		if(tmp != NULL)
 			strcpy(tmp, v);
 	}
 	
-	Node *m;
+	Node *m = NULL;
 	m = malloc(sizeof(Node));
 	if(m != NULL)
 	{
@@ -28,9 +28,52 @@ Tree cons(Tree l, char v[], Tree r)
 void displayString(Tree t)
 {
 	if (isEmpty(t)) return;
-	if (t->v != NULL) printf("%s", t->v);
+	if (t->v != nil) printf("%s", t->v);
 	displayString(t->l);
 	displayString(t->r);
+}
+
+void pp(Tree t) 
+{
+	if (isEmpty(t))
+	{
+		printf("nil\n");
+		return;
+	}
+
+	if (!isEmpty(t->l) && t->l->v != nil) 
+	{
+		if (strcmp(t->l->v, "int")==0)
+		{
+			t = t->r;
+			printf("%d\n", intTree(t));
+			return;
+
+		} else if (strcmp(t->l->v, "bool")==0) 
+		{
+			t = t->r;
+			if (boolTree(t)) 
+			{
+				printf("true\n");
+			} else printf("false\n");
+			return;
+		} else if (strcmp(t->l->v, "string")==0)
+		{
+			t = t->r;
+			displayString(t);
+			printf("\n");
+			return;
+		}
+	}
+	
+	//default
+	if (boolTree(t)) 
+	{
+		printf("bool : true\n");
+	} else printf("bool : false\n");
+	printf("int : %d\n", intTree(t));
+	displayString(t);
+	printf("\n");
 }
 
 void deleteTree(Tree t)

@@ -1,15 +1,21 @@
 package compilateur;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.antlr.runtime.tree.CommonTree;
+
+import antlrworks.while_astParser.else__return;
 
 public class VisitorThreeAdresses extends Visitor {
 
     int indice = 0;
     private HashMap<String,Integer> outputs = new HashMap<>();
+    private HashMap<String,ArrayList<ThreeAdresses>> blocks = new HashMap<>();
+    private int indiceBlock = 0;
 
     public class ThreeAdresses {
         public String op;
@@ -24,6 +30,15 @@ public class VisitorThreeAdresses extends Visitor {
         return stock;
     }
 
+
+    public HashMap<String,ArrayList<ThreeAdresses>> getBlocks() {
+        return blocks;
+    }
+
+
+    public VisitorThreeAdresses(){
+    }
+
     @Override
     protected void entry(CommonTree node) {
     }
@@ -32,17 +47,15 @@ public class VisitorThreeAdresses extends Visitor {
     protected void exit(CommonTree node) {
         
         if(node.getChildren() == null&&!(node.getText().equals("END"))&&!(node.getText().equals("CONS"))&&!(node.getText().equals("LIST"))) {
-        ArrayList<ThreeAdresses> list = new ArrayList<>();
-        list.add(threeAdresses("IGNORE", null, null, null));
-        stock.put(node,list);
-            
+            ArrayList<ThreeAdresses> list = new ArrayList<>();
+            list.add(threeAdresses("IGNORE", null, null, null));
+            stock.put(node,list);
         }
         else{
             switch (node.getText()) {
                 case "COMMENT":
                     ArrayList<ThreeAdresses> comment = new ArrayList<>();
                     comment.add(threeAdresses("IGNORE", null, null, null));
-                    break;
                 case "START":
                     ArrayList<ThreeAdresses> start = new ArrayList<>();
                     for(CommonTree child : (List<CommonTree>) node.getChildren()) {
@@ -69,7 +82,8 @@ public class VisitorThreeAdresses extends Visitor {
                     ArrayList<ThreeAdresses> funcdef = new ArrayList<>();
                     funcdef.add(threeAdresses("ENTER", node.getChild(0).getText(), null, "FUNCTION")); 
                     for(CommonTree child : (List<CommonTree>) node.getChildren()) {
-                        if(!child.getText().equals("END")&&Character.isUpperCase(child.getText().charAt(0))) {
+                        
+                        if(Character.isUpperCase(child.getText().charAt(0))) {
                             funcdef.addAll(stock.get(child));
                         }
                     }
@@ -77,8 +91,10 @@ public class VisitorThreeAdresses extends Visitor {
                     break;
                 case "FUNCTION":
                     ArrayList<ThreeAdresses> code3 = new ArrayList<>();
-                    for(CommonTree child : (List<CommonTree>) node.getChildren()) {
-                        code3.addAll(stock.get(child));    
+                    int i0 = 0;
+                    while(i0<node.getChildCount()){
+                        code3.addAll(stock.get(node.getChild(i0)));
+                        i0++;
                     }
                     stock.put(node, code3);
                     break;
@@ -122,7 +138,6 @@ public class VisitorThreeAdresses extends Visitor {
                                         j--;
                                         ThreeAdresses c3a = stockChildren.get(j);
                                         if(c3a.op.equals("CALL")){//Si on trouve un CALL
-                                            System.out.println("c3a.var = "+c3a.var+"op.getText() = "+op.getText());
                                             
                                             if(op.getText().equals("CALL")&&c3a.var.equals(op.getChild(0).getText())){//On regarde si notre noeud est un CALL et si sa fonction est la même que celle du code3a
                                                 listVar.add(threeAdresses("ASSIGN", null, null, c3a.var));
@@ -147,29 +162,32 @@ public class VisitorThreeAdresses extends Visitor {
                     
                     stock.put(node,listVar);
                     break;
+
                 case "EXPR":
                     ArrayList<ThreeAdresses> list2 = new ArrayList<>();
                     if(node.getChildCount() == 1) {
                         list2 = stock.get(node.getChild(0));
                     }
                     else { //On sait pas ce que c'est
-                        list2 = new ArrayList<>();
-                        for(int i = 0; i<2; i++){
-                            String text = node.getChild(i).getText();
-                            if(text.equals("CALL")||text.equals("TL")||text.equals("HD")||text.equals("CONS")||text.equals("LIST")){
-                                ArrayList<ThreeAdresses> c3a = stock.get(node.getChild(i));
-                                list2.addAll(c3a);
-                                list2.add(threeAdresses("PARAM", c3a.get(c3a.size()-1).arg1, null, null));
-                            }
-                            else {
-                                list2.add(threeAdresses("PARAM", text, null, null));
-                            }
+                    list2 = new ArrayList<>();
+                    for(int i = 0; i<2; i++){
+                        String text = node.getChild(i).getText();
+                        if(text.equals("CALL")||text.equals("TL")||text.equals("HD")||text.equals("CONS")||text.equals("LIST")){
+                            ArrayList<ThreeAdresses> c3a = stock.get(node.getChild(i));
+                            list2.addAll(c3a);
+                            list2.add(threeAdresses("PARAM", c3a.get(c3a.size()-1).arg1, null, null));
                         }
-                        list2.add(threeAdresses("CALL", "Reg_"+indice, null, "equals"));   
-                        indice++;                     
+                        else {
+                            list2.add(threeAdresses("PARAM", text, null, null));
+                        }
                     }
-                    stock.put(node,list2);                       
-                    break;
+                    list2.add(threeAdresses("CALL", "Reg_"+indice, null, "equals"));   
+                    indice++;                     
+                }
+                stock.put(node,list2);                       
+                    
+                break;
+
                 case "TL":
                     list2 = stock.get(node.getChild(0));
                     ThreeAdresses paramTL = new ThreeAdresses();
@@ -311,102 +329,124 @@ public class VisitorThreeAdresses extends Visitor {
                 case "FOR":
                     ArrayList<ThreeAdresses> forList = new ArrayList<>();
                     String textFOR = node.getChild(0).getChild(0).getText();
-                    ThreeAdresses enterFor = new ThreeAdresses();
+                    String indiceFor = "";
                     if(textFOR.equals("CALL")||textFOR.equals("TL")||textFOR.equals("HD")||textFOR.equals("CONS")||textFOR.equals("LIST")){
                         ArrayList<ThreeAdresses> c3a = stock.get(node.getChild(0));
                         forList.addAll(c3a);
-                        enterFor.arg1 = c3a.get(c3a.size()-1).arg1;
+                        indiceFor = c3a.get(c3a.size()-1).arg1;
                     }
-                    else enterFor.arg1 = textFOR;
-                    enterFor.op = "ENTER";
-                    enterFor.var = "FOR";
-                    forList.add(enterFor); 
+                    else indiceFor = textFOR;
+                    forList.add(threeAdresses("ENTER", null, null, "block"+indiceBlock));
+                    
                     //On ajoute les codes trois adresses des enfants
                     for(CommonTree child : (List<CommonTree>) node.getChildren()) {
-                        if(child.getText().equals("DO") || child.getText().equals("END")) {
+                        if(child.getText().equals("DO")) {
                             forList.addAll(stock.get(child));
                         }
                     }
+                    forList.add(threeAdresses("PARAM", indiceFor, null, null));
+                    forList.add(threeAdresses("CALL", indiceFor, null, "tl"));
+                    forList.add(threeAdresses("GOTO_IF_NOT_NIL", indiceFor, null, "block"+indiceBlock));
                     stock.put(node, forList);
+                    indiceBlock++;
                     break;
 
                 case "FOREACH":
-                    ArrayList<ThreeAdresses> forEachList = new ArrayList<>();
-                    ThreeAdresses foreachjump = new ThreeAdresses();
+                    ArrayList<ThreeAdresses> foreachList = new ArrayList<>();
                     String textForeach = node.getChild(0).getChild(1).getChild(0).getText();
+                    String indiceForeach = "";
                     if(textForeach.equals("CALL")||textForeach.equals("TL")||textForeach.equals("HD")||textForeach.equals("CONS")||textForeach.equals("LIST")){
-                        ArrayList<ThreeAdresses> c3a = stock.get(node.getChild(0).getChild(1).getChild(0));
-                        forEachList.addAll(c3a);
-                        foreachjump.arg1 = c3a.get(c3a.size()-1).arg1;
+                        ArrayList<ThreeAdresses> c3a = stock.get(node.getChild(0).getChild(1));
+                        foreachList.addAll(c3a);
+                        indiceForeach = c3a.get(c3a.size()-1).arg1;
                     }
-                    else foreachjump.arg1 = textForeach;
-                    foreachjump.op = "ENTER";
-                    foreachjump.arg2 = node.getChild(0).getChild(0).getText();
-                    foreachjump.var = "FOREACH";
-                    forEachList.add(foreachjump); 
+                    else indiceForeach = textForeach;      
+                    foreachList.add(threeAdresses("ASSIGNED", null, null, "Reg_"+indice)); 
+                    foreachList.add(threeAdresses("ASSIGN", null, null, indiceForeach));
+                    foreachList.add(threeAdresses("ASSIGNED", null, null, node.getChild(0).getChild(0).getText())); 
+                    foreachList.add(threeAdresses("ASSIGN", null, null, indiceForeach)); 
+                    foreachList.add(threeAdresses("ENTER", null, null, "block"+indiceBlock));
+                    
+                    foreachList.add(threeAdresses("PARAM", "Reg_"+indice, null, null));
+                    foreachList.add(threeAdresses("CALL", node.getChild(0).getChild(0).getText(), null, "tl"));
                     //On ajoute les codes trois adresses des enfants
                     for(CommonTree child : (List<CommonTree>) node.getChildren()) {
-                        if(child.getText().equals("DO")||child.getText().equals("END")) {
-                            forEachList.addAll(stock.get(child));
+                        if(child.getText().equals("DO")) {
+                            foreachList.addAll(stock.get(child));
                         }
                     }
-                    stock.put(node, forEachList); 
+                    foreachList.add(threeAdresses("PARAM", "Reg_"+indice, null, null));
+                    foreachList.add(threeAdresses("CALL", "Reg_"+indice, null, "hd"));
+                    foreachList.add(threeAdresses("GOTO_IF_NOT_NIL", "Reg_"+indice, null, "block"+indiceBlock));
+                    stock.put(node, foreachList);
+                    indice++;
+                    indiceBlock++;
                     break;
 
-                case "WHILE":
+                    case "WHILE":
+                    System.out.println("JENTRE DANS LE WHILE");
                     ArrayList<ThreeAdresses> whileList = new ArrayList<>();
-                    ThreeAdresses enterWhile = new ThreeAdresses();
-                    enterWhile.op = "ENTER";
-                    enterWhile.var = "WHILE";
-                    String textWHILE = node.getChild(0).getChild(0).getText();
-                    if(textWHILE.equals("CALL")||textWHILE.equals("TL")||textWHILE.equals("HD")||textWHILE.equals("CONS")||textWHILE.equals("LIST")){
+                    String textWhile = node.getChild(0).getChild(0).getText();
+                    String indiceWhile = "";
+                    if(textWhile.equals("CALL")||textWhile.equals("TL")||textWhile.equals("HD")||textWhile.equals("CONS")||textWhile.equals("LIST")){
                         ArrayList<ThreeAdresses> c3a = stock.get(node.getChild(0));
                         whileList.addAll(c3a);
-                        enterWhile.arg1 = c3a.get(c3a.size()-1).arg1;
+                        indiceWhile = c3a.get(c3a.size()-1).arg1;
                     }
-                    else enterWhile.arg1 = textWHILE;
-                    whileList.add(enterWhile);
+                    else indiceWhile = textWhile;
+                    whileList.add(threeAdresses("ENTER", null, null, "block"+indiceBlock));
+                    
                     //On ajoute les codes trois adresses des enfants
                     for(CommonTree child : (List<CommonTree>) node.getChildren()) {
-                        if(child.getText().equals("DO")||child.getText().equals("END")) {
+                        if(child.getText().equals("DO")) {
                             whileList.addAll(stock.get(child));
                         }
                     }
-                    stock.put(node,whileList);
-                    break;
+                    whileList.add(threeAdresses("PARAM", indiceWhile, null, null));
+                    whileList.add(threeAdresses("CALL", indiceWhile, null, "tl"));
+                    whileList.add(threeAdresses("GOTO_IF_NOT_TRUE", indiceWhile, null, "block"+indiceBlock));
+                    stock.put(node, whileList);
+                    indiceBlock++;
                 case "DO":
                     ArrayList<ThreeAdresses> list7 = new ArrayList<>();
                     for(CommonTree child : (List<CommonTree>) node.getChildren()) {
+                        System.out.println(child.getText());
                         list7.addAll(stock.get(child));
                     }
                     stock.put(node, list7);
                     break;
                 case "IF":
-                    ArrayList<ThreeAdresses> ifList = new ArrayList<>(); 
-                    ThreeAdresses ifjump = new ThreeAdresses();
-                    ifjump.op = "ENTER";
-                    ifjump.var = "IF";
-                    String textIF = node.getChild(0).getChild(0).getText();
-                        if(textIF.equals("CALL")||textIF.equals("TL")||textIF.equals("HD")||textIF.equals("CONS")||textIF.equals("LIST")){
-                            ArrayList<ThreeAdresses> c3a = stock.get(node.getChild(0));
-                            ifList.addAll(c3a);
-                            ifjump.arg1 = c3a.get(c3a.size()-1).arg1;
-                        }
-                        else ifjump.arg1 = textIF;
-                    ifList.add(ifjump);
+                    ArrayList<ThreeAdresses> ifList = new ArrayList<>();
+                    String textIf = node.getChild(0).getChild(0).getText();
+                    String indiceIf = "";
+                    if(textIf.equals("CALL")||textIf.equals("TL")||textIf.equals("HD")||textIf.equals("CONS")||textIf.equals("LIST")){
+                        ArrayList<ThreeAdresses> c3a = stock.get(node.getChild(0));
+                        ifList.addAll(c3a);
+                        indiceIf = c3a.get(c3a.size()-1).arg1;
+                    }
+                    else indiceIf = textIf;
+                    ifList.add(threeAdresses("PARAM", indiceIf, null, null));
+                    ifList.add(threeAdresses("CALL", indiceIf, null, "tl"));
+                    ifList.add(threeAdresses("GOTO_IF_NOT_TRUE", indiceIf, null, "block"+indiceBlock));
                     for(CommonTree child : (List<CommonTree>) node.getChildren()) {
-                        if(child.getText().equals("THEN")||child.getText().equals("ELSE")||child.getText().equals("END")){
+                        if(child.getText().equals("THEN")){
                             ifList.addAll(stock.get(child));
                         }
                     }
+                    ifList.add(threeAdresses("GOTO", indiceIf, null, "block"+(indiceBlock+1)));
+                    
+                    ifList.add(threeAdresses("ENTER", null, null, "block"+indiceBlock));
+                    for(CommonTree child : (List<CommonTree>) node.getChildren()) {
+                        if(child.getText().equals("ELSE")){
+                            ifList.addAll(stock.get(child));
+                        }
+                    }
+                    ifList.add(threeAdresses("ENTER", null, null, "block"+(indiceBlock+1)));
+                    indiceBlock+=2;
                     stock.put(node, ifList);
                     break;
                 case "THEN":
                     ArrayList<ThreeAdresses> list6 = new ArrayList<>();
-                    ThreeAdresses thenjump = new ThreeAdresses();
-                    thenjump.op = "ENTER";
-                    thenjump.var = "THEN";
-                    list6.add(thenjump);
                     for(CommonTree child : (List<CommonTree>) node.getChildren()) {
 
                         list6.addAll(stock.get(child));
@@ -415,10 +455,6 @@ public class VisitorThreeAdresses extends Visitor {
                     break;
                 case "ELSE":
                     ArrayList<ThreeAdresses> list4 = new ArrayList<>();
-                    ThreeAdresses elsejump = new ThreeAdresses();
-                    elsejump.op = "ENTER";
-                    elsejump.var = "ELSE";
-                    list4.add(elsejump);
                     for(CommonTree child : (List<CommonTree>) node.getChildren()) {
                         list4.addAll(stock.get(child));
                     }
@@ -439,15 +475,14 @@ public class VisitorThreeAdresses extends Visitor {
 
                 case "END":
                         String parent = node.getParent().getText();
-                        if(parent.equals("FOR")||parent.equals("WHILE")||parent.equals("FOREACH")||parent.equals("IF")) {
-                            ThreeAdresses jump = new ThreeAdresses();
-                            jump.op = "END";
-                            jump.arg1 = node.getParent().getText();
-                            ArrayList<ThreeAdresses> list11 = new ArrayList<>();
-                            list11.add(jump);
-                            stock.put(node,list11);
+                        ArrayList<ThreeAdresses> endCode = new ArrayList<>();
+                        if(parent.equals("FUNCDEF")) {
+                            endCode.add(threeAdresses("ENDFUNC", null, null, null));
+                            
                         }
-                    break;
+                        else endCode.add(threeAdresses("END", null, null, null)); 
+                        stock.put(node, endCode);
+                            blocks.clear();
                 default:
                     break;
             }

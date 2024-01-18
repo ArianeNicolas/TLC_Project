@@ -155,7 +155,7 @@ public class code3AtoC {
                     ArrayList<String> outputs_func = new ArrayList<>();
                     while (i < symbolsTable.size()){
                         if(symbolsTable.get(i).getName().equals(value)) {
-                            outputs_func = symbolsTable.get(i).getOutputs();
+                            outputs_func = new ArrayList<>(symbolsTable.get(i).getOutputs());
                         }
                         i++;
                     }

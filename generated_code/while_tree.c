@@ -124,6 +124,7 @@ Tree equals(Tree t1, Tree t2)
 bool equalsRec(Tree t1, Tree t2)
 {
 	if(isEmpty(t1) && isEmpty(t2)) return true;
+    if(isEmpty(t1) && !isEmpty(t2) || isEmpty(t2) && !isEmpty(t1)) return false;
 	if(isLeaf(t1) && isLeaf(t2))
 	{
 		if (t1->v != nil && t2->v != nil)

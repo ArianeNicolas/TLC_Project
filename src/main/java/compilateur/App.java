@@ -117,7 +117,7 @@ public class App {
         HashMap<CommonTree,ArrayList<VisitorThreeAdresses.ThreeAdresses>> code3A = visitorThreeAdresses.getCode3A();
         ArrayList<VisitorThreeAdresses.ThreeAdresses> lastCode3A = code3A.get(treeRoot.getChild(0));
         for(VisitorThreeAdresses.ThreeAdresses c3A : lastCode3A){
-            System.out.println(c3A.op + " " + c3A.arg1 + " " + c3A.arg2 + " " + c3A.var);
+            System.out.println(c3A.op + " " + c3A.arg + " " + c3A.var);
         }
 
         System.out.println("===========Generating C code===========");

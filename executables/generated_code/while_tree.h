@@ -25,11 +25,12 @@ Tree buildTreeByInt(int nbT); // build a tree that represents a int
 Tree equals(Tree t1, Tree t2); // Test if two trees are equals. Return boolTree true if equals else boolTree false
 bool equalsRec(Tree t1, Tree t2); // Test if two trees are equals. Return true if equals else false
 
-
 //Parsing
-Tree parsArgs(int argc, char *argv[]); // parse a tree passed in argument
+Tree parsArgs(char arg[]); // parse a tree passed in argument
 Tree buildTreeByString(char str[], unsigned int start, unsigned int end);// build a tree with a string
 bool cmpStrWithSubString(char str[], unsigned int start, unsigned int end, char cmp[]); // compare string (cmp) with a substring (str), true if same else false
+char* buildStringFromTree(Tree t);
+char* buildStringFromTreeRec(Tree t, char str[], int* logicalSize, int* maxSize);
 
 //Tests
 void test(void);

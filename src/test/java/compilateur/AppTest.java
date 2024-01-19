@@ -1315,13 +1315,7 @@ public class AppTest {
         } catch (Exception e) {
             fail("Error while generating C code");
         }
-
        //Testing the AST
        assert(nbErrors == 0);
     }
-
-    //todo test :
-
-    //test les fonctions exemples
-    
 }

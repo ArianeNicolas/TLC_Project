@@ -60,7 +60,7 @@ public class App {
         }
         
         String src = "";
-        // Read the file // todo put it in src
+        // Read the files content
         try {
             for (String file : inputFiles) {
                 src += Files.readString(Path.of(file)) + "\n";

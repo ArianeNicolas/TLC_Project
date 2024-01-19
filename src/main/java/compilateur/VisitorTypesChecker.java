@@ -52,7 +52,7 @@ public class VisitorTypesChecker extends Visitor {
                 System.out.println("Function called : "+function.getName()+" (inputs number="+parametersType+")");
 
                 break;
-            case "IN":  // foreach in statement //todo tester, pas sur que ca marche
+            case "IN":  // foreach in statement
                 CommonTree parsedExpression = (CommonTree) node.getChild(1);
                 int parsedExpressionType = 0;
                 ArrayList<CommonTree> parsedExpressionChildren = (ArrayList<CommonTree>) parsedExpression.getChildren();
@@ -147,9 +147,7 @@ public class VisitorTypesChecker extends Visitor {
     private int getType(CommonTree node) throws WhileException{
         String token=node.getText();
         switch (token) {
-            //todo completer la liste des cas valant 0
             //The following tokens have no value
-            
             case "START":
             case "FUNCTION":
             case "FUNCDEF":
@@ -178,9 +176,4 @@ public class VisitorTypesChecker extends Visitor {
                 return 1;
         }
     }
-
 }
-        
-
-
-    // todo? gerer erreur table des symboles à sa construction

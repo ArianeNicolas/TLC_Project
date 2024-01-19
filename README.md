@@ -10,10 +10,6 @@ Ce dossier contient les différents documents et rapports relatifs au projet.
 
 Rapport du déroulement et des résultats du projet au format pdf.
 
-- 📄 Documentation utilisateur
-
-Documentation utilisateur au format pdf.
-
 - 📁 Conception
 
 Contient le diagramme de classes de la partie Java du compilateur.
@@ -21,6 +17,10 @@ Contient le diagramme de classes de la partie Java du compilateur.
 - 📁 Javadoc
 
 Documentation automatiquement générée à partir des commentaires du code source. Elle est mise à jour lors du build du projet.
+
+- Remarque : 
+
+Nous avons préféré inclure directement la documentation utilisateur dans ce fichier README.md, plutôt que de la mettre dans un fichier pdf. Nous trouvions que les deux documents étaient redondants et qu'il est plus pertinent de les regrouper.
 
 ### 📁 Executables
 
@@ -134,11 +134,11 @@ Dans ces commandes, vous pourrez utiliser des expressions :
 - (cons) = nil construit un arbre vide  
 - (cons T) = T retourne l’arbre T   
 - (cons A B) construit un arbre binaire ayant A pour fils gauche et B pour fils droit  
-- (cons T1 T2 … Tn) = (cons T1 (cons T2 … (cons Tn-1 Tn) …)  
+- (cons T1 T2 … Tn) = (cons T1 (cons T2 … (cons Tn-1 Tn) …))  
 **list :** Construction d’une liste
 - (list) = nil construit une list vide  
 - (list T) = (cons T nil) construit une liste a un élément  
-- (list T1 T2 … Tn) = (cons T1 (cons T2 … (cons Tn nil) …) construit une liste à n éléments    
+- (list T1 T2 … Tn) = (cons T1 (cons T2 … (cons Tn nil) …)) construit une liste à n éléments    
 **(hd T) :** 
 - si T = (cons A B) alors retourne A  
 - si T = Symb alors retourne nil  
@@ -169,6 +169,9 @@ read Op1, Op2
 % 
 write Result
 ```
+
+Finalement, un programme while a besoin d’une fonction appelée "main" qui sera la fonction principale du programme. Veuillez donc fournir une fonction main dans votre programme lors de la compilation.
+
 ## Exécuter son programme
 
 ### Exécution 

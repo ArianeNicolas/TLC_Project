@@ -66,14 +66,57 @@ void pp(Tree t)
 		}
 	}
 	
-	//default
-	if (boolTree(t)) 
+	/*if (boolTree(t)) 
 	{
 		printf("bool : true\n");
 	} else printf("bool : false\n");
 	printf("int : %d\n", intTree(t));
 	displayString(t);
-	printf("\n");
+	printf("\n");*/
+	char *tmp = buildStringFromTree(t);
+	printf("%s\n", tmp);
+	//free(tmp);
+}
+
+char* buildStringFromTree(Tree t)
+{
+	int maxSize = 100;
+	char *str = (char*)malloc(sizeof(char) * maxSize);
+	int logicalSize = 0;
+	return buildStringFromTreeRec(t, str, &logicalSize, &maxSize);
+}
+
+char* buildStringFromTreeRec(Tree t, char str[], int* logicalSize, int* maxSize)
+{
+    if (isEmpty(t)) return "nil";
+    if (isLeaf(t)) return t->v;
+
+    int lengthToAdd = strlen("(cons ") + strlen(" ") + strlen(")");
+
+    if (*maxSize - lengthToAdd < 50) 
+    {
+        *maxSize += 100;
+        str = (char *)realloc(str, *maxSize);
+    }
+
+    char* result = (char*)malloc(sizeof(char) * (*maxSize));
+    result[0] = '\0';
+
+    strcat(result, "(cons ");
+    char* leftResult = buildStringFromTreeRec(t->l, str, logicalSize, maxSize);
+    strcat(result, leftResult);
+    //free(leftResult);
+
+    strcat(result, " ");
+    char* rightResult = buildStringFromTreeRec(t->r, str,logicalSize, maxSize);
+    strcat(result, rightResult);
+    //free(rightResult); 
+
+    strcat(result, ")");
+
+    *logicalSize += strlen(result); 
+
+    return result;
 }
 
 void deleteTree(Tree t)
@@ -105,7 +148,7 @@ bool boolTree(Tree t)
 int intTree(Tree t)
 {
 	if (isEmpty(t)) return 0;
-	if (isLeaf(t)) return 0;
+	//if (isLeaf(t)) return 0;
 	return intTree(t->r)+1;
 }
 

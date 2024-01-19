@@ -31,11 +31,15 @@ Jar exécutable du compilateur, généré lors du build du projet.
 
 - 📜 Script
 
-todo: 	Un script réalisant la compilation depuis le code source WHILE vers un programme exécutable
+Script réalisant la compilation depuis le code source WHILE vers un programme exécutable
+
+- 📁 Generated_code
+
+Répertoire contenant la bibliothèque runtime en C dont le jar à besoin.
 
 ### 📁 Generated code
 
-Code de la librairie runtime WHILE dans le langage cible.
+Code de la bibliothèque runtime WHILE dans le langage cible (pour le développement).
 
 ### 📁 Src
 
@@ -145,3 +149,33 @@ read Op1, Op2
 % 
 write Result
 ```
+## Exécuter son programme
+
+### Exécution 
+Pour exécuter son programme WHILE il suffit de faire `./while_exec [argument]`
+### Passage d’arguments 
+Pour passer un argument en entrée du programme, les arguments doivent être sous forme : 
+- **d'un entier**
+- **d'un arbre**
+  
+Un arbre doit suivre le format suivant : **(cons A B)** où A et B peuvent être des arbres, des chaînes de caractères ou nil. 
+
+Un argument ne doit pas contenir d’espaces avant une parenthèse fermante ou après une parenthèse ouvrante : 
+- ❌ `"( cons A B)"`
+- ❌ `"(cons A B )"`
+- ❌ `"(cons (cons A B) nil )"`
+- ✔️ `"(cons A B)"`
+- ✔️ `"(cons (cons A B) nil)"`
+
+Un argument doit être entouré de guillemets : 
+- ❌ `(cons A B)`
+- ❌ `"(cons A B)`
+- ✔️ `"(cons A B)"`
+
+Les parenthèses fermantes et ouvrantes doivent être respectées : 
+- ❌ `"(cons (cons A B) C"`
+- ❌ `"(cons (cons A B C)"`
+- ✔️ `"(cons (cons A B) C)"`
+
+Voici un exemple d’exécution avec des arguments en entrée : 
+- `./while_exec 5 "(cons (cons hello nil) 42)"`

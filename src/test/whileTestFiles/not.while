@@ -1,17 +1,3 @@
-function false :
-read
-%
-    Result := nil
-%
-write Result
-
-function true :
-read
-%
-    Result := (cons nil nil)
-%
-write Result
-
 function main :
 read Op1
 %

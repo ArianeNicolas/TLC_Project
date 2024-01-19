@@ -1,4 +1,4 @@
-function nopStatement :
+function main :
 read Op1
 %
     nop

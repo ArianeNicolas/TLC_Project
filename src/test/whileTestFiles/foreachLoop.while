@@ -1,4 +1,4 @@
-function foreachLoop :
+function main :
 read Op1, Op2
 %
 foreach Var in (list Op1 Op2) do 

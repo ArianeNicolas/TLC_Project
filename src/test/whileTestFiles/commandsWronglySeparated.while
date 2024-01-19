@@ -1,4 +1,4 @@
-function commandsWronglySeparated :
+function main :
 read Op1, Op2
 %
 for Op2 do

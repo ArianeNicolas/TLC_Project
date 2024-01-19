@@ -1,4 +1,4 @@
-function whileLoop :
+function main :
 read Op1, Op2
 %
 while Op1 do 

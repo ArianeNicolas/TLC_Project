@@ -1,4 +1,4 @@
-function testTHd :
+function main :
 read Op1
 %
     Result := (hd Op1)

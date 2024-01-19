@@ -1,4 +1,4 @@
-function uselessCommandSeparator :
+function main :
 read Op1, Op2
 %
 if Op1 then

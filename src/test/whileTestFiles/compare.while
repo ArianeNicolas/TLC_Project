@@ -1,4 +1,4 @@
-function compare :
+function main :
 read Op1, Op2
 %
 Result := Op1 =? Op2

@@ -133,7 +133,9 @@ write Test1, Test2
 function main:
 read
 %
-    Result := (cons);
-    Result := (add nil (cons a))
+    Op1 := nil;
+    Op2 := nil;
+    Op3 := nil;
+    Result1, Result2 := (testForeachetComm Op1 Op2 Op3)
 %
-write Result
+write Result1,Result2

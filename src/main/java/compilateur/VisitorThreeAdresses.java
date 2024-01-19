@@ -389,7 +389,7 @@ public class VisitorThreeAdresses extends Visitor {
                     foreachList.add(threeAdresses("PARAM", "Reg_"+indice, null));
                     foreachList.add(threeAdresses("CALL", "Reg_"+indice, "hd"));
                     foreachList.add(threeAdresses("GOTO_IF_NOT_NIL", "Reg_"+indice, "block"+indiceBlock));
-                    foreachList.add(threeAdresses("ENTER", null, "block"+indiceBlock+1));
+                    foreachList.add(threeAdresses("ENTER", null, "block"+(indiceBlock+1)));
                     
                     stock.put(node, foreachList);
                     indice++;

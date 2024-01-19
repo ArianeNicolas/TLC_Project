@@ -33,7 +33,13 @@ Jar exécutable du compilateur, généré lors du build du projet.
 
 Un script réalisant la compilation depuis le code source WHILE vers un programme exécutable
 
-Un second script, permetant de mettre à jour le parser et le lexer, en copiant et modifiant ceux générés par ANTLRWokrs dans le dossier de la grammaire.
+Un second script, permettant de mettre à jour le parser et le lexer, en copiant et modifiant ceux générés par ANTLRWokrs dans le dossier de la grammaire.
+
+
+- 📁 Generated code
+
+Cf. section suivante.
+
 
 ### 📁 Generated code
 
@@ -48,6 +54,7 @@ Dans le cas où le code While est compilé à partir du jar, ou du script de com
 Dans le cas où le code While est compilé à partir du code Java, depuis l'IDE, le code cible est généré dans le dossier `generated_code` à la racine du projet.
 
 
+
 ### 📁 Src
 
 Ce dossier contient le code source du compilateur (sous dossier main).
@@ -58,11 +65,15 @@ Il contient également les tests unitaires du compilateur (sous dossier test). C
 
 Ce dossier est créé si vous exécutez le build du projet. Il contient les fichiers classes générés lors du build du projet, ainsi que le jar non exécutable du compilateur et les différents rapports de tests.
 
+### while_grammarAST
+
+Ce dossier contient notre grammaire permettant de générer un AST à partir d'un code WHILE. Il contient également les fichiers générés par ANTLRWorks à partir de cette grammaire (notamment le parser et le lexer).
+
 ## Installation
 
 Pour vous assurer de disposer de la dernière version du jar du compilateur, vous pouvez exécuter son build avec la commande `mvn clean install` . 
 
-Cela mettra égalmement à jour la documentation javadoc et exécutera la batterie de tests.
+Cela mettra également à jour la documentation javadoc et exécutera la batterie de tests.
 
 ## Utilisation
 
@@ -76,11 +87,11 @@ Dans le dossier exécutable, vous pouvez exécuter les commandes suivantes :
 
 Pour les deux options, l'argument -v ou --verbose permet d'afficher les détails de la compilation.
 
-Dans les deux cas, les fichiers obtenus sont dans le dossier `target/generated_code`.
+Dans les deux cas, les fichiers obtenus sont situés dans le dossier `target/generated_code`.
 
 ## Manuel utilisateur
 
-Pour utiliser notre compilateur, il vous faudra coder en while, un langage avec certaines spécificités et qui suit des règles précises. En while, vous pouvez créer des fonctions avec la syntaxe suivante :
+Pour utiliser notre compilateur, il vous faudra coder en While, un langage avec certaines spécificités et qui suit des règles précises. En while, vous pouvez créer des fonctions avec la syntaxe suivante :
 
 ```
 function symbol : 
@@ -91,7 +102,7 @@ read I1, ..., In
 write O1, ..., Om
 ```
 
-Dans cette définition, symbol est le nom de la fonction I1, …, In sont les paramètres de la fonction et O1, …, Om sont les valeurs de retour de la fonction. Commandes est un bloc de code contenant une succession de commandes que nous détaillerons après. Il est à noter que dans le langage While, le nombre de paramètres d’une fonction peut être 0 (ici, il s’agit d’une fonction renvoyant une valeur constante). Par contre le nombre de valeur de retour est toujours supérieur ou égal à 1. Il ne peut y avoir de fonction sans valeur de retour.
+Dans cette définition, symbol est le nom de la fonction I1, …, In sont les paramètres de la fonction et O1, …, Om sont les valeurs de retour de la fonction. Commandes est un bloc de code contenant une succession de commandes que nous détaillerons après. Il est à noter que dans le langage While, le nombre de paramètres d’une fonction peut être 0 (ici, il s’agit d’une fonction renvoyant une valeur constante). Par contre, le nombre de valeurs de retour est toujours supérieur ou égal à 1. Il ne peut y avoir de fonction sans valeur de retour.
 
 Les différentes commandes utilisables dans le bloc d’une fonction sont :
 
@@ -112,7 +123,7 @@ Les différentes commandes utilisables dans le bloc d’une fonction sont :
 
 - V1, V2, …, Vn = (f E1 E2 … Em) : Évalue la fonction (f E1 E2 … Em) et stocke les valeurs de retour dans V1, V2, …, Vn
 
-A noter que si plusieurs commandes se suivent, un point virgule doit les séparer.
+À noter que si plusieurs commandes se suivent, un point virgule doit les séparer.
 
 
 Dans ces commandes, vous pourrez utiliser des expressions :
@@ -158,3 +169,33 @@ read Op1, Op2
 % 
 write Result
 ```
+## Exécuter son programme
+
+### Exécution 
+Pour exécuter son programme WHILE il suffit de faire `./while_exec [argument]`
+### Passage d’arguments 
+Pour passer un argument en entrée du programme, les arguments doivent être sous forme : 
+- **d'un entier**
+- **d'un arbre**
+  
+Un arbre doit suivre le format suivant : **(cons A B)** où A et B peuvent être des arbres, des chaînes de caractères ou nil. 
+
+Un argument ne doit pas contenir d’espaces avant une parenthèse fermante ou après une parenthèse ouvrante : 
+- ❌ `"( cons A B)"`
+- ❌ `"(cons A B )"`
+- ❌ `"(cons (cons A B) nil )"`
+- ✔️ `"(cons A B)"`
+- ✔️ `"(cons (cons A B) nil)"`
+
+Un arbre passé en argument doit être entouré de guillemets : 
+- ❌ `(cons A B)`
+- ❌ `"(cons A B)`
+- ✔️ `"(cons A B)"`
+
+Les parenthèses fermantes et ouvrantes doivent être respectées : 
+- ❌ `"(cons (cons A B) C"`
+- ❌ `"(cons (cons A B C)"`
+- ✔️ `"(cons (cons A B) C)"`
+
+Voici un exemple d’exécution avec des arguments en entrée : 
+- `./while_exec 5 "(cons (cons hello nil) 42)"`

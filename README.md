@@ -64,3 +64,84 @@ Dans le dossier exécutable, vous pouvez exécuter les commandes suivantes :
 - Pour générer le code C, sans le compiler : `java -jar target/compilateur-while-runner.jar "<fichierSource1>" "<fichierSource2>" ...`
 
 Pour les deux options, l'argument -v ou --verbose permet d'afficher les détails de la compilation.
+
+## Manuel utilisateur
+
+Pour utiliser notre compilateur, il vous faudra coder en while, un langage avec certaines spécificités et qui suit des règles précises. En while, vous pouvez créer des fonctions avec la syntaxe suivante :
+
+```
+function symbol : 
+read I1, ..., In 
+% 
+	Commandes 
+% 
+write O1, ..., Om
+```
+
+Dans cette définition, symbol est le nom de la fonction I1, …, In sont les paramètres de la fonction et O1, …, Om sont les valeurs de retour de la fonction. Commandes est un bloc de code contenant une succession de commandes que nous détaillerons après. Il est à noter que dans le langage While, le nombre de paramètres d’une fonction peut être 0 (ici, il s’agit d’une fonction renvoyant une valeur constante). Par contre le nombre de valeur de retour est toujours supérieur ou égal à 1. Il ne peut y avoir de fonction sans valeur de retour.
+
+Les différentes commandes utilisables dans le bloc d’une fonction sont :
+
+- nop : Une commande qui ne fait rien. Ceci est utile pour tester la génération de code.  
+
+- C1 ; C2 : Exécute la commande C1 puis la commande C2. Le point-virgule est un opérateur correspondant à l'enchaînement de commandes.  
+
+- if E then C1 fi : Si E est vrai exécute C sinon ne fait rien.
+
+- if E then C1 else C2 fi : Si E est vrai, exécute C1, sinon exécute C2.
+
+- while E do C od : Si E est vrai, exécute C, répète l’opération tant que E est vrai. Cette structure de contrôle peut boucler indéfiniment  
+
+- for E do C od : Répète E fois la commande C. Cette structure de contrôle ne peut pas boucler indéfiniment.  
+- foreach X in E do C od : Pour chaque élément X de E, répéter C.
+
+- V1, V2, …, Vn = E1, E2, …, En : Évalue toutes les expressions E1, E2, …, En En puis stocke les résultats dans les variables V1, V2, …, Vn.
+
+- V1, V2, …, Vn = (f E1 E2 … Em) : Évalue la fonction (f E1 E2 … Em) et stocke les valeurs de retour dans V1, V2, …, Vn
+
+A noter que si plusieurs commandes se suivent, un point virgule doit les séparer.
+
+
+Dans ces commandes, vous pourrez utiliser des expressions :
+
+**nil :** Valeur nulle.X  
+**Variables :** Utiliser des variables grâce à leurs noms. R1 = R2;  
+**cons :** construction d’arbres binaires
+- (cons) = nil construit un arbre vide  
+- (cons T) = T retourne l’arbre T   
+- (cons A B) construit un arbre binaire ayant A pour fils gauche et B pour fils droit  
+- (cons T1 T2 … Tn) = (cons T1 (cons T2 … (cons Tn-1 Tn) …)  
+**list :** Construction d’une liste
+- (list) = nil construit une list vide  
+- (list T) = (cons T nil) construit une liste a un élément  
+- (list T1 T2 … Tn) = (cons T1 (cons T2 … (cons Tn nil) …) construit une liste à n éléments    
+**(hd T) :** 
+- si T = (cons A B) alors retourne A  
+- si T = Symb alors retourne nil  
+- si T = nil alors retourne nil   
+**(tl T) :**  
+- si T = (const A B) alors retourne B  
+- si T = Symb alors retourne nil  
+- si T = nil alors retourne nil   
+**(f v1 … vn) :** appel de la fonction f avec les paramètres v1 à vn.  
+
+Dans un programme vous pouvez aussi ajouter des commentaires sur une ligne vide ou la fin d’une ligne de code : // Ceci est un commentaire
+
+**Exemple de code :**
+```
+// Logical test 
+function test : 
+read Op1, Op2
+% 
+	if Op1 then 
+		Result := (false) 
+	else 
+		Result := (true) 
+	fi; //Point virgule de séparation
+      Result := Op1; 
+	for Op2 do 
+		Result := ( cons nil Result ) 
+      od  
+% 
+write Result
+```

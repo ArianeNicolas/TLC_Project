@@ -6,6 +6,9 @@ import java.util.List;
 
 import org.antlr.runtime.tree.CommonTree;
 
+/**
+ * VisitorThreeAdresses class, used to create the 3 adresses code from the AST
+ */
 public class VisitorThreeAdresses extends Visitor {
 
     int indice = 0;

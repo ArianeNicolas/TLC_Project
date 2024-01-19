@@ -4,11 +4,6 @@ import java.util.List;
 
 import org.antlr.runtime.tree.CommonTree;
 
-//todo verification
-// dans =? -> peut etre pareil que dans := ???????
-//dans if : 1
-//dans while: 1
-
 /**
  * Check the types of the AST and stop the program if there is a type error (needs an already filled symbols table to work)
  */

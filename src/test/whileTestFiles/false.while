@@ -1,4 +1,4 @@
-function false :
+function main :
 read
 %
     Result := nil

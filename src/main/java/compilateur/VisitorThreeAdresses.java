@@ -397,7 +397,6 @@ public class VisitorThreeAdresses extends Visitor {
                     break;
 
                     case "WHILE":
-                    System.out.println("JENTRE DANS LE WHILE");
                     ArrayList<ThreeAdresses> whileList = new ArrayList<>();
                     String textWhile = node.getChild(0).getChild(0).getText();
                     String indiceWhile = "";
@@ -426,7 +425,6 @@ public class VisitorThreeAdresses extends Visitor {
                 case "DO":
                     ArrayList<ThreeAdresses> list7 = new ArrayList<>();
                     for(CommonTree child : (List<CommonTree>) node.getChildren()) {
-                        System.out.println(child.getText());
                         list7.addAll(stock.get(child));
                     }
                     stock.put(node, list7);

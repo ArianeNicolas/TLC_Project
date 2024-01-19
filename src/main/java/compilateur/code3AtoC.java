@@ -37,7 +37,6 @@ public class code3AtoC {
         this.symbolsTable = symbolsTable;
         fileWriter = new FileWriter(OUTPUT_FILE);
         printWriter = new PrintWriter(fileWriter);
-        System.out.println("initialisation du .h");
         printWriter_h = new PrintWriter(new FileWriter("generated_code/output.h"));
     }
 
@@ -145,9 +144,9 @@ public class code3AtoC {
                 "\");\n" + //
                 "    return 1;\n" + //
                 "}\n" + //
-                "if (argc-1 > 0)\n" + //
-                "    for (int i = 1; i < argc; i++)\n" + //
-                "        t[i-1] = parsArgs(argv[i]);");
+                "if (argc-1 > 0){\n" + //
+                "    for (int i = 1; i < argc; i++){\n" + //
+                "        t[i-1] = parsArgs(argv[i]);}}");
 
             for(String reg:outputs_main_while){
                 printWriter.println("Tree "+reg+";");
@@ -164,11 +163,10 @@ public class code3AtoC {
             }
             
         printWriter.print("main_while(");
-            for(int j = 0; j<outputs_main_while.size()-1; j++){
-                printWriter.print("&"+outputs_main_while.get(j)+", ");//on print tous les registres d'outputs en tant que paramètres
-            }
-            printWriter.print("&"+outputs_main_while.get(outputs_main_while.size()-1));
-        
+        for(int j = 0; j<outputs_main_while.size()-1; j++){
+            printWriter.print("&"+outputs_main_while.get(j)+", ");//on print tous les registres d'outputs en tant que paramètres
+        }
+        printWriter.print("&"+outputs_main_while.get(outputs_main_while.size()-1));
         for(int j = 0; j<inputs_func;j++){
             printWriter.print(", t["+j+"]");
         }
@@ -189,33 +187,9 @@ public class code3AtoC {
      */
     private void assign() {
         for(String value : assign){
-            //if(Character.isUpperCase(value.charAt(0))){
-                    printWriter.println(type(assigned.get(0))+" = "+value+";");
-                    assigned.remove(0);
-            /*}
-            else if(!knownfunctions.contains(value)){
-                if(value.equals("nil")) {
-                    printWriter.println(type(assigned.get(0))+" = nil;");    
-                }
-            }
-            else if(value.equals("tl")||value.equals("hd")||value.equals("cons")||value.equals("equals")){
-                printWriter.println(type(assigned.get(0))+" = ");
-            }
-                else{
-                    int i = 0;
-                    ArrayList<String> outputs_func = new ArrayList<>();
-                    while (i < symbolsTable.size()){
-                        if(symbolsTable.get(i).getName().equals(value)) {
-                            outputs_func = new ArrayList<>(symbolsTable.get(i).getOutputs());
-                        }
-                        i++;
-                    }
-                    for(int j=0; j<outputs_func.size(); j++){
-                        printWriter.println(type(assigned.get(0))+" = "+registres.get(value)[j]+";");
-                        assigned.remove(0);
-                    }
-                }*/
-            }
+            printWriter.println(type(assigned.get(0))+" = "+value+";");
+            assigned.remove(0);
+        }
                 assign.clear();
                 assigned.clear();
             

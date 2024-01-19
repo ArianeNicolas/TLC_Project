@@ -139,19 +139,11 @@ bool equalsRec(Tree t1, Tree t2)
 	equalsRec(t1->r, t2->r);
 }
 
-Tree parsArgs(int argc, char *argv[]) 
+Tree parsArgs(char arg[]) 
 {
 	//PRECONDITIONS//
-	if (argc < 2) return nil;
-
-	if (argc > 2) 
-	{
-		fprintf(stderr, "Too many arguments ! Put \"\" around the argument \n");
-		exit(1);
-	}
-
-	char str[strlen(argv[1])];
-	strcpy(str, argv[1]);
+	char str[strlen(arg)];
+	strcpy(str, arg);
 
 
 	//\(cons\s+((?:[^()]|\((?1)\))+)\s+((?:[^()]|\((?2)\))+)\)

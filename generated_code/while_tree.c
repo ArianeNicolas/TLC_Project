@@ -75,7 +75,7 @@ void pp(Tree t)
 	printf("\n");*/
 	char *tmp = buildStringFromTree(t);
 	printf("%s\n", tmp);
-	//free(tmp);
+	free(tmp);
 }
 
 char* buildStringFromTree(Tree t)
@@ -102,15 +102,15 @@ char* buildStringFromTreeRec(Tree t, char str[], int* logicalSize, int* maxSize)
     char* result = (char*)malloc(sizeof(char) * (*maxSize));
     result[0] = '\0';
 
-    strcat(result, "(cons ");
+    strcpy(result, "(cons ");
     char* leftResult = buildStringFromTreeRec(t->l, str, logicalSize, maxSize);
     strcat(result, leftResult);
-    //free(leftResult);
+    free(leftResult);
 
     strcat(result, " ");
     char* rightResult = buildStringFromTreeRec(t->r, str,logicalSize, maxSize);
     strcat(result, rightResult);
-    //free(rightResult); 
+    free(rightResult); 
 
     strcat(result, ")");
 

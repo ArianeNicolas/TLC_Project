@@ -98,7 +98,9 @@ public class VisitorThreeAdresses extends Visitor {
                     ArrayList<ThreeAdresses> func = new ArrayList<>();
                     
                     for(CommonTree child : (List<CommonTree>) node.getChildren()) {
-                        func.addAll(stock.get(child));    
+                        if(!child.getText().equals("OUTPUT")) {
+                            func.addAll(stock.get(child));
+                        }  
                 }
                     stock.put(node, func);
                     break;

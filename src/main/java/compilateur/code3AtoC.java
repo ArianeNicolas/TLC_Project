@@ -144,9 +144,11 @@ public class code3AtoC {
                 "{\n" + //
                 "    t[i-1] = parsArgs(argv[i]);\n" + //
                 "}");
-                
-        for(String reg:regs){
-            printWriter.println("Tree "+reg+";");
+
+        if(regs != null){
+            for(String reg:regs){
+                printWriter.println("Tree "+reg+";");
+            }
         }
 
         int i = 0;
@@ -158,19 +160,25 @@ public class code3AtoC {
                 }
                 i++;
             }
-        
+            
         printWriter.print("main_while(");
-        for(int j = 0; j<regs.length-1; j++){
-            printWriter.print("&"+regs[j]+", ");//on print tous les registres d'outputs en tant que paramètres
+        if(regs != null){
+            for(int j = 0; j<regs.length-1; j++){
+                printWriter.print("&"+regs[j]+", ");//on print tous les registres d'outputs en tant que paramètres
+            }
+            printWriter.print("&"+regs[regs.length-1]);
         }
-        printWriter.print("&"+regs[regs.length-1]);
+        
         for(int j = 0; j<inputs_func;j++){
             printWriter.print(", t["+j+"]");
         }
         
         printWriter.println(");");
-        for(String reg:regs){
-            printWriter.println("pp("+reg+");");
+
+        if(regs != null){
+            for(String reg:regs){
+                printWriter.println("pp("+reg+");");
+            }
         }
         printWriter.println("return 0;\n}");
         printWriter.close();

@@ -61,7 +61,7 @@ Dans le dossier exécutable, vous pouvez exécuter les commandes suivantes :
 
 - Pour la chaîne de compilation complète : `./full-compilation.sh "<fichierSource1>" "<fichierSource2>" ...`
 
-- Pour générer le code C, sans le compiler : `java -jar target/compilateur-while-runner.jar "<fichierSource1>" "<fichierSource2>" ...`
+- Pour générer le code C, sans le compiler : `java -jar executables/compilateur-while-runner.jar "<fichierSource1>" "<fichierSource2>" ...`
 
 Pour les deux options, l'argument -v ou --verbose permet d'afficher les détails de la compilation.
 

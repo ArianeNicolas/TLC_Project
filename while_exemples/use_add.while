@@ -1,8 +1,0 @@
-function main :
-read Op1, Op2
-%
-for Op1 do
- Result := (add Result (add Result Op2))
-od
-%
-write Result

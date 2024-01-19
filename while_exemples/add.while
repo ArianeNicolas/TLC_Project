@@ -1,6 +1,0 @@
-function add :
-read Op1, Op2
-%
-Result := (cons Var1 Var2)
-%
-write Result

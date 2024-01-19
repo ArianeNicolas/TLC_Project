@@ -29,19 +29,30 @@ Documentation automatiquement générée à partir des commentaires du code sour
 Jar exécutable du compilateur, généré lors du build du projet.
 
 
-- 📜 Script
+- 📜 Scripts
 
-todo: 	Un script réalisant la compilation depuis le code source WHILE vers un programme exécutable
+Un script réalisant la compilation depuis le code source WHILE vers un programme exécutable
+
+Un second script, permetant de mettre à jour le parser et le lexer, en copiant et modifiant ceux générés par ANTLRWokrs dans le dossier de la grammaire.
 
 ### 📁 Generated code
 
-Code de la librairie runtime WHILE dans le langage cible.
+Ce dossier contient : 
+- le code de la librairie runtime WHILE dans le langage cible.
+- le code cible généré par le compilateur.
+
+Il existe en réalité deux dossiers `generated_code` : un dans le dossier `executables` et l'autre à la racine du projet. 
+
+Dans le cas où le code While est compilé à partir du jar, ou du script de compilation, le code cible est généré dans le dossier `executables/generated_code`.
+
+Dans le cas où le code While est compilé à partir du code Java, depuis l'IDE, le code cible est généré dans le dossier `generated_code` à la racine du projet.
+
 
 ### 📁 Src
 
 Ce dossier contient le code source du compilateur (sous dossier main).
 
-Il contient également les tests unitaires du compilateur (sous dossier test). Ces derniers sont réalisés pendant le build du projet.
+Il contient également les tests unitaires du compilateur (sous dossier test). Ces derniers sont réalisés pendant le build du projet. Le dossier de test contient, de plus, les fichier While utilisés pour les tests.
 
 ### 📁 (Target)
 
@@ -64,6 +75,8 @@ Dans le dossier exécutable, vous pouvez exécuter les commandes suivantes :
 - Pour générer le code C, sans le compiler : `java -jar executables/compilateur-while-runner.jar "<fichierSource1>" "<fichierSource2>" ...`
 
 Pour les deux options, l'argument -v ou --verbose permet d'afficher les détails de la compilation.
+
+Dans les deux cas, les fichiers obtenus sont dans le dossier `target/generated_code`.
 
 ## Manuel utilisateur
 

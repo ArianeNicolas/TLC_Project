@@ -22,7 +22,7 @@ public class code3AtoC {
     private ArrayList<String> knownvariables = new ArrayList<>();
     private HashMap<String,String[]> registres = new HashMap<>();
     private ArrayList<String> knownfunctions = new ArrayList<>();
-    private ArrayList<String> inputs_main_while = new ArrayList<>();
+    private ArrayList<String> outputs_main_while = new ArrayList<>();
     
     public final static String OUTPUT_FILE = "generated_code/output.c";
 
@@ -106,13 +106,13 @@ public class code3AtoC {
 
     //différents goto
     private void gotoIfNotNil(ThreeAdresses c3a) {
-        printWriter.println("if(!equals(nil, "+c3a.arg+")){");
+        printWriter.println("if(!boolTree(equals(nil, "+c3a.arg+"))){");
         printWriter.println("goto "+c3a.var+";");
         printWriter.println("}");
     }
 
     private void gotoIfNil(ThreeAdresses c3a) {
-        printWriter.println("if(equals(nil, "+c3a.arg+")){");
+        printWriter.println("if(boolTree(equals(nil, "+c3a.arg+"))){");
         printWriter.println("goto "+c3a.var+";");
         printWriter.println("}");
     }
@@ -138,18 +138,20 @@ public class code3AtoC {
     private void endProgram(){
         printWriter.println("int main(int argc, char *argv[]) {");
         printWriter_h.println("int main(int argc, char *argv[]);");
-        String[] regs = registres.get("main_while");
-        printWriter.println("Tree t[argc];\n" + //
-                "for (int i = 1; i < argc; i++)\n" + //
+        printWriter.println("Tree t[100] = { nil };\n" + //
+                "if(argc > 100)\n" + //
                 "{\n" + //
-                "    t[i-1] = parsArgs(argv[i]);\n" + //
-                "}");
+                "    fprintf(stderr, \"Too many arguments (max 100)\\n" + //
+                "\");\n" + //
+                "    return 1;\n" + //
+                "}\n" + //
+                "if (argc-1 > 0)\n" + //
+                "    for (int i = 1; i < argc; i++)\n" + //
+                "        t[i-1] = parsArgs(argv[i]);");
 
-        if(regs != null){
-            for(String reg:regs){
+            for(String reg:outputs_main_while){
                 printWriter.println("Tree "+reg+";");
             }
-        }
 
         int i = 0;
             int inputs_func = 0;
@@ -162,12 +164,10 @@ public class code3AtoC {
             }
             
         printWriter.print("main_while(");
-        if(regs != null){
-            for(int j = 0; j<regs.length-1; j++){
-                printWriter.print("&"+regs[j]+", ");//on print tous les registres d'outputs en tant que paramètres
+            for(int j = 0; j<outputs_main_while.size()-1; j++){
+                printWriter.print("&"+outputs_main_while.get(j)+", ");//on print tous les registres d'outputs en tant que paramètres
             }
-            printWriter.print("&"+regs[regs.length-1]);
-        }
+            printWriter.print("&"+outputs_main_while.get(outputs_main_while.size()-1));
         
         for(int j = 0; j<inputs_func;j++){
             printWriter.print(", t["+j+"]");
@@ -175,11 +175,9 @@ public class code3AtoC {
         
         printWriter.println(");");
 
-        if(regs != null){
-            for(String reg:regs){
+            for(String reg:outputs_main_while){
                 printWriter.println("pp("+reg+");");
             }
-        }
         printWriter.println("return 0;\n}");
         printWriter.close();
         printWriter_h.close();
@@ -191,10 +189,10 @@ public class code3AtoC {
      */
     private void assign() {
         for(String value : assign){
-            if(Character.isUpperCase(value.charAt(0))){
+            //if(Character.isUpperCase(value.charAt(0))){
                     printWriter.println(type(assigned.get(0))+" = "+value+";");
                     assigned.remove(0);
-            }/*
+            /*}
             else if(!knownfunctions.contains(value)){
                 if(value.equals("nil")) {
                     printWriter.println(type(assigned.get(0))+" = nil;");    
@@ -352,6 +350,7 @@ public class code3AtoC {
         
         if(c3a.var=="FUNCTION"){
                 int i = 0;
+                knownvariables.clear();
                 knownfunctions.add(c3a.arg);
                 ArrayList<String> inputs_func = new ArrayList<>();
                 while (i < symbolsTable.size()){
@@ -365,7 +364,7 @@ public class code3AtoC {
                 knownvariables.addAll(inputs_func);
 
                 if(c3a.arg.equals("main")){
-                    inputs_main_while = inputs_func;
+                    outputs_main_while = outputs;
                 }
 
                 printWriter.print("void "+ c3a.arg+"_while(");

@@ -1,5 +1,14 @@
+function add :
+read Op1, Op2
+%
+ Result := Op1 ;
+for (tl Op2) do
+ Result := ( cons nil Result )
+od
+%
+write Result
 // Multiplication
-function mul :
+function main :
 read Op1, Op2
 %
 for Op1 do

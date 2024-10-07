@@ -1,0 +1,5 @@
+bin/
+target/
+settings.json
+while_grammarAST/output/classes/
+documentation/javadoc

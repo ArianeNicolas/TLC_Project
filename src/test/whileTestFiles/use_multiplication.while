@@ -1,0 +1,8 @@
+function useMul :
+read Op1, Op2
+%
+for Op1 do
+ Result := (mul Op1 Op2)
+od
+%
+write Result

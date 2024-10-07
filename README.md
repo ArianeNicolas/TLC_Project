@@ -1,92 +1,204 @@
 # TLC-Projet
 
+## Hiérarchisation des répertoires
+
+### 📁 Documentation
+
+Ce dossier contient les différents documents et rapports relatifs au projet.
+
+- 📄 Rapport de projet
+
+Rapport du déroulement et des résultats du projet au format pdf.
+
+- 📁 Conception
+
+Contient le diagramme de classes de la partie Java du compilateur.
+
+- 📁 Javadoc
+
+Documentation automatiquement générée à partir des commentaires du code source. Elle est mise à jour lors du build du projet.
+
+- Remarque : 
+
+Nous avons préféré inclure directement la documentation utilisateur dans ce fichier README.md, plutôt que de la mettre dans un fichier pdf. Nous trouvions que les deux documents étaient redondants et qu'il est plus pertinent de les regrouper.
+
+### 📁 Executables
+
+- 📦 Jar
+
+Jar exécutable du compilateur, généré lors du build du projet.
 
 
-## Getting started
+- 📜 Scripts
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+Un script réalisant la compilation depuis le code source WHILE vers un programme exécutable
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Un second script, permettant de mettre à jour le parser et le lexer, en copiant et modifiant ceux générés par ANTLRWokrs dans le dossier de la grammaire.
 
-## Add your files
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+- 📁 Generated code
 
-```
-cd existing_repo
-git remote add origin https://gitlab.istic.univ-rennes1.fr/ulartigaud/tlc-projet.git
-git branch -M main
-git push -uf origin main
-```
+Cf. section suivante.
 
-## Integrate with your tools
 
-- [ ] [Set up project integrations](https://gitlab.istic.univ-rennes1.fr/ulartigaud/tlc-projet/-/settings/integrations)
+### 📁 Generated code
 
-## Collaborate with your team
+Ce dossier contient : 
+- le code de la librairie runtime WHILE dans le langage cible.
+- le code cible généré par le compilateur.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+Il existe en réalité deux dossiers `generated_code` : un dans le dossier `executables` et l'autre à la racine du projet. 
 
-## Test and Deploy
+Dans le cas où le code While est compilé à partir du jar, ou du script de compilation, le code cible est généré dans le dossier `executables/generated_code`.
 
-Use the built-in continuous integration in GitLab.
+Dans le cas où le code While est compilé à partir du code Java, depuis l'IDE, le code cible est généré dans le dossier `generated_code` à la racine du projet.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
 
-***
 
-# Editing this README
+### 📁 Src
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+Ce dossier contient le code source du compilateur (sous dossier main).
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+Il contient également les tests unitaires du compilateur (sous dossier test). Ces derniers sont réalisés pendant le build du projet. Le dossier de test contient, de plus, les fichier While utilisés pour les tests.
 
-## Name
-Choose a self-explaining name for your project.
+### 📁 (Target)
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+Ce dossier est créé si vous exécutez le build du projet. Il contient les fichiers classes générés lors du build du projet, ainsi que le jar non exécutable du compilateur et les différents rapports de tests.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+### while_grammarAST
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+Ce dossier contient notre grammaire permettant de générer un AST à partir d'un code WHILE. Il contient également les fichiers générés par ANTLRWorks à partir de cette grammaire (notamment le parser et le lexer).
 
 ## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+Pour vous assurer de disposer de la dernière version du jar du compilateur, vous pouvez exécuter son build avec la commande `mvn clean install` . 
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+Cela mettra également à jour la documentation javadoc et exécutera la batterie de tests.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+## Utilisation
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+Les fichiers d'exécution du compilateur sont disponibles dans le dossier Executables.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+Dans le dossier exécutable, vous pouvez exécuter les commandes suivantes :
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+- Pour la chaîne de compilation complète : `./full-compilation.sh "<fichierSource1>" "<fichierSource2>" ...`
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+- Pour générer le code C, sans le compiler : `java -jar executables/compilateur-while-runner.jar "<fichierSource1>" "<fichierSource2>" ...`
 
-## License
-For open source projects, say how it is licensed.
+Pour les deux options, l'argument -v ou --verbose permet d'afficher les détails de la compilation.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Dans les deux cas, les fichiers obtenus sont situés dans le dossier `target/generated_code`.
+
+## Manuel utilisateur
+
+Pour utiliser notre compilateur, il vous faudra coder en While, un langage avec certaines spécificités et qui suit des règles précises. En while, vous pouvez créer des fonctions avec la syntaxe suivante :
+
+```
+function symbol : 
+read I1, ..., In 
+% 
+	Commandes 
+% 
+write O1, ..., Om
+```
+
+Dans cette définition, symbol est le nom de la fonction I1, …, In sont les paramètres de la fonction et O1, …, Om sont les valeurs de retour de la fonction. Commandes est un bloc de code contenant une succession de commandes que nous détaillerons après. Il est à noter que dans le langage While, le nombre de paramètres d’une fonction peut être 0 (ici, il s’agit d’une fonction renvoyant une valeur constante). Par contre, le nombre de valeurs de retour est toujours supérieur ou égal à 1. Il ne peut y avoir de fonction sans valeur de retour.
+
+Les différentes commandes utilisables dans le bloc d’une fonction sont :
+
+- nop : Une commande qui ne fait rien. Ceci est utile pour tester la génération de code.  
+
+- C1 ; C2 : Exécute la commande C1 puis la commande C2. Le point-virgule est un opérateur correspondant à l'enchaînement de commandes.  
+
+- if E then C1 fi : Si E est vrai exécute C sinon ne fait rien.
+
+- if E then C1 else C2 fi : Si E est vrai, exécute C1, sinon exécute C2.
+
+- while E do C od : Si E est vrai, exécute C, répète l’opération tant que E est vrai. Cette structure de contrôle peut boucler indéfiniment  
+
+- for E do C od : Répète E fois la commande C. Cette structure de contrôle ne peut pas boucler indéfiniment.  
+- foreach X in E do C od : Pour chaque élément X de E, répéter C.
+
+- V1, V2, …, Vn = E1, E2, …, En : Évalue toutes les expressions E1, E2, …, En En puis stocke les résultats dans les variables V1, V2, …, Vn.
+
+- V1, V2, …, Vn = (f E1 E2 … Em) : Évalue la fonction (f E1 E2 … Em) et stocke les valeurs de retour dans V1, V2, …, Vn
+
+À noter que si plusieurs commandes se suivent, un point virgule doit les séparer.
+
+
+Dans ces commandes, vous pourrez utiliser des expressions :
+
+**nil :** Valeur nulle.X  
+**Variables :** Utiliser des variables grâce à leurs noms. R1 = R2;  
+**cons :** construction d’arbres binaires
+- (cons) = nil construit un arbre vide  
+- (cons T) = T retourne l’arbre T   
+- (cons A B) construit un arbre binaire ayant A pour fils gauche et B pour fils droit  
+- (cons T1 T2 … Tn) = (cons T1 (cons T2 … (cons Tn-1 Tn) …))  
+**list :** Construction d’une liste
+- (list) = nil construit une list vide  
+- (list T) = (cons T nil) construit une liste a un élément  
+- (list T1 T2 … Tn) = (cons T1 (cons T2 … (cons Tn nil) …)) construit une liste à n éléments    
+**(hd T) :** 
+- si T = (cons A B) alors retourne A  
+- si T = Symb alors retourne nil  
+- si T = nil alors retourne nil   
+**(tl T) :**  
+- si T = (const A B) alors retourne B  
+- si T = Symb alors retourne nil  
+- si T = nil alors retourne nil   
+**(f v1 … vn) :** appel de la fonction f avec les paramètres v1 à vn.  
+
+Dans un programme vous pouvez aussi ajouter des commentaires sur une ligne vide ou la fin d’une ligne de code : // Ceci est un commentaire
+
+**Exemple de code :**
+```
+// Logical test 
+function test : 
+read Op1, Op2
+% 
+	if Op1 then 
+		Result := (false) 
+	else 
+		Result := (true) 
+	fi; //Point virgule de séparation
+      Result := Op1; 
+	for Op2 do 
+		Result := ( cons nil Result ) 
+      od  
+% 
+write Result
+```
+
+Finalement, un programme while a besoin d’une fonction appelée "main" qui sera la fonction principale du programme. Veuillez donc fournir une fonction main dans votre programme lors de la compilation.
+
+## Exécuter son programme
+
+### Exécution 
+Pour exécuter son programme WHILE il suffit de faire `./while_exec [argument]`
+### Passage d’arguments 
+Pour passer un argument en entrée du programme, les arguments doivent être sous forme : 
+- **d'un entier**
+- **d'un arbre**
+  
+Un arbre doit suivre le format suivant : **(cons A B)** où A et B peuvent être des arbres, des chaînes de caractères ou nil. 
+
+Un argument ne doit pas contenir d’espaces avant une parenthèse fermante ou après une parenthèse ouvrante : 
+- ❌ `"( cons A B)"`
+- ❌ `"(cons A B )"`
+- ❌ `"(cons (cons A B) nil )"`
+- ✔️ `"(cons A B)"`
+- ✔️ `"(cons (cons A B) nil)"`
+
+Un arbre passé en argument doit être entouré de guillemets : 
+- ❌ `(cons A B)`
+- ❌ `"(cons A B)`
+- ✔️ `"(cons A B)"`
+
+Les parenthèses fermantes et ouvrantes doivent être respectées : 
+- ❌ `"(cons (cons A B) C"`
+- ❌ `"(cons (cons A B C)"`
+- ✔️ `"(cons (cons A B) C)"`
+
+Voici un exemple d’exécution avec des arguments en entrée : 
+- `./while_exec 5 "(cons (cons hello nil) 42)"`
